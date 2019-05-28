@@ -1,0 +1,52 @@
+<div class="iconWrapper" (click)="openQrDialog($event)">
+  <fa-icon [icon]="qrIcon" size="2x" [fixedWidth]="true"></fa-icon>
+</div>
+
+<p-overlayPanel #qrErrorDetails>
+  <ng-container *isBrowser>
+    <p>
+      {{ 'service.issues.token.browser' | translate }}
+    </p>
+  </ng-container>
+  <ng-container *isDesktop>
+    <p>
+      {{ 'service.issues.token.desktop' | translate }}
+    </p>
+  </ng-container>
+</p-overlayPanel>
+
+<div class="iconWrapper state-{{signalrService.$socketStatus | async}}" (click)="openStatusDetails($event)"
+  (mouseover)="openStatusDetails($event)">
+  <fa-icon [icon]="connectionIcon" size="2x" [fixedWidth]="true"></fa-icon>
+</div>
+
+<p-overlayPanel #statusDetails styleClass="statusOverlay-{{signalrService.$socketStatus | async}}">
+  <ng-container *ngIf="(signalrService.$socketStatus | async) == 0">
+    <ng-container *isBrowser>
+      <p>
+        {{ 'service.issues.browser.noConnection' | translate }}
+      </p>
+      <button (click)="reconnect()" pButton class="ui-button-success" type="button" [icon]="iconClasses"
+        [label]="'service.reconnect' | translate" [disabled]="connecting"></button>
+    </ng-container>
+    <ng-container *isDesktop>
+      <p>
+        {{ 'service.issues.desktop' | translate }}
+      </p>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="(signalrService.$socketStatus | async) == 1">
+    {{ 'service.connected' | translate }}
+  </ng-container>
+  <ng-container *ngIf="(signalrService.$socketStatus | async) == 2">
+      {{ 'service.issues.browser.noToken' | translate }}
+    </ng-container>
+</p-overlayPanel>
+<!-- <button (click)="connect()">Connect</button> -->
+<!-- <pre>
+  Status: {{signalrService.$socketStatus | async}}
+  <ng-container *isDesktop>
+  Clients: {{signalrService.$clients | async}}
+  </ng-container>
+  Info: {{signalrService.$info | async | json}}
+</pre> -->

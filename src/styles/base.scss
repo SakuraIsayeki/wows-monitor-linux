@@ -1,0 +1,70 @@
+app-default {}
+
+html,
+body {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin-top: 0;
+}
+
+body {
+  font-family: $fontFamily;
+  color: $textColor;
+  font-size: $fontSize;
+  background-color: $secondaryColor;
+  padding: 0;
+  margin: 0;
+
+  &.layout-scroll-block {
+    overflow: hidden;
+  }
+}
+
+p {
+  margin-bottom: 10px !important;
+}
+
+.space-bottom {
+  margin-bottom: 1em;
+}
+
+.custom .ui-scrollpanel-wrapper {
+  border-right: 9px solid fade-out($secondaryDarkColor, $amount: 0.5);
+}
+
+.custom .ui-scrollpanel-bar {
+  background-color: $primaryColor;
+  opacity: .2!important;
+  transition: opacity .3s ease-in-out;
+}
+
+.custom .ui-scrollpanel-bar:hover,
+.custom .ui-scrollpanel-bar:active {
+  background-color: $primaryColor;
+  opacity: .6!important;
+}
+
+
+/* Mobile first queries */
+
+/* Larger than mobile */
+@media (min-width: 400px) {}
+
+/* Larger than phablet */
+@media (min-width: 550px) {}
+
+/* Larger than tablet */
+@media (min-width: 750px) {}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {}

@@ -1,0 +1,16 @@
+<preferences.xml>
+  <scriptsPreferences>
+    <ui>
+      <chatBoxPositionX>
+        <clan-500139870clans.wows.wowseu.loc></clan-500139870@clans.wows.wowseu.loc>
+        <529004063wowseu.loc></529004063@wowseu.loc>
+        <539643986@wowseu.loc></539643986@wowseu.loc>
+        <501648920@wowseu.loc></501648920@wowseu.loc>
+        <534966194@wowseu.loc></534966194@wowseu.loc>
+        <559448280@wowseu.loc></559448280@wowseu.loc>
+        <534551031@wowseu.loc></534551031@wowseu.loc>
+      </chatBoxPositionX>
+    </ui>
+  </scriptsPreferences>
+  <clientVersion>	1, 2, 3, 4	</clientVersion>
+</preferences.xml>

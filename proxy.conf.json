@@ -1,0 +1,12 @@
+{
+  "/v1": {
+    "target": {
+      "host": "local.wows-monitor.local",
+      "protocol": "http:",
+      "port": 80
+    },
+    "ignorePath": false,
+    "changeOrigin": true,
+    "secure": false
+  }
+}

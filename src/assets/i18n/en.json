@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "default": {
+      "title": "Welcome"
+    },
+    "main": {
+      "title": "Monitor"
+    },
+    "settings": {
+      "title": "Settings"
+    },
+    "about": {
+      "title": "About"
+    }
+  },
+  "service": {
+    "issues": {
+      "browser": {
+        "connection": "Couldn't connect to the online service. Either the service is offline or you have no connection to a desktop client.",
+        "noToken": "Setup the connection to a desktop client first"
+      },
+      "desktop": "Couldn't connect to the online service."
+    }
+  }
+}

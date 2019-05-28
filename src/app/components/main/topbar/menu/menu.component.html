@@ -1,0 +1,19 @@
+<div class="menu-topbar" [routerLink]="'/home'">
+  <img src="assets/logo.svg" alt="logo">
+  <span>WoWs Monitor</span>
+</div>
+
+<div class="menu-wrapper">
+  <ul>
+    <ng-container *ngFor="let entry of menu">
+      <li *showMenuEntry="entry" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a [routerLink]="entry.routerLink" (click)="closeAction()">
+          <ng-container *ngIf=entry.icon>
+            <fa-icon [icon]="entry.icon"></fa-icon>
+          </ng-container>
+          {{entry.key | translate}}
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+</div>

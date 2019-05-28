@@ -1,0 +1,35 @@
+{
+  "productName": "WoWs Monitor",
+  "directories": {
+    "output": "dist/release"
+  },
+  "files": [
+    "dist/app-desktop/**/*",
+    "src-electron/*.js"
+  ],
+  "win": {
+    "icon": "dist/app-desktop/assets/icons",
+    "target": [
+      "nsis-web"
+    ],
+    "publish": {
+      "provider": "generic",
+      "url": "http://localhost:3000/releases"
+    }
+  },
+  "nsisWeb": {
+
+  },
+  "mac": {
+    "icon": "dist",
+    "target": [
+      "dmg"
+    ]
+  },
+  "linux": {
+    "icon": "dist",
+    "target": [
+      "AppImage"
+    ]
+  }
+}
