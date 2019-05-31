@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Inject, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { DynamicDialogRef, SelectItem } from 'primeng/api';
@@ -10,18 +10,18 @@ import { Config } from 'src/config/config';
   selector: 'app-qr-scan',
   templateUrl: './qr-scan.component.html'
 })
-export class QrScanComponent extends BaseComponent implements OnInit {
+export class QrScanComponent extends BaseComponent implements AfterViewInit {
 
   public closeIcon = faTimes;
 
-  @ViewChild('scanner', { static: true })
+  @ViewChild('scanner', { static: false })
   public scanner: ZXingScannerComponent;
 
   @ViewChild('videoTag', { static: false })
   public videoTag: ElementRef<HTMLVideoElement>;
 
   public hasCameras = false;
-  public hasPermission: boolean = true;
+  public hasPermission = true;
   public enabled = false;
   qrResultString: string;
 
@@ -37,7 +37,7 @@ export class QrScanComponent extends BaseComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.init();
   }
 
