@@ -14,10 +14,10 @@ export class QrScanComponent extends BaseComponent implements OnInit {
 
   public closeIcon = faTimes;
 
-  @ViewChild('scanner')
+  @ViewChild('scanner', { static: true })
   public scanner: ZXingScannerComponent;
 
-  @ViewChild('videoTag')
+  @ViewChild('videoTag', { static: false })
   public videoTag: ElementRef<HTMLVideoElement>;
 
   public hasCameras = false;

@@ -19,10 +19,10 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit 
   public connectionIcon = faWifi;
   public qrIcon = faQrcode;
 
-  @ViewChild('statusDetails')
+  @ViewChild('statusDetails', { static: true })
   public statusDetails: OverlayPanel;
 
-  @ViewChild('qrErrorDetails')
+  @ViewChild('qrErrorDetails', { static: true })
   public qrErrorDetails: OverlayPanel;
 
   public connecting = false;
