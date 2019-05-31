@@ -14,7 +14,7 @@ const routes: Routes = [
     children: [
       {
         path: 'about',
-        loadChildren: './about/about.module#AboutModule',
+        loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
         data: {
           meta: {
             title: 'meta.about.title'
