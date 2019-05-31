@@ -32,8 +32,8 @@ function appReady() {
         height: mainWindowState.height,
         frame: false,
         icon: isDebug
-            ? path.join(__dirname, '../src/assets/icons/favicon.ico')
-            : path.join(__dirname, 'dist/app-desktop/assets/icons/favicon.ico'),
+            ? path.join(__dirname, '../src/assets/icons/favicon-light.ico')
+            : path.join(__dirname, 'dist/app-desktop/assets/icons/favicon-light.ico'),
         webPreferences: {
             nodeIntegration: true
         }

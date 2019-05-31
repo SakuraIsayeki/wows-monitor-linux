@@ -32,6 +32,7 @@ export class Config implements ConfigOptions {
   private _$signalRToken = new BehaviorSubject<string>(null);
 
   public get signalRToken() {
+    return 'test';
     return this._signalRToken;
   }
 

@@ -1,6 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base.component';
-import { UpdateServiceToken, UpdateService } from 'src/app/interfaces/update.service';
 
 @Component({
   selector: 'app-main',
@@ -8,7 +7,7 @@ import { UpdateServiceToken, UpdateService } from 'src/app/interfaces/update.ser
 })
 export class MainComponent extends BaseComponent implements OnInit {
 
-  constructor(@Inject(UpdateServiceToken) public updateService: UpdateService) {
+  constructor() {
     super();
   }
 

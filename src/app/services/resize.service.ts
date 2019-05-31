@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
-import { fromEvent, Observable } from 'rxjs';
+import { fromEvent, Observable, Subject, BehaviorSubject, Subscription } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 
 @Injectable()
 export class ResizeService {
 
-  public $resizeListener: Observable<number>;
+  public _$resizeListener = new BehaviorSubject<number>(0);
+
+  public get $resizeListener() {
+    return this._$resizeListener.asObservable();
+  }
+
+  private $resizeSubscription: Subscription;
 
   constructor() {
     if (window && window.innerWidth) {
@@ -14,12 +20,14 @@ export class ResizeService {
   }
 
   private startListen() {
-    this.$resizeListener = fromEvent(window, 'resize')
+    this.$resizeSubscription = fromEvent(window, 'resize')
       .pipe(
         debounceTime(100),
         map(() => {
           return window.innerWidth as number;
         })
-      );
+      ).subscribe(width => {
+        this._$resizeListener.next(window.innerWidth);
+      });
   }
 }

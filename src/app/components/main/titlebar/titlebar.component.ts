@@ -1,22 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseComponent } from '../../base.component';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { faWindowClose, faWindowMaximize, faWindowMinimize, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
+import { interval } from 'rxjs';
+import { skipWhile, take } from 'rxjs/operators';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
+import { BaseComponent } from '../../base.component';
+import { MetaService } from '@ngx-meta/core';
 
 @Component({
   selector: 'app-titlebar',
   templateUrl: './titlebar.component.html'
 })
-export class TitlebarComponent extends BaseComponent implements OnInit {
+export class TitlebarComponent extends BaseComponent implements OnInit, AfterViewInit {
+
+  public closeIcon = faWindowClose;
+  public maximizeIcon = faWindowMaximize;
+  public restoreIcon = faWindowRestore;
+  public minimizeIcon = faWindowMinimize;
+  public canMaximize = true;
 
   private get window() {
     return this.electronService.remote.BrowserWindow.getFocusedWindow();
   }
 
-  constructor(private electronService: ElectronService) {
+  public get title() {
+    return document.title;
+  }
+
+  constructor(private electronService: ElectronService, private metaService: MetaService) {
     super();
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    interval(200).pipe(this.untilDestroy(), skipWhile(() => !this.window), take(1)).subscribe(() => {
+      this.canMaximize = this.window.isMaximizable();
+    });
   }
 
   public minimize() {
@@ -31,6 +51,7 @@ export class TitlebarComponent extends BaseComponent implements OnInit {
     } else if (this.window.isMaximizable()) {
       this.window.maximize();
     }
+    this.canMaximize = this.window.isMaximizable();
   }
 
   public close() {

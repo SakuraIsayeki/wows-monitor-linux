@@ -66,44 +66,10 @@ export class QrScanComponent extends BaseComponent implements AfterViewInit {
     //   }
     // }
 
-    this.selectedDevice = this.devices[0].value;
-
-    this.enabled = true;
-
-    // navigator.mediaDevices.enumerateDevices().then(devices => {
-    //   this.hasCameras = true;
-
-    //   devices = devices.filter(d => d.kind === 'videoinput');
-
-    // this.devices = [];
-    // devices.forEach((device, index) => {
-    //   this.devices.push({
-    //     label: device.label || 'Camera ' + index + 1,
-    //     value: device
-    //   });
-    // });
-
-
-
-    //   for (const device of devices) {
-    //     if (/back|rear|environment/gi.test(device.label)) {
-    //       //this.scanner.changeDevice(device);
-    //       this.selectedDevice = device;
-    //       break;
-    //     }
-    //   }
-
-    //   if (devices.length <= 0) {
-    //     this.hasPermission = false;
-    //     return;
-    //   } else if (!this.selectedDevice) {
-    //     this.selectedDevice = this.devices[0].value;
-    //   }
-    //   this.hasPermission = true;
-    //   this.enabled = true;
-    // }).catch(error => {
-    //   this.logError('An error has occurred when trying to enumerate your video-stream-enabled devices.', error);
-    // });
+    if (this.devices && this.devices.length > 0) {
+      this.selectedDevice = this.devices[0].value;
+      this.enabled = true;
+    }
   }
 
   handleQrCodeResult(resultString: string) {

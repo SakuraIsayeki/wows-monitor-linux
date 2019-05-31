@@ -13,6 +13,10 @@ const routes: Routes = [
     },
     children: [
       {
+        path: '',
+        loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule)
+      },
+      {
         path: 'about',
         loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
         data: {

@@ -61,4 +61,12 @@ export class ShowOnDirective implements AfterViewInit {
       this.viewContainer.clear();
     }
   }
+
+  public checkStatic(deviceType: DeviceType, reversed: boolean) {
+    const queries = reversed ? mediaQueriesReversed : mediaQueries;
+    if (window.matchMedia(queries[deviceType]).matches) {
+      return true;
+    }
+    return false;
+  }
 }

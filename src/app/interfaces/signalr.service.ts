@@ -20,7 +20,7 @@ export enum SignalrStatus {
 }
 
 export enum Status {
-  Idle,
-  Fetching,
-  Fetched
+  Idle = 1,
+  Fetching = 2,
+  Fetched = 3
 }

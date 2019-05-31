@@ -1,19 +1,19 @@
 <!-- <app-menu></app-menu>
 <app-path-picker *isDesktop ></app-path-picker>
 <app-connection></app-connection>
-<app-status></app-status> -->
+ -->
+
+
 
 <div id="menuIconWrapper" class="iconWrapper" (click)="toggleSidebar()">
   <fa-icon id="menuIcon" [icon]="menuIcon" size="2x" [fixedWidth]="true"></fa-icon>
 </div>
 
 <div class="states">
+  <app-path-picker *isDesktop></app-path-picker>
+  <app-status></app-status>
   <app-connection></app-connection>
 </div>
-<app-path-picker *isDesktop></app-path-picker>
-
-
-
 
 <p-sidebar [(visible)]="sidebarVisible" appendTo="body" [showCloseIcon]="false">
   <app-menu [closeAction]="toggleSidebar"></app-menu>

@@ -9,6 +9,7 @@ app-topbar {
   background: $secondaryDarkColor;
   height: 55px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .iconWrapper {
@@ -22,15 +23,21 @@ app-topbar {
     cursor: pointer;
   }
 
+  &.clickable{
+    cursor: pointer;
+  }
+
   &.state-0 {
     color: $dangerColor;
   }
 
-  &.state-1 {
+  &.state-1,
+  &.status-3 {
     color: $successColor;
   }
 
-  &.state-2 {
+  &.state-2,
+  &.status-2 {
     color: $warningColor;
   }
 }
