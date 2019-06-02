@@ -8,6 +8,7 @@ import { DialogService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogModule } from 'primeng/dialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
@@ -49,6 +50,7 @@ import { TopbarComponent } from './topbar/topbar.component';
     ButtonModule,
     DropdownModule,
     DynamicDialogModule,
+    DialogModule,
     ScrollPanelModule,
     ZXingScannerModule
   ],

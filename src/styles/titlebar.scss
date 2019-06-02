@@ -1,13 +1,67 @@
+@import '_variables.scss';
+
 app-titlebar {
+  
   display: block;
   -webkit-app-region: drag;
-  background: #000;
-  height: 30px;
+  background: $secondaryColor;
+  height: 25px;
+  overflow: hidden;
 
-  button {
+  .app-title-wrapper{
+    float:left;
+    margin-left: .2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    font-size: .8em;
+  }
+
+  .app-icon-wrapper{
+    float:left;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 40px;
+
+    .app-icon{
+      height:15px;
+    }
+  }
+
+  .icon-wrapper{
+    float:right;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+  }
+
+  .title-icon{
     -webkit-app-region: no-drag;
+    background: $secondaryLightColor;
+    height: 25px;
+    width: 35px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover{
+      background: lighten($secondaryLightColor, 20%);
+    }
+    &.close{
+      &:hover{
+        background: $dangerColor;
+      }
+    }
   }
 }
+
+
 
 /* Mobile first queries */
 

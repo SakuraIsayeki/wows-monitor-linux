@@ -13,6 +13,7 @@ import { CommonErrorHandler } from './services/common-error.handler';
 import { LocatorService } from './services/locator.service';
 import { ApiService } from './services/api.service';
 import { ResizeService } from './services/resize.service';
+import { environment } from 'src/environments/environment';
 
 const translateHttpLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -21,7 +22,7 @@ const translateHttpLoader = (http: HttpClient) => {
 const metaFactory = (translate: TranslateService) => {
   return new MetaStaticLoader({
     callback: (key: string) => translate.get(key),
-    pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
+    pageTitlePositioning: environment.desktop ? PageTitlePositioning.AppendPageTitle : PageTitlePositioning.PrependPageTitle,
     pageTitleSeparator: ' - ',
     applicationName: appConfig.applicationName,
     defaults: {

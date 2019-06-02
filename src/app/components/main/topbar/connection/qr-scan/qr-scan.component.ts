@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Inject, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { DynamicDialogRef, SelectItem } from 'primeng/api';
@@ -10,18 +10,18 @@ import { Config } from 'src/config/config';
   selector: 'app-qr-scan',
   templateUrl: './qr-scan.component.html'
 })
-export class QrScanComponent extends BaseComponent implements OnInit {
+export class QrScanComponent extends BaseComponent implements AfterViewInit {
 
   public closeIcon = faTimes;
 
-  @ViewChild('scanner')
+  @ViewChild('scanner', { static: false })
   public scanner: ZXingScannerComponent;
 
-  @ViewChild('videoTag')
+  @ViewChild('videoTag', { static: false })
   public videoTag: ElementRef<HTMLVideoElement>;
 
   public hasCameras = false;
-  public hasPermission: boolean = true;
+  public hasPermission = true;
   public enabled = false;
   qrResultString: string;
 
@@ -37,7 +37,7 @@ export class QrScanComponent extends BaseComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.init();
   }
 
@@ -66,44 +66,10 @@ export class QrScanComponent extends BaseComponent implements OnInit {
     //   }
     // }
 
-    this.selectedDevice = this.devices[0].value;
-
-    this.enabled = true;
-
-    // navigator.mediaDevices.enumerateDevices().then(devices => {
-    //   this.hasCameras = true;
-
-    //   devices = devices.filter(d => d.kind === 'videoinput');
-
-    // this.devices = [];
-    // devices.forEach((device, index) => {
-    //   this.devices.push({
-    //     label: device.label || 'Camera ' + index + 1,
-    //     value: device
-    //   });
-    // });
-
-
-
-    //   for (const device of devices) {
-    //     if (/back|rear|environment/gi.test(device.label)) {
-    //       //this.scanner.changeDevice(device);
-    //       this.selectedDevice = device;
-    //       break;
-    //     }
-    //   }
-
-    //   if (devices.length <= 0) {
-    //     this.hasPermission = false;
-    //     return;
-    //   } else if (!this.selectedDevice) {
-    //     this.selectedDevice = this.devices[0].value;
-    //   }
-    //   this.hasPermission = true;
-    //   this.enabled = true;
-    // }).catch(error => {
-    //   this.logError('An error has occurred when trying to enumerate your video-stream-enabled devices.', error);
-    // });
+    if (this.devices && this.devices.length > 0) {
+      this.selectedDevice = this.devices[0].value;
+      this.enabled = true;
+    }
   }
 
   handleQrCodeResult(resultString: string) {

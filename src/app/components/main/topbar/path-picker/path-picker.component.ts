@@ -6,12 +6,16 @@ import { ApiService } from 'src/app/services/api.service';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
 import { Config } from 'src/config/config';
 import { filter } from 'rxjs/operators';
+import { faFolder } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-path-picker',
   templateUrl: './path-picker.component.html'
 })
 export class PathPickerComponent extends BaseComponent implements OnInit {
+
+  public folderIcon = faFolder;
+  public showPathInfo = false;
 
   constructor(
     private electronService: ElectronService,
@@ -32,7 +36,7 @@ export class PathPickerComponent extends BaseComponent implements OnInit {
     this.signalRService.$info.subscribe(console.log);
   }
 
-  public do() {
+  public pickPath() {
     this.electronService.dialog.showOpenDialog(this.electronService.remote.BrowserWindow.getFocusedWindow(), {
       defaultPath: this.config.selectedDirectory,
       properties: ['openDirectory']

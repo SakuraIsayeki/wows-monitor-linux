@@ -1,6 +1,38 @@
-<pre>
-  DirectoryStatus: {{directoryService.$status | async | json}}
-  SelectedDirectory: {{config.$selectedDirectory | async}}
-</pre>
+<div class="iconWrapper clickable" (click)="showPathInfo = true" *ngIf="config.$selectedDirectory | async"
+  [pTooltip]="'pathPicker.info' | translate" tooltipPosition="bottom">
+  {{config.$selectedDirectory | async}}
+</div>
+<div (click)="pickPath()"
+  class="iconWrapper state-{{((directoryService.$status | async)?.replaysFoldersFound) ? 1 : 0}}"
+  [pTooltip]="'pathPicker.pickFolder' | translate" tooltipPosition="bottom">
+  <fa-icon [icon]="folderIcon" size="2x" [fixedWidth]="true"></fa-icon>
+</div>
+
+<p-dialog [header]="'pathPicker.info.header'" [(visible)]="showPathInfo" [dismissableMask]="true" [modal]="true"
+  appendTo="body">
+  <pre *ngIf="directoryService.$status | async;let info">
+Client version:       {{info.clientVersion}}
+Folder version:       {{info.folderVersion}}
+Steam version:        {{info.steamVersion}}
+Replays pathbase:     {{info.replaysPathBase}}
+Preferences pathbase: {{info.preferencesPathBase}}
+Replays folder found: {{info.replaysFoldersFound}}
+Replays paths:        {{info.replaysFolders | join:','}}
+  </pre>
+  <p-button (click)="refresh()" icon="pi pi-replay" [label]="'pathPicker.refresh' | translate"
+    styleClass="ui-button-success"></p-button>
+</p-dialog>
+
+<!-- replaysFolders?: string[];
+  replaysFoldersFound?: boolean;
+  replaysDirPath?: string;
+  replaysVersioned?: boolean;
+  clientVersion?: string;
+  folderVersion?: string;
+  replaysPathBase?: PathBase;
+  preferencesPathBase?: PathBase;
+  steamVersion?: boolean; -->
+
+<!-- 
 <button (click)="do()">Pick Folder</button>
-<button (click)="refresh()">Refresh</button>
+<button (click)="refresh()">Refresh</button> -->

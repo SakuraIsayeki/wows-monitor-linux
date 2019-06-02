@@ -1,0 +1,23 @@
+app-monitor{
+  display:block;
+  height: calc(100vh - 55px);
+  width: 100vw;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: .5em 1em;
+}
+
+/* Larger than mobile */
+@media (min-width: 400px) {}
+
+/* Larger than phablet */
+@media (min-width: 550px) {}
+
+/* Larger than tablet */
+@media (min-width: 750px) {}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {}

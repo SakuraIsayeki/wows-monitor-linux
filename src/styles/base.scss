@@ -51,6 +51,22 @@ p {
   opacity: .6!important;
 }
 
+.ui-button{
+  &.showLabel-0{
+    .ui-button-text{
+      display: none;
+    }
+  }
+  &.showLabel-1{
+    .ui-button-text{
+      display: block;
+    }
+  }
+}
+
+.ui-card{
+  margin-bottom: 1em;
+}
 
 /* Mobile first queries */
 
