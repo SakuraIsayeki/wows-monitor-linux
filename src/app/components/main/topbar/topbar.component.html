@@ -8,6 +8,16 @@
 <div id="menuIconWrapper" class="iconWrapper" (click)="toggleSidebar()">
   <fa-icon id="menuIcon" [icon]="menuIcon" size="2x" [fixedWidth]="true"></fa-icon>
 </div>
+<div id="matchInfoWrapper" class="iconWrapper" *ngIf="signalrService.$info | async;let matchInfo">
+  <span>{{matchInfo.matchGroup | matchGroup | translate}}</span>
+  <ng-container *ngIf="matchInfo.matchGroup == 'CLAN'">
+    (Season {{matchInfo.clanwarsSeason}})
+  </ng-container>
+  <ng-container *ngIf="matchInfo.matchGroup == 'RANKED'">
+    (Season {{matchInfo.rankedSeason}})
+  </ng-container>
+  <span>, {{matchInfo.map.name}}</span>
+</div>
 
 <div class="states">
   <app-path-picker *isDesktop></app-path-picker>

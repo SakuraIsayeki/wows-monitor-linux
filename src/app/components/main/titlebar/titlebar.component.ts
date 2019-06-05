@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { faWindowClose, faWindowMaximize, faWindowMinimize, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
+import { MetaService } from '@ngx-meta/core';
 import { interval } from 'rxjs';
 import { skipWhile, take } from 'rxjs/operators';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
 import { BaseComponent } from '../../base.component';
-import { MetaService } from '@ngx-meta/core';
+import { appConfig } from 'src/config/app.config';
 
 @Component({
   selector: 'app-titlebar',
@@ -18,12 +19,12 @@ export class TitlebarComponent extends BaseComponent implements OnInit, AfterVie
   public minimizeIcon = faWindowMinimize;
   public canMaximize = true;
 
-  private get window() {
+  public get window() {
     return this.electronService.remote.BrowserWindow.getFocusedWindow();
   }
 
   public get title() {
-    return document.title;
+    return appConfig.applicationName;
   }
 
   constructor(private electronService: ElectronService, private metaService: MetaService) {

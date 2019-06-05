@@ -1,5 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Region } from './region';
 
 export const DirectoryServiceToken = new InjectionToken('directory-service');
 export type PathBase = 'CWD' | 'EXE_PATH';
@@ -24,4 +25,5 @@ export interface DirectoryStatus {
   replaysPathBase?: PathBase;
   preferencesPathBase?: PathBase;
   steamVersion?: boolean;
+  region?: Region;
 }

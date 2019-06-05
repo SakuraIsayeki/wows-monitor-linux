@@ -14,7 +14,7 @@ export class MenuComponent extends BaseComponent implements OnInit {
 
   public menu: MenuEntry[] = [
     {
-      key: 'meta.main.title',
+      key: 'meta.monitor.title',
       routerLink: '/home',
       icon: faDesktop
     },

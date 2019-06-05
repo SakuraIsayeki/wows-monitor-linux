@@ -3,9 +3,9 @@
 .container {
   position: relative;
   width: 100%;
-  max-width: 960px;
+  max-width: 1650px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 2em;
   box-sizing: border-box;
 }
 
@@ -19,17 +19,13 @@
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {
-    width: 85%;
+    width: calc(100vw - 1em);
     padding: 0;
   }
 }
 
-/* For devices larger than 550px */
-@media (min-width: 550px) {
-  .container {
-    width: 80%;
-  }
-
+/* For devices larger than 750px */
+@media (min-width: 750px) {
   .column,
   .columns {
     margin-left: 4%;
@@ -175,6 +171,12 @@
 
 }
 
+/* For devices larger than 1000px */
+@media (min-width: 1000px) {
+  .container {
+    width: 100%;
+  }
+}
 
 /* Utilities
 –––––––––––––––––––––––––––––––––––––––––––––––––– */

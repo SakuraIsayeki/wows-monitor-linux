@@ -1,0 +1,79 @@
+<h3 *ngIf="cw">
+  <span [style.color]="clan.color | sanitizeCss">[{{clan.tag}}]</span>&nbsp;
+  <span>{{clan.name}} ({{clan.region | region}})</span>
+</h3>
+<span *ngIf="cw" translate="monitor.cw.text"
+  [translateParams]="{ rank: clan.rank, league: 'monitor.cw.leagues.' + clan.mainRating.league | translate, division: clan.mainRating.division | roman, winrate: (clan.mainRating.wins/clan.mainRating.battles * 100) | number:'0.0-2' }">
+</span>
+<span *ngIf="!cw">
+  Avg Xp: {{team.xp | number:'0.0-0'}} Avg Winrate: {{team.winrate | number:'0.0-2'}}% Avg Battles: {{team.battles | number:'0.0-0'}}
+</span>
+
+<a *ngIf="cw" #weblink target="_blank" hidden="hidden" href="{{ clan.region | wowsNumbers }}clan/{{clan.id}},/">Link</a>
+
+<p-contextMenu *ngIf="cw" [target]="el.nativeElement" appendTo="body" [model]="items" triggerEvent="click"></p-contextMenu>
+
+<p-dialog *ngIf="cw" [(visible)]="showDialog" [dismissableMask]="true" [modal]="true" appendTo="body" [closable]="true">
+  <p-header>
+    <span [style.color]="clan.color | sanitizeCss">[{{clan.tag}}]</span>&nbsp;
+    <span>{{clan.name}} ({{clan.region | region}})</span>
+  </p-header>
+  <h3>
+    Main Rating
+  </h3>
+  <pre>
+League:         {{ 'monitor.cw.leagues.' +clan.mainRating.league | translate }}
+Division:       {{ clan.mainRating.division | roman }}
+Points:         {{ clan.mainRating.rating }}
+Battles:        {{ clan.mainRating.battles }}
+Wins:           {{ clan.mainRating.wins }}
+Longest Streak: {{ clan.mainRating.longestWinningStreak }}
+Current Streak: {{ clan.mainRating.currentWinningStreak }}
+  </pre>
+  <h3>
+    Secondary Rating
+  </h3>
+  <pre>
+League:         {{ 'monitor.cw.leagues.' +clan.secondaryRating.league | translate }}
+Division:       {{ clan.secondaryRating.division | roman }}
+Points:         {{ clan.secondaryRating.rating }}
+Battles:        {{ clan.secondaryRating.battles }}
+Wins:           {{ clan.secondaryRating.wins }}
+Longest Streak: {{ clan.secondaryRating.longestWinningStreak }}
+Current Streak: {{ clan.secondaryRating.currentWinningStreak }}
+    </pre>
+  <!-- <a routerLink="/wcw/{{clan.id}}">Learn more</a> -->
+</p-dialog>
+
+<!-- {
+  "id": 411638,
+  "tag": "CLOUD",
+  "name": "Cloud light",
+  "color": "#cda4ff",
+  "region": 2,
+  "rank": 2,
+  "mainRating": {
+    "bestSeasonRating": true,
+    "division": 1,
+    "league": 0,
+    "rating": 191,
+    "team": 2,
+    "wins": 128,
+    "battles": 177,
+    "seasonId": 5,
+    "longestWinningStreak": 14,
+    "currentWinningStreak": 0
+  },
+  "secondaryRating": {
+    "bestSeasonRating": false,
+    "division": 1,
+    "league": 0,
+    "rating": 169,
+    "team": 1,
+    "wins": 194,
+    "battles": 278,
+    "seasonId": 5,
+    "longestWinningStreak": 13,
+    "currentWinningStreak": 1
+  }
+} -->

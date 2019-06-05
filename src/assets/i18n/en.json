@@ -3,7 +3,7 @@
     "default": {
       "title": "Welcome"
     },
-    "main": {
+    "monitor": {
       "title": "Monitor"
     },
     "settings": {
@@ -20,6 +20,21 @@
         "noToken": "Setup the connection to a desktop client first"
       },
       "desktop": "Couldn't connect to the online service."
+    }
+  },
+  "monitor": {
+    "season": "Season",
+    "map": "Map",
+    "matchGroup": {
+      "CLAN": "Clan War",
+      "PVP": "Random"
+    },
+    "cw": {
+      "text": "Rank {{rank}} in {{league}}, Division {{division}}, WR {{winrate}}%",
+      "leagues": [
+        "Hurricane",
+        "Typhoon"
+      ]
     }
   }
 }

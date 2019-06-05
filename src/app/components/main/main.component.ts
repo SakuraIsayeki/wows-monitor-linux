@@ -14,4 +14,7 @@ export class MainComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
 
+  public setTitle(title: string) {
+
+  }
 }

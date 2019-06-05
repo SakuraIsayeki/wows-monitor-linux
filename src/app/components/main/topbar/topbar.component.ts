@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { BaseComponent } from '../../base.component';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { SignalrService, SignalrServiceToken } from 'src/app/interfaces/signalr.service';
 
 @Component({
   selector: 'app-topbar',
@@ -11,7 +12,7 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   public menuIcon = faBars;
   public sidebarVisible = false;
 
-  constructor(
+  constructor(@Inject(SignalrServiceToken) public signalrService: SignalrService
   ) {
     super();
   }

@@ -1,10 +1,98 @@
-app-monitor{
-  display:block;
+@import '_variables.scss';
+
+app-monitor {
+  display: block;
   height: calc(100vh - 55px);
   width: 100vw;
   overflow: hidden;
   box-sizing: border-box;
   padding: .5em 1em;
+  line-height: 1em;
+  // font-size: 0.8em;
+
+  .container {
+    display: grid;
+    margin-bottom: 2em;
+    grid-gap: 1em;
+    grid-template-areas:
+      'title'
+      'friendly-clan'
+      'friendly'
+      'enemy-clan'
+      'enemy';
+
+    >p-card .ui-card {
+      margin-bottom: 0;
+    }
+  }
+
+  #monitor-title {
+    grid-area: title;
+  }
+
+  #monitor-friendly-clan {
+    grid-area: friendly-clan;
+  }
+
+  #monitor-enemy-clan {
+    grid-area: enemy-clan;
+  }
+
+  #monitor-friendly {
+    grid-area: friendly;
+  }
+
+  #monitor-enemy {
+    grid-area: enemy;
+  }
+
+  p-card.no-padding .ui-card-body {
+    padding: 0;
+  }
+}
+
+
+app-player {
+  display: block;
+  padding: 0 1em;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  // border: 1px solid #FFF;
+
+  &.me {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: $borderRadius;
+  }
+
+  &:hover {
+    background: transparentize($secondaryColor, 0.5)!important;
+  }
+
+  .info-wrapper {
+    display: grid;
+    grid-gap: .5em;
+    grid-template-columns: 34% 22% 22% 22%;
+    grid-template-rows: 1fr 1fr 1fr;
+    border-bottom: 1px solid $secondaryColor;
+    padding: 0.75em 0;
+  }
+
+  &.last {
+    .info-wrapper {
+      border-bottom: 0;
+    }
+  }
+}
+
+app-team {
+  display: block;
+  cursor: pointer;
+  padding: 1em;
+
+  &:hover {
+    background: transparentize($secondaryColor, 0.5);
+  }
 }
 
 /* Larger than mobile */
@@ -14,10 +102,28 @@ app-monitor{
 @media (min-width: 550px) {}
 
 /* Larger than tablet */
-@media (min-width: 750px) {}
+@media (min-width: 750px) {
+  app-monitor {
+    .container {
+
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: auto;
+      grid-template-areas: 'friendly-clan friendly-clan enemy-clan enemy-clan'
+        'friendly friendly enemy enemy';
+    }
+  }
+}
 
 /* Larger than desktop */
 @media (min-width: 1000px) {}
 
 /* Larger than Desktop HD */
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+  app-monitor {
+    .container {
+      grid-template-areas:
+        'friendly-clan . enemy-clan .'
+        'friendly friendly enemy enemy';
+    }
+  }
+}
