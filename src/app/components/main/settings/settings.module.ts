@@ -19,7 +19,7 @@ import { SettingsComponent } from './settings.component';
     FormsModule,
     SettingsRoutingModule,
     SharedModule,
-    TranslateModule.forChild(),
+    TranslateModule,
     CardModule,
     SelectButtonModule,
     InputSwitchModule

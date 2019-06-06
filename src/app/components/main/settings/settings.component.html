@@ -27,17 +27,17 @@
         <div class="input-wrap">
           <p-selectButton [options]="fontSizeOptions" [(ngModel)]="config.fontsize">
             <ng-template let-item>
-              <span>{{item.label | translate}}</span>
+              <span class="ui-button-text ui-clickable ng-star-inserted">{{item.label | translate}}</span>
             </ng-template>
           </p-selectButton>
         </div>
       </article>
       <article>
         <caption>
-          {{ 'settings.playerBackgrounds.caption' | translate }}
+          {{ 'settings.appearance.playerBackgrounds.caption' | translate }}
         </caption>
         <summary>
-          {{ 'settings.playerBackgrounds.summary' | translate }}
+          {{ 'settings.appearance.playerBackgrounds.summary' | translate }}
         </summary>
         <div class="input-wrap">
           <p-inputSwitch [(ngModel)]="config.playerBackgrounds"></p-inputSwitch>

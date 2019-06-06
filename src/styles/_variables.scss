@@ -4,8 +4,8 @@ $primaryDarkColor:darken($primaryColor, 5%);
 $primaryDarkerColor:darken($primaryColor, 10%);
 $primaryTextColor:#212121;
 $secondaryColor: #353535;
-$secondaryDarkColor: darken($secondaryColor, 10%);
-$secondaryLightColor: lighten($secondaryColor, 10%);
+$secondaryDarkColor: darken($secondaryColor, 6%);
+$secondaryLightColor: lighten($secondaryColor, 6%);
 
 //Global
 $fontFamily:"Open Sans",
@@ -21,3 +21,7 @@ $primeIconFontSize:1.25em;
 $successColor:#34A835;
 $warningColor:#ffba01;
 $dangerColor:#e91224;
+
+$formsInputBackground: $secondaryLightColor;
+$formsInputBackgroundLight: $secondaryLightColor;
+$formsInputBackgroundAccent: $secondaryDarkColor;
