@@ -1,36 +1,31 @@
 <p-scrollPanel [style]="{width: '100%', height: '100%'}">
-  <div class="container u-full-width" *ngIf="signalrService.$info | async;let matchInfo">
-    <div class="row">
-      <p-card>
-        <h3>{{matchInfo.matchGroup}} (Season {{matchInfo.clanwarsSeason}})</h3>
-        <p>
-          Map: {{matchInfo.map.name}}
-        </p>
-      </p-card>
-    </div>
-    <div class="row">
-      <div class="columns six">
-        <p-card>
-          <h3>
-            <span style="color: '{{matchInfo.friendlyClan.color}}';">[{{matchInfo.friendlyClan.tag}}]</span>&nbsp;
-            <span>{{matchInfo.friendlyClan.name}}</span>
-          </h3>
-          <p>
-            Rank {{matchInfo.friendlyClan.rank}} in {{matchInfo.friendlyClan.mainRating.league}} League, Division {{matchInfo.friendlyClan.mainRating.division}}
-          </p>
-        </p-card>
-      </div>
-      <div class="columns six">
-        <p-card>
-          <h3>
-            <span style="color: '{{matchInfo.enemyClan.color}}';">[{{matchInfo.enemyClan.tag}}]</span>&nbsp;
-            <span>{{matchInfo.enemyClan.name}}</span>
-          </h3>
-          <p>
-            Map: {{matchInfo.map.name}}
-          </p>
-        </p-card>
-      </div>
-    </div>
+  <div class="container" *ngIf="signalrService.$info | async;let matchInfo">
+    <!-- <p-card id="monitor-title">
+      {{matchInfo.matchGroup | matchGroup | translate}}
+      <ng-container *ngIf="matchInfo.matchGroup == 'CLAN'">
+        (Season {{matchInfo.clanwarsSeason}})
+      </ng-container>
+      <ng-container *ngIf="matchInfo.matchGroup == 'RANKED'">
+        (Season {{matchInfo.rankedSeason}})
+      </ng-container>
+      , {{'monitor.map' | translate}}: {{matchInfo.map.name}}
+    </p-card> -->
+    <p-card id="monitor-friendly-clan" class="no-padding">
+      <app-team [clan]="matchInfo.friendlyClan" [team]="matchInfo.friendlyTeam" [cw]="matchInfo.matchGroup == 'CLAN'">
+      </app-team>
+    </p-card>
+    <p-card id="monitor-enemy-clan" class="no-padding"
+      *ngIf="matchInfo.matchGroup != 'COOPERATIVE' && matchInfo.matchGroup != 'PVE'">
+      <app-team [clan]="matchInfo.enemyClan" [team]="matchInfo.enemyTeam" [cw]="matchInfo.matchGroup == 'CLAN'">
+      </app-team>
+    </p-card>
+    <p-card id="monitor-friendly" class="no-padding">
+      <app-player [player]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="playerCard"
+        *ngFor="let player of matchInfo.friendly; let l = last; let f = first;" [last]="l" [first]="f"></app-player>
+    </p-card>
+    <p-card id="monitor-enemy" class="no-padding">
+      <app-player [player]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="playerCard"
+        *ngFor="let player of matchInfo.enemy; let l = last; let f = first;" [last]="l" [first]="f"></app-player>
+    </p-card>
   </div>
 </p-scrollPanel>

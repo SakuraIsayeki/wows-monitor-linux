@@ -1,7 +1,7 @@
 @import '_variables.scss';
 
 app-titlebar {
-  
+
   display: block;
   -webkit-app-region: drag;
   background: $secondaryColor;
@@ -61,6 +61,9 @@ app-titlebar {
   }
 }
 
+#matchInfoWrapper{
+  padding-left: 1em;
+}
 
 
 /* Mobile first queries */

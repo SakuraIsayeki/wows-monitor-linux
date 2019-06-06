@@ -1,0 +1,82 @@
+<div class="info-wrapper" [class.me]="player.relation == 0">
+  <div>
+    <strong>
+      <span *ngIf="player.clan && !cw"
+        [style.color]="player.clan.color | sanitizeCss">[{{player.clan.tag}}]&nbsp;</span>
+      <span>{{player.name}}</span>
+    </strong>
+  </div>
+  <div>
+    Overall Winrate: <strong>{{player.overallStats?.winrate | number:'0.0-2'}}%</strong>
+  </div>
+  <div>
+    Overall Battles: <strong>{{player.overallStats?.battles}}</strong>
+  </div>
+  <div>
+    Karma: <strong>{{player.karma}}</strong>
+  </div>
+  <div>
+    {{player.shipInfo.name}} (Tier {{player.shipInfo.tier | roman}})
+  </div>
+  <div>
+    Winrate: <strong>{{player.shipStats?.winrate | number:'0.0-2'}}%</strong>
+  </div>
+  <div>
+    Battles: <strong>{{player.shipStats?.battles}}</strong>
+  </div>
+  <div>
+    Wins: <strong>{{player.shipStats?.wins}}</strong>
+  </div>
+  <div>
+    PR: <span [pTooltip]="'monitor.pr.poweredBy' | translate" tooltipPosition="bottom"
+      [style.color]="player.shipStats?.personalRating | pr | sanitizeCss"><strong>{{player.shipStats?.personalRating}}</strong></span>
+  </div>
+  <div>
+    Avg Damage: <strong>{{player.shipStats?.averageDamage | number:'0.0-0'}}</strong>
+  </div>
+  <div>
+    Avg Frags: <strong>{{player.shipStats?.averageFrags | number:'0.0-1'}}</strong>
+  </div>
+  <div>
+    <ng-container *ngIf="!cw">
+      Avg Xp: <strong>{{player.shipStats?.averageXp | number:'0.0-0'}}</strong>
+    </ng-container>
+  </div>
+</div>
+
+<!-- {
+  "accountId": 534414851,
+  "bot": false,
+  "hidden": false,
+  "karma": 220,
+  "relation": 0,
+  "name": "Lumeniac",
+  "shipInfo": {
+    "name": "République",
+    "tier": 10,
+    "id": 4179572560,
+    "type": "Battleship"
+  },
+  "overallStats": {
+    "battles": 256,
+    "winrate": 64.0625,
+    "averageXp": 0,
+    "averageDamage": 83633,
+    "averageFrags": 0.73046875,
+    "personalRating": 0
+  },
+  "shipStats": {
+    "battles": 188,
+    "winrate": 64.8936170212766,
+    "averageXp": 0,
+    "averageDamage": 83102,
+    "averageFrags": 0.69680851063829785,
+    "personalRating": 1104
+  },
+  "clan": {
+    "id": 500139870,
+    "name": "Marine Division Fenrir",
+    "color": "#CDA4FF",
+    "tag": "MDF"
+  }
+} -->

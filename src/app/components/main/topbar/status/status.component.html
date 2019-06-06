@@ -1,9 +1,9 @@
 <div class="iconWrapper status-{{status}}" *ngIf="signalRService.$status | async; let status"
   [pTooltip]="(statusText | async) | translate" tooltipPosition="bottom">
   <fa-icon *ngIf="status == 1" [icon]="circleIcon" size="2x" [fixedWidth]="true"></fa-icon>
-  <fa-icon *ngIf="status == 2" [icon]="syncIcon" size="2x" [fixedWidth]="true"></fa-icon>
+  <fa-icon *ngIf="status == 2" [icon]="syncIcon" size="2x" [fixedWidth]="true" [spin]="true"></fa-icon>
   <fa-icon *ngIf="status == 3" [icon]="checkIcon" size="2x" [fixedWidth]="true"></fa-icon>
 </div>
 
-<!-- 
+<!--
 <pre>Status: {{signalRService.$status | async}}</pre> -->

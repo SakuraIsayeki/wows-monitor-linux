@@ -5,8 +5,9 @@ import { SignalrService, SignalrServiceToken, SignalrStatus } from 'src/app/inte
 import { ApiService } from 'src/app/services/api.service';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
 import { Config } from 'src/config/config';
-import { filter } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
+import { zip } from 'rxjs';
 
 @Component({
   selector: 'app-path-picker',
@@ -28,12 +29,19 @@ export class PathPickerComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.directoryService.$changeDetected.pipe(filter(obs => obs != null)).subscribe(obj => {
-      this.signalRService.$socketStatus.pipe(filter(s => s === SignalrStatus.Connected)).subscribe(() => {
-        this.apiService.sendStats(obj).subscribe();
+    this.signalRService.$socketStatus
+      .pipe(
+        filter(s => s === SignalrStatus.Connected),
+        switchMap(s =>
+          zip(
+            this.directoryService.$changeDetected.pipe(filter(c => c != null)),
+            this.directoryService.$status.pipe(filter(s => s != null))
+          )
+        )
+      )
+      .subscribe(arr => {
+        this.apiService.sendStats(arr[0], arr[1].region).subscribe();
       });
-    });
-    this.signalRService.$info.subscribe(console.log);
   }
 
   public pickPath() {

@@ -6,7 +6,7 @@
 
 body .ui-widget {
   font-family: "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 14px;
+  font-size: 1em;
   text-decoration: none; }
 
 body .ui-corner-all {
@@ -67,7 +67,7 @@ body .pi {
 body {
   /* Validations */ }
   body .ui-inputtext {
-    font-size: 14px;
+    font-size: 1em;
     color: #dedede;
     background: #585858;
     padding: 0.429em;
@@ -130,7 +130,7 @@ body {
       body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon {
         overflow: hidden;
         position: relative;
-        font-size: 18px; }
+        font-size: 5em; }
   body .ui-chkbox-label {
     margin: 0 0 0 0.5em; }
   body .ui-radiobutton {
@@ -248,11 +248,11 @@ body {
       color: #dedede; }
       body .ui-autocomplete.ui-autocomplete-multiple .ui-autocomplete-multiple-container .ui-autocomplete-input-token input {
         font-family: "Open Sans", "Helvetica Neue", sans-serif;
-        font-size: 14px;
+        font-size: 1em;
         padding: 0;
         margin: 0; }
     body .ui-autocomplete.ui-autocomplete-multiple .ui-autocomplete-multiple-container .ui-autocomplete-token {
-      font-size: 14px;
+      font-size: 1em;
       padding: 0.2145em 0.429em;
       margin: 0 0.286em 0 0;
       background: #F15A22;
@@ -305,7 +305,7 @@ body {
       padding: 0.2145em 0; }
       body .ui-chips > ul.ui-inputtext .ui-chips-input-token input {
         font-family: "Open Sans", "Helvetica Neue", sans-serif;
-        font-size: 14px;
+        font-size: 1em;
         padding: 0;
         margin: 0;
         color: #dedede; }
@@ -314,7 +314,7 @@ body {
         body .ui-chips > ul.ui-inputtext .ui-chips-input-token input:focus {
           border: 0 none; }
     body .ui-chips > ul.ui-inputtext .ui-chips-token {
-      font-size: 14px;
+      font-size: 1em;
       padding: 0.2145em 0.429em;
       margin: 0 0.286em 0 0;
       background: #F15A22;
@@ -709,7 +709,7 @@ body {
           margin-top: -.35em;
           margin-bottom: 0; }
     body .ui-datepicker table {
-      font-size: 14px;
+      font-size: 1em;
       margin: 0.857em 0 0 0; }
       body .ui-datepicker table th {
         padding: 0.5em; }
@@ -904,7 +904,7 @@ body .ui-button {
   color: #212121;
   background-color: #F15A22;
   border: 1px solid #F15A22;
-  font-size: 14px;
+  font-size: 1em;
   -moz-transition: background-color 0.2s, box-shadow 0.2s;
   -o-transition: background-color 0.2s, box-shadow 0.2s;
   -webkit-transition: background-color 0.2s, box-shadow 0.2s;
@@ -1171,7 +1171,7 @@ body .ui-panel {
     body .ui-panel .ui-panel-titlebar .ui-panel-titlebar-icon {
       margin: 0;
       position: relative;
-      font-size: 14px;
+      font-size: 1em;
       color: #888888;
       border: 1px solid transparent;
       -moz-transition: color 0.2s;
@@ -1489,7 +1489,7 @@ body .ui-table .ui-sortable-column.ui-state-highlight {
     color: #212121; }
 
 body .ui-table .ui-editable-column input {
-  font-size: 14px;
+  font-size: 1em;
   font-family: "Open Sans", "Helvetica Neue", sans-serif; }
   body .ui-table .ui-editable-column input:focus {
     outline: 1px solid #F15A22;
@@ -1677,7 +1677,7 @@ body .fc .fc-toolbar .fc-button {
   color: #212121;
   background-color: #F15A22;
   border: 1px solid #F15A22;
-  font-size: 14px;
+  font-size: 1em;
   -moz-transition: background-color 0.2s, box-shadow 0.2s;
   -o-transition: background-color 0.2s, box-shadow 0.2s;
   -webkit-transition: background-color 0.2s, box-shadow 0.2s;
@@ -1733,7 +1733,7 @@ body .ui-fluid .fc .fc-toolbar .fc-button {
   width: auto; }
 
 body .ui-picklist .ui-picklist-buttons button {
-  font-size: 16px; }
+  font-size: 3em; }
 
 body .ui-picklist .ui-picklist-caption {
   background-color: #191919;
@@ -1797,7 +1797,7 @@ body .ui-picklist .ui-picklist-list {
 body .ui-orderlist .ui-orderlist-controls {
   padding: 0.571em 1em; }
   body .ui-orderlist .ui-orderlist-controls button {
-    font-size: 16px; }
+    font-size: 3em; }
 
 body .ui-orderlist .ui-orderlist-caption {
   background-color: #191919;
@@ -2054,7 +2054,7 @@ body .ui-treetable .ui-sortable-column.ui-state-highlight {
     color: #212121; }
 
 body .ui-treetable .ui-editable-column input {
-  font-size: 14px;
+  font-size: 1em;
   font-family: "Open Sans", "Helvetica Neue", sans-serif; }
   body .ui-treetable .ui-editable-column input:focus {
     outline: 1px solid #F15A22;
@@ -2245,7 +2245,7 @@ body .ui-widget-overlay {
   background-color: rgba(0, 0, 0, 0.4); }
 
 body .ui-overlaypanel {
-  background-color: #4f4f4f;
+  background-color: #1c1c1c;
   color: #dedede;
   padding: 0;
   border: 1px solid #191919;
@@ -2333,11 +2333,11 @@ body .ui-dialog {
       float: none;
       display: inline-block;
       vertical-align: middle;
-      line-height: 14px;
+      line-height: 1em;
       margin: 0; }
       body .ui-dialog.ui-confirm-dialog .ui-dialog-content > span.ui-icon {
         margin-right: .35em;
-        font-size: 16px; }
+        font-size: 3em; }
 
 body .ui-sidebar {
   background-color: #1c1c1c;
@@ -2455,11 +2455,11 @@ body .ui-steps {
         background-color: #191919;
         border: 1px solid #191919;
         position: relative;
-        top: 16px;
-        margin-bottom: 14px;
+        top: 3em;
+        margin-bottom: 1em;
         width: 28px;
         height: 28px;
-        font-size: 16px;
+        font-size: 3em;
         line-height: 24px;
         text-align: center; }
       body .ui-steps .ui-steps-item .ui-menuitem-link .ui-steps-title {
@@ -2752,7 +2752,7 @@ body .ui-panelmenu .ui-panelmenu-header {
     padding: 0.714em 0.857em;
     font-weight: 700;
     position: static;
-    font-size: 14px;
+    font-size: 1em;
     -moz-transition: background-color 0.2s;
     -o-transition: background-color 0.2s;
     -webkit-transition: background-color 0.2s;
@@ -2834,10 +2834,10 @@ body .ui-galleria .ui-galleria-nav-next {
     transform: scale(1.2); }
 
 body .ui-galleria .ui-galleria-nav-prev {
-  font-size: 16px; }
+  font-size: 3em; }
 
 body .ui-galleria .ui-galleria-nav-next {
-  font-size: 16px; }
+  font-size: 3em; }
 
 body .ui-terminal {
   background-color: #1c1c1c;
@@ -2845,11 +2845,11 @@ body .ui-terminal {
   border: 1px solid #191919;
   padding: 0.571em 1em; }
   body .ui-terminal .ui-terminal-input {
-    font-size: 14px;
+    font-size: 1em;
     font-family: "Open Sans", "Helvetica Neue", sans-serif;
-    height: 16px; }
+    height: 3em; }
   body .ui-terminal .ui-terminal-command {
-    height: 16px; }
+    height: 3em; }
 
 body .ui-inplace {
   min-height: 2.357em; }

@@ -9,6 +9,7 @@ import { LoggerService, LoggerServiceToken } from 'src/app/interfaces/logger.ser
 import { Config } from 'src/config/config';
 import { promisify } from 'util';
 import { ElectronService } from './electron.service';
+import { Region } from 'src/app/interfaces/region';
 
 @Injectable()
 export class FsDirectoryService implements DirectoryService {
@@ -158,6 +159,9 @@ export class FsDirectoryService implements DirectoryService {
     const json = parseXml2Json(content);
 
     const clientVersion = json['preferences.xml'].clientVersion.replace(/,\s/g, '.');
+    let region: string = json['preferences.xml'].scriptsPreferences.net_credentials.active_server;
+    region = region.replace('WOWS', '').trim();
+    status.region = Region[region];
     status.clientVersion = clientVersion;
   }
 

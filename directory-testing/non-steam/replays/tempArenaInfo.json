@@ -1,132 +1,132 @@
-{  
-   "clientVersionFromXml":"0, 8, 0, 1315890",
-   "gameMode":7,
-   "clientVersionFromExe":"0, 8, 0, 1315890",
-   "scenarioUiCategoryId":0,
-   "mapDisplayName":"50_Gold_harbor",
-   "mapId":31,
-   "matchGroup":"cooperative",
-   "weatherParams":{  
-      "0":[  
-         "PCOW005_Evening"
-      ],
-      "1":[  
-         "PCOW003_Cloudy"
-      ],
-      "2":[  
-         "PCOW005_Evening",
-         "PCOW002_Storm"
-      ]
-   },
-   "duration":1200,
-   "gameLogic":"Domination",
-   "name":"8x8",
-   "scenario":"Skirmish_Domination_rhombus",
-   "playerID":0,
-   "vehicles":[  
-      {  
-         "shipId":3762173136,
-         "relation":1,
-         "id":805472865,
-         "name":"xXxMadxXx1971"
-      },
-      {  
-         "shipId":4182685488,
-         "relation":1,
-         "id":939614022,
-         "name":"Nemo1403"
-      },
-      {  
-         "shipId":3763288016,
-         "relation":1,
-         "id":805380136,
-         "name":"sonnenkrieger007007"
-      },
-      {  
-         "shipId":4292818896,
-         "relation":2,
-         "id":268581385,
-         "name":":Pohl:"
-      },
-      {  
-         "shipId":4183734064,
-         "relation":1,
-         "id":939681322,
-         "name":"generalramcke"
-      },
-      {  
-         "shipId":4182685488,
-         "relation":2,
-         "id":268581387,
-         "name":":Radford:"
-      },
-      {  
-         "shipId":4183734064,
-         "relation":2,
-         "id":268581388,
-         "name":":Beatty:"
-      },
-      {  
-         "shipId":3762173136,
-         "relation":2,
-         "id":268581389,
-         "name":":Fisher:"
-      },
-      {  
-         "shipId":3762173136,
-         "relation":2,
-         "id":268581390,
-         "name":":Tributs:"
-      },
-      {  
-         "shipId":3764270288,
-         "relation":2,
-         "id":268581391,
-         "name":":Tourville:"
-      },
-      {  
-         "shipId":4292818896,
-         "relation":1,
-         "id":805335313,
-         "name":"Pommes_58"
-      },
-      {  
-         "shipId":3762173136,
-         "relation":0,
-         "id":939595289,
-         "name":"MaugreToi"
-      },
-      {  
-         "shipId":3764270288,
-         "relation":1,
-         "id":939540315,
-         "name":"Fufec"
-      },
-      {  
-         "shipId":4181636912,
-         "relation":1,
-         "id":805457148,
-         "name":"The_Dagger_7"
-      },
-      {  
-         "shipId":4181636912,
-         "relation":2,
-         "id":268581386,
-         "name":":Zenker:"
-      },
-      {  
-         "shipId":3763288016,
-         "relation":2,
-         "id":268581384,
-         "name":":Wright:"
-      }
-   ],
-   "playersPerTeam":8,
-   "dateTime":"07.02.2019 21:25:20",
-   "mapName":"spaces/50_Gold_harbor",
-   "playerName":"MaugreToi",
-   "scenarioConfigId":253,
-   "teamsCount":2,
-   "logic":"Domination",
-   "playerVehicle":"PZSD508-LoYang"
+{
+  "clientVersionFromXml": "0, 8, 0, 1315890",
+  "gameMode": 7,
+  "clientVersionFromExe": "0, 8, 0, 1315890",
+  "scenarioUiCategoryId": 0,
+  "mapDisplayName": "50_Gold_harbor",
+  "mapId": 31,
+  "matchGroup": "cooperative",
+  "weatherParams": {
+    "0": [
+      "PCOW005_Evening"
+    ],
+    "1": [
+      "PCOW003_Cloudy"
+    ],
+    "2": [
+      "PCOW005_Evening",
+      "PCOW002_Storm"
+    ]
+  },
+  "duration": 1200,
+  "gameLogic": "Domination",
+  "name": "8x8",
+  "scenario": "Skirmish_Domination_rhombus",
+  "playerID": 0,
+  "vehicles": [
+    {
+      "shipId": 3762173136,
+      "relation": 1,
+      "id": 805472865,
+      "name": "xXxMadxXx1971"
+    },
+    {
+      "shipId": 4182685488,
+      "relation": 1,
+      "id": 939614022,
+      "name": "Nemo1403"
+    },
+    {
+      "shipId": 3763288016,
+      "relation": 1,
+      "id": 805380136,
+      "name": "sonnenkrieger007007"
+    },
+    {
+      "shipId": 4292818896,
+      "relation": 2,
+      "id": 268581385,
+      "name": ":Pohl:"
+    },
+    {
+      "shipId": 4183734064,
+      "relation": 1,
+      "id": 939681322,
+      "name": "generalramcke"
+    },
+    {
+      "shipId": 4182685488,
+      "relation": 2,
+      "id": 268581387,
+      "name": ":Radford:"
+    },
+    {
+      "shipId": 4183734064,
+      "relation": 2,
+      "id": 268581388,
+      "name": ":Beatty:"
+    },
+    {
+      "shipId": 3762173136,
+      "relation": 2,
+      "id": 268581389,
+      "name": ":Fisher:"
+    },
+    {
+      "shipId": 3762173136,
+      "relation": 2,
+      "id": 268581390,
+      "name": ":Tributs:"
+    },
+    {
+      "shipId": 3764270288,
+      "relation": 2,
+      "id": 268581391,
+      "name": ":Tourville:"
+    },
+    {
+      "shipId": 4292818896,
+      "relation": 1,
+      "id": 805335313,
+      "name": "Pommes_58"
+    },
+    {
+      "shipId": 3762173136,
+      "relation": 0,
+      "id": 939595289,
+      "name": "MaugreToi"
+    },
+    {
+      "shipId": 3764270288,
+      "relation": 1,
+      "id": 939540315,
+      "name": "Fufec"
+    },
+    {
+      "shipId": 4181636912,
+      "relation": 1,
+      "id": 805457148,
+      "name": "The_Dagger_7"
+    },
+    {
+      "shipId": 4181636912,
+      "relation": 2,
+      "id": 268581386,
+      "name": ":Zenker:"
+    },
+    {
+      "shipId": 3763288016,
+      "relation": 2,
+      "id": 268581384,
+      "name": ":Wright:"
+    }
+  ],
+  "playersPerTeam": 8,
+  "dateTime": "07.02.2019 21:25:20",
+  "mapName": "spaces/50_Gold_harbor",
+  "playerName": "MaugreToi",
+  "scenarioConfigId": 253,
+  "teamsCount": 2,
+  "logic": "Domination",
+  "playerVehicle": "PZSD508-LoYang"
 }

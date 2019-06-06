@@ -11,6 +11,9 @@
         <534551031@wowseu.loc></534551031@wowseu.loc>
       </chatBoxPositionX>
     </ui>
+    <net_credentials>
+      <active_server> WOWS EU </active_server>
+    </net_credentials>
   </scriptsPreferences>
   <clientVersion>	1, 2, 3, 4	</clientVersion>
 </preferences.xml>
