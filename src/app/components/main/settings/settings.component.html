@@ -1,0 +1,48 @@
+<div class="container small">
+  <p-card>
+    <h2>{{ 'settings.header' | translate}}</h2>
+    <section>
+      <h3>{{ 'settings.general.title' | translate }}</h3>
+      <article>
+        <caption>
+          {{ 'settings.general.autoUpdate.caption' | translate }}
+        </caption>
+        <summary>
+          {{ 'settings.general.autoUpdate.summary' | translate }}
+        </summary>
+        <div class="input-wrap">
+          <p-inputSwitch [(ngModel)]="config.autoUpdate"></p-inputSwitch>
+        </div>
+      </article>
+    </section>
+    <section>
+      <h3>{{ 'settings.appearance.title' | translate }}</h3>
+      <article>
+        <caption>
+          {{ 'settings.appearance.fontsize.caption' | translate }}
+        </caption>
+        <summary>
+          {{ 'settings.appearance.fontsize.summary' | translate }}
+        </summary>
+        <div class="input-wrap">
+          <p-selectButton [options]="fontSizeOptions" [(ngModel)]="config.fontsize">
+            <ng-template let-item>
+              <span>{{item.label | translate}}</span>
+            </ng-template>
+          </p-selectButton>
+        </div>
+      </article>
+      <article>
+        <caption>
+          {{ 'settings.playerBackgrounds.caption' | translate }}
+        </caption>
+        <summary>
+          {{ 'settings.playerBackgrounds.summary' | translate }}
+        </summary>
+        <div class="input-wrap">
+          <p-inputSwitch [(ngModel)]="config.playerBackgrounds"></p-inputSwitch>
+        </div>
+      </article>
+    </section>
+  </p-card>
+</div>

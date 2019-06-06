@@ -20,7 +20,7 @@ export class QrComponent extends BaseComponent implements OnInit {
 
   constructor(
     private config: Config,
-    ref: DynamicDialogRef
+    private ref: DynamicDialogRef
   ) {
     super();
 

@@ -6,9 +6,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { DialogService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { DialogModule } from 'primeng/dialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
@@ -26,14 +26,18 @@ import { StatusComponent } from './topbar/status/status.component';
 import { TopbarComponent } from './topbar/topbar.component';
 
 @NgModule({
-  providers: [
-    DialogService
-  ]
-})
-export class MainProvidersModule { }
-
-@NgModule({
-  exports: [
+  declarations: [
+    MainComponent,
+    TopbarComponent,
+    MenuComponent,
+    PathPickerComponent,
+    ConnectionComponent,
+    StatusComponent,
+    TitlebarComponent,
+    QrComponent,
+    QrScanComponent
+  ],
+  imports: [
     CommonModule,
     FormsModule,
     MainRoutingModule,
@@ -48,25 +52,11 @@ export class MainProvidersModule { }
     DynamicDialogModule,
     DialogModule,
     ScrollPanelModule,
-    ZXingScannerModule
-  ]
-})
-export class MainImportsModule { }
-
-@NgModule({
-  declarations: [
-    MainComponent,
-    TopbarComponent,
-    MenuComponent,
-    PathPickerComponent,
-    ConnectionComponent,
-    StatusComponent,
-    TitlebarComponent,
-    QrComponent,
-    QrScanComponent
+    ZXingScannerModule,
+    ScrollPanelModule
   ],
-  imports: [
-    MainImportsModule
+  providers: [
+    DialogService
   ],
   entryComponents: [
     QrComponent,

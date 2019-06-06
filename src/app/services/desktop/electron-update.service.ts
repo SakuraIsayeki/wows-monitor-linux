@@ -10,10 +10,15 @@ import { Config } from 'src/config/config';
 
 export class ElectronUpdateService implements UpdateService {
 
-  private _$updateAvailable = new BehaviorSubject<any>(null);
+  private _$updateAvailable = new BehaviorSubject<boolean>(null);
+  private _$updateProgress = new BehaviorSubject<number>(0);
 
   get $updateAvailable() {
     return this._$updateAvailable.asObservable();
+  }
+
+  get $updateProgress() {
+    return this._$updateProgress.asObservable();
   }
 
   constructor(
@@ -35,7 +40,7 @@ export class ElectronUpdateService implements UpdateService {
     });
 
     electronService.ipcRenderer.on('download-progress', (event, progressObj: { percent: number }) => {
-
+      this._$updateProgress.next(progressObj.percent);
     });
 
     electronService.ipcRenderer.on('update-downloaded', () => {

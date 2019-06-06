@@ -93,7 +93,6 @@ export class Config implements ConfigOptions {
   private _$fontsize = new BehaviorSubject<string>(null);
 
   get fontsize() {
-    return 'test';
     return this._fontsize;
   }
 

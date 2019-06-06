@@ -68,6 +68,14 @@ p {
   margin-bottom: 1em;
 }
 
+main{
+  height: calc(100% - 55px);
+  width: 100vw;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: .5em 1em;
+}
+
 /* Mobile first queries */
 
 /* Larger than mobile */

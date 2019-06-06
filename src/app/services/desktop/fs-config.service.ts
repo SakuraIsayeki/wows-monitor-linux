@@ -17,7 +17,7 @@ export class FsConfigService implements ConfigService {
   ) {
     const exists = this.fs.existsSync('config.json');
     if (!exists) {
-      this.fs.writeFile('config.json', defaultConfig, (err) => {
+      this.fs.writeFile('config.json', JSON.stringify(defaultConfig), (err) => {
         if (err) {
           this.loggerService.error('Create config', err.message);
         }

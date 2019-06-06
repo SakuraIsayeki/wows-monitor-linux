@@ -7,9 +7,14 @@ import { Router } from '@angular/router';
 export class ServiceWorkerUpdateService implements UpdateService {
 
   private _$updateAvailable = new BehaviorSubject<boolean>(null);
+  private _$updateProgress = new BehaviorSubject<number>(0);
 
   get $updateAvailable() {
     return this._$updateAvailable.asObservable();
+  }
+
+  get $updateProgress() {
+    return this._$updateProgress.asObservable();
   }
 
   constructor(private swUpdate: SwUpdate) {

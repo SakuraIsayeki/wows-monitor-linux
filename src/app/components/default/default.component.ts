@@ -2,6 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UpdateService, UpdateServiceToken } from 'src/app/interfaces/update.service';
 import { BaseComponent } from '../base.component';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-default',
@@ -9,6 +10,13 @@ import { BaseComponent } from '../base.component';
 })
 export class DefaultComponent extends BaseComponent implements OnInit, OnDestroy {
 
+  get updateProgress() {
+    if (this.isBrowser) {
+      return of(100);
+    } else {
+      return this.updateService.$updateProgress;
+    }
+  }
 
   constructor(
     private router: Router,
