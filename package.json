@@ -25,7 +25,7 @@
     "build:browser:prod": "npm run postinstall:web && ng run app:build-browser:production",
     "test": "ng test",
     "lint": "ng lint && tslint ./src-electron/*.ts",
-    "lint2": "./node_modules/.bin/eslint ./tooling/*.js --debug",
+    "lint-electron": "./node_modules/.bin/eslint ./tooling/*.js --debug",
     "e2e": "ng e2e",
     "preelectron": "tsc -p tsconfig-serve.json",
     "electron:start": "npm-run-all -p start:desktop:electron electron:serve",

@@ -35,7 +35,7 @@ export class PathPickerComponent extends BaseComponent implements OnInit {
         switchMap(s =>
           zip(
             this.directoryService.$changeDetected.pipe(filter(c => c != null)),
-            this.directoryService.$status.pipe(filter(s => s != null))
+            this.directoryService.$status.pipe(filter(ss => ss != null))
           )
         )
       )
