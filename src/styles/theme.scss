@@ -1,6 +1,6 @@
-@import '_variables.scss';
-
 @charset "UTF-8";
+
+@import '_variables.scss';
 * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -66,9 +66,7 @@ body .ui-state-disabled, body .ui-widget:disabled {
 body .pi {
   font-size: 1.25em; }
 
-body {
-  /* Validations */ }
-  body .ui-inputtext {
+body .ui-inputtext {
     font-size: 1em;
     color: $textColor;
     background: $formsInputBackgroundLight;
