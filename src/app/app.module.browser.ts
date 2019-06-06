@@ -21,17 +21,29 @@ const updateServiceFactory = (swUpdate?: SwUpdate) => {
 };
 
 @NgModule({
-  declarations: [],
-  imports: [
-    AppSharedModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
-  ],
   providers: [
     { provide: ConfigServiceToken, useClass: LocalStorageConfigService },
     { provide: LoggerServiceToken, useClass: ConsoleLoggerService },
     { provide: SignalrServiceToken, useClass: CommonSignalrService },
     { provide: UpdateServiceToken, useFactory: updateServiceFactory, deps: [SwUpdate] },
     Config
+  ]
+})
+export class AppProvidersModule { }
+
+@NgModule({
+  imports: [
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+  ]
+})
+export class AppImportsModule { }
+
+@NgModule({
+  declarations: [],
+  imports: [
+    AppSharedModule,
+    AppProvidersModule,
+    AppImportsModule
   ],
   bootstrap: [AppComponent]
 })

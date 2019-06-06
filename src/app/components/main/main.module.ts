@@ -26,18 +26,14 @@ import { StatusComponent } from './topbar/status/status.component';
 import { TopbarComponent } from './topbar/topbar.component';
 
 @NgModule({
-  declarations: [
-    MainComponent,
-    TopbarComponent,
-    MenuComponent,
-    PathPickerComponent,
-    ConnectionComponent,
-    StatusComponent,
-    TitlebarComponent,
-    QrComponent,
-    QrScanComponent
-  ],
-  imports: [
+  providers: [
+    DialogService
+  ]
+})
+export class MainProvidersModule { }
+
+@NgModule({
+  exports: [
     CommonModule,
     FormsModule,
     MainRoutingModule,
@@ -53,13 +49,28 @@ import { TopbarComponent } from './topbar/topbar.component';
     DialogModule,
     ScrollPanelModule,
     ZXingScannerModule
+  ]
+})
+export class MainImportsModule { }
+
+@NgModule({
+  declarations: [
+    MainComponent,
+    TopbarComponent,
+    MenuComponent,
+    PathPickerComponent,
+    ConnectionComponent,
+    StatusComponent,
+    TitlebarComponent,
+    QrComponent,
+    QrScanComponent
+  ],
+  imports: [
+    MainImportsModule
   ],
   entryComponents: [
     QrComponent,
     QrScanComponent
-  ],
-  providers: [
-    DialogService
   ]
 })
 export class MainModule { }

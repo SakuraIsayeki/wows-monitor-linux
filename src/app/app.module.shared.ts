@@ -43,15 +43,22 @@ const metaFactory = (translate: TranslateService) => {
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DefaultComponent
-  ],
-  exports: [
-    AppComponent,
-    DefaultComponent
-  ],
+  providers: [
+    { provide: ErrorHandler, useClass: CommonErrorHandler },
+    ApiService,
+    ResizeService,
+    LoggerServiceDepHolder
+  ]
+})
+export class AppSharedProvidersModule {
+  constructor(injector: Injector) {
+    LocatorService.Injector = injector;
+  }
+}
+
+@NgModule({
   imports: [
+    AppSharedProvidersModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -74,16 +81,21 @@ const metaFactory = (translate: TranslateService) => {
       useFactory: (metaFactory),
       deps: [TranslateService]
     })
-  ],
-  providers: [
-    { provide: ErrorHandler, useClass: CommonErrorHandler },
-    ApiService,
-    ResizeService,
-    LoggerServiceDepHolder
   ]
 })
-export class AppSharedModule {
-  constructor(injector: Injector) {
-    LocatorService.Injector = injector;
-  }
-}
+export class AppSharedImportsModule { }
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    DefaultComponent
+  ],
+  exports: [
+    AppComponent,
+    DefaultComponent
+  ],
+  imports: [
+    AppSharedImportsModule
+  ]
+})
+export class AppSharedModule { }

@@ -14,12 +14,7 @@ import { ElectronService } from './services/desktop/electron.service';
 import { FsConfigService } from './services/desktop/fs-config.service';
 import { FsDirectoryService } from './services/desktop/fs-directory.service';
 
-
 @NgModule({
-  declarations: [],
-  imports: [
-    AppSharedModule
-  ],
   providers: [
     { provide: ConfigServiceToken, useClass: FsConfigService },
     { provide: DirectoryServiceToken, useClass: FsDirectoryService },
@@ -28,6 +23,15 @@ import { FsDirectoryService } from './services/desktop/fs-directory.service';
     { provide: SignalrServiceToken, useClass: CommonSignalrService },
     Config,
     ElectronService
+  ]
+})
+export class AppProvidersModule { }
+
+@NgModule({
+  declarations: [],
+  imports: [
+    AppSharedModule,
+    AppProvidersModule
   ],
   bootstrap: [AppComponent]
 })
