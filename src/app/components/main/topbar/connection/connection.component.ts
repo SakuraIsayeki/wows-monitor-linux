@@ -18,15 +18,15 @@ import { ResizeService } from 'src/app/services/resize.service';
 })
 export class ConnectionComponent extends BaseComponent implements AfterViewInit {
 
-  public showOn = new ShowOnDirective(null, null, this.resizeService);
+  showOn = new ShowOnDirective(null, null, this.resizeService);
 
-  public connectionIcon = faWifi;
-  public qrIcon = faQrcode;
+  connectionIcon = faWifi;
+  qrIcon = faQrcode;
 
   @ViewChild('qrErrorDetails', { static: true })
-  public qrErrorDetails: OverlayPanel;
+  qrErrorDetails: OverlayPanel;
 
-  public statusText = this.signalrService.$socketStatus.pipe(map(status => {
+  statusText = this.signalrService.$socketStatus.pipe(map(status => {
     if (status === SignalrStatus.Connected) {
       return 'service.connected';
     } else if (status === SignalrStatus.NoToken) {
@@ -40,7 +40,7 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit 
     }
   }));
 
-  public showOnTablet = this.resizeService.$resizeListener.pipe(map(() => this.showOn.checkStatic('tablet', false)));
+  showOnTablet = this.resizeService.$resizeListener.pipe(map(() => this.showOn.checkStatic('tablet', false)));
 
   constructor(
     @Inject(SignalrServiceToken) public signalrService: SignalrService,
@@ -56,15 +56,15 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit 
     });
   }
 
-  public async connect() {
+  async connect() {
     return await this.signalrService.connect();
   }
 
-  public async reconnect() {
+  async reconnect() {
     await this.connect();
   }
 
-  public openQrDialog(event) {
+  openQrDialog(event) {
     this.signalrService.$socketStatus.pipe(take(1)).subscribe(status => {
       if (this.isDesktop && status !== SignalrStatus.Connected) {
         this.qrErrorDetails.show(event);

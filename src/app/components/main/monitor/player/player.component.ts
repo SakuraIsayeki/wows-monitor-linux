@@ -9,26 +9,26 @@ import { PrPipe } from 'src/app/shared/pipes/pr.pipe';
 export class PlayerComponent extends BaseComponent implements OnInit {
 
   @Input()
-  public player: any;
+  player: any;
 
   @Input()
-  public cw: boolean;
+  cw: boolean;
 
   @Input()
   @HostBinding('class.last')
-  public last: boolean;
+  last: boolean;
 
   @Input()
   @HostBinding('class.first')
-  public first: boolean;
+  first: boolean;
 
   @HostBinding('class.me')
-  public get me() {
+  get me() {
     return this.player.relation === 0;
   }
 
   @HostBinding('style.background-color')
-  public get backgroundColor() {
+  get backgroundColor() {
     if (this.player.shipStats) {
       return this.sanitizer.sanitize(SecurityContext.STYLE, PrPipe.staticTransform(this.player.shipStats.personalRating) + '33');
     }
@@ -36,7 +36,7 @@ export class PlayerComponent extends BaseComponent implements OnInit {
   }
 
   @HostBinding('style.border-color')
-  public get borderColor() {
+  get borderColor() {
     if (this.player.shipStats) {
       return this.sanitizer.sanitize(SecurityContext.STYLE, PrPipe.staticTransform(this.player.shipStats.personalRating) + '99');
     }

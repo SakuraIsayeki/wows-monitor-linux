@@ -10,20 +10,20 @@ import { ElectronService } from 'src/app/services/desktop/electron.service';
 export class TeamComponent extends BaseComponent implements OnInit {
 
   @Input()
-  public clan: any;
+  clan: any;
 
   @Input()
-  public team: any;
+  team: any;
 
   @Input()
-  public cw: boolean;
+  cw: boolean;
 
-  public showDialog = false;
+  showDialog = false;
 
   @ViewChild('weblink', { static: false })
-  public weblink: ElementRef<HTMLLinkElement>;
+  weblink: ElementRef<HTMLLinkElement>;
 
-  public items: MenuItem[] = [
+  items: MenuItem[] = [
     {
       label: 'monitor.teamPopup.info',
       command: () => this.showDialog = true

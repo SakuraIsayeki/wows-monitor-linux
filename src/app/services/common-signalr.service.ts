@@ -19,19 +19,19 @@ export class CommonSignalrService implements SignalrService {
   private _$clients = new BehaviorSubject<number>(0);
 
 
-  public get $socketStatus(): Observable<SignalrStatus> {
+  get $socketStatus(): Observable<SignalrStatus> {
     return this._$socketStatus.asObservable();
   }
 
-  public get $status(): Observable<Status> {
+  get $status(): Observable<Status> {
     return this._$status.asObservable();
   }
 
-  public get $info(): Observable<any> {
+  get $info(): Observable<any> {
     return this._$info.asObservable();
   }
 
-  public get $clients(): Observable<number> {
+  get $clients(): Observable<number> {
     if (environment.browser) {
       throw new Error('Only the desktop client can be the host and get his client count');
     }
@@ -46,7 +46,7 @@ export class CommonSignalrService implements SignalrService {
     this.init();
   }
 
-  public async init() {
+  async init() {
 
     // Url Param Testing
     let url = environment.apiUrl + appConfig.hub;
@@ -124,7 +124,7 @@ export class CommonSignalrService implements SignalrService {
     });
   }
 
-  public disconnect() {
+  disconnect() {
     return new Promise((resolve, reject) => {
       if (this.connection) {
         try {

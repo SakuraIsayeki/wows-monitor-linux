@@ -8,7 +8,7 @@ export class ServiceWorkerUpdateService implements UpdateService {
 
   private _$updateAvailable = new BehaviorSubject<boolean>(null);
 
-  public get $updateAvailable() {
+  get $updateAvailable() {
     return this._$updateAvailable.asObservable();
   }
 

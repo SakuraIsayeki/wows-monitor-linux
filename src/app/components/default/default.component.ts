@@ -24,7 +24,7 @@ export class DefaultComponent extends BaseComponent implements OnInit, OnDestroy
     }
   }
 
-  public async checkForUpdate() {
+  async checkForUpdate() {
     if (this.isBrowser) {
       const available = await this.updateService.checkForUpdate();
       this.handleUpdate(available);

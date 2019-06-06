@@ -9,8 +9,8 @@ import { SignalrService, SignalrServiceToken } from 'src/app/interfaces/signalr.
 })
 export class TopbarComponent extends BaseComponent implements OnInit {
 
-  public menuIcon = faBars;
-  public sidebarVisible = false;
+  menuIcon = faBars;
+  sidebarVisible = false;
 
   constructor(@Inject(SignalrServiceToken) public signalrService: SignalrService
   ) {
@@ -20,7 +20,7 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
 
-  public toggleSidebar = () => {
+  toggleSidebar = () => {
     this.sidebarVisible = !this.sidebarVisible;
   }
 }

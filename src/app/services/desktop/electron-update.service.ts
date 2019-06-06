@@ -12,7 +12,7 @@ export class ElectronUpdateService implements UpdateService {
 
   private _$updateAvailable = new BehaviorSubject<any>(null);
 
-  public get $updateAvailable() {
+  get $updateAvailable() {
     return this._$updateAvailable.asObservable();
   }
 
@@ -44,7 +44,7 @@ export class ElectronUpdateService implements UpdateService {
   }
 
 
-  public checkForUpdate() {
+  checkForUpdate() {
     if (this.config.autoUpdate) {
       this.electronService.ipcRenderer.send('checkForUpdate');
     } else {
@@ -53,7 +53,7 @@ export class ElectronUpdateService implements UpdateService {
     return new Promise<boolean>(resolve => resolve(true));
   }
 
-  public quitAndInstall() {
+  quitAndInstall() {
     this.electronService.ipcRenderer.send('quitAndInstall');
   }
 }

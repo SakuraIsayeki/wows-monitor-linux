@@ -12,21 +12,21 @@ import { Config } from 'src/config/config';
 })
 export class QrScanComponent extends BaseComponent implements AfterViewInit {
 
-  public closeIcon = faTimes;
+  closeIcon = faTimes;
 
   @ViewChild('scanner', { static: false })
-  public scanner: ZXingScannerComponent;
+  scanner: ZXingScannerComponent;
 
   @ViewChild('videoTag', { static: false })
-  public videoTag: ElementRef<HTMLVideoElement>;
+  videoTag: ElementRef<HTMLVideoElement>;
 
-  public hasCameras = false;
-  public hasPermission = true;
-  public enabled = false;
+  hasCameras = false;
+  hasPermission = true;
+  enabled = false;
   qrResultString: string;
 
-  public devices: SelectItem[] = [];
-  public selectedDevice: MediaDeviceInfo = null;
+  devices: SelectItem[] = [];
+  selectedDevice: MediaDeviceInfo = null;
 
   constructor(
     public ref: DynamicDialogRef,
@@ -39,6 +39,19 @@ export class QrScanComponent extends BaseComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.init();
+  }
+
+  handleQrCodeResult(resultString: string) {
+    this.config.signalRToken = resultString;
+    this.config.save();
+    this.ref.close();
+    this.signalrService.init().then(() => {
+      this.signalrService.connect();
+    });
+  }
+
+  close() {
+    this.ref.close();
   }
 
   private async init() {
@@ -70,18 +83,5 @@ export class QrScanComponent extends BaseComponent implements AfterViewInit {
       this.selectedDevice = this.devices[0].value;
       this.enabled = true;
     }
-  }
-
-  handleQrCodeResult(resultString: string) {
-    this.config.signalRToken = resultString;
-    this.config.save();
-    this.ref.close();
-    this.signalrService.init().then(() => {
-      this.signalrService.connect();
-    });
-  }
-
-  public close() {
-    this.ref.close();
   }
 }

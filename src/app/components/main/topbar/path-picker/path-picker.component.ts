@@ -15,8 +15,8 @@ import { zip } from 'rxjs';
 })
 export class PathPickerComponent extends BaseComponent implements OnInit {
 
-  public folderIcon = faFolder;
-  public showPathInfo = false;
+  folderIcon = faFolder;
+  showPathInfo = false;
 
   constructor(
     private electronService: ElectronService,
@@ -44,7 +44,7 @@ export class PathPickerComponent extends BaseComponent implements OnInit {
       });
   }
 
-  public pickPath() {
+  pickPath() {
     this.electronService.dialog.showOpenDialog(this.electronService.remote.BrowserWindow.getFocusedWindow(), {
       defaultPath: this.config.selectedDirectory,
       properties: ['openDirectory']
@@ -59,7 +59,7 @@ export class PathPickerComponent extends BaseComponent implements OnInit {
     });
   }
 
-  public refresh() {
+  refresh() {
     this.directoryService.refresh();
   }
 }

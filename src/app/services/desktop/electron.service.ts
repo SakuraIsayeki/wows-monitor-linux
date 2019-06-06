@@ -13,14 +13,14 @@ declare global {
 @Injectable()
 export class ElectronService {
 
-  public ipcRenderer: typeof ipcRenderer;
-  public ipcMain: IpcMain;
-  public webFrame: typeof webFrame;
-  public remote: typeof remote;
-  public childProcess: typeof childProcess;
-  public shell: typeof shell;
-  public fs: typeof fs;
-  public dialog: typeof dialog;
+  ipcRenderer: typeof ipcRenderer;
+  ipcMain: IpcMain;
+  webFrame: typeof webFrame;
+  remote: typeof remote;
+  childProcess: typeof childProcess;
+  shell: typeof shell;
+  fs: typeof fs;
+  dialog: typeof dialog;
 
   constructor() {
     if (this.isElectron()) {

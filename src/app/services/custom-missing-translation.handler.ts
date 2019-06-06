@@ -7,7 +7,7 @@ export class CustomMissingTranslationHandler extends MissingTranslationHandler {
     super();
   }
 
-  public handle(params: MissingTranslationHandlerParams) {
+  handle(params: MissingTranslationHandlerParams) {
     this.loggerService.warn(`Missing translation for key "${params.key}"`);
     return params.key;
   }

@@ -5,13 +5,13 @@ import { debounceTime, map } from 'rxjs/operators';
 @Injectable()
 export class ResizeService {
 
-  public _$resizeListener = new BehaviorSubject<number>(0);
+  private $resizeSubscription: Subscription;
 
-  public get $resizeListener() {
+  _$resizeListener = new BehaviorSubject<number>(0);
+
+  get $resizeListener() {
     return this._$resizeListener.asObservable();
   }
-
-  private $resizeSubscription: Subscription;
 
   constructor() {
     if (window && window.innerWidth) {

@@ -23,16 +23,16 @@ export class Config implements ConfigOptions {
   private _autoUpdate: boolean;
   private _$autoUpdate = new BehaviorSubject<boolean>(null);
 
-  public get autoUpdate() {
+  get autoUpdate() {
     return this._autoUpdate;
   }
 
-  public set autoUpdate(value) {
+  set autoUpdate(value) {
     this._autoUpdate = value;
     this._$autoUpdate.next(value);
   }
 
-  public get $autoUpdate() {
+  get $autoUpdate() {
     return this._$autoUpdate.asObservable();
   }
 
@@ -40,17 +40,17 @@ export class Config implements ConfigOptions {
   private _signalRToken: string;
   private _$signalRToken = new BehaviorSubject<string>(null);
 
-  public get signalRToken() {
+  get signalRToken() {
     return 'test';
     return this._signalRToken;
   }
 
-  public set signalRToken(value) {
+  set signalRToken(value) {
     this._signalRToken = value;
     this._$signalRToken.next(value);
   }
 
-  public get $signalRToken() {
+  get $signalRToken() {
     return this._$signalRToken.asObservable();
   }
 
@@ -58,16 +58,16 @@ export class Config implements ConfigOptions {
   private _selectedDirectory: string;
   private _$selectedDirectory = new BehaviorSubject<string>(null);
 
-  public get selectedDirectory() {
+  get selectedDirectory() {
     return this._selectedDirectory;
   }
 
-  public set selectedDirectory(value) {
+  set selectedDirectory(value) {
     this._selectedDirectory = value;
     this._$selectedDirectory.next(value);
   }
 
-  public get $selectedDirectory() {
+  get $selectedDirectory() {
     return this._$selectedDirectory.asObservable();
   }
 
@@ -75,16 +75,16 @@ export class Config implements ConfigOptions {
   private _playerBackgrounds: boolean;
   private _$playerBackgrounds = new BehaviorSubject<boolean>(null);
 
-  public get playerBackgrounds() {
+  get playerBackgrounds() {
     return this._playerBackgrounds;
   }
 
-  public set playerBackgrounds(value) {
+  set playerBackgrounds(value) {
     this._playerBackgrounds = value;
     this._$playerBackgrounds.next(value);
   }
 
-  public get $playerBackgrounds() {
+  get $playerBackgrounds() {
     return this._$playerBackgrounds.asObservable();
   }
 
@@ -92,17 +92,17 @@ export class Config implements ConfigOptions {
   private _fontsize: string;
   private _$fontsize = new BehaviorSubject<string>(null);
 
-  public get fontsize() {
+  get fontsize() {
     return 'test';
     return this._fontsize;
   }
 
-  public set fontsize(value) {
+  set fontsize(value) {
     this._fontsize = value;
     this._$fontsize.next(value);
   }
 
-  public get $fontsize() {
+  get $fontsize() {
     return this._$fontsize.asObservable();
   }
 
@@ -116,7 +116,7 @@ export class Config implements ConfigOptions {
     });
   }
 
-  public save(): Promise<any> {
+  save(): Promise<any> {
     return this.configService.save({
       autoUpdate: this._autoUpdate,
       signalRToken: this._signalRToken,

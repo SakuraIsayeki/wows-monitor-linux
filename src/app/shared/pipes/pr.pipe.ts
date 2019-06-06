@@ -7,7 +7,7 @@ export class PrPipe implements PipeTransform {
 
   private static pipe = new PrPipe();
 
-  public static staticTransform(pr: number) {
+  static staticTransform(pr: number) {
     return this.pipe.transform(pr);
   }
 

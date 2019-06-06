@@ -25,15 +25,15 @@ export class FsDirectoryService implements DirectoryService {
   private readDirAsync: (path: fs.PathLike, encoding: BufferEncoding) => Promise<string[]>;
   private readFileAsync: (path: fs.PathLike, encoding: BufferEncoding) => Promise<string>;
 
-  public get $status() {
+  get $status() {
     return this._$status.asObservable();
   }
 
-  public get $changeDetected() {
+  get $changeDetected() {
     return this._$changeDetected.asObservable();
   }
 
-  public get lastInfoFound() {
+  get lastInfoFound() {
     return this._lastInfoFound;
   }
 
