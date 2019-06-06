@@ -1,6 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AppProvidersModule, AppImportsModule } from 'src/app/app.module.browser';
-import { AppSharedImportsModule } from 'src/app/app.module.shared';
 import { DefaultComponent } from './default.component';
 
 
@@ -10,8 +8,7 @@ describe('DefaultComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DefaultComponent],
-      imports: [AppProvidersModule, AppImportsModule, AppSharedImportsModule]
+      declarations: [DefaultComponent]
     })
       .compileComponents();
   }));

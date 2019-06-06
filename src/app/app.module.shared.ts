@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ErrorHandler, Injector, NgModule, Inject, Injectable } from '@angular/core';
+import { ErrorHandler, Inject, Injectable, Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
@@ -9,12 +9,12 @@ import { appConfig } from 'src/config/app.config';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DefaultComponent } from './components/default/default.component';
+import { LoggerService, LoggerServiceToken } from './interfaces/logger.service';
 import { ApiService } from './services/api.service';
 import { CommonErrorHandler } from './services/common-error.handler';
+import { CustomMissingTranslationHandler } from './services/custom-missing-translation.handler';
 import { LocatorService } from './services/locator.service';
 import { ResizeService } from './services/resize.service';
-import { LoggerService, LoggerServiceToken } from './interfaces/logger.service';
-import { CustomMissingTranslationHandler } from './services/custom-missing-translation.handler';
 
 const translateHttpLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -43,22 +43,15 @@ const metaFactory = (translate: TranslateService) => {
 };
 
 @NgModule({
-  providers: [
-    { provide: ErrorHandler, useClass: CommonErrorHandler },
-    ApiService,
-    ResizeService,
-    LoggerServiceDepHolder
-  ]
-})
-export class AppSharedProvidersModule {
-  constructor(injector: Injector) {
-    LocatorService.Injector = injector;
-  }
-}
-
-@NgModule({
+  declarations: [
+    AppComponent,
+    DefaultComponent
+  ],
+  exports: [
+    AppComponent,
+    DefaultComponent
+  ],
   imports: [
-    AppSharedProvidersModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -81,21 +74,16 @@ export class AppSharedProvidersModule {
       useFactory: (metaFactory),
       deps: [TranslateService]
     })
+  ],
+  providers: [
+    { provide: ErrorHandler, useClass: CommonErrorHandler },
+    ApiService,
+    ResizeService,
+    LoggerServiceDepHolder
   ]
 })
-export class AppSharedImportsModule { }
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    DefaultComponent
-  ],
-  exports: [
-    AppComponent,
-    DefaultComponent
-  ],
-  imports: [
-    AppSharedImportsModule
-  ]
-})
-export class AppSharedModule { }
+export class AppSharedModule {
+  constructor(injector: Injector) {
+    LocatorService.Injector = injector;
+  }
+}
