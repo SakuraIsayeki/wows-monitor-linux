@@ -15,6 +15,15 @@ export class ElectronLoggerService implements LoggerService {
       console.log(...args);
     }
   }
+
+  warn(...args: any[]) {
+    if (environment.production) {
+      this.electronService.ipcRenderer.send('log-warn', args);
+    } else {
+      console.warn(...args);
+    }
+  }
+
   error(...args: any[]) {
     if (environment.production) {
       this.electronService.ipcRenderer.send('log-error', args);

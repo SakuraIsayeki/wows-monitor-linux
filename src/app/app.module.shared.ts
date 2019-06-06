@@ -1,9 +1,9 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ErrorHandler, Injector, NgModule } from '@angular/core';
+import { ErrorHandler, Injector, NgModule, Inject, Injectable } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { appConfig } from 'src/config/app.config';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,10 +13,22 @@ import { ApiService } from './services/api.service';
 import { CommonErrorHandler } from './services/common-error.handler';
 import { LocatorService } from './services/locator.service';
 import { ResizeService } from './services/resize.service';
+import { LoggerService, LoggerServiceToken } from './interfaces/logger.service';
+import { CustomMissingTranslationHandler } from './services/custom-missing-translation.handler';
 
 const translateHttpLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 };
+
+const missingTranslationHandler = (loggerServiceDepHolder: LoggerServiceDepHolder) => {
+  return new CustomMissingTranslationHandler(loggerServiceDepHolder.loggerService);
+};
+
+@Injectable()
+export class LoggerServiceDepHolder {
+  constructor(@Inject(LoggerServiceToken) public loggerService: LoggerService) {
+  }
+}
 
 const metaFactory = (translate: TranslateService) => {
   return new MetaStaticLoader({
@@ -51,6 +63,11 @@ const metaFactory = (translate: TranslateService) => {
         useFactory: (translateHttpLoader),
         deps: [HttpClient]
       },
+      missingTranslationHandler: {
+        provide: MissingTranslationHandler,
+        useFactory: (missingTranslationHandler),
+        deps: [LoggerServiceDepHolder]
+      }
     }),
     MetaModule.forRoot({
       provide: MetaLoader,
@@ -61,7 +78,8 @@ const metaFactory = (translate: TranslateService) => {
   providers: [
     { provide: ErrorHandler, useClass: CommonErrorHandler },
     ApiService,
-    ResizeService
+    ResizeService,
+    LoggerServiceDepHolder
   ]
 })
 export class AppSharedModule {
