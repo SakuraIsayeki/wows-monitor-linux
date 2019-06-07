@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MessageService } from 'primeng/api';
 import { appConfig } from 'src/config/app.config';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -79,7 +80,8 @@ const metaFactory = (translate: TranslateService) => {
     { provide: ErrorHandler, useClass: CommonErrorHandler },
     ApiService,
     ResizeService,
-    LoggerServiceDepHolder
+    LoggerServiceDepHolder,
+    MessageService
   ]
 })
 export class AppSharedModule {

@@ -1,22 +1,20 @@
-import { Component, Inject, AfterViewInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
+import { faQrcode, faWifi } from '@fortawesome/free-solid-svg-icons';
+import { DialogService } from 'primeng/api';
+import { OverlayPanel } from 'primeng/overlaypanel';
+import { map, take, pairwise } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/components/base.component';
 import { SignalrService, SignalrServiceToken, SignalrStatus } from 'src/app/interfaces/signalr.service';
-import { LoggerServiceToken, LoggerService } from 'src/app/interfaces/logger.service';
-import { faWifi, faQrcode } from '@fortawesome/free-solid-svg-icons';
-import { OverlayPanel } from 'primeng/overlaypanel';
-import { DialogService } from 'primeng/api';
-import { QrComponent } from './qr/qr.component';
-import { QrScanComponent } from './qr-scan/qr-scan.component';
-import { take, map } from 'rxjs/operators';
-import { interval } from 'rxjs';
-import { ShowOnDirective } from 'src/app/shared/directives/show-on.directive';
 import { ResizeService } from 'src/app/services/resize.service';
+import { ShowOnDirective } from 'src/app/shared/directives/show-on.directive';
+import { QrScanComponent } from './qr-scan/qr-scan.component';
+import { QrComponent } from './qr/qr.component';
 
 @Component({
   selector: 'app-connection',
   templateUrl: './connection.component.html'
 })
-export class ConnectionComponent extends BaseComponent implements AfterViewInit {
+export class ConnectionComponent extends BaseComponent implements AfterViewInit, OnDestroy {
 
   showOn = new ShowOnDirective(null, null, this.resizeService);
 
@@ -51,13 +49,27 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit 
   }
 
   ngAfterViewInit() {
-    this.signalrService.init().then(() => {
-      this.connect();
+    this.signalrService.init().then(() => this.connect());
+
+    this.signalrService.$error.pipe(this.untilDestroy()).subscribe(error => this.uiError(error));
+
+    this.signalrService.$clients.pipe(this.untilDestroy(), pairwise()).subscribe(nums => {
+      if (nums[0] < nums[1]) {
+        this.uiSuccess('clientConnected');
+      } else {
+        this.uiWarn('clientDisconnected');
+      }
     });
   }
 
   async connect() {
-    return await this.signalrService.connect();
+    const result = await this.signalrService.connect();
+    if (result) {
+      this.uiSuccess('serviceConnected');
+    } else {
+      this.uiError('noServiceConnection');
+    }
+    return result;
   }
 
   async reconnect() {
@@ -76,5 +88,9 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit 
         this.dialogService.open(QrScanComponent, { styleClass: 'qrPopup browser', showHeader: false, dismissableMask: true });
       }
     });
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
   }
 }

@@ -7,3 +7,12 @@
     <router-outlet></router-outlet>
   </p-scrollPanel>
 </main>
+
+<p-toast position="bottom-right">
+  <ng-template let-message pTemplate="message">
+    <div class="ui-toast-custom-content {{message.severity}}">
+      <strong>{{message.summary}}</strong>
+      <p>{{message.detail}}</p>
+    </div>
+  </ng-template>
+</p-toast>

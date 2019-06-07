@@ -1,17 +1,17 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { faWindowClose, faWindowMaximize, faWindowMinimize, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 import { MetaService } from '@ngx-meta/core';
 import { interval } from 'rxjs';
 import { skipWhile, take } from 'rxjs/operators';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
-import { BaseComponent } from '../../base.component';
 import { appConfig } from 'src/config/app.config';
+import { BaseComponent } from '../../base.component';
 
 @Component({
   selector: 'app-titlebar',
   templateUrl: './titlebar.component.html'
 })
-export class TitlebarComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class TitlebarComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
 
   closeIcon = faWindowClose;
   maximizeIcon = faWindowMaximize;
@@ -59,5 +59,9 @@ export class TitlebarComponent extends BaseComponent implements OnInit, AfterVie
     if (this.window.isClosable()) {
       this.electronService.remote.BrowserWindow.getFocusedWindow().close();
     }
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
   }
 }

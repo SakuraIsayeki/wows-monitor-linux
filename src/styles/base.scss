@@ -68,6 +68,32 @@ p {
   margin-bottom: 1em;
 }
 
+.ui-toast {
+  border-radius: $borderRadius;
+  overflow: hidden;
+  .ui-toast-message-content{
+    padding: 0;
+  }
+
+  .ui-toast-custom-content{
+    padding: .5em 1em;
+    background: $secondaryLightColor;
+    box-shadow: inset 2px 0px 2px -1px transparentize($secondaryDarkColor, 0.4);
+
+    &.c-success{
+      border-left: 4px solid $successColor;
+    }
+
+    &.c-warn{
+      border-left: 4px solid $warningColor;
+    }
+
+    &.c-error{
+      border-left: 4px solid $dangerColor;
+    }
+  }
+}
+
 main{
   height: calc(100% - 55px);
   width: 100vw;

@@ -4,10 +4,12 @@ import { filter, take, takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { LocatorService } from '../services/locator.service';
 import { LoggerService, LoggerServiceToken } from '../interfaces/logger.service';
+import { MessageService } from 'primeng/api';
 
 export class BaseComponent implements OnDestroy {
 
   private appRef: ApplicationRef;
+  private messageService: MessageService;
   private loggerService: LoggerService;
   private ngUnsubscribe = new Subject();
 
@@ -17,6 +19,7 @@ export class BaseComponent implements OnDestroy {
     this.appRef = LocatorService.Injector.get(ApplicationRef);
     this.ngZone = LocatorService.Injector.get(NgZone);
     this.loggerService = LocatorService.Injector.get(LoggerServiceToken) as LoggerService;
+    this.messageService = LocatorService.Injector.get(MessageService);
   }
 
   get isStable(): Observable<boolean> {
@@ -43,6 +46,36 @@ export class BaseComponent implements OnDestroy {
 
   logError(...args: any[]) {
     this.loggerService.error(...args);
+  }
+
+  uiSuccess(messageKey: string) {
+    this.messageService.add({
+      closable: false,
+      life: 3000,
+      severity: 'c-success',
+      summary: 'uiMessages.summaries.success',
+      detail: `uiMessages.messages.${messageKey}`
+    });
+  }
+
+  uiWarn(messageKey: string) {
+    this.messageService.add({
+      closable: false,
+      life: 3000,
+      severity: 'c-warn',
+      summary: 'uiMessages.summaries.warn',
+      detail: `uiMessages.messages.${messageKey}`
+    });
+  }
+
+  uiError(messageKey: string) {
+    this.messageService.add({
+      closable: false,
+      life: 3000,
+      severity: 'c-error',
+      summary: 'uiMessages.summaries.error',
+      detail: `uiMessages.messages.${messageKey}`
+    });
   }
 
   ngOnDestroy() {

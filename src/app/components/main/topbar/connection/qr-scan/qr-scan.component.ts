@@ -1,4 +1,4 @@
-import { Component, Inject, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Inject, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { DynamicDialogRef, SelectItem } from 'primeng/api';
@@ -10,7 +10,7 @@ import { Config } from 'src/config/config';
   selector: 'app-qr-scan',
   templateUrl: './qr-scan.component.html'
 })
-export class QrScanComponent extends BaseComponent implements AfterViewInit {
+export class QrScanComponent extends BaseComponent implements AfterViewInit, OnDestroy {
 
   closeIcon = faTimes;
 
@@ -52,6 +52,10 @@ export class QrScanComponent extends BaseComponent implements AfterViewInit {
 
   close() {
     this.ref.close();
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
   }
 
   private async init() {

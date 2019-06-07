@@ -1,12 +1,12 @@
-import { Injectable, Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 import { SignalrService, SignalrStatus, Status } from 'src/app/interfaces/signalr.service';
 import { appConfig } from 'src/config/app.config';
 import { Config } from 'src/config/config';
 import { environment } from 'src/environments/environment';
-import { LoggerServiceToken, LoggerService } from '../interfaces/logger.service';
-import { take, filter } from 'rxjs/operators';
+import { LoggerService, LoggerServiceToken } from '../interfaces/logger.service';
 import { ApiService } from './api.service';
 
 @Injectable()
@@ -16,6 +16,7 @@ export class CommonSignalrService implements SignalrService {
   private _$socketStatus = new BehaviorSubject<SignalrStatus>(SignalrStatus.Disconnected);
   private _$status = new BehaviorSubject<Status>(Status.Idle);
   private _$info = new BehaviorSubject<any>(null);
+  private _$error = new Subject<string>();
   private _$clients = new BehaviorSubject<number>(0);
 
 
@@ -29,6 +30,10 @@ export class CommonSignalrService implements SignalrService {
 
   get $info(): Observable<any> {
     return this._$info.asObservable();
+  }
+
+  get $error(): Observable<string> {
+    return this._$error.asObservable();
   }
 
   get $clients(): Observable<number> {
