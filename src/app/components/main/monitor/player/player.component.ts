@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject, Input, HostBinding, Sanitizer, SecurityContext } from '@angular/core';
 import { BaseComponent } from '../../../base.component';
 import { PrPipe } from 'src/app/shared/pipes/pr.pipe';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Config } from 'src/config/config';
 
 @Component({
   selector: 'app-player',
@@ -29,7 +31,7 @@ export class PlayerComponent extends BaseComponent implements OnInit {
 
   @HostBinding('style.background-color')
   get backgroundColor() {
-    if (this.player.shipStats) {
+    if (this.config.playerBackgrounds && this.player.shipStats) {
       return this.sanitizer.sanitize(SecurityContext.STYLE, PrPipe.staticTransform(this.player.shipStats.personalRating) + '33');
     }
     return '';
@@ -43,7 +45,7 @@ export class PlayerComponent extends BaseComponent implements OnInit {
     return '';
   }
 
-  constructor(private sanitizer: Sanitizer) {
+  constructor(private sanitizer: DomSanitizer, private config: Config) {
     super();
   }
 
