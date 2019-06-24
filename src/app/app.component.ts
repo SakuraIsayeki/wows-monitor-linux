@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BaseComponent } from './components/base.component';
-import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Config } from 'src/config/config';
+import { environment } from 'src/environments/environment';
+import { BaseComponent } from './components/base.component';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +10,9 @@ import { Config } from 'src/config/config';
 })
 export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
 
-
   constructor(
     private router: Router,
-    private translateService: TranslateService,
-    private config: Config
+    private translateService: TranslateService
   ) {
     super();
   }
@@ -28,10 +25,8 @@ export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('/');
     }
 
-
     this.isStable.subscribe(() => {
       this.ngZone.run(() => {
-
       });
     });
   }

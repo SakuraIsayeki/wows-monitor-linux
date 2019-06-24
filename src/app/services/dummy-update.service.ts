@@ -4,6 +4,7 @@ import { UpdateService } from '../interfaces/update.service';
 export class DummyUpdateService implements UpdateService {
 
   $updateAvailable: Observable<any>;
+  $updateProgress: Observable<number>;
 
   constructor() { }
 

@@ -12,10 +12,10 @@ var win;
 var args = process.argv.slice(1);
 var isDebug = args.some(function (val) { return val === '--serve'; });
 var isLocal = args.some(function (val) { return val === '--local'; });
-//if (isDebug) {
+// if (isDebug) {
 logger.transports.file.level = 'debug';
 logger.transports.console.level = 'debug';
-//}
+// }
 electron_updater_1.autoUpdater.logger = logger;
 function appReady() {
     logger.debug('[Electron]', '(appReady)', __dirname);

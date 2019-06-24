@@ -4,51 +4,84 @@ import { filter, take, takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { LocatorService } from '../services/locator.service';
 import { LoggerService, LoggerServiceToken } from '../interfaces/logger.service';
+import { MessageService } from 'primeng/api';
 
 export class BaseComponent implements OnDestroy {
 
-  private ngUnsubscribe = new Subject();
   private appRef: ApplicationRef;
+  private messageService: MessageService;
   private loggerService: LoggerService;
+  private ngUnsubscribe = new Subject();
 
-  public ngZone: NgZone;
+  ngZone: NgZone;
 
   constructor() {
     this.appRef = LocatorService.Injector.get(ApplicationRef);
     this.ngZone = LocatorService.Injector.get(NgZone);
     this.loggerService = LocatorService.Injector.get(LoggerServiceToken) as LoggerService;
+    this.messageService = LocatorService.Injector.get(MessageService);
   }
 
-  public untilDestroy = <T>() => takeUntil<T>(this.ngUnsubscribe);
-
-  public get isStable(): Observable<boolean> {
+  get isStable(): Observable<boolean> {
     return this.appRef.isStable.pipe(filter(stable => stable), take(1), this.untilDestroy());
   }
 
-  public get isDesktop() {
+  get isDesktop() {
     return environment.desktop;
   }
 
-  public get isBrowser() {
+  get isBrowser() {
     return environment.browser;
   }
 
-  public get isProduction() {
+  get isProduction() {
     return environment.production;
   }
 
-  public logDebug(...args: any[]) {
+  logDebug(...args: any[]) {
     if (!environment.production) {
       this.loggerService.debug(...args);
     }
   }
 
-  public logError(...args: any[]) {
+  logError(...args: any[]) {
     this.loggerService.error(...args);
   }
 
-  public ngOnDestroy() {
+  uiSuccess(messageKey: string) {
+    this.messageService.add({
+      closable: false,
+      life: 3000,
+      severity: 'c-success',
+      summary: 'uiMessages.summaries.success',
+      detail: `uiMessages.messages.${messageKey}`
+    });
+  }
+
+  uiWarn(messageKey: string) {
+    this.messageService.add({
+      closable: false,
+      life: 3000,
+      severity: 'c-warn',
+      summary: 'uiMessages.summaries.warn',
+      detail: `uiMessages.messages.${messageKey}`
+    });
+  }
+
+  uiError(messageKey: string) {
+    this.messageService.add({
+      closable: false,
+      life: 3000,
+      severity: 'c-error',
+      summary: 'uiMessages.summaries.error',
+      detail: `uiMessages.messages.${messageKey}`
+    });
+  }
+
+  ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
+
+  untilDestroy = <T>() => takeUntil<T>(this.ngUnsubscribe);
 }

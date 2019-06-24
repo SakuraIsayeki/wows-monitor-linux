@@ -17,7 +17,7 @@ export class ShowMenuEntryDirective implements OnInit {
   ngOnInit() { }
 
   @Input()
-  public set showMenuEntry(value: MenuEntry) {
+  set showMenuEntry(value: MenuEntry) {
     if ((value.browser == null && value.desktop == null) ||
       (value.browser && environment.browser) ||
       (value.desktop && environment.desktop)) {

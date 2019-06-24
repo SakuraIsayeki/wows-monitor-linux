@@ -17,13 +17,12 @@ const routes: Routes = [
         loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule)
       },
       {
+        path: 'settings',
+        loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
+      },
+      {
         path: 'about',
-        loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
-        data: {
-          meta: {
-            title: 'meta.about.title'
-          }
-        }
+        loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
       }
     ]
   }

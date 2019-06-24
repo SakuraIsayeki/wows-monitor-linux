@@ -21,7 +21,7 @@
             "index": "src/index.html",
             "main": "src/main.desktop.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "tsConfig": "src/tsconfig.app.desktop.json",
             "assets": [
               "src/assets",
               "src/manifest.json"
@@ -30,7 +30,7 @@
               "node_modules/skeleton-css/css/normalize.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/primeng.min.css",
-              "src/styles/theme.css",
+              "src/styles/theme.scss",
               "src/styles.scss"
             ],
             "scripts": []
@@ -71,7 +71,7 @@
             "index": "src/index.html",
             "main": "src/main.browser.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "tsConfig": "src/tsconfig.app.browser.json",
             "assets": [
               "src/assets",
               "src/manifest.json"
@@ -80,7 +80,7 @@
               "node_modules/skeleton-css/css/normalize.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/primeng.min.css",
-              "src/styles/theme.css",
+              "src/styles/theme.scss",
               "src/styles.scss"
             ],
             "scripts": []

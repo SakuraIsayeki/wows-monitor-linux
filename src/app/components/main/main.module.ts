@@ -4,14 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { DialogService } from 'primeng/api';
+import { DialogService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { DialogModule } from 'primeng/dialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
+import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MainRoutingModule } from './main-routing.module';
@@ -52,14 +53,16 @@ import { TopbarComponent } from './topbar/topbar.component';
     DynamicDialogModule,
     DialogModule,
     ScrollPanelModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    ScrollPanelModule,
+    ToastModule
+  ],
+  providers: [
+    DialogService
   ],
   entryComponents: [
     QrComponent,
     QrScanComponent
-  ],
-  providers: [
-    DialogService
   ]
 })
 export class MainModule { }

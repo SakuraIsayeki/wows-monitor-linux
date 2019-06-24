@@ -1,29 +1,29 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { faWindowClose, faWindowMaximize, faWindowMinimize, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 import { MetaService } from '@ngx-meta/core';
 import { interval } from 'rxjs';
 import { skipWhile, take } from 'rxjs/operators';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
-import { BaseComponent } from '../../base.component';
 import { appConfig } from 'src/config/app.config';
+import { BaseComponent } from '../../base.component';
 
 @Component({
   selector: 'app-titlebar',
   templateUrl: './titlebar.component.html'
 })
-export class TitlebarComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class TitlebarComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  public closeIcon = faWindowClose;
-  public maximizeIcon = faWindowMaximize;
-  public restoreIcon = faWindowRestore;
-  public minimizeIcon = faWindowMinimize;
-  public canMaximize = true;
+  closeIcon = faWindowClose;
+  maximizeIcon = faWindowMaximize;
+  restoreIcon = faWindowRestore;
+  minimizeIcon = faWindowMinimize;
+  canMaximize = true;
 
-  public get window() {
+  get window() {
     return this.electronService.remote.BrowserWindow.getFocusedWindow();
   }
 
-  public get title() {
+  get title() {
     return appConfig.applicationName;
   }
 
@@ -40,13 +40,13 @@ export class TitlebarComponent extends BaseComponent implements OnInit, AfterVie
     });
   }
 
-  public minimize() {
+  minimize() {
     if (this.window.isMinimizable()) {
       this.window.minimize();
     }
   }
 
-  public maximize() {
+  maximize() {
     if (this.window.isMaximized()) {
       this.window.unmaximize();
     } else if (this.window.isMaximizable()) {
@@ -55,9 +55,13 @@ export class TitlebarComponent extends BaseComponent implements OnInit, AfterVie
     this.canMaximize = this.window.isMaximizable();
   }
 
-  public close() {
+  close() {
     if (this.window.isClosable()) {
       this.electronService.remote.BrowserWindow.getFocusedWindow().close();
     }
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
   }
 }

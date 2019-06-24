@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QrScanComponent } from './qr-scan.component';
+import { MainModule } from '../../../main.module';
 
 describe('QrScanComponent', () => {
   let component: QrScanComponent;
@@ -8,9 +9,10 @@ describe('QrScanComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QrScanComponent ]
+      declarations: [QrScanComponent],
+      imports: [MainModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

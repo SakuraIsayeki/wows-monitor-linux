@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { ConfigService } from 'src/app/interfaces/config.service';
-import { ConfigOptions } from 'src/config/config';
+import { ConfigOptions, defaultConfig } from 'src/config/config';
 import { ElectronService } from './electron.service';
 import { LoggerServiceToken, LoggerService } from 'src/app/interfaces/logger.service';
 
@@ -17,7 +17,7 @@ export class FsConfigService implements ConfigService {
   ) {
     const exists = this.fs.existsSync('config.json');
     if (!exists) {
-      this.fs.writeFile('config.json', '{}', (err) => {
+      this.fs.writeFile('config.json', JSON.stringify(defaultConfig), (err) => {
         if (err) {
           this.loggerService.error('Create config', err.message);
         }

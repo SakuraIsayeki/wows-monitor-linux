@@ -12,15 +12,15 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 export class QrComponent extends BaseComponent implements OnInit {
 
 
-  public closeIcon = faTimes;
+  closeIcon = faTimes;
 
-  public get tokenPath() {
+  get tokenPath() {
     return this.config.signalRToken ? environment.apiUrl + '/qr/image/' + this.config.signalRToken + '.png' : null;
   }
 
   constructor(
     private config: Config,
-    public ref: DynamicDialogRef
+    private ref: DynamicDialogRef
   ) {
     super();
 
@@ -29,7 +29,7 @@ export class QrComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
 
-  public close() {
+  close() {
     this.ref.close();
   }
 }

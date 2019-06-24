@@ -27,20 +27,21 @@ export class ShowOnDirective implements AfterViewInit {
   private deviceType: DeviceType;
   private reversed = false;
 
+  @Input()
+  set showOn(value: DeviceType) {
+    this.deviceType = value;
+  }
+
+  @Input()
+  set showOnHigher(value: boolean) {
+    this.reversed = value;
+  }
+
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
     private resizeService: ResizeService
   ) { }
-
-
-  @Input() public set showOn(value: DeviceType) {
-    this.deviceType = value;
-  }
-
-  @Input() public set showOnHigher(value: boolean) {
-    this.reversed = value;
-  }
 
   ngAfterViewInit() {
     if (window && window.matchMedia) {
@@ -49,6 +50,14 @@ export class ShowOnDirective implements AfterViewInit {
       });
       this.check();
     }
+  }
+
+  checkStatic(deviceType: DeviceType, reversed: boolean) {
+    const queries = reversed ? mediaQueriesReversed : mediaQueries;
+    if (window.matchMedia(queries[deviceType]).matches) {
+      return true;
+    }
+    return false;
   }
 
   private check() {
@@ -60,13 +69,5 @@ export class ShowOnDirective implements AfterViewInit {
     } else {
       this.viewContainer.clear();
     }
-  }
-
-  public checkStatic(deviceType: DeviceType, reversed: boolean) {
-    const queries = reversed ? mediaQueriesReversed : mediaQueries;
-    if (window.matchMedia(queries[deviceType]).matches) {
-      return true;
-    }
-    return false;
   }
 }

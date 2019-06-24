@@ -10,16 +10,27 @@
   "win": {
     "icon": "dist/app-desktop/assets/icons",
     "target": [
-      "nsis-web"
+      {
+        "target": "nsis-web",
+        "arch": [
+          "x64",
+          "ia32"
+        ]
+      },
+      {
+        "target": "portable",
+        "arch": [
+          "x64",
+          "ia32"
+        ]
+      }
     ],
     "publish": {
       "provider": "generic",
       "url": "http://localhost:3000/releases"
     }
   },
-  "nsisWeb": {
-
-  },
+  "nsisWeb": {},
   "mac": {
     "icon": "dist",
     "target": [

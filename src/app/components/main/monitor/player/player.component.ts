@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject, Input, HostBinding, Sanitizer, SecurityContext } from '@angular/core';
 import { BaseComponent } from '../../../base.component';
 import { PrPipe } from 'src/app/shared/pipes/pr.pipe';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Config } from 'src/config/config';
 
 @Component({
   selector: 'app-player',
@@ -9,42 +11,42 @@ import { PrPipe } from 'src/app/shared/pipes/pr.pipe';
 export class PlayerComponent extends BaseComponent implements OnInit {
 
   @Input()
-  public player: any;
+  player: any;
 
   @Input()
   @HostBinding('class.cw')
-  public cw: boolean;
+  cw: boolean;
 
   @Input()
   @HostBinding('class.last')
-  public last: boolean;
+  last: boolean;
 
   @Input()
   @HostBinding('class.first')
-  public first: boolean;
+  first: boolean;
 
   @HostBinding('class.me')
-  public get me() {
+  get me() {
     return this.player.relation === 0;
   }
 
   @HostBinding('style.background-color')
-  public get backgroundColor() {
-    if (this.player.shipStats) {
+  get backgroundColor() {
+    if (this.config.playerBackgrounds && this.player.shipStats) {
       return this.sanitizer.sanitize(SecurityContext.STYLE, PrPipe.staticTransform(this.player.shipStats.personalRating) + '33');
     }
     return '';
   }
 
   @HostBinding('style.border-color')
-  public get borderColor() {
+  get borderColor() {
     if (this.player.shipStats) {
       return this.sanitizer.sanitize(SecurityContext.STYLE, PrPipe.staticTransform(this.player.shipStats.personalRating) + '99');
     }
     return '';
   }
 
-  constructor(private sanitizer: Sanitizer) {
+  constructor(private sanitizer: DomSanitizer, private config: Config) {
     super();
   }
 

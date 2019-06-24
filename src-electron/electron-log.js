@@ -5,6 +5,9 @@ function initElectronLogger(logger) {
     electron_1.ipcMain.on('log-debug', function (event, args) {
         logger.debug.apply(logger, ['[Angular Debug]'].concat(args));
     });
+    electron_1.ipcMain.on('log-warn', function (event, args) {
+        logger.warn.apply(logger, ['[Angular Warn]'].concat(args));
+    });
     electron_1.ipcMain.on('log-error', function (event, args) {
         logger.error.apply(logger, ['[Angular Error]'].concat(args));
     });

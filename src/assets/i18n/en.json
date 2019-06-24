@@ -1,4 +1,5 @@
 {
+  "appTitle": "WoWs Monitor",
   "meta": {
     "default": {
       "title": "Welcome"
@@ -20,7 +21,13 @@
         "noToken": "Setup the connection to a desktop client first"
       },
       "desktop": "Couldn't connect to the online service."
+    },
+    "status": {
+      "idle": "Waiting for match..."
     }
+  },
+  "pathPicker": {
+    "pickFolder": "Select your game folder"
   },
   "monitor": {
     "season": "Season",
@@ -35,6 +42,32 @@
         "Hurricane",
         "Typhoon"
       ]
+    }
+  },
+  "settings": {
+    "header": "Settings",
+    "general": {
+      "title": "General",
+      "autoUpdate": {
+        "caption": "AutoUpdate",
+        "summary": "Explanation"
+      }
+    },
+    "appearance": {
+      "title": "Appearance",
+      "fontsize": {
+        "caption": "Fontsize",
+        "summary": "Explanation",
+        "items": {
+          "normal": "Normal",
+          "big": "Big",
+          "huge": "Huge"
+        }
+      },
+      "playerBackgrounds": {
+        "caption": "Player Backgrounds",
+        "summary": "Explanation"
+      }
     }
   }
 }

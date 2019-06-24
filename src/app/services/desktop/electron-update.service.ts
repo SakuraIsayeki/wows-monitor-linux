@@ -10,10 +10,15 @@ import { Config } from 'src/config/config';
 
 export class ElectronUpdateService implements UpdateService {
 
-  private _$updateAvailable = new BehaviorSubject<any>(null);
+  private _$updateAvailable = new BehaviorSubject<boolean>(null);
+  private _$updateProgress = new BehaviorSubject<number>(0);
 
-  public get $updateAvailable() {
+  get $updateAvailable() {
     return this._$updateAvailable.asObservable();
+  }
+
+  get $updateProgress() {
+    return this._$updateProgress.asObservable();
   }
 
   constructor(
@@ -24,23 +29,27 @@ export class ElectronUpdateService implements UpdateService {
     electronService.ipcRenderer.on('checking-for-update', () => { });
     electronService.ipcRenderer.on('update-available', () => {
       loggerService.debug('update-available');
-    })
+    });
+
     electronService.ipcRenderer.on('update-not-available', () => {
       this._$updateAvailable.next(false);
-    })
+    });
+
     electronService.ipcRenderer.on('update-error', () => {
       this._$updateAvailable.next(false);
-    })
-    electronService.ipcRenderer.on('download-progress', (event, progressObj: { percent: number }) => {
+    });
 
-    })
+    electronService.ipcRenderer.on('download-progress', (event, progressObj: { percent: number }) => {
+      this._$updateProgress.next(progressObj.percent);
+    });
+
     electronService.ipcRenderer.on('update-downloaded', () => {
       this._$updateAvailable.next(true);
     });
   }
 
 
-  public checkForUpdate() {
+  checkForUpdate() {
     if (this.config.autoUpdate) {
       this.electronService.ipcRenderer.send('checkForUpdate');
     } else {
@@ -49,7 +58,7 @@ export class ElectronUpdateService implements UpdateService {
     return new Promise<boolean>(resolve => resolve(true));
   }
 
-  public quitAndInstall() {
+  quitAndInstall() {
     this.electronService.ipcRenderer.send('quitAndInstall');
   }
 }

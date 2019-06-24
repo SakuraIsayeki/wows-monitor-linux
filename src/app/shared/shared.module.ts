@@ -5,10 +5,10 @@ import { ShowMenuEntryDirective } from './directives/show-menu-entry.directive';
 import { ShowOnDirective } from './directives/show-on.directive';
 import { JoinPipe } from './pipes/join.pipe';
 import { MatchGroupPipe } from './pipes/match-group.pipe';
-import { SanitizeCssPipe } from './pipes/sanitize-css.pipe';
+import { PrPipe } from './pipes/pr.pipe';
 import { RegionPipe } from './pipes/region.pipe';
 import { RomanPipe } from './pipes/roman.pipe';
-import { PrPipe } from './pipes/pr.pipe';
+import { SanitizeCssPipe } from './pipes/sanitize-css.pipe';
 import { WowsNumbersPipe } from './pipes/wows-numbers.pipe';
 
 @NgModule({

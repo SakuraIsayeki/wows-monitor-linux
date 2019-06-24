@@ -1,0 +1,30 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { CardModule } from 'primeng/card';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { SettingsRoutingModule } from './settings-routing.module';
+import { SettingsComponent } from './settings.component';
+
+
+@NgModule({
+  declarations: [
+    SettingsComponent
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    SettingsRoutingModule,
+    SharedModule,
+    TranslateModule,
+    CardModule,
+    SelectButtonModule,
+    InputSwitchModule
+  ],
+  providers: [
+  ]
+})
+export class SettingsModule { }

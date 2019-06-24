@@ -1,0 +1,64 @@
+@import '_variables.scss';
+
+app-settings{
+
+  section{
+    margin-bottom: 2.5em;
+  }
+
+  article{
+    padding: 1em 0;
+    border-bottom: 1px solid $secondaryColor;
+    display: grid;
+    grid-template-areas: 'caption input'
+      'summary input';
+    grid-template-columns: auto max-content;
+    grid-template-rows: 1fr 1fr;
+    line-height: 2em;
+  }
+
+  p-card section:last-child{
+    margin: 0;
+  }
+
+  p-card section:last-child article:last-child{
+    border: 0;
+  }
+
+  h3{
+    margin-bottom: .5em;
+  }
+
+  caption{
+    grid-area: caption;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  summary{
+    grid-area: summary;
+    font-size: .85em;
+    opacity: 0.8;
+  }
+
+  .input-wrap{
+    grid-area: input;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Larger than mobile */
+@media (min-width: 400px) {}
+
+/* Larger than phablet */
+@media (min-width: 550px) {}
+
+/* Larger than tablet */
+@media (min-width: 750px) {}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {}

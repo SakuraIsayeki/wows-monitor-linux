@@ -7,6 +7,7 @@ export interface SignalrService {
   $socketStatus: Observable<SignalrStatus>;
   $status: Observable<Status>;
   $info: Observable<any>;
+  $error: Observable<string>;
   $clients: Observable<number>;
 
   connect(): Promise<any>;

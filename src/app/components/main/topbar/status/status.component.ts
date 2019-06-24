@@ -11,11 +11,11 @@ import { map } from 'rxjs/operators';
 })
 export class StatusComponent extends BaseComponent implements OnInit {
 
-  public syncIcon = faSync;
-  public checkIcon = faCheckCircle;
-  public circleIcon = faCircle;
+  syncIcon = faSync;
+  checkIcon = faCheckCircle;
+  circleIcon = faCircle;
 
-  public get statusText() {
+  get statusText() {
     return this.signalRService.$status.pipe(map(status => {
       if (status === Status.Idle) {
         return 'service.status.idle';

@@ -7,6 +7,10 @@
   margin: 0 auto;
   padding: 0 2em;
   box-sizing: border-box;
+
+  &.small{
+    max-width: 960px;
+  }
 }
 
 .column,

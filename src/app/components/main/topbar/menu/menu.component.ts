@@ -10,9 +10,9 @@ import { faQuestionCircle, faCog, faHome, faDesktop } from '@fortawesome/free-so
 export class MenuComponent extends BaseComponent implements OnInit {
 
   @Input()
-  public closeAction: () => void;
+  closeAction: () => void;
 
-  public menu: MenuEntry[] = [
+  menu: MenuEntry[] = [
     {
       key: 'meta.monitor.title',
       routerLink: '/home',

@@ -6,6 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class JoinPipe implements PipeTransform {
 
   transform(input: any, character: string = ''): any {
-    return input.join(character);
+    return input ? input.join(character) : null;
   }
 }

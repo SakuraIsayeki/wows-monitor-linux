@@ -2,13 +2,7 @@
 
 app-monitor {
   display: block;
-  height: calc(100vh - 55px);
-  width: 100vw;
-  overflow: hidden;
-  box-sizing: border-box;
-  padding: .5em 1em;
   line-height: 1em;
-  // font-size: 0.8em;
 
   .container {
     display: grid;
@@ -24,7 +18,20 @@ app-monitor {
     >p-card .ui-card {
       margin-bottom: 0;
     }
+
+    &.fz-normal{
+      font-size: 1em;
+    }
+  
+    &.fz-big{
+      font-size: 1.2em;
+    }
+  
+    &.fz-huge{
+      font-size: 1.5em;
+    }
   }
+
 
   #monitor-title {
     grid-area: title;

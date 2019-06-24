@@ -1,6 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostBinding } from '@angular/core';
 import { BaseComponent } from '../../base.component';
 import { SignalrServiceToken, SignalrService } from 'src/app/interfaces/signalr.service';
+import { Config } from 'src/config/config';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-monitor',
@@ -8,7 +10,14 @@ import { SignalrServiceToken, SignalrService } from 'src/app/interfaces/signalr.
 })
 export class MonitorComponent extends BaseComponent implements OnInit {
 
-  constructor(@Inject(SignalrServiceToken) public signalrService: SignalrService) {
+  get $fontSizeClass() {
+    return this.config.$fontsize.pipe(map(fz => 'fz-' + fz));
+  }
+
+  constructor(
+    @Inject(SignalrServiceToken) public signalrService: SignalrService,
+    private config: Config
+  ) {
     super();
   }
 
