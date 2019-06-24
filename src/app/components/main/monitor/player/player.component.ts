@@ -12,6 +12,7 @@ export class PlayerComponent extends BaseComponent implements OnInit {
   public player: any;
 
   @Input()
+  @HostBinding('class.cw')
   public cw: boolean;
 
   @Input()
