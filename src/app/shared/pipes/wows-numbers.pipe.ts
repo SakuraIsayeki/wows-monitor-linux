@@ -9,7 +9,7 @@ export class WowsNumbersPipe implements PipeTransform {
   private static pipe = new WowsNumbersPipe();
 
   static staticTransform(region: Region) {
-    this.pipe.transform(region);
+    return this.pipe.transform(region);
   }
 
   transform(region: Region): string {

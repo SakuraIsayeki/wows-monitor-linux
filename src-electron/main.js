@@ -12,10 +12,10 @@ var win;
 var args = process.argv.slice(1);
 var isDebug = args.some(function (val) { return val === '--serve'; });
 var isLocal = args.some(function (val) { return val === '--local'; });
-// if (isDebug) {
-logger.transports.file.level = 'debug';
-logger.transports.console.level = 'debug';
-// }
+if (isDebug) {
+    logger.transports.file.level = 'debug';
+    logger.transports.console.level = 'debug';
+}
 electron_updater_1.autoUpdater.logger = logger;
 function appReady() {
     logger.debug('[Electron]', '(appReady)', __dirname);
@@ -53,6 +53,7 @@ function appReady() {
             electron: require(__dirname + "/../node_modules/electron")
         });
         win.loadURL('http://localhost:4200');
+        win.webContents.openDevTools();
     }
     else {
         win.loadURL(url.format({
@@ -61,7 +62,6 @@ function appReady() {
             slashes: true,
         }));
     }
-    win.webContents.openDevTools();
     win.on('closed', function () {
         win = null;
     });

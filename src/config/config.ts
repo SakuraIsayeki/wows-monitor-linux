@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, interval, from } from 'rxjs';
 import { ConfigService, ConfigServiceToken } from 'src/app/interfaces/config.service';
+import { skipWhile, take, switchMap } from 'rxjs/operators';
 
 export const defaultConfig: ConfigOptions = {
   autoUpdate: true,
@@ -41,7 +42,6 @@ export class Config implements ConfigOptions {
   private _$signalRToken = new BehaviorSubject<string>(null);
 
   get signalRToken() {
-    return 'test';
     return this._signalRToken;
   }
 
@@ -105,6 +105,8 @@ export class Config implements ConfigOptions {
     return this._$fontsize.asObservable();
   }
 
+  private loaded = false;
+
   constructor(@Inject(ConfigServiceToken) private configService: ConfigService) {
     this.configService.load().then(config => {
       this.autoUpdate = config.autoUpdate;
@@ -112,16 +114,29 @@ export class Config implements ConfigOptions {
       this.selectedDirectory = config.selectedDirectory;
       this.playerBackgrounds = config.playerBackgrounds;
       this.fontsize = config.fontsize;
+
+      this.loaded = true;
     });
   }
 
-  save(): Promise<any> {
-    return this.configService.save({
+  async waitTillLoaded() {
+    if (this.loaded) {
+      return true;
+    }
+    await interval(300).pipe(
+      skipWhile(() => !this.loaded),
+      take(1)).toPromise();
+    return true;
+  }
+
+  async save(): Promise<any> {
+    await this.waitTillLoaded();
+    return from(this.configService.save({
       autoUpdate: this._autoUpdate,
       signalRToken: this._signalRToken,
       selectedDirectory: this._selectedDirectory,
       playerBackgrounds: this._playerBackgrounds,
       fontsize: this._fontsize
-    });
+    }));
   }
 }

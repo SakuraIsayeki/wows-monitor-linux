@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseComponent } from 'src/app/components/base.component';
-import { DynamicDialogRef } from 'primeng/api';
-import { environment } from 'src/environments/environment.browser';
-import { Config } from 'src/config/config';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { DynamicDialogRef } from 'primeng/api';
+import { BaseComponent } from 'src/app/components/base.component';
+import { Config } from 'src/config/config';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-qr',

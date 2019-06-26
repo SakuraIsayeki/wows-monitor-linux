@@ -21,7 +21,7 @@ export class FsDirectoryService implements DirectoryService {
   private _lastInfoFound: Date;
 
   // promisified
-  private existsAsync: (path: fs.PathLike) => Promise<boolean>;
+  private existsAsync: (path: fs.PathLike) => Promise<fs.Stats>;
   private readDirAsync: (path: fs.PathLike, encoding: BufferEncoding) => Promise<string[]>;
   private readFileAsync: (path: fs.PathLike, encoding: BufferEncoding) => Promise<string>;
 
@@ -46,7 +46,7 @@ export class FsDirectoryService implements DirectoryService {
   ) {
     this._fs = electronService.fs;
     // tslint:disable-next-line: deprecation
-    this.existsAsync = promisify(this._fs.exists);
+    this.existsAsync = promisify(this._fs.stat);
     this.readDirAsync = promisify(this._fs.readdir);
     this.readFileAsync = promisify(this._fs.readFile);
     this.config.$selectedDirectory.pipe(filter(p => p != null)).subscribe(() => {
@@ -93,8 +93,9 @@ export class FsDirectoryService implements DirectoryService {
     const path = this.config.selectedDirectory;
     const status = {} as DirectoryStatus;
 
-    if (await this.existsAsync(path)) {
-      try {
+    try {
+      if (await this.existsAsync(path)) {
+
         const files = (await this.readDirAsync(path, 'utf8')) as string[];
         status.steamVersion = files.some(f => f.includes('steam_api.dll'));
         const resFolder = await this.getResFolderPath(path, status);
@@ -104,11 +105,11 @@ export class FsDirectoryService implements DirectoryService {
 
         this.setReplaysFolder(path, status);
         status.replaysFoldersFound = status.replaysFolders.some(p => this._fs.existsSync(p));
-      } catch (error) {
-        this.loggerService.error('Error during path check', error);
       }
-
+    } catch (error) {
+      this.loggerService.error('Error during path check', error);
     }
+
     this._$status.next(status);
   }
 
@@ -138,11 +139,15 @@ export class FsDirectoryService implements DirectoryService {
       const content = await this.readFileAsync(path, 'utf8');
       const json = parseXml2Json(content);
 
-      const engineConfig = json['engine_config.xml'];
-      status.preferencesPathBase = engineConfig.preferences.pathBase;
-      status.replaysPathBase = engineConfig.replays.pathBase;
-      status.replaysDirPath = engineConfig.replays.dirPath;
-      status.replaysVersioned = engineConfig.replays.versioned;
+      try {
+        const engineConfig = json['engine_config.xml'];
+        status.preferencesPathBase = engineConfig.preferences.pathBase;
+        status.replaysPathBase = engineConfig.replays.pathBase;
+        status.replaysDirPath = engineConfig.replays.dirPath;
+        status.replaysVersioned = engineConfig.replays.versioned;
+      } catch (error) {
+        this.loggerService.error('Error while reading engine_config.xml in ' + resPath, error);
+      }
     }
   }
 

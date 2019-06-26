@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject, Input, HostBinding, Sanitizer, SecurityContext } from '@angular/core';
+import { Component, OnInit, Inject, Input, HostBinding, Sanitizer, SecurityContext, Optional } from '@angular/core';
 import { BaseComponent } from '../../../base.component';
 import { PrPipe } from 'src/app/shared/pipes/pr.pipe';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Config } from 'src/config/config';
 import { WowsNumbersPipe } from 'src/app/shared/pipes/wows-numbers.pipe';
+import { ElectronService } from 'src/app/services/desktop/electron.service';
 
 @Component({
   selector: 'app-player',
@@ -47,7 +48,7 @@ export class PlayerComponent extends BaseComponent implements OnInit {
     return '';
   }
 
-  constructor(private sanitizer: DomSanitizer, private config: Config) {
+  constructor(private sanitizer: DomSanitizer, private config: Config, @Optional() private electronService: ElectronService) {
     super();
   }
 
@@ -56,6 +57,11 @@ export class PlayerComponent extends BaseComponent implements OnInit {
 
   openWowsNumbers(player) {
     const baseUrl = WowsNumbersPipe.staticTransform(player.region);
-    window.open(`${baseUrl}clan/${player.id},/`);
+    const url = `${baseUrl}player/${player.accountId},/`;
+    if (this.isBrowser) {
+      window.open(url, '_blank');
+    } else {
+      this.electronService.shell.openExternal(url);
+    }
   }
 }

@@ -56,7 +56,10 @@
     "map": "Map",
     "matchGroup": {
       "CLAN": "Clan War",
-      "PVP": "Random"
+      "PVP": "Random",
+      "COOPERATIVE": "Coop",
+      "PVE": "Pve",
+      "RANKED": "Ranked"
     },
     "cw": {
       "text": "Rank {{rank}} in {{league}}, Division {{division}}, WR {{winrate}}%",
@@ -103,8 +106,8 @@
       "serviceDisconnected": "Service has been disconnected.",
       "noServiceConnection": "Service could not be connected.",
       "matchUpdated": "Match updated.",
-      "clientConnected":"Web app client connected.",
-      "clientDisconnected":"Web app client disconnected."
+      "clientConnected": "Web app client connected.",
+      "clientDisconnected": "Web app client disconnected."
     }
   }
 }

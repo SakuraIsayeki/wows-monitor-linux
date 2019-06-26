@@ -55,10 +55,9 @@ export class CommonSignalrService implements SignalrService {
 
     // Url Param Testing
     let url = environment.apiUrl + appConfig.hub;
+    await this.config.waitTillLoaded();
     let token = this.config.signalRToken;
-    if (this.config.signalRToken) {
-      token = this.config.signalRToken;
-    } else {
+    if (!token) {
       if (environment.desktop) {
         token = await this.apiService.token().toPromise();
         this.config.signalRToken = token;
