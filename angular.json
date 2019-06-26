@@ -92,7 +92,8 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.browser.ts"
                 }
-              ]
+              ],
+              "serviceWorker": true
             },
             "production": {
               "fileReplacements": [

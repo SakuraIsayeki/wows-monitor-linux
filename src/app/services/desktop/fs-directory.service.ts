@@ -3,13 +3,13 @@ import { parse as parseXml2Json } from 'fast-xml-parser';
 import * as fs from 'fs';
 import { dirname, join as pathJoin, normalize as pathNormalize } from 'path';
 import { BehaviorSubject, interval, Subscription } from 'rxjs';
-import { filter, switchMap, take, startWith } from 'rxjs/operators';
+import { filter, startWith, switchMap } from 'rxjs/operators';
 import { DirectoryService, DirectoryStatus } from 'src/app/interfaces/directory.service';
 import { LoggerService, LoggerServiceToken } from 'src/app/interfaces/logger.service';
+import { Region } from 'src/app/interfaces/region';
 import { Config } from 'src/config/config';
 import { promisify } from 'util';
 import { ElectronService } from './electron.service';
-import { Region } from 'src/app/interfaces/region';
 
 @Injectable()
 export class FsDirectoryService implements DirectoryService {

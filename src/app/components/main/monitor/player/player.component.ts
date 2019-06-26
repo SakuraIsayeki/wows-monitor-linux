@@ -3,6 +3,7 @@ import { BaseComponent } from '../../../base.component';
 import { PrPipe } from 'src/app/shared/pipes/pr.pipe';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Config } from 'src/config/config';
+import { WowsNumbersPipe } from 'src/app/shared/pipes/wows-numbers.pipe';
 
 @Component({
   selector: 'app-player',
@@ -53,4 +54,8 @@ export class PlayerComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
 
+  openWowsNumbers(player) {
+    const baseUrl = WowsNumbersPipe.staticTransform(player.region);
+    window.open(`${baseUrl}clan/${player.id},/`);
+  }
 }

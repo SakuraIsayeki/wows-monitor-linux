@@ -8,6 +8,6 @@ export interface UpdateService {
   $updateAvailable: Observable<boolean>;
   $updateProgress: Observable<number>;
 
-  checkForUpdate(): Promise<boolean>;
+  checkForUpdate(): void;
   quitAndInstall(): void;
 }

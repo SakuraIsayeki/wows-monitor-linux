@@ -5,6 +5,13 @@ import { Region } from 'src/app/interfaces/region';
   name: 'wowsNumbers'
 })
 export class WowsNumbersPipe implements PipeTransform {
+
+  private static pipe = new WowsNumbersPipe();
+
+  static staticTransform(region: Region) {
+    this.pipe.transform(region);
+  }
+
   transform(region: Region): string {
     switch (region) {
       case Region.EU:

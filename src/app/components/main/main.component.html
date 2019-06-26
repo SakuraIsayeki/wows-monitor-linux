@@ -11,8 +11,8 @@
 <p-toast position="bottom-right">
   <ng-template let-message pTemplate="message">
     <div class="ui-toast-custom-content {{message.severity}}">
-      <strong>{{message.summary}}</strong>
-      <p>{{message.detail}}</p>
+      <strong>{{message.summary | translate}}</strong>
+      <p>{{message.detail | translate}}</p>
     </div>
   </ng-template>
 </p-toast>

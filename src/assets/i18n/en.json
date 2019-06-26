@@ -14,7 +14,27 @@
       "title": "About"
     }
   },
+  "webConnect": {
+    "desktop": {
+      "title": "WebConnect",
+      "description": "Connect the web app from any device to this desktop app by following the steps below.",
+      "step1": "Scan this QR-Code from within the web app.",
+      "step2": "Enjoy!"
+    },
+    "browser": {
+      "title": "WebConnect",
+      "chooseVideo": "Select camera",
+      "description": "Connect to a desktop app by following the steps below.",
+      "step1": "Scan the QR-Code from the desktop app.",
+      "step2": "Enjoy!"
+    },
+    "issues": {
+      "permission": "Camera permission is required"
+    }
+  },
   "service": {
+    "connected": "Service connected",
+    "reconnect": "Reconnect to service",
     "issues": {
       "browser": {
         "connection": "Couldn't connect to the online service. Either the service is offline or you have no connection to a desktop client.",
@@ -23,7 +43,9 @@
       "desktop": "Couldn't connect to the online service."
     },
     "status": {
-      "idle": "Waiting for match..."
+      "idle": "Waiting for match...",
+      "fetching": "Updating match",
+      "fetched": "Match up-to-date"
     }
   },
   "pathPicker": {
@@ -68,6 +90,21 @@
         "caption": "Player Backgrounds",
         "summary": "Explanation"
       }
+    }
+  },
+  "uiMessages": {
+    "summaries": {
+      "success": "Success",
+      "error": "Error",
+      "warn": "Warning"
+    },
+    "messages": {
+      "serviceConnected": "Service successfully connected.",
+      "serviceDisconnected": "Service has been disconnected.",
+      "noServiceConnection": "Service could not be connected.",
+      "matchUpdated": "Match updated.",
+      "clientConnected":"Web app client connected.",
+      "clientDisconnected":"Web app client disconnected."
     }
   }
 }

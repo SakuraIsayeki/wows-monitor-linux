@@ -19,15 +19,15 @@ app-monitor {
       margin-bottom: 0;
     }
 
-    &.fz-normal{
+    &.fz-normal {
       font-size: 1em;
     }
-  
-    &.fz-big{
+
+    &.fz-big {
       font-size: 1.2em;
     }
-  
-    &.fz-huge{
+
+    &.fz-huge {
       font-size: 1.5em;
     }
   }
@@ -64,6 +64,7 @@ app-player {
   padding: 0 1em;
   cursor: pointer;
   transition: all .3s ease-in-out;
+  width: 100%;
   // border: 1px solid #FFF;
 
   &.me {
@@ -73,16 +74,74 @@ app-player {
   }
 
   &:hover {
-    background: transparentize($secondaryColor, 0.5)!important;
+    background: transparentize($secondaryColor, 0.5) !important;
   }
 
   .info-wrapper {
     display: grid;
     grid-gap: .5em;
-    grid-template-columns: 34% 22% 22% 22%;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-areas: 'name karma'
+      'ovr-winrate ovr-battles'
+      'ship pr'
+      'winrate battles '
+      'wins avg-damage'
+      'avg-frags avg-xp';
     border-bottom: 1px solid $secondaryColor;
     padding: 0.75em 0;
+    width: 100%;
+    overflow: hidden;
+
+    #name {
+      grid-area: name;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #ovr-winrate {
+      grid-area: ovr-winrate;
+    }
+
+    #ovr-battles {
+      grid-area: ovr-battles;
+    }
+
+    #karma {
+      grid-area: karma;
+    }
+
+    #ship {
+      grid-area: ship;
+    }
+
+    #winrate {
+      grid-area: winrate;
+    }
+
+    #battles {
+      grid-area: battles;
+    }
+
+    #wins {
+      grid-area: wins;
+    }
+
+    #pr {
+      grid-area: pr;
+    }
+
+    #avg-damage {
+      grid-area: avg-damage;
+    }
+
+    #avg-frags {
+      grid-area: avg-frags;
+    }
+
+    #avg-xp {
+      grid-area: avg-xp;
+    }
   }
 
   &.last {
@@ -90,6 +149,8 @@ app-player {
       border-bottom: 0;
     }
   }
+
+
 }
 
 app-team {
@@ -106,7 +167,19 @@ app-team {
 @media (min-width: 400px) {}
 
 /* Larger than phablet */
-@media (min-width: 550px) {}
+@media (min-width: 550px) {
+  app-player {
+    .info-wrapper {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: repeat(6, 1fr);
+      grid-template-areas: 'name karma pr'
+        '. ovr-winrate ovr-battles'
+        'ship winrate battles '
+        '. wins avg-damage'
+        '. avg-frags avg-xp';
+    }
+  }
+}
 
 /* Larger than tablet */
 @media (min-width: 750px) {
@@ -117,6 +190,19 @@ app-team {
       grid-template-rows: auto;
       grid-template-areas: 'friendly-clan friendly-clan enemy-clan enemy-clan'
         'friendly friendly enemy enemy';
+    }
+  }
+
+  app-player {
+    .info-wrapper {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(6, 1fr);
+      grid-template-areas: 'name karma'
+        'ovr-winrate ovr-battles'
+        'ship pr'
+        'winrate battles '
+        'wins avg-damage'
+        'avg-frags avg-xp';
     }
   }
 }
@@ -131,6 +217,31 @@ app-team {
       grid-template-areas:
         'friendly-clan . enemy-clan .'
         'friendly friendly enemy enemy';
+    }
+  }
+
+  app-player {
+    .info-wrapper {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: repeat(6, 1fr);
+      grid-template-areas: 'name karma pr'
+        '. ovr-winrate ovr-battles'
+        'ship winrate battles '
+        '. wins avg-damage'
+        '. avg-frags avg-xp';
+    }
+  }
+}
+
+@media (min-width: 1600px) {
+  app-player {
+    .info-wrapper {
+      grid-template-columns: 34% 22% 22% 22%;
+      grid-template-rows: repeat(3, 1fr);
+      grid-template-areas:
+        'name ovr-winrate ovr-battles karma'
+        'ship winrate battles wins'
+        'pr avg-damage avg-frags avg-xp';
     }
   }
 }

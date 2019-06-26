@@ -22,12 +22,12 @@ export class MenuComponent extends BaseComponent implements OnInit {
       key: 'meta.settings.title',
       routerLink: '/home/settings',
       icon: faCog
-    },
-    {
-      key: 'meta.about.title',
-      routerLink: '/home/about',
-      icon: faQuestionCircle
-    }
+    } // ,
+    // {
+    //   key: 'meta.about.title',
+    //   routerLink: '/home/about',
+    //   icon: faQuestionCircle
+    // }
   ];
 
   constructor() {

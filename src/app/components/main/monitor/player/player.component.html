@@ -1,49 +1,49 @@
-<div class="info-wrapper" [class.me]="player.relation == 0">
-  <div>
+<div class="info-wrapper" [class.me]="player.relation == 0"
+  (click)="openWowsNumbers(player)">
+  <div id="name">
     <strong>
       <span *ngIf="player.clan && !cw"
         [style.color]="player.clan.color | sanitizeCss">[{{player.clan.tag}}]&nbsp;</span>
       <span>{{player.name}}</span>
     </strong>
   </div>
-  <div>
+  <div id="ovr-winrate">
     Overall Winrate: <strong>{{player.overallStats?.winrate | number:'0.0-2'}}%</strong>
   </div>
-  <div>
+  <div id="ovr-battles">
     Overall Battles: <strong>{{player.overallStats?.battles}}</strong>
   </div>
-  <div>
+  <div id="karma">
     Karma: <strong>{{player.karma}}</strong>
   </div>
-  <div>
+  <div id="ship">
     {{player.shipInfo.name}} (Tier {{player.shipInfo.tier | roman}})
   </div>
-  <div>
+  <div id="winrate">
     Winrate: <strong>{{player.shipStats?.winrate | number:'0.0-2'}}%</strong>
   </div>
-  <div>
+  <div id="battles">
     Battles: <strong>{{player.shipStats?.battles}}</strong>
   </div>
-  <div>
+  <div id="wins">
     Wins: <strong>{{player.shipStats?.wins}}</strong>
   </div>
-  <div>
+  <div id="pr">
     PR: <span [pTooltip]="'monitor.pr.poweredBy' | translate" tooltipPosition="bottom"
       [style.color]="player.shipStats?.personalRating | pr | sanitizeCss"><strong>{{player.shipStats?.personalRating}}</strong></span>
   </div>
-  <div>
+  <div id="avg-damage">
     Avg Damage: <strong>{{player.shipStats?.averageDamage | number:'0.0-0'}}</strong>
   </div>
-  <div>
+  <div id="avg-frags">
     Avg Frags: <strong>{{player.shipStats?.averageFrags | number:'0.0-1'}}</strong>
   </div>
-  <div>
+  <div id="avg-xp">
     <ng-container *ngIf="!cw">
       Avg Xp: <strong>{{player.shipStats?.averageXp | number:'0.0-0'}}</strong>
     </ng-container>
   </div>
 </div>
-
 <!-- {
   "accountId": 534414851,
   "bot": false,

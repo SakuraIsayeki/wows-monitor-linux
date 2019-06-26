@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UpdateService, UpdateServiceToken } from 'src/app/interfaces/update.service';
 import { BaseComponent } from '../base.component';
-import { of } from 'rxjs';
+import { of, interval } from 'rxjs';
 
 @Component({
   selector: 'app-default',
@@ -26,19 +26,15 @@ export class DefaultComponent extends BaseComponent implements OnInit, OnDestroy
   }
 
   ngOnInit() {
+    this.updateService.$updateAvailable.pipe(this.untilDestroy()).subscribe(available => this.handleUpdate(available));
     this.checkForUpdate();
-    if (this.isDesktop) {
-      this.updateService.$updateAvailable.subscribe(available => this.handleUpdate(available));
-    }
   }
 
-  async checkForUpdate() {
+  checkForUpdate() {
     if (this.isBrowser) {
-      const available = await this.updateService.checkForUpdate();
-      this.handleUpdate(available);
-    } else {
-      await this.updateService.checkForUpdate();
+      interval(2000).pipe(this.untilDestroy()).subscribe(() => this.handleUpdate(false));
     }
+    this.updateService.checkForUpdate();
   }
 
   private handleUpdate(available) {

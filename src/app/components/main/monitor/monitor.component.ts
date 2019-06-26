@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, HostBinding } from '@angular/core';
 import { BaseComponent } from '../../base.component';
 import { SignalrServiceToken, SignalrService } from 'src/app/interfaces/signalr.service';
 import { Config } from 'src/config/config';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-monitor',
@@ -22,6 +22,8 @@ export class MonitorComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.signalrService.$info.pipe(this.untilDestroy(), filter(i => i != null)).subscribe(() => {
+      this.uiSuccess('matchUpdated');
+    });
   }
-
 }

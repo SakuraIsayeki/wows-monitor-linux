@@ -5,7 +5,6 @@
   width: 100%;
   max-width: 1650px;
   margin: 0 auto;
-  padding: 0 2em;
   box-sizing: border-box;
 
   &.small{
@@ -23,7 +22,7 @@
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {
-    width: calc(100vw - 1em);
+    width: calc(100% - 1em);
     padding: 0;
   }
 }

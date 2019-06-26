@@ -13,7 +13,7 @@ import { ApiService } from './api.service';
 export class CommonSignalrService implements SignalrService {
 
   private connection: HubConnection;
-  private _$socketStatus = new BehaviorSubject<SignalrStatus>(SignalrStatus.Disconnected);
+  private _$socketStatus = new BehaviorSubject<SignalrStatus>(SignalrStatus.None);
   private _$status = new BehaviorSubject<Status>(Status.Idle);
   private _$info = new BehaviorSubject<any>(null);
   private _$error = new Subject<string>();
@@ -99,6 +99,7 @@ export class CommonSignalrService implements SignalrService {
 
     this.connection.on('HostDisconnected', (clients) => {
       this.connection.stop();
+      this._$socketStatus.next(SignalrStatus.HostDisconnected);
     });
 
     this.connection.onclose((error) => {

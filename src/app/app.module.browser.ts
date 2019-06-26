@@ -24,7 +24,7 @@ const updateServiceFactory = (swUpdate?: SwUpdate) => {
   declarations: [],
   imports: [
     AppSharedModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     { provide: ConfigServiceToken, useClass: LocalStorageConfigService },

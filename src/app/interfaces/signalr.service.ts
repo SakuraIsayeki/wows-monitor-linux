@@ -17,7 +17,9 @@ export interface SignalrService {
 export enum SignalrStatus {
   Disconnected,
   Connected,
-  NoToken
+  NoToken,
+  HostDisconnected,
+  None
 }
 
 export enum Status {

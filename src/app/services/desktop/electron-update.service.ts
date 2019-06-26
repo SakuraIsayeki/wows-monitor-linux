@@ -55,7 +55,6 @@ export class ElectronUpdateService implements UpdateService {
     } else {
       this._$updateAvailable.next(false);
     }
-    return new Promise<boolean>(resolve => resolve(true));
   }
 
   quitAndInstall() {

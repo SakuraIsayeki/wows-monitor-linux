@@ -5,8 +5,8 @@
     <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="custom">
       <div class="container" *ngIf="enabled && hasPermission">
         <div class="row">
-          <div class="four column">
-            <label>{{ 'webConntect.browser.chooseVideo' }}</label>
+          <div class="four columns">
+            <label>{{ 'webConnect.browser.chooseVideo' | translate  }}</label>
           </div>
           <div class="eight columns space-bottom">
             <p-dropdown [options]="devices" [(ngModel)]="selectedDevice" [style]="{'width':'100%'}"></p-dropdown>
@@ -16,7 +16,7 @@
 
       <ng-container *ngIf="!hasPermission">
         <p>
-          {{ 'qr.issues.permission' | translate }}
+          {{ 'webConnect.issues.permission' | translate }}
         </p>
       </ng-container>
 
@@ -25,11 +25,11 @@
       </zxing-scanner>
 
       <p>
-        {{ 'webConntect.browser.description' }}
+        {{ 'webConnect.browser.description' | translate  }}
       </p>
       <ol>
-        <li>{{ 'webConntect.browser.step1' }}</li>
-        <li>{{ 'webConntect.browser.step2' }}</li>
+        <li>{{ 'webConnect.browser.step1' | translate  }}</li>
+        <li>{{ 'webConnect.browser.step2' | translate  }}</li>
       </ol>
     </p-scrollPanel>
   </div>

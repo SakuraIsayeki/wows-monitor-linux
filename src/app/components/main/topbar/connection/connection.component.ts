@@ -30,6 +30,11 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit,
     } else if (status === SignalrStatus.NoToken) {
       return 'service.issues.browser.noToken';
     } else {
+      if (status === SignalrStatus.Disconnected) {
+        this.uiError('serviceDisconnected');
+      } else if (status === SignalrStatus.HostDisconnected) {
+        this.uiError('hostDisconnected');
+      }
       if (this.isBrowser) {
         return 'service.issues.browser.noConnection';
       } else {
@@ -53,13 +58,15 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit,
 
     this.signalrService.$error.pipe(this.untilDestroy()).subscribe(error => this.uiError(error));
 
-    this.signalrService.$clients.pipe(this.untilDestroy(), pairwise()).subscribe(nums => {
-      if (nums[0] < nums[1]) {
-        this.uiSuccess('clientConnected');
-      } else {
-        this.uiWarn('clientDisconnected');
-      }
-    });
+    if (this.isDesktop) {
+      this.signalrService.$clients.pipe(this.untilDestroy(), pairwise()).subscribe(nums => {
+        if (nums[0] < nums[1]) {
+          this.uiSuccess('clientConnected');
+        } else {
+          this.uiWarn('clientDisconnected');
+        }
+      });
+    }
   }
 
   async connect() {
