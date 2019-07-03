@@ -72,7 +72,6 @@ export class FsDirectoryService implements DirectoryService {
       this._$watcherSubscription.unsubscribe();
     }
     this._$watcherSubscription = interval(5000).pipe(
-      startWith(0),
       switchMap(() => this.$status.pipe(filter(s => s != null))),
       filter(status => status.replaysFoldersFound)
     ).subscribe(status => {
