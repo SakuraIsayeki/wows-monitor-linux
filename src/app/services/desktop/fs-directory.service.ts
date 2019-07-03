@@ -78,7 +78,6 @@ export class FsDirectoryService implements DirectoryService {
         const infoFile = pathJoin(replaysFolder, 'tempArenaInfo.json');
         if (this._fs.existsSync(infoFile)) {
           const changeDate = this._fs.statSync(infoFile).mtime;
-          console.log(this._lastInfoFound, changeDate);
           if (!this._lastInfoFound || changeDate > this._lastInfoFound) {
             this._lastInfoFound = changeDate;
             this._$changeDetected.next(this._fs.readFileSync(infoFile, 'utf8'));
@@ -92,17 +91,22 @@ export class FsDirectoryService implements DirectoryService {
     const path = this.config.selectedDirectory;
     const status = {} as DirectoryStatus;
 
+    this.loggerService.debug('CheckPath', 'started', path);
+
     try {
       if (await this.existsAsync(path)) {
+        this.loggerService.debug('CheckPath', 'exists', path);
 
         const files = (await this.readDirAsync(path, 'utf8')) as string[];
         status.steamVersion = files.some(f => f.includes('steam_api.dll'));
         const resFolder = await this.getResFolderPath(path, status);
+        this.loggerService.debug('CheckPath', 'resFolder', resFolder);
         await this.readEngineConfig(resFolder, status);
+        this.loggerService.debug('CheckPath', 'preferences', status.preferencesPathBase.toString());
         await this.readPreferences(path, status);
         await this.readEngineConfig(pathJoin(resFolder + '_mods', status.clientVersion), status);
-
         this.setReplaysFolder(path, status);
+        this.loggerService.debug('CheckPath', 'replaysFolders', status.replaysFolders.join(','));
         status.replaysFoldersFound = status.replaysFolders.some(p => this._fs.existsSync(p));
       }
     } catch (error) {

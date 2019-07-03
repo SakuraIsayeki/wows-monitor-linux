@@ -12,10 +12,10 @@ const args = process.argv.slice(1);
 const isDebug = args.some(val => val === '--serve');
 const isLocal = args.some(val => val === '--local');
 
-if (isDebug) {
+// if (isDebug) {
   logger.transports.file.level = 'debug';
   logger.transports.console.level = 'debug';
-}
+// }
 
 autoUpdater.logger = logger;
 

@@ -37,7 +37,6 @@ export class PathPickerComponent extends BaseComponent implements OnInit {
           this.directoryService.$changeDetected.pipe(filter(c => c != null)),
           this.directoryService.$status.pipe(filter(ss => ss != null))
         ]).pipe(this.untilDestroy()).subscribe(arr => {
-          console.log(arr);
           this.apiService.sendStats(arr[0], arr[1].region).subscribe();
         });
       } else {

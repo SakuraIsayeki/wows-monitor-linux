@@ -101,6 +101,12 @@ export class CommonSignalrService implements SignalrService {
       this._$socketStatus.next(SignalrStatus.HostDisconnected);
     });
 
+    this.connection.on('SendError', (error) => {
+      this.loggerService.error('Error in api', error);
+      this._$error.next(error);
+      this._$status.next(Status.Idle);
+    });
+
     this.connection.onclose((error) => {
       this._$socketStatus.next(SignalrStatus.Disconnected);
     });
