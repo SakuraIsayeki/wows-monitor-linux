@@ -19,7 +19,7 @@
   <fa-icon [icon]="connectionIcon" size="2x" [fixedWidth]="true"></fa-icon>
 </div>
 
-<div class="iconWrapper" *ngIf="(signalrService.$socketStatus | async) == 0">
+<div class="iconWrapper" *ngIf="(signalrService.$socketStatus | async) == 0 || (signalrService.$socketStatus | async) == 4">
   <p-button *ngIf="!(showOnTablet | async)" (click)="reconnect()" icon="pi pi-replay"
     [label]="'service.reconnect' | translate" styleClass="ui-button-success"></p-button>
   <p-button *ngIf="showOnTablet | async" (click)="reconnect()" icon="pi pi-replay" styleClass="ui-button-success">

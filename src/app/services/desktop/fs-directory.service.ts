@@ -39,10 +39,8 @@ export class FsDirectoryService implements DirectoryService {
 
   constructor(
     electronService: ElectronService,
-    appRef: ApplicationRef,
     @Inject(LoggerServiceToken) private loggerService: LoggerService,
-    private config: Config,
-    private ngZone: NgZone
+    private config: Config
   ) {
     this._fs = electronService.fs;
     // tslint:disable-next-line: deprecation
@@ -72,6 +70,7 @@ export class FsDirectoryService implements DirectoryService {
       this._$watcherSubscription.unsubscribe();
     }
     this._$watcherSubscription = interval(5000).pipe(
+      startWith(0),
       switchMap(() => this.$status.pipe(filter(s => s != null))),
       filter(status => status.replaysFoldersFound)
     ).subscribe(status => {
@@ -79,6 +78,7 @@ export class FsDirectoryService implements DirectoryService {
         const infoFile = pathJoin(replaysFolder, 'tempArenaInfo.json');
         if (this._fs.existsSync(infoFile)) {
           const changeDate = this._fs.statSync(infoFile).mtime;
+          console.log(this._lastInfoFound, changeDate);
           if (!this._lastInfoFound || changeDate > this._lastInfoFound) {
             this._lastInfoFound = changeDate;
             this._$changeDetected.next(this._fs.readFileSync(infoFile, 'utf8'));

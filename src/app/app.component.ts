@@ -19,7 +19,8 @@ export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.translateService.addLangs(['en']);
-    this.translateService.setDefaultLang(this.translateService.getBrowserLang());
+    this.translateService.setDefaultLang('en');
+    this.translateService.use(this.translateService.getBrowserLang());
 
     if (environment.production) {
       this.router.navigateByUrl('/');

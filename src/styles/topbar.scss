@@ -27,7 +27,8 @@ app-topbar {
     cursor: pointer;
   }
 
-  &.state-0 {
+  &.state-0,
+  &.state-4 {
     color: $dangerColor;
   }
 
@@ -37,6 +38,7 @@ app-topbar {
   }
 
   &.state-2,
+  &.state-3,
   &.status-2 {
     color: $warningColor;
   }

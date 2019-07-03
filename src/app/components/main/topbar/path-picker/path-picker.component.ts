@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { faFolder } from '@fortawesome/free-solid-svg-icons';
+import { combineLatest, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/components/base.component';
 import { DirectoryService, DirectoryServiceToken } from 'src/app/interfaces/directory.service';
 import { SignalrService, SignalrServiceToken, SignalrStatus } from 'src/app/interfaces/signalr.service';
 import { ApiService } from 'src/app/services/api.service';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
 import { Config } from 'src/config/config';
-import { filter, switchMap } from 'rxjs/operators';
-import { faFolder } from '@fortawesome/free-solid-svg-icons';
-import { zip } from 'rxjs';
 
 @Component({
   selector: 'app-path-picker',
@@ -29,19 +29,23 @@ export class PathPickerComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.signalRService.$socketStatus
-      .pipe(
-        filter(s => s === SignalrStatus.Connected),
-        switchMap(s =>
-          zip(
-            this.directoryService.$changeDetected.pipe(filter(c => c != null)),
-            this.directoryService.$status.pipe(filter(ss => ss != null))
-          )
-        )
-      )
-      .subscribe(arr => {
-        this.apiService.sendStats(arr[0], arr[1].region).subscribe();
-      });
+    let subscribtion: Subscription;
+
+    this.signalRService.$socketStatus.subscribe(s => {
+      if (s === SignalrStatus.Connected) {
+        subscribtion = combineLatest([
+          this.directoryService.$changeDetected.pipe(filter(c => c != null)),
+          this.directoryService.$status.pipe(filter(ss => ss != null))
+        ]).pipe(this.untilDestroy()).subscribe(arr => {
+          console.log(arr);
+          this.apiService.sendStats(arr[0], arr[1].region).subscribe();
+        });
+      } else {
+        if (subscribtion) {
+          subscribtion.unsubscribe();
+        }
+      }
+    });
   }
 
   pickPath() {
