@@ -13,8 +13,8 @@ const isDebug = args.some(val => val === '--serve');
 const isLocal = args.some(val => val === '--local');
 
 // if (isDebug) {
-  logger.transports.file.level = 'debug';
-  logger.transports.console.level = 'debug';
+logger.transports.file.level = 'debug';
+logger.transports.console.level = 'debug';
 // }
 
 autoUpdater.logger = logger;
@@ -64,7 +64,7 @@ function appReady() {
     });
     win.loadURL('http://localhost:4200');
 
-
+    win.webContents.openDevTools();
   } else {
     win.loadURL(url.format({
       pathname: path.join(__dirname, isLocal ? '../dist/app-desktop/index.html' : '../dist/app-desktop/index.html'),
@@ -72,7 +72,6 @@ function appReady() {
       slashes: true,
     }));
   }
-  win.webContents.openDevTools();
   win.on('closed', () => {
     win = null;
   });

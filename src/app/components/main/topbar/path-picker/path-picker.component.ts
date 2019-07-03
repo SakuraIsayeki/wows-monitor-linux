@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { combineLatest, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -8,18 +8,20 @@ import { SignalrService, SignalrServiceToken, SignalrStatus } from 'src/app/inte
 import { ApiService } from 'src/app/services/api.service';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
 import { Config } from 'src/config/config';
+import { DialogService } from 'primeng/api';
+import { PathPickerDialogComponent } from './path-picker-dialog/path-picker-dialog.component';
 
 @Component({
   selector: 'app-path-picker',
   templateUrl: './path-picker.component.html'
 })
-export class PathPickerComponent extends BaseComponent implements OnInit {
+export class PathPickerComponent extends BaseComponent implements OnInit, OnDestroy {
 
   folderIcon = faFolder;
   showPathInfo = false;
 
   constructor(
-    private electronService: ElectronService,
+    private dialogService: DialogService,
     private apiService: ApiService,
     @Inject(SignalrServiceToken) private signalRService: SignalrService,
     @Inject(DirectoryServiceToken) public directoryService: DirectoryService,
@@ -47,22 +49,15 @@ export class PathPickerComponent extends BaseComponent implements OnInit {
     });
   }
 
-  pickPath() {
-    this.electronService.dialog.showOpenDialog(this.electronService.remote.BrowserWindow.getFocusedWindow(), {
-      defaultPath: this.config.selectedDirectory,
-      properties: ['openDirectory']
-    }, (paths) => {
-      if (paths && paths.length > 0) {
-        this.ngZone.run(() => {
-          const path = paths[0];
-          this.logDebug('Directory selected', path);
-          this.directoryService.changePath(path);
-        });
-      }
-    });
+  openDialog() {
+    this.dialogService.open(PathPickerDialogComponent, { styleClass: 'dialogPopup desktop', showHeader: false, dismissableMask: true });
   }
 
   refresh() {
     this.directoryService.refresh();
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
   }
 }

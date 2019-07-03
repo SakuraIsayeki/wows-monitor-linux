@@ -1,0 +1,15 @@
+<p-button (click)="pickPath()" icon="pi pi-folder" [label]="'pathPicker.buttonLabel' | translate"
+  styleClass="ui-button-success"></p-button>
+
+<pre *ngIf="directoryService.$status | async;let info">
+  Region:               {{info.region | region}}
+  Client version:       {{info.clientVersion}}
+  <ng-container *ngIf="info.steamVersion">
+  Folder version:       {{info.folderVersion}}
+  </ng-container>
+  Steam version:        {{info.steamVersion}}
+  Replays pathbase:     {{info.replaysPathBase}}
+  Preferences pathbase: {{info.preferencesPathBase}}
+  Replays folder found: {{info.replaysFoldersFound}}
+  Replays paths:        {{info.replaysFolders | join:','}}
+</pre>

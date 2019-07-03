@@ -25,6 +25,7 @@ import { MenuComponent } from './topbar/menu/menu.component';
 import { PathPickerComponent } from './topbar/path-picker/path-picker.component';
 import { StatusComponent } from './topbar/status/status.component';
 import { TopbarComponent } from './topbar/topbar.component';
+import { PathPickerDialogComponent } from './topbar/path-picker/path-picker-dialog/path-picker-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { TopbarComponent } from './topbar/topbar.component';
     StatusComponent,
     TitlebarComponent,
     QrComponent,
-    QrScanComponent
+    QrScanComponent,
+    PathPickerDialogComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +64,8 @@ import { TopbarComponent } from './topbar/topbar.component';
   ],
   entryComponents: [
     QrComponent,
-    QrScanComponent
+    QrScanComponent,
+    PathPickerDialogComponent
   ]
 })
 export class MainModule { }
