@@ -155,6 +155,8 @@ export class FsDirectoryService implements DirectoryService {
   }
 
   private async readPreferences(basePath: string, status: DirectoryStatus) {
+    const versionRegex = new RegExp(/<clientVersion>([\s,0-9]*)<\/clientVersion>/g);
+    const regionRegex = new RegExp(/<active_server>([\sA-Z]*)<\/active_server>/g);
     let path = '';
     if (status.steamVersion) {
       path = status.preferencesPathBase === 'CWD' ? basePath : pathJoin(basePath, 'bin', status.folderVersion);
@@ -162,15 +164,14 @@ export class FsDirectoryService implements DirectoryService {
       path = basePath;
     }
 
-    let content = await this.readFileAsync(pathJoin(path, 'preferences.xml'), 'utf8');
-    content = content.replace(/@/g, '');
-    const json = parseXml2Json(content);
+    const content = await this.readFileAsync(pathJoin(path, 'preferences.xml'), 'utf8');
 
-    const clientVersion = json['preferences.xml'].clientVersion.replace(/,\s/g, '.');
-    let region: string = json['preferences.xml'].scriptsPreferences.net_credentials.active_server;
-    region = region.replace('WOWS', '').trim();
-    status.region = Region[region];
-    status.clientVersion = clientVersion;
+    const versionResult = versionRegex.exec(content);
+    const regionResult = regionRegex.exec(content);
+
+    // region = region.replace('WOWS', '').trim();
+    status.region = Region[regionResult[1].replace('WOWS', '').trim()];
+    status.clientVersion = versionResult[1].replace(/,/g, '.').replace(/\s/g, '').trim();
   }
 
   private setReplaysFolder(basePath: string, status: DirectoryStatus) {
