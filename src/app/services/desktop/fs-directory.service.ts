@@ -1,4 +1,4 @@
-import { ApplicationRef, Inject, Injectable, NgZone } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { parse as parseXml2Json } from 'fast-xml-parser';
 import * as fs from 'fs';
 import { dirname, join as pathJoin, normalize as pathNormalize } from 'path';
@@ -142,14 +142,29 @@ export class FsDirectoryService implements DirectoryService {
       const content = await this.readFileAsync(path, 'utf8');
       const json = parseXml2Json(content);
 
+      const engineConfig = json['engine_config.xml'];
       try {
-        const engineConfig = json['engine_config.xml'];
         status.preferencesPathBase = engineConfig.preferences.pathBase;
+      } catch (error) {
+        this.loggerService.error('Error while reading preferences.pathBase in ' + resPath, error);
+      }
+
+      try {
         status.replaysPathBase = engineConfig.replays.pathBase;
+      } catch (error) {
+        this.loggerService.error('Error while reading replays.pathBase in ' + resPath, error);
+      }
+
+      try {
         status.replaysDirPath = engineConfig.replays.dirPath;
+      } catch (error) {
+        this.loggerService.error('Error while reading replays.dirPath in ' + resPath, error);
+      }
+
+      try {
         status.replaysVersioned = engineConfig.replays.versioned;
       } catch (error) {
-        this.loggerService.error('Error while reading engine_config.xml in ' + resPath, error);
+        this.loggerService.error('Error while reading replays.versioned in ' + resPath, error);
       }
     }
   }
@@ -164,14 +179,17 @@ export class FsDirectoryService implements DirectoryService {
       path = basePath;
     }
 
-    const content = await this.readFileAsync(pathJoin(path, 'preferences.xml'), 'utf8');
+    try {
+      const content = await this.readFileAsync(pathJoin(path, 'preferences.xml'), 'utf8');
 
-    const versionResult = versionRegex.exec(content);
-    const regionResult = regionRegex.exec(content);
+      const versionResult = versionRegex.exec(content);
+      const regionResult = regionRegex.exec(content);
 
-    // region = region.replace('WOWS', '').trim();
-    status.region = Region[regionResult[1].replace('WOWS', '').trim()];
-    status.clientVersion = versionResult[1].replace(/,/g, '.').replace(/\s/g, '').trim();
+      status.region = Region[regionResult[1].replace('WOWS', '').trim()];
+      status.clientVersion = versionResult[1].replace(/,/g, '.').replace(/\s/g, '').trim();
+    } catch (error) {
+      this.loggerService.error('Error while reading preferences.xml in ' + path, error);
+    }
   }
 
   private setReplaysFolder(basePath: string, status: DirectoryStatus) {
