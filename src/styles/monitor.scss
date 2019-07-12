@@ -215,7 +215,7 @@ app-team {
   app-monitor {
     .container {
       grid-template-areas:
-        'friendly-clan . enemy-clan .'
+        'friendly-clan friendly-clan enemy-clan enemy-clan'
         'friendly friendly enemy enemy';
     }
   }

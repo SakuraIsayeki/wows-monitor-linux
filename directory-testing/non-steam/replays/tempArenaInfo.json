@@ -1,177 +1,113 @@
 {
-  "clientVersionFromXml": "0, 8, 5, 1619877",
+  "clientVersionFromXml": "0, 8, 5, 1631917",
   "gameMode": 7,
-  "clientVersionFromExe": "0, 8, 5, 1619877",
+  "clientVersionFromExe": "0, 8, 5, 1631917",
   "scenarioUiCategoryId": 0,
-  "mapDisplayName": "46_Estuary",
-  "mapId": 29,
-  "matchGroup": "pvp",
+  "mapDisplayName": "44_Path_warrior",
+  "mapId": 27,
+  "matchGroup": "clan",
   "weatherParams": {
     "0": [
-      "PCOW003_Cloudy"
-    ],
-    "1": [
-      "PCOW010_Rain_Logic",
-      "PCOW003_Cloudy"
+      "PCOW001_Sunny"
     ]
   },
   "duration": 1200,
   "gameLogic": "Domination",
-  "name": "12x12",
-  "scenario": "Domination",
+  "name": "7x7",
+  "scenario": "CvC_Domination",
   "playerID": 0,
   "vehicles": [
     {
-      "shipId": 3751687888,
-      "relation": 2,
-      "id": 805575303,
-      "name": "dawanze"
-    },
-    {
-      "shipId": 3764336432,
+      "shipId": 4181637104,
       "relation": 1,
-      "id": 805483280,
-      "name": "salmacis"
+      "id": 939531972,
+      "name": "ascoder"
     },
     {
-      "shipId": 4183734256,
+      "shipId": 4181669328,
       "relation": 2,
-      "id": 939735827,
-      "name": "hammer0310"
+      "id": 628421,
+      "name": "BoJIocH9IBbIu_JILyJILbIk"
     },
     {
-      "shipId": 4077828080,
+      "shipId": 4285445840,
+      "relation": 2,
+      "id": 134807399,
+      "name": "rJlagKa9_LluTageJlbKa"
+    },
+    {
+      "shipId": 4181636560,
+      "relation": 2,
+      "id": 683816,
+      "name": "GottMltUns"
+    },
+    {
+      "shipId": 3762206160,
       "relation": 1,
-      "id": 939831583,
-      "name": "borchert_www_harri"
+      "id": 939635913,
+      "name": "CVNeedsBuff_IAmNotJoking"
     },
     {
-      "shipId": 3763255248,
+      "shipId": 3751753712,
+      "relation": 1,
+      "id": 805316810,
+      "name": "Sinthanor"
+    },
+    {
+      "shipId": 4181637104,
+      "relation": 2,
+      "id": 135154224,
+      "name": "MahoneyII"
+    },
+    {
+      "shipId": 4181636944,
+      "relation": 1,
+      "id": 939623442,
+      "name": "saltson"
+    },
+    {
+      "shipId": 4181637104,
+      "relation": 2,
+      "id": 134817619,
+      "name": "zloy_zlyn"
+    },
+    {
+      "shipId": 3752736720,
+      "relation": 2,
+      "id": 134953651,
+      "name": "MegaGin"
+    },
+    {
+      "shipId": 4181636560,
+      "relation": 1,
+      "id": 805333417,
+      "name": "TB_Katlaron"
+    },
+    {
+      "shipId": 3752736720,
       "relation": 0,
-      "id": 939828768,
+      "id": 939527481,
       "name": "__MaceWindu__"
     },
     {
-      "shipId": 4182685520,
+      "shipId": 4285445840,
       "relation": 2,
-      "id": 939881000,
-      "name": "MEITO_sniper"
-    },
-    {
-      "shipId": 4183799504,
-      "relation": 2,
-      "id": 805626281,
-      "name": "darkstar70"
-    },
-    {
-      "shipId": 4182652720,
-      "relation": 1,
-      "id": 805416626,
-      "name": "Haddokk"
-    },
-    {
-      "shipId": 4255037136,
-      "relation": 2,
-      "id": 805327790,
-      "name": "jsf_58"
-    },
-    {
-      "shipId": 4183766480,
-      "relation": 2,
-      "id": 805640623,
-      "name": "farkel1"
-    },
-    {
-      "shipId": 4182718256,
-      "relation": 1,
-      "id": 939634480,
-      "name": "stancoj"
-    },
-    {
-      "shipId": 4287542992,
-      "relation": 1,
-      "id": 939634482,
-      "name": "Marnoros"
-    },
-    {
-      "shipId": 4183766480,
-      "relation": 2,
-      "id": 805519031,
-      "name": "SirKeilox"
-    },
-    {
-      "shipId": 4182718256,
-      "relation": 2,
-      "id": 805562572,
-      "name": "EndriuAZ_PL"
-    },
-    {
-      "shipId": 4286527472,
-      "relation": 2,
-      "id": 805530829,
-      "name": "Nasnpuhler"
-    },
-    {
-      "shipId": 4182652880,
-      "relation": 2,
-      "id": 939791566,
-      "name": "Lambertus123"
-    },
-    {
-      "shipId": 3763255248,
-      "relation": 2,
-      "id": 939816400,
-      "name": "Sedmi"
-    },
-    {
-      "shipId": 4181603536,
-      "relation": 1,
-      "id": 939764574,
-      "name": "lugdunum01150"
+      "id": 707131,
+      "name": "Admiral_Hipper_2019"
     },
     {
       "shipId": 4255037136,
       "relation": 1,
-      "id": 939533407,
-      "name": "UNISIC"
-    },
-    {
-      "shipId": 4183766480,
-      "relation": 2,
-      "id": 939696867,
-      "name": "kingofduty"
-    },
-    {
-      "shipId": 4259264496,
-      "relation": 1,
-      "id": 939817700,
-      "name": "chainbinder"
-    },
-    {
-      "shipId": 4182717904,
-      "relation": 1,
-      "id": 805469289,
-      "name": "pedro040273"
-    },
-    {
-      "shipId": 4183799792,
-      "relation": 1,
-      "id": 805602158,
-      "name": "glabrador"
-    },
-    {
-      "shipId": 4183766832,
-      "relation": 1,
-      "id": 939742840,
-      "name": "panda_defender"
+      "id": 939651100,
+      "name": "tomi26"
     }
   ],
-  "playersPerTeam": 12,
-  "dateTime": "28.06.2019 18:59:28",
-  "mapName": "spaces/46_Estuary",
+  "playersPerTeam": 7,
+  "dateTime": "06.07.2019 20:10:30",
+  "mapName": "spaces/44_Path_warrior",
   "playerName": "__MaceWindu__",
-  "scenarioConfigId": 203,
+  "scenarioConfigId": 196,
   "teamsCount": 2,
   "logic": "Domination",
-  "playerVehicle": "PBSC507-Belfast-1959"
+  "playerVehicle": "PBSD517-Cossack"
 }

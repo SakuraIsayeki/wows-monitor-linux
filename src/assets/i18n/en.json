@@ -68,6 +68,10 @@
         "Hurricane",
         "Typhoon"
       ]
+    },
+    "teamPopup":{
+      "info":"more Information",
+      "wowsNumbers": "Clan on Wows-Numbers"
     }
   },
   "settings": {
