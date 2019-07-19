@@ -53,6 +53,7 @@ function appReady() {
             electron: require(__dirname + "/../node_modules/electron")
         });
         win.loadURL('http://localhost:4200');
+        win.webContents.openDevTools();
     }
     else {
         win.loadURL(url.format({
@@ -61,7 +62,6 @@ function appReady() {
             slashes: true,
         }));
     }
-    win.webContents.openDevTools();
     win.on('closed', function () {
         win = null;
     });
