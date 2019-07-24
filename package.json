@@ -1,10 +1,10 @@
 {
   "name": "@wows-monitor/app",
   "description": "WoWs Monitor",
-  "version": "1.0.0-beta",
+  "version": "1.0.0-beta.1",
   "homepage": "https://wows-monitor.com",
   "author": {
-    "name": "stewie_oO",
+    "name": "stewie",
     "email": "siegerx3-games@yahoo.de"
   },
   "main": "src-electron/main.js",

@@ -40,7 +40,7 @@ function appReady() {
         }
     });
     mainWindowState.manage(win);
-    update_tasks_1.initUpdater(logger, win);
+    update_tasks_1.initUpdater(logger, win, isDebug);
     electron_log_1.initElectronLogger(logger);
     if (isDebug) {
         electron_1.globalShortcut.register('f5', function () {
@@ -53,7 +53,6 @@ function appReady() {
             electron: require(__dirname + "/../node_modules/electron")
         });
         win.loadURL('http://localhost:4200');
-        win.webContents.openDevTools();
     }
     else {
         win.loadURL(url.format({
@@ -62,6 +61,7 @@ function appReady() {
             slashes: true,
         }));
     }
+    win.webContents.openDevTools();
     win.on('closed', function () {
         win = null;
     });

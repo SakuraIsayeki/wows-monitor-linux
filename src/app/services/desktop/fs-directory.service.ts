@@ -97,7 +97,11 @@ export class FsDirectoryService implements DirectoryService {
       if (await this.existsAsync(path)) {
         this.loggerService.debug('CheckPath', 'exists', path);
 
-        status.steamVersion = (await this.existsAsync(pathJoin(path, 'bin', 'clientrunner'))) != null;
+        try {
+          status.steamVersion = (await this.existsAsync(pathJoin(path, 'bin', 'clientrunner'))) != null;
+        } catch {
+          // For non-steam versions
+        }
         const resFolder = await this.getResFolderPath(path, status);
         this.loggerService.debug('CheckPath', 'resFolder', resFolder);
         if (await this.readEngineConfig(resFolder, status)) {
@@ -107,7 +111,7 @@ export class FsDirectoryService implements DirectoryService {
           this.setReplaysFolder(path, status);
           this.loggerService.debug('CheckPath', 'replaysFolders', status.replaysFolders.join(','));
           status.replaysFoldersFound = status.replaysFolders.some(p => this._fs.existsSync(p));
-        };
+        }
       }
     } catch (error) {
       this.loggerService.error('Error during path check', error);

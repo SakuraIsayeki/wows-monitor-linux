@@ -32,24 +32,29 @@ export class ElectronUpdateService implements UpdateService {
     });
 
     electronService.ipcRenderer.on('update-not-available', () => {
+      loggerService.debug('update-not-available');
       this._$updateAvailable.next(false);
     });
 
     electronService.ipcRenderer.on('update-error', () => {
+      loggerService.debug('update-error');
       this._$updateAvailable.next(false);
     });
 
     electronService.ipcRenderer.on('download-progress', (event, progressObj: { percent: number }) => {
+      loggerService.debug('download-progress', progressObj.percent);
       this._$updateProgress.next(progressObj.percent);
     });
 
     electronService.ipcRenderer.on('update-downloaded', () => {
+      loggerService.debug('update-downloaded');
       this._$updateAvailable.next(true);
     });
   }
 
 
-  checkForUpdate() {
+  async checkForUpdate() {
+    await this.config.waitTillLoaded();
     if (this.config.autoUpdate) {
       this.electronService.ipcRenderer.send('checkForUpdate');
     } else {

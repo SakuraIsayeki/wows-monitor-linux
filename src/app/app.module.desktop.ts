@@ -18,7 +18,7 @@ import { FsDirectoryService } from './services/desktop/fs-directory.service';
   providers: [
     { provide: ConfigServiceToken, useClass: FsConfigService },
     { provide: DirectoryServiceToken, useClass: FsDirectoryService },
-    { provide: UpdateServiceToken, useClass: ElectronUpdateService, deps: [ElectronService, LoggerServiceToken] },
+    { provide: UpdateServiceToken, useClass: ElectronUpdateService, deps: [ElectronService, Config, LoggerServiceToken] },
     { provide: LoggerServiceToken, useClass: ElectronLoggerService },
     { provide: SignalrServiceToken, useClass: CommonSignalrService },
     Config,

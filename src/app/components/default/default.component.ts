@@ -1,8 +1,9 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { UpdateService, UpdateServiceToken } from 'src/app/interfaces/update.service';
 import { BaseComponent } from '../base.component';
 import { of, interval } from 'rxjs';
+import { skip } from 'rxjs/operators';
 
 @Component({
   selector: 'app-default',
@@ -26,7 +27,7 @@ export class DefaultComponent extends BaseComponent implements OnInit, OnDestroy
   }
 
   ngOnInit() {
-    this.updateService.$updateAvailable.pipe(this.untilDestroy()).subscribe(available => this.handleUpdate(available));
+    this.updateService.$updateAvailable.pipe(this.untilDestroy(), skip(1)).subscribe(available => this.handleUpdate(available));
     this.checkForUpdate();
   }
 
@@ -41,7 +42,9 @@ export class DefaultComponent extends BaseComponent implements OnInit, OnDestroy
     if (available) {
       this.updateService.quitAndInstall();
     } else {
-      this.router.navigateByUrl('/home');
+      this.ngZone.run(() => {
+        this.router.navigateByUrl('/home');
+      });
     }
   }
 }

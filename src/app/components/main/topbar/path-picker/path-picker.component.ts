@@ -39,13 +39,19 @@ export class PathPickerComponent extends BaseComponent implements OnInit, OnDest
           this.directoryService.$changeDetected.pipe(filter(c => c != null)),
           this.directoryService.$status.pipe(filter(ss => ss != null))
         ]).pipe(this.untilDestroy()).subscribe(arr => {
-          this.apiService.sendStats(arr[0], arr[1].region).subscribe();
+          this.apiService.sendStats(arr[0], arr[1].region).subscribe(undefined, err => {
+            this.logError('Error during api call', err);
+          });
         });
       } else {
         if (subscribtion) {
           subscribtion.unsubscribe();
         }
       }
+    });
+
+    this.signalRService.$error.subscribe(error => {
+      this.uiError('fetchingError');
     });
   }
 

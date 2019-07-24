@@ -1,57 +1,59 @@
-<h3 *ngIf="cw">
-  <span [style.color]="clan.color | sanitizeCss">[{{clan.tag}}]</span>&nbsp;
-  <span>{{clan.name}} ({{clan.region | region}})</span>
-</h3>
-<span *ngIf="cw" translate="monitor.cw.text"
-  [translateParams]="{ rank: clan.rank, league: 'monitor.cw.leagues.' + clan.mainRating.league | translate, division: clan.mainRating.division | roman, winrate: (clan.mainRating.wins/clan.mainRating.battles * 100) | number:'0.0-2' }">
-</span>
-<span *ngIf="!cw">
-  Avg Xp: {{team.xp | number:'0.0-0'}} Avg Winrate: {{team.winrate | number:'0.0-2'}}% Avg Battles:
-  {{team.battles | number:'0.0-0'}}
-</span>
-
-<a *ngIf="cw" #weblink target="_blank" hidden="hidden" href="{{ clan.region | wowsNumbers }}clan/{{clan.id}},/">Link</a>
-
-<p-contextMenu *ngIf="cw" [target]="el.nativeElement" appendTo="body" [model]="items" triggerEvent="click">
-</p-contextMenu>
-
-<p-dialog *ngIf="cw" [(visible)]="showDialog" [dismissableMask]="true" [modal]="true" appendTo="body" [closable]="true">
-  <p-header>
+<ng-container *ngIf="clan">
+  <h3 *ngIf="cw">
     <span [style.color]="clan.color | sanitizeCss">[{{clan.tag}}]</span>&nbsp;
     <span>{{clan.name}} ({{clan.region | region}})</span>
-  </p-header>
-  <ng-container *ngIf="clan.mainRating">
-    <h3>
-      Main Rating
-    </h3>
-    <pre>
-  League:         {{ 'monitor.cw.leagues.' +clan.mainRating.league | translate }}
-  Division:       {{ clan.mainRating.division | roman }}
-  Points:         {{ clan.mainRating.rating }}
-  Battles:        {{ clan.mainRating.battles }}
-  Wins:           {{ clan.mainRating.wins }}
-  Longest Streak: {{ clan.mainRating.longestWinningStreak }}
-  Current Streak: {{ clan.mainRating.currentWinningStreak }}
-    </pre>
-  </ng-container>
+  </h3>
+  <span *ngIf="cw" translate="monitor.cw.text"
+    [translateParams]="{ rank: clan.rank, league: 'monitor.cw.leagues.' + clan.mainRating.league | translate, division: clan.mainRating.division | roman, winrate: (clan.mainRating.wins/clan.mainRating.battles * 100) | number:'0.0-2' }">
+  </span>
+  <span *ngIf="!cw">
+    Avg Xp: {{team.xp | number:'0.0-0'}} Avg Winrate: {{team.winrate | number:'0.0-2'}}% Avg Battles:
+    {{team.battles | number:'0.0-0'}}
+  </span>
 
-  <ng-container *ngIf="clan.secondaryRating">
-    <h3>
-      Secondary Rating
-    </h3>
-    <pre>
-  League:         {{ 'monitor.cw.leagues.' +clan.secondaryRating.league | translate }}
-  Division:       {{ clan.secondaryRating.division | roman }}
-  Points:         {{ clan.secondaryRating.rating }}
-  Battles:        {{ clan.secondaryRating.battles }}
-  Wins:           {{ clan.secondaryRating.wins }}
-  Longest Streak: {{ clan.secondaryRating.longestWinningStreak }}
-  Current Streak: {{ clan.secondaryRating.currentWinningStreak }}
+  <a *ngIf="cw" #weblink target="_blank" hidden="hidden" href="{{ clan.region | wowsNumbers }}clan/{{clan.id}},/">Link</a>
+
+  <p-contextMenu *ngIf="cw" [target]="el.nativeElement" appendTo="body" [model]="items" triggerEvent="click">
+  </p-contextMenu>
+
+  <p-dialog *ngIf="cw" [(visible)]="showDialog" [dismissableMask]="true" [modal]="true" appendTo="body" [closable]="true">
+    <p-header>
+      <span [style.color]="clan.color | sanitizeCss">[{{clan.tag}}]</span>&nbsp;
+      <span>{{clan.name}} ({{clan.region | region}})</span>
+    </p-header>
+    <ng-container *ngIf="clan.mainRating">
+      <h3>
+        Main Rating
+      </h3>
+      <pre>
+    League:         {{ 'monitor.cw.leagues.' +clan.mainRating.league | translate }}
+    Division:       {{ clan.mainRating.division | roman }}
+    Points:         {{ clan.mainRating.rating }}
+    Battles:        {{ clan.mainRating.battles }}
+    Wins:           {{ clan.mainRating.wins }}
+    Longest Streak: {{ clan.mainRating.longestWinningStreak }}
+    Current Streak: {{ clan.mainRating.currentWinningStreak }}
       </pre>
-  </ng-container>
+    </ng-container>
 
-  <!-- <a routerLink="/wcw/{{clan.id}}">Learn more</a> -->
-</p-dialog>
+    <ng-container *ngIf="clan.secondaryRating">
+      <h3>
+        Secondary Rating
+      </h3>
+      <pre>
+    League:         {{ 'monitor.cw.leagues.' +clan.secondaryRating.league | translate }}
+    Division:       {{ clan.secondaryRating.division | roman }}
+    Points:         {{ clan.secondaryRating.rating }}
+    Battles:        {{ clan.secondaryRating.battles }}
+    Wins:           {{ clan.secondaryRating.wins }}
+    Longest Streak: {{ clan.secondaryRating.longestWinningStreak }}
+    Current Streak: {{ clan.secondaryRating.currentWinningStreak }}
+        </pre>
+    </ng-container>
+    <!-- <a routerLink="/wcw/{{clan.id}}">Learn more</a> -->
+  </p-dialog>
+</ng-container>
+
 
 <!-- {
   "id": 411638,
