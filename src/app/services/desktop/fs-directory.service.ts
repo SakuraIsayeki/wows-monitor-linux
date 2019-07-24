@@ -97,17 +97,17 @@ export class FsDirectoryService implements DirectoryService {
       if (await this.existsAsync(path)) {
         this.loggerService.debug('CheckPath', 'exists', path);
 
-        const files = (await this.readDirAsync(path, 'utf8')) as string[];
-        status.steamVersion = files.some(f => f.includes('steam_api.dll'));
+        status.steamVersion = (await this.existsAsync(pathJoin(path, 'bin', 'clientrunner'))) != null;
         const resFolder = await this.getResFolderPath(path, status);
         this.loggerService.debug('CheckPath', 'resFolder', resFolder);
-        await this.readEngineConfig(resFolder, status);
-        this.loggerService.debug('CheckPath', 'preferences', status.preferencesPathBase.toString());
-        await this.readPreferences(path, status);
-        await this.readEngineConfig(pathJoin(resFolder + '_mods', status.clientVersion), status);
-        this.setReplaysFolder(path, status);
-        this.loggerService.debug('CheckPath', 'replaysFolders', status.replaysFolders.join(','));
-        status.replaysFoldersFound = status.replaysFolders.some(p => this._fs.existsSync(p));
+        if (await this.readEngineConfig(resFolder, status)) {
+          this.loggerService.debug('CheckPath', 'preferences', status.preferencesPathBase.toString());
+          await this.readPreferences(path, status);
+          await this.readEngineConfig(pathJoin(resFolder + '_mods', status.clientVersion), status);
+          this.setReplaysFolder(path, status);
+          this.loggerService.debug('CheckPath', 'replaysFolders', status.replaysFolders.join(','));
+          status.replaysFoldersFound = status.replaysFolders.some(p => this._fs.existsSync(p));
+        };
       }
     } catch (error) {
       this.loggerService.error('Error during path check', error);
@@ -120,19 +120,14 @@ export class FsDirectoryService implements DirectoryService {
     if (!status.steamVersion) {
       return pathJoin(basePath, 'res');
     } else {
-      const bin = (await this.readDirAsync(pathJoin(basePath, 'bin'), 'utf8')) as string[];
-      bin.map(dirname).sort((a, b) => {
-        if (a > b) {
-          return 1;
-        } else if (a < b) {
-          return -1;
-        } else {
-          return 0;
-        }
-      });
-      const latest = bin[bin.length - 1];
-      status.folderVersion = latest;
-      return pathJoin(basePath, 'bin', latest, 'res');
+      const binFilesString = (await this.readDirAsync(pathJoin(basePath, 'bin'), 'utf8')) as string[];
+      const binFilesSorted = binFilesString
+        .filter(s => s.toLowerCase() !== 'clientrunner')
+        .map(s => parseInt(s))
+        .sort((a, b) => b - a);
+      const latest = binFilesSorted[0];
+      status.folderVersion = latest.toString();
+      return pathJoin(basePath, 'bin', status.folderVersion, 'res');
     }
   }
 
@@ -147,25 +142,34 @@ export class FsDirectoryService implements DirectoryService {
         status.preferencesPathBase = engineConfig.preferences.pathBase;
       } catch (error) {
         this.loggerService.error('Error while reading preferences.pathBase in ' + resPath, error);
+        return false;
       }
 
       try {
         status.replaysPathBase = engineConfig.replays.pathBase;
       } catch (error) {
         this.loggerService.error('Error while reading replays.pathBase in ' + resPath, error);
+        return false;
       }
 
       try {
         status.replaysDirPath = engineConfig.replays.dirPath;
       } catch (error) {
         this.loggerService.error('Error while reading replays.dirPath in ' + resPath, error);
+        return false;
       }
 
       try {
         status.replaysVersioned = engineConfig.replays.versioned;
       } catch (error) {
         this.loggerService.error('Error while reading replays.versioned in ' + resPath, error);
+        return false;
       }
+
+      return true;
+    } else {
+      this.loggerService.error('readEngineConfig', 'Could not find engineConfig at ' + resPath);
+      return false;
     }
   }
 

@@ -6,6 +6,7 @@ config.json
 /dist
 /tmp
 /out-tsc
+/src-electron/*.(js|map)
 
 # dependencies
 /node_modules
