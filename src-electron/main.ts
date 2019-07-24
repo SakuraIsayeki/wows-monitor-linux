@@ -64,6 +64,7 @@ function appReady() {
     });
     win.loadURL('http://localhost:4200');
 
+    win.webContents.openDevTools();
 
   } else {
     win.loadURL(url.format({
@@ -72,7 +73,6 @@ function appReady() {
       slashes: true,
     }));
   }
-  win.webContents.openDevTools();
   win.on('closed', () => {
     win = null;
   });
