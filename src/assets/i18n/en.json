@@ -72,7 +72,10 @@
     "teamPopup":{
       "info":"more Information",
       "wowsNumbers": "Clan on Wows-Numbers"
-    }
+    },
+    "hidden":"Player has a hidden profile",
+    "bot":"This is a bot",
+    "noBattles":"Player has no battles on this ship yet"
   },
   "settings": {
     "header": "Settings",

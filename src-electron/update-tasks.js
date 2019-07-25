@@ -6,8 +6,9 @@ function initUpdater(logger, win, isDebug) {
     electron_updater_1.autoUpdater.autoDownload = false;
     electron_updater_1.autoUpdater.autoInstallOnAppQuit = false;
     electron_1.ipcMain.on('checkForUpdate', function (event, args) {
-        logger.debug('[Electron]', '(checkForUpdate)');
+        logger.debug('[Electron]', '(checkForUpdate)', isDebug);
         if (isDebug) {
+            logger.debug('[Electron]', '(checkForUpdate)', 'update-not-available');
             win.webContents.send('update-not-available');
         }
         else {

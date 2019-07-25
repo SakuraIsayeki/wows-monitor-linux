@@ -1,8 +1,8 @@
 import { ipcMain, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
-import * as logger from 'electron-log';
+import * as electronLogger from 'electron-log';
 
-export function initUpdater(logger: logger.IElectronLog, win: BrowserWindow, isDebug: boolean) {
+export function initUpdater(logger: electronLogger.IElectronLog, win: BrowserWindow, isDebug: boolean) {
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
 
