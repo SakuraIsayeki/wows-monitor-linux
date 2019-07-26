@@ -33,6 +33,8 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
 
   ngOnDestroy() {
     super.ngOnDestroy();
-    this.config.save();
+    this.config.save().then(() => {
+      this.uiSuccess('settingsSaved');
+    });
   }
 }

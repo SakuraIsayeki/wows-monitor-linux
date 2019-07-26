@@ -116,7 +116,8 @@
       "noServiceConnection": "Service could not be connected.",
       "matchUpdated": "Match updated.",
       "clientConnected": "Web app client connected.",
-      "clientDisconnected": "Web app client disconnected."
+      "clientDisconnected": "Web app client disconnected.",
+      "settingsSaved": "Settings saved"
     }
   }
 }
