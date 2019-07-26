@@ -1,14 +1,4 @@
 <div class="container {{$fontSizeClass | async}}" *ngIf="signalrService.$info | async;let matchInfo">
-  <!-- <p-card id="monitor-title">
-      {{matchInfo.matchGroup | matchGroup | translate}}
-      <ng-container *ngIf="matchInfo.matchGroup == 'CLAN'">
-        (Season {{matchInfo.clanwarsSeason}})
-      </ng-container>
-      <ng-container *ngIf="matchInfo.matchGroup == 'RANKED'">
-        (Season {{matchInfo.rankedSeason}})
-      </ng-container>
-      , {{'monitor.map' | translate}}: {{matchInfo.map.name}}
-    </p-card> -->
   <p-card id="monitor-friendly-clan" class="no-padding">
     <app-team [clan]="matchInfo.friendlyClan" [team]="matchInfo.friendlyTeam" [cw]="matchInfo.matchGroup == 'CLAN'">
     </app-team>
