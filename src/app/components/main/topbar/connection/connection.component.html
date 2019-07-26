@@ -1,4 +1,5 @@
-<div class="iconWrapper" (click)="openQrDialog($event)">
+<div class="iconWrapper" (click)="openQrDialog($event)" [pTooltip]="'webConnect.desktop.title' | translate"
+tooltipPosition="bottom">
   <fa-icon [icon]="qrIcon" size="2x" [fixedWidth]="true"></fa-icon>
 </div>
 

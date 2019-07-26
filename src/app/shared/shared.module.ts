@@ -10,6 +10,8 @@ import { RegionPipe } from './pipes/region.pipe';
 import { RomanPipe } from './pipes/roman.pipe';
 import { SanitizeCssPipe } from './pipes/sanitize-css.pipe';
 import { WowsNumbersPipe } from './pipes/wows-numbers.pipe';
+import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
+import { ExternalLinkDirective } from './directives/external-link.directive';
 
 @NgModule({
   declarations: [
@@ -17,9 +19,11 @@ import { WowsNumbersPipe } from './pipes/wows-numbers.pipe';
     IsBrowserDirective,
     ShowMenuEntryDirective,
     ShowOnDirective,
+    ExternalLinkDirective,
     JoinPipe,
     MatchGroupPipe,
     SanitizeCssPipe,
+    SanitizeHtmlPipe,
     RegionPipe,
     RomanPipe,
     PrPipe,
@@ -30,9 +34,11 @@ import { WowsNumbersPipe } from './pipes/wows-numbers.pipe';
     IsBrowserDirective,
     ShowMenuEntryDirective,
     ShowOnDirective,
+    ExternalLinkDirective,
     JoinPipe,
     MatchGroupPipe,
     SanitizeCssPipe,
+    SanitizeHtmlPipe,
     RegionPipe,
     RomanPipe,
     PrPipe,

@@ -1,10 +1,4 @@
 <fa-icon [icon]="closeIcon" (click)="close()"></fa-icon>
 <h2>{{ 'webConnect.desktop.title' | translate }}</h2>
 <img [src]="tokenPath" />
-<p>
-  {{ 'webConnect.desktop.description' | translate }}
-</p>
-<ol>
-  <li>{{ 'webConnect.desktop.step1' | translate }}</li>
-  <li>{{ 'webConnect.desktop.step2' | translate }}</li>
-</ol>
+<p externalLink [innerHTML]="'webConnect.desktop.description' | translate"></p>

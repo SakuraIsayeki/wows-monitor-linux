@@ -16,13 +16,11 @@
   },
   "webConnect": {
     "desktop": {
-      "title": "WebConnect",
-      "description": "Connect the web app from any device to this desktop app by following the steps below.",
-      "step1": "Scan this QR-Code from within the web app.",
-      "step2": "Enjoy!"
+      "title": "Web-Connect",
+      "description": "This feature is mainly for people who don't own a second screen and don't want to tab out of the game. <br /> Visit <a href=\"https://app.wows-monitor.com\">app.wows-monitor.com</a> on your second device (phone, laptop, etc) and open the Web-Connect popup. <br /> After you scanned this QR-Code you will receive all match updates on your second device"
     },
     "browser": {
-      "title": "WebConnect",
+      "title": "Web-Connect",
       "chooseVideo": "Select camera",
       "description": "Connect to a desktop app by following the steps below.",
       "step1": "Scan the QR-Code from the desktop app.",
@@ -86,14 +84,14 @@
       "title": "General",
       "autoUpdate": {
         "caption": "AutoUpdate",
-        "summary": "Explanation"
+        "summary": "When enabled app will check for a new version at each start."
       }
     },
     "appearance": {
       "title": "Appearance",
       "fontsize": {
         "caption": "Fontsize",
-        "summary": "Explanation",
+        "summary": "Change the fontsize of the player and team information.",
         "items": {
           "normal": "Normal",
           "big": "Big",
@@ -102,7 +100,7 @@
       },
       "playerBackgrounds": {
         "caption": "Player Backgrounds",
-        "summary": "Explanation"
+        "summary": "When enabled the background of the player panels will be in the color of the PR."
       }
     }
   },
