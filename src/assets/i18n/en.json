@@ -118,7 +118,7 @@
       "clientConnected": "Web app client connected.",
       "clientDisconnected": "Web app client disconnected.",
       "settingsSaved": "Settings saved",
-      "fetchingError": "Error in stats fetcher api."
+      "fetchingError": "Error in stats fetcher api. Please contact me."
     }
   }
 }
