@@ -49,10 +49,6 @@ export class PathPickerComponent extends BaseComponent implements OnInit, OnDest
         }
       }
     });
-
-    this.signalRService.$error.subscribe(error => {
-      this.uiError('fetchingError');
-    });
   }
 
   openDialog() {

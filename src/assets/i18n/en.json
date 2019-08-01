@@ -117,7 +117,8 @@
       "matchUpdated": "Match updated.",
       "clientConnected": "Web app client connected.",
       "clientDisconnected": "Web app client disconnected.",
-      "settingsSaved": "Settings saved"
+      "settingsSaved": "Settings saved",
+      "fetchingError": "Error in stats fetcher api."
     }
   }
 }
