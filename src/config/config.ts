@@ -15,6 +15,7 @@ export interface ConfigOptions {
   selectedDirectory?: string;
   playerBackgrounds?: boolean;
   fontsize?: string;
+  overwriteReplaysDirectory?: string
 }
 
 @Injectable()
@@ -105,6 +106,23 @@ export class Config implements ConfigOptions {
     return this._$fontsize.asObservable();
   }
 
+  // OverwriteReplaysDirectory
+  private _overwriteReplaysDirectory: string;
+  private _$overwriteReplaysDirectory = new BehaviorSubject<string>(null);
+
+  get overwriteReplaysDirectory() {
+    return this._overwriteReplaysDirectory;
+  }
+
+  set overwriteReplaysDirectory(value) {
+    this._overwriteReplaysDirectory = value;
+    this._$overwriteReplaysDirectory.next(value);
+  }
+
+  get $overwriteReplaysDirectory() {
+    return this._$overwriteReplaysDirectory.asObservable();
+  }
+
   private loaded = false;
 
   constructor(@Inject(ConfigServiceToken) private configService: ConfigService) {
@@ -114,6 +132,7 @@ export class Config implements ConfigOptions {
       this.selectedDirectory = config.selectedDirectory;
       this.playerBackgrounds = config.playerBackgrounds;
       this.fontsize = config.fontsize;
+      this.overwriteReplaysDirectory = config.overwriteReplaysDirectory;
 
       this.loaded = true;
     });
@@ -136,7 +155,8 @@ export class Config implements ConfigOptions {
       signalRToken: this._signalRToken,
       selectedDirectory: this._selectedDirectory,
       playerBackgrounds: this._playerBackgrounds,
-      fontsize: this._fontsize
+      fontsize: this._fontsize,
+      overwriteReplaysDirectory: this._overwriteReplaysDirectory
     }));
   }
 }

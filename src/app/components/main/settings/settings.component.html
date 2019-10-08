@@ -44,5 +44,24 @@
         </div>
       </article>
     </section>
+    <section>
+      <h3>{{ 'settings.miscellaneous.title' | translate }}</h3>
+      <article>
+        <caption>
+          {{ 'settings.miscellaneous.overwriteReplaysDirectory.caption' | translate }}
+        </caption>
+        <summary>
+          {{ 'settings.miscellaneous.overwriteReplaysDirectory.summary' | translate }}
+        </summary>
+        <div class="input-wrap">
+          <div class="ui-inputgroup">
+            <input pInputText [title]="config.overwriteReplaysDirectory" type="text" pInputText [disabled]="true"
+              [(ngModel)]="config.overwriteReplaysDirectory">
+            <button *ngIf="config.overwriteReplaysDirectory" (click)="config.overwriteReplaysDirectory = null" pButton type="button" icon="pi pi-times"></button>
+            <button pButton type="button" icon="pi pi-folder" (click)="selectReplaysPath()"></button>
+          </div>
+        </div>
+      </article>
+    </section>
   </p-card>
 </div>

@@ -102,6 +102,14 @@
         "caption": "Player Backgrounds",
         "summary": "When enabled the background of the player panels will be in the color of the PR."
       }
+    },
+    "miscellaneous": {
+      "title": "Miscellaneous",
+      "overwriteReplaysDirectory": {
+        "caption": "Replays directory",
+        "summary": "If for some reason the automatic detection does not work for you, you can manually overwrite the replays directory here.",
+        "button": "Select"
+      }
     }
   },
   "uiMessages": {

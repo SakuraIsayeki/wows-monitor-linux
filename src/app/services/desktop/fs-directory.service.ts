@@ -7,7 +7,7 @@ import { filter, startWith, switchMap } from 'rxjs/operators';
 import { DirectoryService, DirectoryStatus } from 'src/app/interfaces/directory.service';
 import { LoggerService, LoggerServiceToken } from 'src/app/interfaces/logger.service';
 import { Region } from 'src/app/interfaces/region';
-import { Config } from 'src/config/config';
+import { Config, ConfigOptions } from 'src/config/config';
 import { promisify } from 'util';
 import { ElectronService } from './electron.service';
 
@@ -48,6 +48,11 @@ export class FsDirectoryService implements DirectoryService {
     this.readDirAsync = promisify(this._fs.readdir);
     this.readFileAsync = promisify(this._fs.readFile);
     this.config.$selectedDirectory.pipe(filter(p => p != null)).subscribe(() => {
+      this.checkPath();
+      this.startWatcher();
+    });
+
+    this.config.$overwriteReplaysDirectory.subscribe(() => {
       this.checkPath();
       this.startWatcher();
     });
@@ -201,7 +206,9 @@ export class FsDirectoryService implements DirectoryService {
   }
 
   private setReplaysFolder(basePath: string, status: DirectoryStatus) {
-    if (status.replaysPathBase === 'CWD') {
+    if (this.config.overwriteReplaysDirectory) {
+      status.replaysFolders = [this.config.overwriteReplaysDirectory];
+    } else if (status.replaysPathBase === 'CWD') {
       status.replaysFolders = [pathJoin(basePath, status.replaysDirPath)];
     } else if (status.replaysPathBase === 'EXE_PATH') {
       if (status.steamVersion) {
@@ -217,6 +224,7 @@ export class FsDirectoryService implements DirectoryService {
         ];
       }
     }
+
     if (status.replaysVersioned) {
       status.replaysFolders = status.replaysFolders.map(path => pathJoin(path, status.clientVersion));
     }

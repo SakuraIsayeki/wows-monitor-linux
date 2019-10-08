@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BaseComponent } from '../../base.component';
 import { Config } from 'src/config/config';
 import { SelectItem } from 'primeng/api';
+import { ElectronService } from 'src/app/services/desktop/electron.service';
 
 @Component({
   selector: 'app-settings',
@@ -24,11 +25,22 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
     }
   ];
 
-  constructor(public config: Config) {
+  constructor(public config: Config, private electronService: ElectronService) {
     super();
   }
 
   ngOnInit() {
+  }
+
+  selectReplaysPath() {
+    this.electronService.dialog.showOpenDialog(this.electronService.remote.BrowserWindow.getFocusedWindow(), {
+      defaultPath: this.config.selectedDirectory,
+      properties: ['openDirectory']
+    }, (paths) => {
+      if (paths && paths.length > 0) {
+        this.ngZone.run(() => this.config.overwriteReplaysDirectory = paths[0]);
+      }
+    });
   }
 
   ngOnDestroy() {

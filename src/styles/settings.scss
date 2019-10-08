@@ -10,10 +10,10 @@ app-settings{
     padding: 1em 0;
     border-bottom: 1px solid $secondaryColor;
     display: grid;
-    grid-template-areas: 'caption input'
+    grid-template-areas: 'caption .'
       'summary input';
     grid-template-columns: auto max-content;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: auto 1fr;
     line-height: 2em;
   }
 
