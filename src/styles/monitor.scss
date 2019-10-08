@@ -87,6 +87,15 @@ app-player {
     width: 100%;
     overflow: hidden;
 
+    &.player {
+      grid-template-areas: 'name karma'
+      'ovr-winrate ovr-battles'
+      'ship pr'
+      'winrate battles '
+      'wins avg-damage'
+      'avg-frags avg-xp';
+    }
+
     &.hidden,
     &.bot{
       grid-template-areas: 'name karma'
@@ -109,7 +118,7 @@ app-player {
     &.bot,
     &.hidden {
 
-      #ovr-winrate, #ovr-battles, #karma,  
+      #ovr-winrate, #ovr-battles, #karma,
       #winrate, #battles, #wins, #pr, #avg-damage, #avg-frags, #avg-xp{
         display:none;
       }
@@ -214,7 +223,7 @@ app-team {
     .info-wrapper {
       grid-template-columns: 1fr 1fr 1fr;
       grid-template-rows: repeat(6, 1fr);
-      
+
       &.player{
         grid-template-areas: 'name karma pr'
         '. ovr-winrate ovr-battles'
