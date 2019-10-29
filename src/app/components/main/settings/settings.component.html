@@ -43,6 +43,17 @@
           <p-inputSwitch [(ngModel)]="config.playerBackgrounds"></p-inputSwitch>
         </div>
       </article>
+      <article>
+        <caption>
+          {{ 'settings.appearance.coloredValues.caption' | translate }}
+        </caption>
+        <summary>
+          {{ 'settings.appearance.coloredValues.summary' | translate }}
+        </summary>
+        <div class="input-wrap">
+          <p-inputSwitch [(ngModel)]="config.coloredValues"></p-inputSwitch>
+        </div>
+      </article>
     </section>
     <section>
       <h3>{{ 'settings.miscellaneous.title' | translate }}</h3>

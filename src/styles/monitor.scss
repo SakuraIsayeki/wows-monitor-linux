@@ -87,6 +87,10 @@ app-player {
     width: 100%;
     overflow: hidden;
 
+    &.force-white > div:not(#name) >  {
+      color: $textColor!important;
+    }
+
     &.player {
       grid-template-areas: 'name karma'
       'ovr-winrate ovr-battles'

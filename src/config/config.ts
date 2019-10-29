@@ -6,7 +6,8 @@ import { skipWhile, take, switchMap } from 'rxjs/operators';
 export const defaultConfig: ConfigOptions = {
   autoUpdate: true,
   playerBackgrounds: true,
-  fontsize: 'normal'
+  fontsize: 'normal',
+  coloredValues: true
 };
 
 export interface ConfigOptions {
@@ -15,6 +16,7 @@ export interface ConfigOptions {
   selectedDirectory?: string;
   playerBackgrounds?: boolean;
   fontsize?: string;
+  coloredValues?: boolean;
   overwriteReplaysDirectory?: string
 }
 
@@ -106,6 +108,23 @@ export class Config implements ConfigOptions {
     return this._$fontsize.asObservable();
   }
 
+  // UseColoredValues
+  private _coloredValues: boolean;
+  private _$coloredValues = new BehaviorSubject<boolean>(null);
+
+  get coloredValues() {
+    return this._coloredValues;
+  }
+
+  set coloredValues(value) {
+    this._coloredValues = value;
+    this._$coloredValues.next(value);
+  }
+
+  get $useColoredValues() {
+    return this._$coloredValues.asObservable();
+  }
+
   // OverwriteReplaysDirectory
   private _overwriteReplaysDirectory: string;
   private _$overwriteReplaysDirectory = new BehaviorSubject<string>(null);
@@ -132,6 +151,7 @@ export class Config implements ConfigOptions {
       this.selectedDirectory = config.selectedDirectory;
       this.playerBackgrounds = config.playerBackgrounds;
       this.fontsize = config.fontsize;
+      this.coloredValues = config.coloredValues;
       this.overwriteReplaysDirectory = config.overwriteReplaysDirectory;
 
       this.loaded = true;
@@ -156,6 +176,7 @@ export class Config implements ConfigOptions {
       selectedDirectory: this._selectedDirectory,
       playerBackgrounds: this._playerBackgrounds,
       fontsize: this._fontsize,
+      coloredValues: this._coloredValues,
       overwriteReplaysDirectory: this._overwriteReplaysDirectory
     }));
   }

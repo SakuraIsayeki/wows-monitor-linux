@@ -101,6 +101,10 @@
       "playerBackgrounds": {
         "caption": "Player Backgrounds",
         "summary": "When enabled the background of the player panels will be in the color of the PR."
+      },
+      "coloredValues": {
+        "caption": "Colored Values",
+        "summary": "When enabled the values of damage, winrate, battles, frags and pr will be colored according to the wows-numbers color scheme"
       }
     },
     "miscellaneous": {
