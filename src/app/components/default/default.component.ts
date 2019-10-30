@@ -24,6 +24,7 @@ export class DefaultComponent extends BaseComponent implements OnInit, OnDestroy
     @Inject(UpdateServiceToken) private updateService: UpdateService
   ) {
     super();
+    console.log('Default');
   }
 
   ngOnInit() {

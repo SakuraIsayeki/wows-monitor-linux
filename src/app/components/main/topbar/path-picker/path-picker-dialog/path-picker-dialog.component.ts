@@ -21,18 +21,17 @@ export class PathPickerDialogComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
 
-  pickPath() {
-    this.electronService.dialog.showOpenDialog(this.electronService.remote.BrowserWindow.getFocusedWindow(), {
+  async pickPath() {
+    var odr = await this.electronService.dialog.showOpenDialog(this.electronService.remote.BrowserWindow.getFocusedWindow(), {
       defaultPath: this.config.selectedDirectory,
       properties: ['openDirectory']
-    }, (paths) => {
-      if (paths && paths.length > 0) {
-        this.ngZone.run(() => {
-          const path = paths[0];
-          this.logDebug('Directory selected', path);
-          this.directoryService.changePath(path);
-        });
-      }
     });
+    if (odr && odr.filePaths && odr.filePaths.length > 0) {
+      this.ngZone.run(() => {
+        const path = odr.filePaths[0];
+        this.logDebug('Directory selected', path);
+        this.directoryService.changePath(path);
+      });
+    }
   }
 }

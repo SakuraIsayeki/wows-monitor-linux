@@ -32,15 +32,14 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
   ngOnInit() {
   }
 
-  selectReplaysPath() {
-    this.electronService.dialog.showOpenDialog(this.electronService.remote.BrowserWindow.getFocusedWindow(), {
+  async selectReplaysPath() {
+    var odr = await this.electronService.dialog.showOpenDialog(this.electronService.remote.BrowserWindow.getFocusedWindow(), {
       defaultPath: this.config.selectedDirectory,
       properties: ['openDirectory']
-    }, (paths) => {
-      if (paths && paths.length > 0) {
-        this.ngZone.run(() => this.config.overwriteReplaysDirectory = paths[0]);
-      }
     });
+    if (odr && odr.filePaths && odr.filePaths.length > 0) {
+      this.ngZone.run(() => this.config.overwriteReplaysDirectory = odr.filePaths[0]);
+    }
   }
 
   ngOnDestroy() {

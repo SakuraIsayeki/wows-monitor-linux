@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { parse as parseXml2Json } from 'fast-xml-parser';
 import * as fs from 'fs';
 import { dirname, join as pathJoin, normalize as pathNormalize } from 'path';
-import { BehaviorSubject, interval, Subscription } from 'rxjs';
+import { BehaviorSubject, interval, Subscription, merge } from 'rxjs';
 import { filter, startWith, switchMap } from 'rxjs/operators';
 import { DirectoryService, DirectoryStatus } from 'src/app/interfaces/directory.service';
 import { LoggerService, LoggerServiceToken } from 'src/app/interfaces/logger.service';
@@ -47,15 +47,14 @@ export class FsDirectoryService implements DirectoryService {
     this.existsAsync = promisify(this._fs.stat);
     this.readDirAsync = promisify(this._fs.readdir);
     this.readFileAsync = promisify(this._fs.readFile);
-    this.config.$selectedDirectory.pipe(filter(p => p != null)).subscribe(() => {
-      this.checkPath();
-      this.startWatcher();
-    });
-
-    this.config.$overwriteReplaysDirectory.subscribe(() => {
-      this.checkPath();
-      this.startWatcher();
-    });
+    merge(
+      this.config.$selectedDirectory.pipe(filter(p => p != null)),
+      this.config.$overwriteReplaysDirectory.pipe(filter(p => p != null))
+    )
+      .subscribe(c => {
+        this.checkPath();
+        this.startWatcher();
+      });
   }
 
   changePath(path: string): void {
@@ -99,7 +98,7 @@ export class FsDirectoryService implements DirectoryService {
     this.loggerService.debug('CheckPath', 'started', path);
 
     try {
-      if (await this.existsAsync(path)) {
+      if (path && await this.existsAsync(path)) {
         this.loggerService.debug('CheckPath', 'exists', path);
 
         try {
@@ -120,9 +119,9 @@ export class FsDirectoryService implements DirectoryService {
       }
     } catch (error) {
       this.loggerService.error('Error during path check', error);
+    } finally {
+      this._$status.next(status);
     }
-
-    this._$status.next(status);
   }
 
   private async getResFolderPath(basePath: string, status: DirectoryStatus) {

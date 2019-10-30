@@ -20,7 +20,7 @@
         </p>
       </ng-container>
 
-      <zxing-scanner #scanner [scannerEnabled]="enabled" [device]="selectedDevice"
+      <zxing-scanner #scanner  [enable]="enabled" [device]="selectedDevice"
         (scanSuccess)="handleQrCodeResult($event)">
       </zxing-scanner>
 
