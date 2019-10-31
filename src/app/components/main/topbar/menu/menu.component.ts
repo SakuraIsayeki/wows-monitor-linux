@@ -4,7 +4,8 @@ import { BaseComponent } from 'src/app/components/base.component';
 import { MenuEntry } from 'src/app/interfaces/menu-entry';
 import { ApiService } from 'src/app/services/api.service';
 import { Config } from 'src/config/config';
-import { combineLatest, BehaviorSubject } from 'rxjs';
+import { combineLatest, BehaviorSubject, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
@@ -26,7 +27,7 @@ export class MenuComponent extends BaseComponent implements OnInit {
     },
     {
       key: 'meta.monitor.changelog',
-      routerLink: '/changelogs',
+      routerLink: '/home/changelogs',
       icon: faFileAlt,
       badge: this.$changelogsBadgeSubject,
       badgeCount: this.$changelogsBadgeCountSubject
@@ -42,6 +43,17 @@ export class MenuComponent extends BaseComponent implements OnInit {
     //   icon: faQuestionCircle
     // }
   ];
+
+  public badge = combineLatest(...this.menu.filter(e => e.badge).map(e => e.badge))
+    .pipe(map(arr => {
+      return arr.some(b => b)
+    }));
+
+
+  public badgeCount = combineLatest(...this.menu.filter(e => e.badgeCount).map(e => e.badgeCount))
+    .pipe(map(arr => {
+      return arr.reduce((a, b) => a + b);
+    }));
 
   constructor(private apiService: ApiService, private config: Config) {
     super();

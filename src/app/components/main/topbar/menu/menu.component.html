@@ -12,6 +12,7 @@
             <fa-icon [icon]="entry.icon"></fa-icon>
           </ng-container>
           {{entry.key | translate}}
+          <span *ngIf="entry.badge | async" class="badge">{{entry.badgeCount | async}}</span>
         </a>
       </li>
     </ng-container>

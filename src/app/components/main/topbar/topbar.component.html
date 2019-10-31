@@ -6,6 +6,7 @@
 
 
 <div id="menuIconWrapper" class="iconWrapper" (click)="toggleSidebar()">
+  <span *ngIf="appMenu.badge | async" class="badge">{{appMenu.badgeCount | async}}</span>
   <fa-icon id="menuIcon" [icon]="menuIcon" size="2x" [fixedWidth]="true"></fa-icon>
 </div>
 <div id="matchInfoWrapper" class="iconWrapper" *ngIf="signalrService.$info | async;let matchInfo">

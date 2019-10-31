@@ -11,8 +11,7 @@ import { BaseComponent } from './components/base.component';
 export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
 
   constructor(
-    private router: Router,
-    private translateService: TranslateService
+    private router: Router
   ) {
     super();
   }

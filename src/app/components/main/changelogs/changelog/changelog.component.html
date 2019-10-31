@@ -1,6 +1,4 @@
-<ng-container *ngIf="$changelog | async as changelog">
-  <h1>
-    {{changelog.version}}
-  </h1>
+<ng-container *ngIf="changelog">
   <markdown [data]="changelog.markdown"></markdown>
+  <p-button *ngIf="ref" [label]="'changelogs.closeButton' | translate" (click)="ref.close()"></p-button>
 </ng-container>

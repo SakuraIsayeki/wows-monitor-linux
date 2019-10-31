@@ -1,6 +1,10 @@
 <div class="container small changelog-container">
   <p-card class="list">
-
+    <ul>
+      <li *ngFor="let entry of $changelogs | async" (click)="selectChangelog(entry)">
+        {{entry.changelog.version}}|{{entry.seen}}
+      </li>
+    </ul>
   </p-card>
   <p-card class="detail">
     <app-changelog [id]="selectedId"></app-changelog>

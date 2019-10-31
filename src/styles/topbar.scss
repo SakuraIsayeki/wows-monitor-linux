@@ -57,6 +57,15 @@ body .ui-sidebar {
   border: 0;
 }
 
+#menuIconWrapper{
+  position: relative;
+  .badge{
+    position: absolute;
+    top:0;
+    right: 0;
+  }
+}
+
 .menu-topbar {
   display: block;
   background: $secondaryDarkColor;
@@ -93,6 +102,10 @@ body .ui-sidebar {
         box-sizing: border-box;
         padding: 1em;
         color: $textColor;
+
+        .badge{
+          margin-left: .25em;
+        }
       }
 
       &.active a {

@@ -132,5 +132,8 @@
       "settingsSaved": "Settings saved",
       "fetchingError": "Error in stats fetcher api. Please contact me."
     }
+  },
+  "changelogs":{
+    "dialogHeader": "Changelog v{{version}}"
   }
 }

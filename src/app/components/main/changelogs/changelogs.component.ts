@@ -24,15 +24,26 @@ export class ChangelogsComponent extends BaseComponent implements OnInit, OnDest
   }
 
   ngOnInit() {
+    this.initChangelogs();
+  }
+
+  async initChangelogs() {
+    await this.config.waitTillLoaded();
     this.apiService.changelogList()
       .pipe(this.untilDestroy())
       .subscribe(cls => {
-        this.$changelogs.next(cls.map(cl => <ChangelogListEntry>{ seen: this.config.seenChangelogs.some(id => cl.id == id), changelog: cl }))
+        if (cls) {
+          let clse = cls.map(cl => <ChangelogListEntry>{ seen: this.config.seenChangelogs && this.config.seenChangelogs.some(id => cl.id == id), changelog: cl });
+          this.$changelogs.next(clse);
+          this.selectChangelog(clse[0]);
+        }
       });
   }
 
   selectChangelog(changelogListEntry: ChangelogListEntry) {
     this.selectedId = changelogListEntry.changelog.id;
+    this.config.pushSeenChangelogs(changelogListEntry.changelog.id);
+    this.config.save();
   }
 
   markAllAsSeen() {

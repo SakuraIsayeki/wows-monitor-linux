@@ -119,6 +119,17 @@ main{
   padding: .5em 1em;
 }
 
+.badge {
+  display: inline-block;
+  border-radius: 2px;
+  padding: 0 0.3em;
+  font-size: .8em;
+  text-align: center;
+  text-align: center;
+  background:$primaryColor;
+  color:$textColor;
+}
+
 /* Mobile first queries */
 
 /* Larger than mobile */

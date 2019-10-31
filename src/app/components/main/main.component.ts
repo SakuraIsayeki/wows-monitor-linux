@@ -16,17 +16,29 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.initChangelogDialog();
+  }
+
+  async initChangelogDialog() {
+    await this.config.waitTillLoaded();
     this.apiService.changelogLatest()
       .pipe(this.untilDestroy())
       .subscribe(changelog => {
-        if (!this.config.seenChangelogs.some(id => id == changelog.id)) {
-          this.dialogService.open(ChangelogComponent, {
+        if (!this.config.seenChangelogs || !this.config.seenChangelogs.some(id => id == changelog.id)) {
+          let ref = this.dialogService.open(ChangelogComponent, {
             styleClass: 'custom-popup ' + (this.isDesktop ? 'desktop' : 'browser'),
+            header: this.translateService.instant('changelogs.dialogHeader', { version: changelog.version }),
             data: {
               changelog: changelog
             }
-          })
+          });
+          ref.onClose.pipe(this.untilDestroy()).subscribe(() => {
+            this.config.pushSeenChangelogs(changelog.id);
+            this.config.save();
+          });
         }
       });
+
+
   }
 }

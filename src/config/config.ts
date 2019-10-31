@@ -157,7 +157,9 @@ export class Config implements ConfigOptions {
     this._$seenChangelogs.next(value);
   }
 
-  pushSeenChangelogs(...items: number[]){
+  pushSeenChangelogs(...items: number[]) {
+    if (!this._seenChangelogs)
+      this._seenChangelogs = [];
     this._seenChangelogs.push(...items);
     this._seenChangelogs = this._seenChangelogs.filter((value, index, self) => self.indexOf(value) === index);
     this._$seenChangelogs.next(this._seenChangelogs);

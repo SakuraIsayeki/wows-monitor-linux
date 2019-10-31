@@ -10,47 +10,42 @@ import { Config } from 'src/config/config';
   selector: 'app-changelog',
   templateUrl: './changelog.component.html'
 })
-export class ChangelogComponent extends BaseComponent implements OnInit, OnChanges, OnDestroy {
+export class ChangelogComponent extends BaseComponent implements OnChanges, OnDestroy {
 
   @Input()
   public id: number;
 
-  public $changelog = new Subject<Changelog>();
+  public changelog: Changelog;
 
   private changelogSubscription: Subscription;
 
   constructor(
-    @Optional() private ref: DynamicDialogRef,
+    @Optional() public ref: DynamicDialogRef,
     @Optional() private dialogConfig: DynamicDialogConfig,
-    private apiService: ApiService,
-    private config: Config
+    private apiService: ApiService
   ) {
     super();
-  }
 
-  ngOnInit() {
     if (this.dialogConfig) {
-      this.loadChangelog(this.dialogConfig.data.id);
+      this.loadChangelog(this.dialogConfig.data.changelog);
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['id']) {
-      this.loadChangelog(this.id);
+      if (this.changelogSubscription)
+        this.changelogSubscription.unsubscribe();
+
+      this.changelogSubscription = this.apiService.changelogDetail(changes['id'].currentValue)
+        .pipe(this.untilDestroy())
+        .subscribe(c => {
+          this.loadChangelog(c);
+        });
     }
   }
 
-  private loadChangelog(id: number) {
-    if (this.changelogSubscription)
-      this.changelogSubscription.unsubscribe();
-
-    this.changelogSubscription = this.apiService.changelogDetail(id)
-      .pipe(this.untilDestroy())
-      .subscribe(c => {
-        this.$changelog.next(c);
-        this.config.pushSeenChangelogs(c.id);
-        this.config.save();
-      });
+  private loadChangelog(changelog: Changelog) {
+    this.changelog = changelog;
   }
 
   ngOnDestroy() {

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { LocatorService } from '../services/locator.service';
 import { LoggerService, LoggerServiceToken } from '../interfaces/logger.service';
 import { MessageService } from 'primeng/api';
+import { TranslateService } from '@ngx-translate/core';
 
 export class BaseComponent implements OnDestroy {
 
@@ -14,11 +15,13 @@ export class BaseComponent implements OnDestroy {
   private ngUnsubscribe = new Subject();
 
   ngZone: NgZone;
+  translateService: TranslateService;
 
   constructor() {
     this.appRef = LocatorService.Injector.get(ApplicationRef);
     this.ngZone = LocatorService.Injector.get(NgZone);
     this.loggerService = LocatorService.Injector.get(LoggerServiceToken) as LoggerService;
+    this.translateService = LocatorService.Injector.get(TranslateService) as TranslateService;
     this.messageService = LocatorService.Injector.get(MessageService);
   }
 
