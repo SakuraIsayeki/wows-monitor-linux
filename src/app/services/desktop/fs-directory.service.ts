@@ -60,8 +60,6 @@ export class FsDirectoryService implements DirectoryService {
   changePath(path: string): void {
     this.config.selectedDirectory = pathNormalize(path);
     this.config.save();
-    this.checkPath();
-    this.startWatcher();
   }
 
   refresh() {
@@ -98,6 +96,7 @@ export class FsDirectoryService implements DirectoryService {
     this.loggerService.debug('CheckPath', 'started', path);
 
     try {
+      var obj = await this.existsAsync(path);
       if (path && await this.existsAsync(path)) {
         this.loggerService.debug('CheckPath', 'exists', path);
 
