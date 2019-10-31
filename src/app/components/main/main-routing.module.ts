@@ -7,9 +7,6 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     data: {
-      meta: {
-        title: 'meta.main.title'
-      }
     },
     children: [
       {

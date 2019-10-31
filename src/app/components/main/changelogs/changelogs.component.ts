@@ -5,18 +5,13 @@ import { Changelog } from 'src/app/interfaces/changelog';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Config } from 'src/config/config';
 
-interface ChangelogListEntry {
-  seen?: boolean;
-  changelog?: Changelog
-}
-
 @Component({
   selector: 'app-changelogs',
   templateUrl: './changelogs.component.html'
 })
 export class ChangelogsComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  public $changelogs = new BehaviorSubject<ChangelogListEntry[]>([]);
+  public $changelogs = new BehaviorSubject<Changelog[]>([]);
   public selectedId: number;
 
   constructor(private apiService: ApiService, private config: Config) {
@@ -33,21 +28,24 @@ export class ChangelogsComponent extends BaseComponent implements OnInit, OnDest
       .pipe(this.untilDestroy())
       .subscribe(cls => {
         if (cls) {
-          let clse = cls.map(cl => <ChangelogListEntry>{ seen: this.config.seenChangelogs && this.config.seenChangelogs.some(id => cl.id == id), changelog: cl });
-          this.$changelogs.next(clse);
-          this.selectChangelog(clse[0]);
+          this.$changelogs.next(cls);
+          this.selectChangelog(cls[0]);
         }
       });
   }
 
-  selectChangelog(changelogListEntry: ChangelogListEntry) {
-    this.selectedId = changelogListEntry.changelog.id;
-    this.config.pushSeenChangelogs(changelogListEntry.changelog.id);
+  isSeen(changelog: Changelog){
+    return this.config.seenChangelogs && this.config.seenChangelogs.some(id => changelog.id == id)
+  }
+
+  selectChangelog(changelog: Changelog) {
+    this.selectedId = changelog.id;
+    this.config.pushSeenChangelogs(changelog.id);
     this.config.save();
   }
 
   markAllAsSeen() {
-    this.config.pushSeenChangelogs(...this.$changelogs.value.map(c => c.changelog.id));
+    this.config.pushSeenChangelogs(...this.$changelogs.value.map(c => c.id));
   }
 
   ngOnDestroy() {

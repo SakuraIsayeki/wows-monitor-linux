@@ -32,7 +32,7 @@ export class ChangelogComponent extends BaseComponent implements OnChanges, OnDe
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['id']) {
+    if (changes['id'] && changes['id'].currentValue) {
       if (this.changelogSubscription)
         this.changelogSubscription.unsubscribe();
 

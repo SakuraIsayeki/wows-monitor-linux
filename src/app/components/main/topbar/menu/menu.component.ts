@@ -26,7 +26,7 @@ export class MenuComponent extends BaseComponent implements OnInit {
       icon: faDesktop
     },
     {
-      key: 'meta.monitor.changelog',
+      key: 'meta.changelogs.title',
       routerLink: '/home/changelogs',
       icon: faFileAlt,
       badge: this.$changelogsBadgeSubject,

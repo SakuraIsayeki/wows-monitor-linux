@@ -12,6 +12,9 @@
     },
     "about": {
       "title": "About"
+    },
+    "changelogs": {
+      "title": "Changelogs"
     }
   },
   "webConnect": {
@@ -123,17 +126,19 @@
       "warn": "Warning"
     },
     "messages": {
+      "serviceError": "Error in the api service",
       "serviceConnected": "Service successfully connected.",
       "serviceDisconnected": "Service has been disconnected.",
       "noServiceConnection": "Service could not be connected.",
       "matchUpdated": "Match updated.",
       "clientConnected": "Web app client connected.",
       "clientDisconnected": "Web app client disconnected.",
+      "hostDisconnected": "Desktop client disconnected",
       "settingsSaved": "Settings saved",
       "fetchingError": "Error in stats fetcher api. Please contact me."
     }
   },
-  "changelogs":{
+  "changelogs": {
     "dialogHeader": "Changelog v{{version}}"
   }
 }

@@ -6,12 +6,12 @@ tooltipPosition="bottom">
 <p-overlayPanel #qrErrorDetails>
   <ng-container *isBrowser>
     <p>
-      {{ 'service.issues.token.browser' | translate }}
+      {{ 'service.issues.browser.noToken' | translate }}
     </p>
   </ng-container>
   <ng-container *isDesktop>
     <p>
-      {{ 'service.issues.token.desktop' | translate }}
+      {{ 'service.issues.desktop' | translate }}
     </p>
   </ng-container>
 </p-overlayPanel>

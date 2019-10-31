@@ -22,7 +22,6 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.appMenu.badgeCount.subscribe(console.log);
   }
 
   toggleSidebar = () => {
