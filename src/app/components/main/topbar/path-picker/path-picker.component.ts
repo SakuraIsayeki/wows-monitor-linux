@@ -36,12 +36,16 @@ export class PathPickerComponent extends BaseComponent implements OnInit, OnDest
     this.signalRService.$socketStatus.subscribe(s => {
       if (s === SignalrStatus.Connected) {
         subscribtion = combineLatest([
-          this.directoryService.$changeDetected.pipe(filter(c => c != null)),
+          this.directoryService.$changeDetected,
           this.directoryService.$status.pipe(filter(ss => ss != null))
         ]).pipe(this.untilDestroy()).subscribe(arr => {
-          this.apiService.sendStats(arr[0], arr[1].region).subscribe(undefined, err => {
-            this.logError('Error during api call', err);
-          });
+          if (arr.length === 2 && arr[0] != null) {
+            this.apiService.sendStats(arr[0], arr[1].region).subscribe(undefined, err => {
+              this.logError('Error during api call', err);
+            });
+          } else{
+            this.signalRService.resetInfo();
+          }
         });
       } else {
         if (subscribtion) {

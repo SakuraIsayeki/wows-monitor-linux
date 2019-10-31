@@ -2,8 +2,8 @@ import { Inject, Injectable } from '@angular/core';
 import { parse as parseXml2Json } from 'fast-xml-parser';
 import * as fs from 'fs';
 import { dirname, join as pathJoin, normalize as pathNormalize } from 'path';
-import { BehaviorSubject, interval, Subscription, merge } from 'rxjs';
-import { filter, startWith, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, interval, Subscription, merge, combineLatest } from 'rxjs';
+import { filter, startWith, switchMap, debounceTime, } from 'rxjs/operators';
 import { DirectoryService, DirectoryStatus } from 'src/app/interfaces/directory.service';
 import { LoggerService, LoggerServiceToken } from 'src/app/interfaces/logger.service';
 import { Region } from 'src/app/interfaces/region';
@@ -47,11 +47,14 @@ export class FsDirectoryService implements DirectoryService {
     this.existsAsync = promisify(this._fs.stat);
     this.readDirAsync = promisify(this._fs.readdir);
     this.readFileAsync = promisify(this._fs.readFile);
-    merge(
+    combineLatest(
       this.config.$selectedDirectory.pipe(filter(p => p != null)),
-      this.config.$overwriteReplaysDirectory.pipe(filter(p => p != null))
-    )
+      this.config.$overwriteReplaysDirectory
+    ).pipe(debounceTime(100))
       .subscribe(c => {
+        if (c[1] != null) {
+          this._$changeDetected.next(null);
+        }
         this.checkPath();
         this.startWatcher();
       });
@@ -96,7 +99,6 @@ export class FsDirectoryService implements DirectoryService {
     this.loggerService.debug('CheckPath', 'started', path);
 
     try {
-      var obj = await this.existsAsync(path);
       if (path && await this.existsAsync(path)) {
         this.loggerService.debug('CheckPath', 'exists', path);
 
@@ -204,7 +206,7 @@ export class FsDirectoryService implements DirectoryService {
   }
 
   private setReplaysFolder(basePath: string, status: DirectoryStatus) {
-    if (this.config.overwriteReplaysDirectory) {
+    if (this.config.overwriteReplaysDirectory && this.config.overwriteReplaysDirectory.length > 0) {
       status.replaysFolders = [this.config.overwriteReplaysDirectory];
     } else if (status.replaysPathBase === 'CWD') {
       status.replaysFolders = [pathJoin(basePath, status.replaysDirPath)];

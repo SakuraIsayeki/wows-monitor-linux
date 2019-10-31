@@ -157,4 +157,9 @@ export class CommonSignalrService implements SignalrService {
       }
     });
   }
+
+  resetInfo() {
+    this._$status.next(Status.Idle);
+    this._$info.next(null);
+  }
 }

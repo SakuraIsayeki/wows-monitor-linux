@@ -87,58 +87,73 @@ app-player {
     width: 100%;
     overflow: hidden;
 
-    &.force-white > div:not(#name) >  {
-      color: $textColor!important;
+    &.force-white>div:not(#name)>strong {
+      color: $textColor !important;
     }
 
     &.player {
       grid-template-areas: 'name karma'
-      'ovr-winrate ovr-battles'
-      'ship pr'
-      'winrate battles '
-      'wins avg-damage'
-      'avg-frags avg-xp';
+        'ovr-winrate ovr-battles'
+        'ship pr'
+        'winrate battles '
+        'wins avg-damage'
+        'avg-frags avg-xp';
     }
 
     &.hidden,
-    &.bot{
+    &.bot {
       grid-template-areas: 'name karma'
-      'ship message'
-      '. message'
-      '. message'
-      '. message'
-      '. message';
+        'ship message'
+        '. message'
+        '. message'
+        '. message'
+        '. message';
     }
 
-    &.no-battles{
+    &.no-battles {
       grid-template-areas: 'name karma'
-      'ovr-winrate ovr-battles'
-      'ship .'
-      'message message '
-      'message message'
-      'message message';
+        'ovr-winrate ovr-battles'
+        'ship .'
+        'message message '
+        'message message'
+        'message message';
     }
 
     &.bot,
     &.hidden {
 
-      #ovr-winrate, #ovr-battles, #karma,
-      #winrate, #battles, #wins, #pr, #avg-damage, #avg-frags, #avg-xp{
-        display:none;
+      #ovr-winrate,
+      #ovr-battles,
+      #karma,
+      #winrate,
+      #battles,
+      #wins,
+      #pr,
+      #avg-damage,
+      #avg-frags,
+      #avg-xp {
+        display: none;
       }
 
-      #message{
-        display:block;
+      #message {
+        display: block;
       }
     }
 
-    &.no-battles{
-      #winrate, #battles, #pr, #wins, #avg-damage, #avg-frags, #avg-xp{
-        display:none;
+    &.no-battles {
+
+      #winrate,
+      #battles,
+      #pr,
+      #wins,
+      #avg-damage,
+      #avg-frags,
+      #avg-xp {
+        display: none;
       }
 
-      #message{
-        display:block;
+      #message {
+        display: block;
       }
     }
 
@@ -228,29 +243,29 @@ app-team {
       grid-template-columns: 1fr 1fr 1fr;
       grid-template-rows: repeat(6, 1fr);
 
-      &.player{
+      &.player {
         grid-template-areas: 'name karma pr'
-        '. ovr-winrate ovr-battles'
-        'ship winrate battles '
-        '. wins avg-damage'
-        '. avg-frags avg-xp';
+          '. ovr-winrate ovr-battles'
+          'ship winrate battles '
+          '. wins avg-damage'
+          '. avg-frags avg-xp';
       }
 
       &.hidden,
-      &.bot{
+      &.bot {
         grid-template-areas: 'name karma pr'
-        '. message message'
-        'ship message message '
-        '. message message'
-        '. message message';
+          '. message message'
+          'ship message message '
+          '. message message'
+          '. message message';
       }
 
-      &.no-battles{
+      &.no-battles {
         grid-template-areas: 'name karma pr'
-        '. ovr-winrate ovr-battles'
-        'ship message message '
-        '. message message'
-        '. message message';
+          '. ovr-winrate ovr-battles'
+          'ship message message '
+          '. message message'
+          '. message message';
       }
     }
   }
@@ -275,30 +290,30 @@ app-team {
 
       &.player {
         grid-template-areas: 'name karma'
-        'ovr-winrate ovr-battles'
-        'ship pr'
-        'winrate battles '
-        'wins avg-damage'
-        'avg-frags avg-xp';
+          'ovr-winrate ovr-battles'
+          'ship pr'
+          'winrate battles '
+          'wins avg-damage'
+          'avg-frags avg-xp';
       }
 
       &.hidden,
-      &.bot{
+      &.bot {
         grid-template-areas: 'name karma'
-        'ship message'
-        '. message'
-        '. message'
-        '. message'
-        '. message';
+          'ship message'
+          '. message'
+          '. message'
+          '. message'
+          '. message';
       }
 
-      &.no-battles{
+      &.no-battles {
         grid-template-areas: 'name karma'
-        'ovr-winrate ovr-battles'
-        'ship .'
-        'message message '
-        'message message'
-        'message message';
+          'ovr-winrate ovr-battles'
+          'ship .'
+          'message message '
+          'message message'
+          'message message';
       }
     }
   }
@@ -324,27 +339,27 @@ app-team {
 
       &.player {
         grid-template-areas: 'name karma pr'
-        '. ovr-winrate ovr-battles'
-        'ship winrate battles '
-        '. wins avg-damage'
-        '. avg-frags avg-xp';
+          '. ovr-winrate ovr-battles'
+          'ship winrate battles '
+          '. wins avg-damage'
+          '. avg-frags avg-xp';
       }
 
       &.hidden,
-      &.bot{
+      &.bot {
         grid-template-areas: 'name karma pr'
-        '. message message'
-        'ship message message '
-        '. message message'
-        '. message message';
+          '. message message'
+          'ship message message '
+          '. message message'
+          '. message message';
       }
 
-      &.no-battles{
+      &.no-battles {
         grid-template-areas: 'name karma pr'
-        '. ovr-winrate ovr-battles'
-        'ship message message '
-        '. message message'
-        '. message message';
+          '. ovr-winrate ovr-battles'
+          'ship message message '
+          '. message message'
+          '. message message';
       }
     }
   }
@@ -355,26 +370,27 @@ app-team {
     .info-wrapper {
       grid-template-columns: 34% 22% 22% 22%;
       grid-template-rows: repeat(3, 1fr);
+
       &.player {
         grid-template-areas:
-        'name ovr-winrate ovr-battles karma'
-        'ship winrate battles wins'
-        'pr avg-damage avg-frags avg-xp';
+          'name ovr-winrate ovr-battles karma'
+          'ship winrate battles wins'
+          'pr avg-damage avg-frags avg-xp';
       }
 
       &.hidden,
-      &.bot{
+      &.bot {
         grid-template-areas:
-        'name message message message'
-        'ship message message message'
-        '. message message message';
+          'name message message message'
+          'ship message message message'
+          '. message message message';
       }
 
-      &.no-battles{
+      &.no-battles {
         grid-template-areas:
-        'name ovr-winrate ovr-battles karma'
-        'ship message message message'
-        'pr message message message';
+          'name ovr-winrate ovr-battles karma'
+          'ship message message message'
+          'pr message message message';
       }
     }
   }

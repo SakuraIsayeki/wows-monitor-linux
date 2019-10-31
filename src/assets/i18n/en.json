@@ -104,7 +104,7 @@
       },
       "coloredValues": {
         "caption": "Colored Values",
-        "summary": "When enabled the values of damage, winrate, battles, frags and pr will be colored according to the wows-numbers color scheme"
+        "summary": "When enabled the values of damage, winrate, battles, frags and PR will be colored according to the wows-numbers color scheme"
       }
     },
     "miscellaneous": {

@@ -12,6 +12,7 @@ export interface SignalrService {
 
   connect(): Promise<any>;
   init(): Promise<any>;
+  resetInfo();
 }
 
 export enum SignalrStatus {
