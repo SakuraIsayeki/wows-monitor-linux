@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Config } from 'src/config/config';
 import { Region } from '../interfaces/region';
+import { Changelog } from '../interfaces/changelog';
 
 @Injectable()
 export class ApiService {
@@ -16,6 +17,23 @@ export class ApiService {
         'x-region': region.toString()
       }
     });
+  }
+
+  changelogLatest() {
+    return this.httpClient.get<Changelog>((environment.apiUrl + '/changelog/latest'), { observe: 'body' });
+  }
+
+  changelogIds() {
+    return this.httpClient.get<number[]>((environment.apiUrl + '/changelog/ids'), { observe: 'body' });
+  }
+
+
+  changelogList() {
+    return this.httpClient.get<Changelog[]>((environment.apiUrl + '/changelog/list'), { observe: 'body' });
+  }
+
+  changelogDetail(id: number) {
+    return this.httpClient.post<Changelog>((environment.apiUrl + '/changelog/detail?id=' + id.toString()), { observe: 'body' });
   }
 
   token() {

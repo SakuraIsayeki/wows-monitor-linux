@@ -1,0 +1,6 @@
+<ng-container *ngIf="$changelog | async as changelog">
+  <h1>
+    {{changelog.version}}
+  </h1>
+  <markdown [data]="changelog.markdown"></markdown>
+</ng-container>

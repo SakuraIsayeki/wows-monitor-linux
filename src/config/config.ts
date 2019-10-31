@@ -3,13 +3,6 @@ import { BehaviorSubject, interval, from } from 'rxjs';
 import { ConfigService, ConfigServiceToken } from 'src/app/interfaces/config.service';
 import { skipWhile, take, switchMap } from 'rxjs/operators';
 
-export const defaultConfig: ConfigOptions = {
-  autoUpdate: true,
-  playerBackgrounds: true,
-  fontsize: 'normal',
-  coloredValues: true
-};
-
 export interface ConfigOptions {
   autoUpdate?: boolean;
   signalRToken?: string;
@@ -17,8 +10,17 @@ export interface ConfigOptions {
   playerBackgrounds?: boolean;
   fontsize?: string;
   coloredValues?: boolean;
-  overwriteReplaysDirectory?: string
+  overwriteReplaysDirectory?: string;
+  seenChangelogs?: number[];
 }
+
+export const defaultConfig: ConfigOptions = {
+  autoUpdate: true,
+  playerBackgrounds: true,
+  fontsize: 'normal',
+  coloredValues: true,
+  seenChangelogs: []
+};
 
 @Injectable()
 export class Config implements ConfigOptions {
@@ -142,6 +144,29 @@ export class Config implements ConfigOptions {
     return this._$overwriteReplaysDirectory.asObservable();
   }
 
+  // SeenChangelogs
+  private _seenChangelogs: number[];
+  private _$seenChangelogs = new BehaviorSubject<number[]>(null);
+
+  get seenChangelogs() {
+    return this._seenChangelogs;
+  }
+
+  set seenChangelogs(value) {
+    this._seenChangelogs = value;
+    this._$seenChangelogs.next(value);
+  }
+
+  pushSeenChangelogs(...items: number[]){
+    this._seenChangelogs.push(...items);
+    this._seenChangelogs = this._seenChangelogs.filter((value, index, self) => self.indexOf(value) === index);
+    this._$seenChangelogs.next(this._seenChangelogs);
+  }
+
+  get $seenChangelogs() {
+    return this._$seenChangelogs.asObservable();
+  }
+
   private loaded = false;
 
   constructor(@Inject(ConfigServiceToken) private configService: ConfigService) {
@@ -153,6 +178,7 @@ export class Config implements ConfigOptions {
       this.fontsize = config.fontsize;
       this.coloredValues = config.coloredValues;
       this.overwriteReplaysDirectory = config.overwriteReplaysDirectory;
+      this.seenChangelogs = config.seenChangelogs;
 
       this.loaded = true;
     });
@@ -177,7 +203,8 @@ export class Config implements ConfigOptions {
       playerBackgrounds: this._playerBackgrounds,
       fontsize: this._fontsize,
       coloredValues: this._coloredValues,
-      overwriteReplaysDirectory: this._overwriteReplaysDirectory
+      overwriteReplaysDirectory: this._overwriteReplaysDirectory,
+      seenChangelogs: this._seenChangelogs
     }));
   }
 }

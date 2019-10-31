@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { DialogService, MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
@@ -22,10 +22,11 @@ import { ConnectionComponent } from './topbar/connection/connection.component';
 import { QrScanComponent } from './topbar/connection/qr-scan/qr-scan.component';
 import { QrComponent } from './topbar/connection/qr/qr.component';
 import { MenuComponent } from './topbar/menu/menu.component';
+import { PathPickerDialogComponent } from './topbar/path-picker/path-picker-dialog/path-picker-dialog.component';
 import { PathPickerComponent } from './topbar/path-picker/path-picker.component';
 import { StatusComponent } from './topbar/status/status.component';
 import { TopbarComponent } from './topbar/topbar.component';
-import { PathPickerDialogComponent } from './topbar/path-picker/path-picker-dialog/path-picker-dialog.component';
+import { ChangelogModule } from './changelogs/changelog/changelog.module';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { PathPickerDialogComponent } from './topbar/path-picker/path-picker-dial
     SharedModule,
     TranslateModule,
     FontAwesomeModule,
+    ChangelogModule,
     SidebarModule,
     TooltipModule,
     OverlayPanelModule,

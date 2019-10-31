@@ -94,6 +94,23 @@ p {
   }
 }
 
+.custom-popup{
+  &.desktop {
+    max-width: 500px;
+  }
+
+  &.browser {
+    height: calc(100vh - 100px);
+    width: calc(100vw - 20px);
+    max-height: calc(100vh - 100px);
+  }
+
+  &.ui-dialog .ui-dialog-content {
+    background: $secondaryColor;
+    height: 100%;
+  }
+}
+
 main{
   height: calc(100% - 55px);
   width: 100vw;

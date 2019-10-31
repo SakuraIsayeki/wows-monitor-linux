@@ -130,21 +130,6 @@ body .ui-sidebar {
     margin-bottom: 1em;
     padding-left: 2em;
   }
-
-  &.desktop {
-    max-width: 500px;
-  }
-
-  &.browser {
-    height: calc(100vh - 100px);
-    width: calc(100vw - 20px);
-    max-height: calc(100vh - 100px);
-  }
-
-  &.ui-dialog .ui-dialog-content {
-    background: $secondaryColor;
-    height: 100%;
-  }
 }
 
 app-qr {

@@ -90,9 +90,9 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit,
         return;
       }
       if (this.isDesktop) {
-        this.dialogService.open(QrComponent, { styleClass: 'qrPopup desktop', showHeader: false, dismissableMask: true });
+        this.dialogService.open(QrComponent, { styleClass: 'qrPopup custopm-popup desktop', showHeader: false, dismissableMask: true });
       } else {
-        this.dialogService.open(QrScanComponent, { styleClass: 'qrPopup browser', showHeader: false, dismissableMask: true });
+        this.dialogService.open(QrScanComponent, { styleClass: 'qrPopup custopm-popup browser', showHeader: false, dismissableMask: true });
       }
     });
   }
