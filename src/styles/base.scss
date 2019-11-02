@@ -117,6 +117,10 @@ p {
   }
 }
 
+.custom-contextmenu{
+
+}
+
 main {
   height: calc(100% - 55px);
   width: 100vw;
@@ -166,6 +170,11 @@ main {
     max-width: 530px;
     height: auto;
     width: auto;
+  }
+  .custom-contextmenu{
+    li a{
+      white-space: nowrap;
+    }
   }
 }
 

@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, Input, ElementRef, ViewChild, Optional } fro
 import { BaseComponent } from '../../../base.component';
 import { MenuItem } from 'primeng/api';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-team',
@@ -23,28 +24,29 @@ export class TeamComponent extends BaseComponent implements OnInit {
   @ViewChild('weblink', { static: false })
   weblink: ElementRef<HTMLLinkElement>;
 
-  items: MenuItem[] = [
-    {
-      label: 'monitor.teamPopup.info',
-      command: () => this.showDialog = true
-    },
-    {
-      label: 'monitor.teamPopup.wowsNumbers',
-      command: () => {
-        if (this.isBrowser) {
-          window.open(this.weblink.nativeElement.href, '_blank');
-        } else {
-          this.electronService.shell.openExternal(this.weblink.nativeElement.href);
-        }
-      }
-    }
-  ];
+  items: MenuItem[];
 
-  constructor(public el: ElementRef, @Optional() private electronService: ElectronService) {
+  constructor(public el: ElementRef, @Optional() private electronService: ElectronService, private translateService: TranslateService) {
     super();
   }
 
   ngOnInit() {
+    this.items = [
+      {
+        label: this.translateService.instant('monitor.teamPopup.info'),
+        command: () => this.showDialog = true
+      },
+      {
+        label: this.translateService.instant('monitor.teamPopup.wowsNumbers'),
+        command: () => {
+          if (this.isBrowser) {
+            window.open(this.weblink.nativeElement.href, '_blank');
+          } else {
+            this.electronService.shell.openExternal(this.weblink.nativeElement.href);
+          }
+        }
+      }
+    ];
   }
 
 }

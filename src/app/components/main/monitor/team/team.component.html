@@ -13,7 +13,7 @@
 <a *ngIf="cw && clan" #weblink target="_blank" hidden="hidden"
   href="{{ clan.region | wowsNumbers }}clan/{{clan.id}},/">Link</a>
 
-<p-contextMenu *ngIf="cw && clan" [target]="el.nativeElement" appendTo="body" [model]="items" triggerEvent="click">
+<p-contextMenu *ngIf="cw && clan" styleClass="custom-contextmenu" [target]="el.nativeElement" appendTo="body" [model]="items" triggerEvent="click">
 </p-contextMenu>
 
 <p-dialog *ngIf="cw && clan" [(visible)]="showDialog" [dismissableMask]="true" [modal]="true" appendTo="body"
