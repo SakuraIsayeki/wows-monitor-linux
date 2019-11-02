@@ -26,7 +26,7 @@ export class TeamComponent extends BaseComponent implements OnInit {
 
   items: MenuItem[];
 
-  constructor(public el: ElementRef, @Optional() private electronService: ElectronService, private translateService: TranslateService) {
+  constructor(public el: ElementRef, @Optional() private electronService: ElectronService) {
     super();
   }
 

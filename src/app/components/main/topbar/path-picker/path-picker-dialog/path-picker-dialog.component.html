@@ -1,15 +1,24 @@
-<p-button (click)="pickPath()" icon="pi pi-folder" [label]="'pathPicker.buttonLabel' | translate"
-  styleClass="ui-button-success"></p-button>
+<p [innerHTML]="'pathPicker.description' | translate | sanitizeHtml"></p>
 
-<pre *ngIf="directoryService.$status | async;let info">
-  Region:               {{info.region | region}}
-  Client version:       {{info.clientVersion}}
-  <ng-container *ngIf="info.steamVersion">
-  Folder version:       {{info.folderVersion}}
-  </ng-container>
-  Steam version:        {{info.steamVersion}}
-  Replays pathbase:     {{info.replaysPathBase}}
-  Preferences pathbase: {{info.preferencesPathBase}}
-  Replays folder found: {{info.replaysFoldersFound}}
-  Replays paths:        {{info.replaysFolders | join:','}}
-</pre>
+<div class="input-wrap ui-fluid space-bottom">
+  <div class="ui-inputgroup">
+    <input pInputText [title]="config.selectedDirectory" type="text" pInputText [disabled]="true"
+      [(ngModel)]="config.selectedDirectory">
+    <button pButton type="button" icon="pi pi-folder" (click)="pickPath()"></button>
+  </div>
+</div>
+<ng-container *ngIf="directoryService.$status | async;let info">
+  <h3>{{'pathPicker.additionalInfo' | translate}}</h3>
+  <pre>
+Region:               {{info.region | region}}
+Client version:       {{info.clientVersion}}
+<ng-container *ngIf="info.steamVersion">
+Folder version:       {{info.folderVersion}}
+</ng-container>
+Steam version:        {{info.steamVersion}}
+Replays pathbase:     {{info.replaysPathBase}}
+Preferences pathbase: {{info.preferencesPathBase}}
+Replays folder found: {{info.replaysFoldersFound}}
+Replays paths:        {{info.replaysFolders | join:','}}
+      </pre>
+</ng-container>

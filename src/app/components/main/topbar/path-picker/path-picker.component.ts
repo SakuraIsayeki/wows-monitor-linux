@@ -10,6 +10,7 @@ import { ElectronService } from 'src/app/services/desktop/electron.service';
 import { Config } from 'src/config/config';
 import { DialogService } from 'primeng/api';
 import { PathPickerDialogComponent } from './path-picker-dialog/path-picker-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-path-picker',
@@ -43,7 +44,7 @@ export class PathPickerComponent extends BaseComponent implements OnInit, OnDest
             this.apiService.sendStats(arr[0], arr[1].region).subscribe(undefined, err => {
               this.logError('Error during api call', err);
             });
-          } else{
+          } else {
             this.signalRService.resetInfo();
           }
         });
@@ -56,7 +57,12 @@ export class PathPickerComponent extends BaseComponent implements OnInit, OnDest
   }
 
   openDialog() {
-    this.dialogService.open(PathPickerDialogComponent, { styleClass: 'dialogPopup desktop', showHeader: false, dismissableMask: true });
+    this.dialogService.open(PathPickerDialogComponent, {
+      styleClass: 'dialogPopup desktop',
+      header: this.translateService.instant('pathPicker.dialogHeader'),
+      showHeader: true,
+      dismissableMask: true
+    });
   }
 
   refresh() {

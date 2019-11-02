@@ -51,7 +51,10 @@
   },
   "pathPicker": {
     "pickFolder": "Select your game folder",
-    "buttonLabel": "Select folder"
+    "buttonLabel": "Select folder",
+    "dialogHeader": "Select your game folder",
+    "additionalInfo": "Information about selected folder",
+    "description": "Select the main installation folder of World of Warships. <br />    If you have the WGC installation the path should look similar to this:<br />    <strong>C:\\Games\\World of Warships</strong> <br />    If you have the Steam installation the path should look similar to this:<br />    <strong>C:\\Programs\\Steam\\common<i>id</i>World of Warships</strong>"
   },
   "monitor": {
     "season": "Season",
@@ -141,6 +144,6 @@
   "changelogs": {
     "dialogHeader": "Changelog v{{version}}",
     "closeButton": "Got it!",
-    "markAllAsSeen":"Mark all as seen"
+    "markAllAsSeen": "Mark all as seen"
   }
 }

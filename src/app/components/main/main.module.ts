@@ -9,12 +9,14 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { InputTextModule } from 'primeng/inputtext';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ChangelogModule } from './changelogs/changelog/changelog.module';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { TitlebarComponent } from './titlebar/titlebar.component';
@@ -26,7 +28,6 @@ import { PathPickerDialogComponent } from './topbar/path-picker/path-picker-dial
 import { PathPickerComponent } from './topbar/path-picker/path-picker.component';
 import { StatusComponent } from './topbar/status/status.component';
 import { TopbarComponent } from './topbar/topbar.component';
-import { ChangelogModule } from './changelogs/changelog/changelog.module';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { ChangelogModule } from './changelogs/changelog/changelog.module';
     ChangelogModule,
     SidebarModule,
     TooltipModule,
+    InputTextModule,
     OverlayPanelModule,
     ButtonModule,
     DropdownModule,
