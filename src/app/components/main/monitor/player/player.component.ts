@@ -48,7 +48,7 @@ export class PlayerComponent extends BaseComponent implements OnInit {
     return '';
   }
 
-  constructor(private sanitizer: DomSanitizer, private config: Config, @Optional() private electronService: ElectronService) {
+  constructor(private sanitizer: DomSanitizer, public config: Config, @Optional() private electronService: ElectronService) {
     super();
   }
 
