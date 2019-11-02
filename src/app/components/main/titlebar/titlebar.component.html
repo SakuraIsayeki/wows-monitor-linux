@@ -11,8 +11,8 @@
   </div>
 
   <div class="title-icon" (click)="maximize()">
-    <fa-icon *ngIf="!window?.isMaximized()" [icon]="maximizeIcon"></fa-icon>
-    <fa-icon *ngIf="window?.isMaximized()" [icon]="restoreIcon"></fa-icon>
+    <fa-icon *ngIf="!window?.maximizable" [icon]="maximizeIcon"></fa-icon>
+    <fa-icon *ngIf="window?.maximizable" [icon]="restoreIcon"></fa-icon>
   </div>
 
   <div class="title-icon close" (click)="close()">

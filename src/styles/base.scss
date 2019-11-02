@@ -35,75 +35,81 @@ p {
   margin-bottom: 1em;
 }
 
+.align-right-wrapper {
+  display: flex;
+
+  >* {
+    margin-left: auto;
+  }
+}
+
+
+
 .custom .ui-scrollpanel-wrapper {
   border-right: 9px solid fade-out($secondaryDarkColor, $amount: 0.5);
 }
 
 .custom .ui-scrollpanel-bar {
   background-color: $primaryColor;
-  opacity: .2!important;
+  opacity: .2 !important;
   transition: opacity .3s ease-in-out;
 }
 
 .custom .ui-scrollpanel-bar:hover,
 .custom .ui-scrollpanel-bar:active {
   background-color: $primaryColor;
-  opacity: .6!important;
+  opacity: .6 !important;
 }
 
-.ui-button{
-  &.showLabel-0{
-    .ui-button-text{
+.ui-button {
+  &.showLabel-0 {
+    .ui-button-text {
       display: none;
     }
   }
-  &.showLabel-1{
-    .ui-button-text{
+
+  &.showLabel-1 {
+    .ui-button-text {
       display: block;
     }
   }
 }
 
-.ui-card{
+.ui-card {
   margin-bottom: 1em;
 }
 
 .ui-toast {
   border-radius: $borderRadius;
   overflow: hidden;
-  .ui-toast-message-content{
+
+  .ui-toast-message-content {
     padding: 0;
   }
 
-  .ui-toast-custom-content{
+  .ui-toast-custom-content {
     padding: .5em 1em;
     background: $secondaryLightColor;
     box-shadow: inset 2px 0px 2px -1px transparentize($secondaryDarkColor, 0.4);
 
-    &.c-success{
+    &.c-success {
       border-left: 4px solid $successColor;
     }
 
-    &.c-warn{
+    &.c-warn {
       border-left: 4px solid $warningColor;
     }
 
-    &.c-error{
+    &.c-error {
       border-left: 4px solid $dangerColor;
     }
   }
 }
 
-.custom-popup{
-  &.desktop {
-    max-width: 500px;
-  }
-
-  &.browser {
-    height: calc(100vh - 100px);
-    width: calc(100vw - 20px);
-    max-height: calc(100vh - 100px);
-  }
+.custom-popup {
+  // height: calc(100vh - 100px);
+  width: calc(100vw - 20px);
+  max-height: calc(100vh - 100px);
 
   &.ui-dialog .ui-dialog-content {
     background: $secondaryColor;
@@ -111,12 +117,17 @@ p {
   }
 }
 
-main{
+main {
   height: calc(100% - 55px);
   width: 100vw;
   overflow: hidden;
   box-sizing: border-box;
   padding: .5em 1em;
+  padding-top: 0;
+}
+
+.main-top-spacer {
+  height: .5em;
 }
 
 .badge {
@@ -126,8 +137,22 @@ main{
   font-size: .8em;
   text-align: center;
   text-align: center;
-  background:$primaryColor;
-  color:$textColor;
+  background: $primaryColor;
+  color: $textColor;
+
+  &.circular {
+    border-radius: 50%;
+    height: 0.7em;
+    width: 0.7em;
+    position: absolute;
+    top: 0;
+    right: -.7em;
+    padding: 0;
+  }
+}
+
+.circular-badge-wrapper {
+  position: relative;
 }
 
 /* Mobile first queries */
@@ -136,7 +161,13 @@ main{
 @media (min-width: 400px) {}
 
 /* Larger than phablet */
-@media (min-width: 550px) {}
+@media (min-width: 550px) {
+  .custom-popup {
+    max-width: 530px;
+    height: auto;
+    width: auto;
+  }
+}
 
 /* Larger than tablet */
 @media (min-width: 750px) {}

@@ -37,28 +37,7 @@ export class QrScanComponent extends BaseComponent implements AfterViewInit, OnD
 
   }
 
-  ngAfterViewInit() {
-    this.init();
-  }
-
-  handleQrCodeResult(resultString: string) {
-    this.config.signalRToken = resultString;
-    this.config.save();
-    this.ref.close();
-    this.signalrService.init().then(() => {
-      this.signalrService.connect();
-    });
-  }
-
-  close() {
-    this.ref.close();
-  }
-
-  ngOnDestroy() {
-    super.ngOnDestroy();
-  }
-
-  private async init() {
+  async ngAfterViewInit() {
     this.ref.onClose.pipe(this.untilDestroy()).subscribe(() => {
       this.selectedDevice = null;
       this.enabled = false;
@@ -87,5 +66,22 @@ export class QrScanComponent extends BaseComponent implements AfterViewInit, OnD
       this.selectedDevice = this.devices[0].value;
       this.enabled = true;
     }
+  }
+
+  handleQrCodeResult(resultString: string) {
+    this.config.signalRToken = resultString;
+    this.config.save();
+    this.ref.close();
+    this.signalrService.init().then(() => {
+      this.signalrService.connect();
+    });
+  }
+
+  close() {
+    this.ref.close();
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
   }
 }

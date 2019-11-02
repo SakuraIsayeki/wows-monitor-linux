@@ -1,11 +1,34 @@
 <div class="container small changelog-container">
   <p-card class="list">
-    <ul>
-      <li *ngFor="let changelog of $changelogs | async" (click)="selectChangelog(changelog)">
-        {{changelog.version}}|{{isSeen(changelog)}}
+    <h2>Changelogs</h2>
+    <div class="space-bottom" *showOn="'desktop'">
+      <p-dropdown [options]="route.snapshot.data.changelogs" optionLabel="version"
+        (onChange)="selectChangelog($event.value)">
+        <ng-template let-item pTemplate="selectedItem">
+          {{item.label}}
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+          <span class="circular-badge-wrapper">
+            {{item.label}}
+            <span *ngIf="!isSeen(item.value)" class="badge circular"></span>
+          </span>
+        </ng-template>
+      </p-dropdown>
+    </div>
+    <ul class="changelog-list" *showOn="'desktopHd';higher:true">
+      <li *ngFor="let changelog of route.snapshot.data.changelogs" (click)="selectChangelog(changelog)"
+        [class.active]="selectedId == changelog.id">
+        <span class="circular-badge-wrapper">
+          {{changelog.version}}
+          <span *ngIf="!isSeen(changelog)" class="badge circular"></span>
+        </span>
+
       </li>
     </ul>
+    <button *ngIf="true" pButton type="button" icon="pi pi-check" [label]="'changelogs.markAllAsSeen' | translate" class="ui-button-success"
+      (click)="markAllAsSeen()"></button>
   </p-card>
+
   <p-card class="detail">
     <app-changelog [id]="selectedId"></app-changelog>
   </p-card>

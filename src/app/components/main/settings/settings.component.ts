@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Optional } from '@angular/core';
 import { BaseComponent } from '../../base.component';
 import { Config } from 'src/config/config';
 import { SelectItem } from 'primeng/api';
@@ -25,7 +25,7 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
     }
   ];
 
-  constructor(public config: Config, private electronService: ElectronService) {
+  constructor(public config: Config, @Optional() private electronService: ElectronService) {
     super();
   }
 

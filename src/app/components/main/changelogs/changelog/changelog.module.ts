@@ -9,7 +9,8 @@ import { ButtonModule } from 'primeng/button';
 export function markedOptionsFactory(): MarkedOptions {
   return {
     gfm: true,
-    smartLists: true
+    smartLists: true,
+    tables: true
   };
 }
 

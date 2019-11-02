@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BaseComponent } from '../../base.component';
-import { ApiService } from 'src/app/services/api.service';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { Changelog } from 'src/app/interfaces/changelog';
-import { Subject, BehaviorSubject } from 'rxjs';
 import { Config } from 'src/config/config';
+import { BaseComponent } from '../../base.component';
 
 @Component({
   selector: 'app-changelogs',
@@ -11,30 +10,20 @@ import { Config } from 'src/config/config';
 })
 export class ChangelogsComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  public $changelogs = new BehaviorSubject<Changelog[]>([]);
   public selectedId: number;
 
-  constructor(private apiService: ApiService, private config: Config) {
+  constructor(public route: ActivatedRoute, private config: Config) {
     super();
   }
 
   ngOnInit() {
-    this.initChangelogs();
+    console.log(this.route.snapshot.data);
+    if (this.route.snapshot.data.changelogs) {
+      this.selectedId = this.route.snapshot.data.changelogs[0].id;
+    }
   }
 
-  async initChangelogs() {
-    await this.config.waitTillLoaded();
-    this.apiService.changelogList()
-      .pipe(this.untilDestroy())
-      .subscribe(cls => {
-        if (cls) {
-          this.$changelogs.next(cls);
-          this.selectChangelog(cls[0]);
-        }
-      });
-  }
-
-  isSeen(changelog: Changelog){
+  isSeen(changelog: Changelog) {
     return this.config.seenChangelogs && this.config.seenChangelogs.some(id => changelog.id == id)
   }
 
@@ -45,7 +34,7 @@ export class ChangelogsComponent extends BaseComponent implements OnInit, OnDest
   }
 
   markAllAsSeen() {
-    this.config.pushSeenChangelogs(...this.$changelogs.value.map(c => c.id));
+    this.config.pushSeenChangelogs(...this.route.snapshot.data.changelogs.map(c => c.id));
   }
 
   ngOnDestroy() {

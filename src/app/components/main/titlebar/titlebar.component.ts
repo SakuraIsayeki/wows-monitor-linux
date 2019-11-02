@@ -36,27 +36,27 @@ export class TitlebarComponent extends BaseComponent implements OnInit, AfterVie
 
   ngAfterViewInit() {
     interval(200).pipe(this.untilDestroy(), skipWhile(() => !this.window), take(1)).subscribe(() => {
-      this.canMaximize = this.window.isMaximizable();
+      this.canMaximize = this.window.maximizable;
     });
   }
 
   minimize() {
-    if (this.window.isMinimizable()) {
+    if (this.window.minimizable) {
       this.window.minimize();
     }
   }
 
   maximize() {
-    if (this.window.isMaximized()) {
+    if (this.window.maximizable) {
       this.window.unmaximize();
-    } else if (this.window.isMaximizable()) {
+    } else if (this.window.maximizable) {
       this.window.maximize();
     }
-    this.canMaximize = this.window.isMaximizable();
+    this.canMaximize = this.window.maximizable;
   }
 
   close() {
-    if (this.window.isClosable()) {
+    if (this.window.closable) {
       this.electronService.remote.BrowserWindow.getFocusedWindow().close();
     }
   }

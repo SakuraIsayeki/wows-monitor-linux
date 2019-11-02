@@ -1,47 +1,49 @@
 @import '_variables.scss';
 
-app-settings{
+app-settings {
 
-  section{
+  section {
     margin-bottom: 2.5em;
   }
 
-  article{
+  article {
     padding: 1em 0;
     border-bottom: 1px solid $secondaryColor;
     display: grid;
-    grid-template-areas: 'caption .'
-      'summary input';
-    grid-template-columns: auto max-content;
-    grid-template-rows: auto 1fr;
+    gap: .5em;
+    grid-template-areas: 'caption'
+      'summary'
+      'input';
+    grid-template-columns: auto;
+    grid-template-rows: auto;
     line-height: 2em;
   }
 
-  p-card section:last-child{
+  p-card section:last-child {
     margin: 0;
   }
 
-  p-card section:last-child article:last-child{
+  p-card section:last-child article:last-child {
     border: 0;
   }
 
-  h3{
+  h3 {
     margin-bottom: .5em;
   }
 
-  caption{
+  caption {
     grid-area: caption;
     font-weight: 600;
     text-align: left;
   }
 
-  summary{
+  summary {
     grid-area: summary;
     font-size: .85em;
     opacity: 0.8;
   }
 
-  .input-wrap{
+  .input-wrap {
     grid-area: input;
     display: flex;
     align-items: center;
@@ -52,7 +54,15 @@ app-settings{
 @media (min-width: 400px) {}
 
 /* Larger than phablet */
-@media (min-width: 550px) {}
+@media (min-width: 550px) {
+  app-settings article {
+    gap: 1em;
+    grid-template-areas: 'caption .'
+      'summary input';
+    grid-template-columns: auto max-content;
+    grid-template-rows: auto 1fr;
+  }
+}
 
 /* Larger than tablet */
 @media (min-width: 750px) {}

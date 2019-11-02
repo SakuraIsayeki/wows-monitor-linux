@@ -139,6 +139,8 @@
     }
   },
   "changelogs": {
-    "dialogHeader": "Changelog v{{version}}"
+    "dialogHeader": "Changelog v{{version}}",
+    "closeButton": "Got it!",
+    "markAllAsSeen":"Mark all as seen"
   }
 }

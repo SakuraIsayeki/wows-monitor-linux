@@ -16,8 +16,6 @@ import { QrComponent } from './qr/qr.component';
 })
 export class ConnectionComponent extends BaseComponent implements AfterViewInit, OnDestroy {
 
-  showOn = new ShowOnDirective(null, null, this.resizeService);
-
   connectionIcon = faWifi;
   qrIcon = faQrcode;
 
@@ -36,14 +34,14 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit,
         this.uiError('hostDisconnected');
       }
       if (this.isBrowser) {
-        return 'service.issues.browser.noConnection';
+        return 'service.issues.browser.connection';
       } else {
         return 'service.issues.desktop';
       }
     }
   }));
 
-  showOnTablet = this.resizeService.$resizeListener.pipe(map(() => this.showOn.checkStatic('tablet', false)));
+  showOnTablet = this.resizeService.$resizeListener.pipe(map(() => ShowOnDirective.checkStatic('tablet', false)));
 
   constructor(
     @Inject(SignalrServiceToken) public signalrService: SignalrService,

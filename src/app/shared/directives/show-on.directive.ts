@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Directive, Input, TemplateRef, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { ResizeService } from '../../services/resize.service';
 
 declare type DeviceType = 'mobile' | 'phablet' | 'tablet' | 'desktop' | 'desktopHd';
@@ -40,7 +40,8 @@ export class ShowOnDirective implements AfterViewInit {
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-    private resizeService: ResizeService
+    private resizeService: ResizeService,
+    private cd: ChangeDetectorRef
   ) { }
 
   ngAfterViewInit() {
@@ -52,7 +53,7 @@ export class ShowOnDirective implements AfterViewInit {
     }
   }
 
-  checkStatic(deviceType: DeviceType, reversed: boolean) {
+  static checkStatic(deviceType: DeviceType, reversed: boolean) {
     const queries = reversed ? mediaQueriesReversed : mediaQueries;
     if (window.matchMedia(queries[deviceType]).matches) {
       return true;
@@ -65,6 +66,7 @@ export class ShowOnDirective implements AfterViewInit {
     if (window.matchMedia(queries[this.deviceType]).matches) {
       if (this.viewContainer.length === 0) {
         this.viewContainer.createEmbeddedView(this.templateRef);
+        this.cd.detectChanges();
       }
     } else {
       this.viewContainer.clear();

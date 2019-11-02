@@ -380,7 +380,7 @@ body .ui-inputtext {
         -webkit-border-radius: 0;
         border-radius: 0; }
         body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item.ui-state-highlight, body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item-group.ui-state-highlight {
-          color: $primaryTextColor;
+          color: $textColor;
           background-color: $primaryColor; }
         body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item:not(.ui-state-highlight):not(.ui-state-disabled):hover, body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item-group:not(.ui-state-highlight):not(.ui-state-disabled):hover {
           color: $textColor;
@@ -901,7 +901,7 @@ body .ui-inputtext {
 
 body .ui-button {
   margin: 0;
-  color: $primaryTextColor;
+  color: $textColor;
   background-color: $primaryColor;
   border: 1px solid $primaryColor;
   font-size: 1em;
@@ -911,7 +911,7 @@ body .ui-button {
   transition: background-color 0.2s, box-shadow 0.2s; }
   body .ui-button:enabled:hover {
     background-color: $primaryDarkColor;
-    color: $primaryTextColor;
+    color: $textColor;
     border-color: $primaryDarkColor; }
   body .ui-button:enabled:focus {
     outline: 0 none;
@@ -921,7 +921,7 @@ body .ui-button {
     box-shadow: 0 0 0 0.2em #fcd7ca; }
   body .ui-button:enabled:active {
     background-color: $primaryDarkerColor;
-    color: $primaryTextColor;
+    color: $textColor;
     border-color: $primaryDarkerColor; }
   body .ui-button.ui-button-text-only .ui-button-text {
     padding: 0.429em 1em; }
@@ -1092,20 +1092,20 @@ body .ui-button.ui-state-default.ui-button-info, body .ui-buttonset.ui-button-in
 
 body .ui-button.ui-state-default.ui-button-success, body .ui-buttonset.ui-button-success > .ui-button.ui-state-default {
   color: #ffffff;
-  background-color: #34A835;
-  border: 1px solid #34A835; }
+  background-color: $successColor;
+  border: 1px solid $successColor; }
   body .ui-button.ui-state-default.ui-button-success:enabled:hover, body .ui-buttonset.ui-button-success > .ui-button.ui-state-default:enabled:hover {
-    background-color: #107D11;
+    background-color: darken($successColor, 10);
     color: #ffffff;
-    border-color: #107D11; }
+    border-color: darken($successColor, 10); }
   body .ui-button.ui-state-default.ui-button-success:enabled:focus, body .ui-buttonset.ui-button-success > .ui-button.ui-state-default:enabled:focus {
-    -webkit-box-shadow: 0 0 0 0.2em #aae5aa;
-    -moz-box-shadow: 0 0 0 0.2em #aae5aa;
-    box-shadow: 0 0 0 0.2em #aae5aa; }
+    -webkit-box-shadow: 0 0 0 0.2em darken($successColor, 10);
+    -moz-box-shadow: 0 0 0 0.2em darken($successColor, 10);
+    box-shadow: 0 0 0 0.2em darken($successColor, 10); }
   body .ui-button.ui-state-default.ui-button-success:enabled:active, body .ui-buttonset.ui-button-success > .ui-button.ui-state-default:enabled:active {
-    background-color: #0C6B0D;
+    background-color: darken($successColor, 10);;
     color: #ffffff;
-    border-color: #0C6B0D; }
+    border-color: darken($successColor, 10); }
 
 body .ui-button.ui-state-default.ui-button-warning, body .ui-buttonset.ui-button-warning > .ui-button.ui-state-default {
   color: #333333;
