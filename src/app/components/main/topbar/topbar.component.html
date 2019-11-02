@@ -12,10 +12,10 @@
 <div id="matchInfoWrapper" class="iconWrapper" *ngIf="signalrService.$info | async;let matchInfo">
   <span>{{matchInfo.matchGroup | matchGroup | translate}}</span>
   <ng-container *ngIf="matchInfo.matchGroup == 'CLAN'">
-    (Season {{matchInfo.clanwarsSeason}})
+    &nbsp;(Season {{matchInfo.clanwarsSeason}})
   </ng-container>
   <ng-container *ngIf="matchInfo.matchGroup == 'RANKED'">
-    (Season {{matchInfo.rankedSeason}})
+    &nbsp;(Season {{matchInfo.rankedSeason}})
   </ng-container>
   <span>, {{matchInfo.map.name}}</span>
 </div>
