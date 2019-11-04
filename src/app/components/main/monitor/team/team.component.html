@@ -11,7 +11,7 @@
 </span>
 
 <a *ngIf="cw && clan" #weblink target="_blank" hidden="hidden"
-  href="{{ clan.region | wowsNumbers }}clan/{{clan.id}},/">Link</a>
+  href="{{ clan.region | wowsNumbers }}clan/{{clan.id}},{{clan.tag + ' ' + clan.name | replaceWhitespace}}/">Link</a>
 
 <p-contextMenu *ngIf="cw && clan" styleClass="custom-contextmenu" [target]="el.nativeElement" appendTo="body" [model]="items" triggerEvent="click">
 </p-contextMenu>
@@ -27,13 +27,13 @@
       Main Rating
     </h3>
     <pre>
-    League:         {{ 'monitor.cw.leagues.' +clan.mainRating.league | translate }}
-    Division:       {{ clan.mainRating.division | roman }}
-    Points:         {{ clan.mainRating.rating }}
-    Battles:        {{ clan.mainRating.battles }}
-    Wins:           {{ clan.mainRating.wins }}
-    Longest Streak: {{ clan.mainRating.longestWinningStreak }}
-    Current Streak: {{ clan.mainRating.currentWinningStreak }}
+League:         {{ 'monitor.cw.leagues.' +clan.mainRating.league | translate }}
+Division:       {{ clan.mainRating.division | roman }}
+Points:         {{ clan.mainRating.rating }}
+Battles:        {{ clan.mainRating.battles }}
+Wins:           {{ clan.mainRating.wins }}
+Longest Streak: {{ clan.mainRating.longestWinningStreak }}
+Current Streak: {{ clan.mainRating.currentWinningStreak }}
       </pre>
   </ng-container>
 
@@ -42,13 +42,13 @@
       Secondary Rating
     </h3>
     <pre>
-    League:         {{ 'monitor.cw.leagues.' +clan.secondaryRating.league | translate }}
-    Division:       {{ clan.secondaryRating.division | roman }}
-    Points:         {{ clan.secondaryRating.rating }}
-    Battles:        {{ clan.secondaryRating.battles }}
-    Wins:           {{ clan.secondaryRating.wins }}
-    Longest Streak: {{ clan.secondaryRating.longestWinningStreak }}
-    Current Streak: {{ clan.secondaryRating.currentWinningStreak }}
+League:         {{ 'monitor.cw.leagues.' +clan.secondaryRating.league | translate }}
+Division:       {{ clan.secondaryRating.division | roman }}
+Points:         {{ clan.secondaryRating.rating }}
+Battles:        {{ clan.secondaryRating.battles }}
+Wins:           {{ clan.secondaryRating.wins }}
+Longest Streak: {{ clan.secondaryRating.longestWinningStreak }}
+Current Streak: {{ clan.secondaryRating.currentWinningStreak }}
         </pre>
   </ng-container>
   <!-- <a routerLink="/wcw/{{clan.id}}">Learn more</a> -->
