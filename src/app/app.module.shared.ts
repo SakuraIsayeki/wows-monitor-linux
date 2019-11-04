@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
 import { DummyAnalyticsService } from './services/dummy-analytics.service';
 import { AnalyticsServiceToken } from './interfaces/analytics.service';
 import { ClientIdHttpInterceptor } from './services/client-id.http-interceptor';
+import { ClientVersionHttpInterceptor } from './services/client-version.http-interceptor';
 
 const translateHttpLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -92,7 +93,8 @@ const analyticsServiceFactory = () => {
     LoggerServiceDepHolder,
     MessageService,
     { provide: AnalyticsServiceToken, useFactory: analyticsServiceFactory },
-    ClientIdHttpInterceptor
+    ClientIdHttpInterceptor,
+    ClientVersionHttpInterceptor
   ]
 })
 export class AppSharedModule {
