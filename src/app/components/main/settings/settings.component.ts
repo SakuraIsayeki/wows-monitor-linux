@@ -12,6 +12,10 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
 
   fontSizeOptions: SelectItem[] = [
     {
+      label: 'settings.appearance.fontsize.items.small',
+      value: 'small'
+    },
+    {
       label: 'settings.appearance.fontsize.items.normal',
       value: 'normal'
     },

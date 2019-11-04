@@ -99,6 +99,7 @@
         "caption": "Fontsize",
         "summary": "Change the fontsize of the player and team information.",
         "items": {
+          "small": "small",
           "normal": "Normal",
           "big": "Big",
           "huge": "Huge"
