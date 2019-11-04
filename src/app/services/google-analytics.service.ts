@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AnalyticsService } from '../interfaces/analytics.service';
+import { environment } from 'src/environments/environment';
 
 declare let gtag: Function;
-const trackingId = 'UA-151253199-2';
 
 @Injectable()
 export class GoogleAnalyticsService implements AnalyticsService {
 
   public config(path: string, title?: string) {
-    gtag('config', trackingId, {
+    gtag('config', environment.gaCode, {
       'page_title': title,
       'page_path': path
     })
