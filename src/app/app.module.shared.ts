@@ -20,6 +20,7 @@ import { GoogleAnalyticsService } from './services/google-analytics.service';
 import { environment } from 'src/environments/environment';
 import { DummyAnalyticsService } from './services/dummy-analytics.service';
 import { AnalyticsServiceToken } from './interfaces/analytics.service';
+import { ClientIdHttpInterceptor } from './services/client-id.http-interceptor';
 
 const translateHttpLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -90,7 +91,8 @@ const analyticsServiceFactory = () => {
     ResizeService,
     LoggerServiceDepHolder,
     MessageService,
-    { provide: AnalyticsServiceToken, useFactory: analyticsServiceFactory }
+    { provide: AnalyticsServiceToken, useFactory: analyticsServiceFactory },
+    ClientIdHttpInterceptor
   ]
 })
 export class AppSharedModule {

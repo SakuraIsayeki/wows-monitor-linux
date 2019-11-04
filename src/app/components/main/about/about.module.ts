@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { AboutRoutingModule } from './about-routing.module';
 import { AboutComponent } from './about.component';
+import { SharedModule } from 'primeng/components/common/shared';
 
 @NgModule({
   declarations: [AboutComponent],
   imports: [
     CommonModule,
-    AboutRoutingModule
+    AboutRoutingModule,
+    SharedModule
   ]
 })
 export class AboutModule { }
