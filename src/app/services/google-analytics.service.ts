@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { AnalyticsService } from '../interfaces/analytics.service';
 
 declare let gtag: Function;
 const trackingId = 'UA-151253199-2';
 
 @Injectable()
-export class GoogleAnalyticsService {
+export class GoogleAnalyticsService implements AnalyticsService {
 
   public config(path: string, title?: string) {
     gtag('config', trackingId, {
@@ -17,8 +18,8 @@ export class GoogleAnalyticsService {
     eventName: string,
     eventCategory: string,
     eventAction: string,
-    eventLabel: string = null,
-    eventValue: string = null) {
+    eventLabel?: string,
+    eventValue?: number) {
     gtag('event', eventName, {
       eventCategory: eventCategory,
       eventLabel: eventLabel,

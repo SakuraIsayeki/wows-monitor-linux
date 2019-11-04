@@ -69,7 +69,7 @@ export class QrScanComponent extends BaseComponent implements AfterViewInit, OnD
   }
 
   handleQrCodeResult(resultString: string) {
-    this.analyticsService.send('scanQrCode', 'browserEvents', null, null, resultString);
+    this.analyticsService.send('scanQrCode', 'browserEvents', 'scanQrCode', resultString);
     this.config.signalRToken = resultString;
     this.config.save();
     this.ref.close();

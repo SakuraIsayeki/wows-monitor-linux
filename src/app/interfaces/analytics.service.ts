@@ -11,5 +11,5 @@ export interface AnalyticsService {
     eventCategory: string,
     eventAction: string,
     eventLabel?: string,
-    eventValue?: string);
+    eventValue?: number);
 }
