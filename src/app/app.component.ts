@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 import { BaseComponent } from './components/base.component';
@@ -21,6 +21,12 @@ export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
     this.translateService.setDefaultLang('en');
     this.translateService.use(this.translateService.getBrowserLang());
 
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.analyticsService.config(event.urlAfterRedirects);
+      }
+    });
+
     if (environment.production) {
       this.router.navigateByUrl('/');
     }
@@ -30,5 +36,5 @@ export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
       });
     });
   }
-  
+
 }

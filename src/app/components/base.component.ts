@@ -1,11 +1,12 @@
 import { ApplicationRef, NgZone, OnDestroy } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { MessageService } from 'primeng/api';
 import { Observable, Subject } from 'rxjs';
 import { filter, take, takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { LocatorService } from '../services/locator.service';
+import { AnalyticsService, AnalyticsServiceToken } from '../interfaces/analytics.service';
 import { LoggerService, LoggerServiceToken } from '../interfaces/logger.service';
-import { MessageService } from 'primeng/api';
-import { TranslateService } from '@ngx-translate/core';
+import { LocatorService } from '../services/locator.service';
 
 export class BaseComponent implements OnDestroy {
 
@@ -16,6 +17,7 @@ export class BaseComponent implements OnDestroy {
 
   ngZone: NgZone;
   translateService: TranslateService;
+  analyticsService: AnalyticsService;
 
   constructor() {
     this.appRef = LocatorService.Injector.get(ApplicationRef);
@@ -23,6 +25,7 @@ export class BaseComponent implements OnDestroy {
     this.loggerService = LocatorService.Injector.get(LoggerServiceToken) as LoggerService;
     this.translateService = LocatorService.Injector.get(TranslateService) as TranslateService;
     this.messageService = LocatorService.Injector.get(MessageService);
+    this.analyticsService = LocatorService.Injector.get(AnalyticsServiceToken) as AnalyticsService;
   }
 
   get isStable(): Observable<boolean> {

@@ -16,6 +16,10 @@ import { CommonErrorHandler } from './services/common-error.handler';
 import { CustomMissingTranslationHandler } from './services/custom-missing-translation.handler';
 import { LocatorService } from './services/locator.service';
 import { ResizeService } from './services/resize.service';
+import { GoogleAnalyticsService } from './services/google-analytics.service';
+import { environment } from 'src/environments/environment';
+import { DummyAnalyticsService } from './services/dummy-analytics.service';
+import { AnalyticsServiceToken } from './interfaces/analytics.service';
 
 const translateHttpLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -42,6 +46,10 @@ const metaFactory = (translate: TranslateService) => {
     }
   });
 };
+
+const analyticsServiceFactory = () => {
+  return environment.production ? new GoogleAnalyticsService() : new DummyAnalyticsService();
+}
 
 @NgModule({
   declarations: [
@@ -81,7 +89,8 @@ const metaFactory = (translate: TranslateService) => {
     ApiService,
     ResizeService,
     LoggerServiceDepHolder,
-    MessageService
+    MessageService,
+    { provide: AnalyticsServiceToken, useFactory: analyticsServiceFactory }
   ]
 })
 export class AppSharedModule {
