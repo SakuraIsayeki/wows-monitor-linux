@@ -57,7 +57,7 @@ export class PlayerComponent extends BaseComponent implements OnInit {
 
   openWowsNumbers(player) {
     const baseUrl = WowsNumbersPipe.staticTransform(player.region);
-    const url = `${baseUrl}player/${player.accountId},/`;
+    const url = `${baseUrl}player/${player.accountId},${player.name}/`;
     if (this.isBrowser) {
       window.open(url, '_blank');
     } else {
