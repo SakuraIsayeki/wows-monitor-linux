@@ -1,10 +1,9 @@
-import { Component, OnInit, Inject, Input, HostBinding, Sanitizer, SecurityContext, Optional } from '@angular/core';
-import { BaseComponent } from '../../../base.component';
-import { PrPipe } from 'src/app/shared/pipes/pr.pipe';
+import { Component, HostBinding, Input, OnInit, Optional, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Config } from 'src/config/config';
-import { WowsNumbersPipe } from 'src/app/shared/pipes/wows-numbers.pipe';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
+import { WowsNumbersPipe } from 'src/app/shared/pipes/wows-numbers.pipe';
+import { Config } from 'src/config/config';
+import { BaseComponent } from '../../../base.component';
 
 @Component({
   selector: 'app-player',
@@ -35,7 +34,7 @@ export class PlayerComponent extends BaseComponent implements OnInit {
   @HostBinding('style.background-color')
   get backgroundColor() {
     if (this.config.playerBackgrounds && this.player.shipStats) {
-      return this.sanitizer.sanitize(SecurityContext.STYLE, PrPipe.staticTransform(this.player.shipStats.personalRating) + '33');
+      return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.personalRatingColor + '33');
     }
     return '';
   }
@@ -43,7 +42,7 @@ export class PlayerComponent extends BaseComponent implements OnInit {
   @HostBinding('style.border-color')
   get borderColor() {
     if (this.player.shipStats) {
-      return this.sanitizer.sanitize(SecurityContext.STYLE, PrPipe.staticTransform(this.player.shipStats.personalRating) + '99');
+      return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.personalRatingColor + '99');
     }
     return '';
   }
@@ -57,7 +56,7 @@ export class PlayerComponent extends BaseComponent implements OnInit {
 
   openWowsNumbers(player) {
     const baseUrl = WowsNumbersPipe.staticTransform(player.region);
-    const url = `${baseUrl}player/${player.accountId},/`;
+    const url = `${baseUrl}player/${player.accountId},${player.name}/`;
     if (this.isBrowser) {
       window.open(url, '_blank');
     } else {

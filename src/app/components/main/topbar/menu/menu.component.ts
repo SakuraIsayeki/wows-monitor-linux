@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { faCog, faDesktop, faFileAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faDesktop, faFileAlt, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { BaseComponent } from 'src/app/components/base.component';
 import { MenuEntry } from 'src/app/interfaces/menu-entry';
 import { ApiService } from 'src/app/services/api.service';
@@ -36,12 +36,12 @@ export class MenuComponent extends BaseComponent implements OnInit {
       key: 'meta.settings.title',
       routerLink: '/home/settings',
       icon: faCog
-    } // ,
-    // {
-    //   key: 'meta.about.title',
-    //   routerLink: '/home/about',
-    //   icon: faQuestionCircle
-    // }
+    },
+    {
+      key: 'meta.about.title',
+      routerLink: '/home/about',
+      icon: faQuestionCircle
+    }
   ];
 
   public badge = combineLatest(...this.menu.filter(e => e.badge).map(e => e.badge))

@@ -12,6 +12,7 @@ import { SanitizeCssPipe } from './pipes/sanitize-css.pipe';
 import { WowsNumbersPipe } from './pipes/wows-numbers.pipe';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { ExternalLinkDirective } from './directives/external-link.directive';
+import { ReplaceWhitespacePipe } from './pipes/replace-whitespaces.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ExternalLinkDirective } from './directives/external-link.directive';
     SanitizeCssPipe,
     SanitizeHtmlPipe,
     RegionPipe,
+    ReplaceWhitespacePipe,
     RomanPipe,
     PrPipe,
     WowsNumbersPipe
@@ -40,6 +42,7 @@ import { ExternalLinkDirective } from './directives/external-link.directive';
     SanitizeCssPipe,
     SanitizeHtmlPipe,
     RegionPipe,
+    ReplaceWhitespacePipe,
     RomanPipe,
     PrPipe,
     WowsNumbersPipe
