@@ -5,7 +5,6 @@ import { ShowMenuEntryDirective } from './directives/show-menu-entry.directive';
 import { ShowOnDirective } from './directives/show-on.directive';
 import { JoinPipe } from './pipes/join.pipe';
 import { MatchGroupPipe } from './pipes/match-group.pipe';
-import { PrPipe } from './pipes/pr.pipe';
 import { RegionPipe } from './pipes/region.pipe';
 import { RomanPipe } from './pipes/roman.pipe';
 import { SanitizeCssPipe } from './pipes/sanitize-css.pipe';
@@ -28,7 +27,6 @@ import { ReplaceWhitespacePipe } from './pipes/replace-whitespaces.pipe';
     RegionPipe,
     ReplaceWhitespacePipe,
     RomanPipe,
-    PrPipe,
     WowsNumbersPipe
   ],
   exports: [
@@ -44,7 +42,6 @@ import { ReplaceWhitespacePipe } from './pipes/replace-whitespaces.pipe';
     RegionPipe,
     ReplaceWhitespacePipe,
     RomanPipe,
-    PrPipe,
     WowsNumbersPipe
   ],
   imports: [],
