@@ -1,27 +1,22 @@
-# MonitorApp
+## About wows-monitor
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
+Version: **1.0.0-beta.3**
 
-## Development server
+This app was created with [Electron](https://electronjs.org/) and [Angular](https://angular.io/).  
+It mainly functions as a user interface for data provided by a centralized API written in [.NET Core](https://github.com/dotnet/core).  
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This app uses publicly available data from the Waraming API as part of the WG DPP program. By using this app you agree to:
 
-## Code scaffolding
+*   fetching data from API on your behalf
+*   processing of fetched data
+*   display of fetched data in this app
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+It only accesses publicly available information (e.g. number of battles, statistics). We do not collect private data (e.g. email address, number of credits).
 
-## Build
+The color values for the Personal Rating and other stats are provided by [wows-numbers.com](https://wows-numbers.com)  
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+If you need support, have suggestions for features or want to report a bug you can either open a ticket or join the wows-monitor discord server.  
+[discord.gg/Tds7WBs](https://discord.gg/Tds7WBs)
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+If you want to support this project financially you can do so by becoming a patron at [patreon.com/wowsmonitor](https://www.patreon.com/wowsmonitor) or donating via [paypal.me/stewieoO](https://www.paypal.me/stewieoO).  
+Keep in mind that i do not have any special features for patrons yet, but feel free to make suggestions :)

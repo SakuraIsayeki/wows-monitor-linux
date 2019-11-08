@@ -21,7 +21,13 @@ function appConfig() {
   let path = 'src/config/app.config.ts';
   let content = read(path);
   content = content.replace(/version:\s'([\d\.])+'/, `version: '${version}'`);
-  console.log(content);
+  write(path, content);
+}
+
+function readme(){
+  let path = 'readme.md';
+  let content = read(path);
+  content = content.replace(/Version:\s\*\*([\d\.])+\*\*/, `Version: **${version}**`);
   write(path, content);
 }
 
