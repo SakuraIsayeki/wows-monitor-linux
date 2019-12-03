@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AnalyticsService } from '../interfaces/analytics.service';
-import { environment } from 'src/environments/environment';
 import { interval } from 'rxjs';
 import { skipWhile, take } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { AnalyticsService } from '../../interfaces/analytics.service';
 
 declare var gtag: any;
 
 @Injectable()
-export class GoogleAnalyticsService implements AnalyticsService {
+export class BrowserGoogleAnalyticsService implements AnalyticsService {
 
   config(path: string, title?: string) {
     interval(300).pipe(skipWhile(() => gtag === undefined), take(1)).subscribe(() => {

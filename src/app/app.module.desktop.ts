@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Config } from 'src/config/config';
+import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
 import { AppSharedModule } from './app.module.shared';
+import { AnalyticsServiceToken } from './interfaces/analytics.service';
 import { ConfigServiceToken } from './interfaces/config.service';
 import { DirectoryServiceToken } from './interfaces/directory.service';
 import { LoggerServiceToken } from './interfaces/logger.service';
@@ -13,6 +15,13 @@ import { ElectronUpdateService } from './services/desktop/electron-update.servic
 import { ElectronService } from './services/desktop/electron.service';
 import { FsConfigService } from './services/desktop/fs-config.service';
 import { FsDirectoryService } from './services/desktop/fs-directory.service';
+import { DesktopGoogleAnalyticsService } from './services/desktop/google-analytics.service';
+import { DummyAnalyticsService } from './services/dummy-analytics.service';
+
+const analyticsServiceFactory = () => {
+  return environment.production ? new DesktopGoogleAnalyticsService() : new DummyAnalyticsService();
+}
+
 
 @NgModule({
   providers: [
@@ -21,6 +30,7 @@ import { FsDirectoryService } from './services/desktop/fs-directory.service';
     { provide: UpdateServiceToken, useClass: ElectronUpdateService, deps: [ElectronService, Config, LoggerServiceToken] },
     { provide: LoggerServiceToken, useClass: ElectronLoggerService },
     { provide: SignalrServiceToken, useClass: CommonSignalrService },
+    { provide: AnalyticsServiceToken, useFactory: analyticsServiceFactory },
     Config,
     ElectronService
   ]

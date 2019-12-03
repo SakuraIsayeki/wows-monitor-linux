@@ -43,7 +43,8 @@
     "electron-log": "3.0.8",
     "electron-updater": "4.1.2",
     "electron-window-state": "5.0.3",
-    "skeleton-css": "2.0.4"
+    "skeleton-css": "2.0.4",
+    "universal-analytics": "^0.4.20"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.803.15",
