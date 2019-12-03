@@ -33,8 +33,13 @@ export class PlayerComponent extends BaseComponent implements OnInit {
 
   @HostBinding('style.background-color')
   get backgroundColor() {
-    if (this.config.playerBackgrounds && this.player.shipStats) {
-      return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.personalRatingColor + '33');
+    if (this.player.shipStats) {
+      if (this.config.playerBackgrounds === 'pr') {
+        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.personalRatingColor + '33');
+      }
+      if (this.config.playerBackgrounds === 'wr') {
+        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.winrateColor + '33');
+      }
     }
     return '';
   }
@@ -42,7 +47,12 @@ export class PlayerComponent extends BaseComponent implements OnInit {
   @HostBinding('style.border-color')
   get borderColor() {
     if (this.player.shipStats) {
-      return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.personalRatingColor + '99');
+      if (this.config.playerBackgrounds === 'pr') {
+        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.personalRatingColor + '99');
+      }
+      if (this.config.playerBackgrounds === 'wr') {
+        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.winrateColor + '99');
+      }
     }
     return '';
   }

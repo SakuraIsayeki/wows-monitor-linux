@@ -7,7 +7,7 @@ export interface ConfigOptions {
   autoUpdate?: boolean;
   signalRToken?: string;
   selectedDirectory?: string;
-  playerBackgrounds?: boolean;
+  playerBackgrounds?: string;
   fontsize?: string;
   coloredValues?: boolean;
   overwriteReplaysDirectory?: string;
@@ -16,7 +16,7 @@ export interface ConfigOptions {
 
 export const defaultConfig: ConfigOptions = {
   autoUpdate: true,
-  playerBackgrounds: true,
+  playerBackgrounds: 'pr',
   fontsize: 'normal',
   coloredValues: true,
   seenChangelogs: []
@@ -77,8 +77,8 @@ export class Config implements ConfigOptions {
   }
 
   // PlayerBackgrounds
-  private _playerBackgrounds: boolean;
-  private _$playerBackgrounds = new BehaviorSubject<boolean>(null);
+  private _playerBackgrounds: string;
+  private _$playerBackgrounds = new BehaviorSubject<string>(null);
 
   get playerBackgrounds() {
     return this._playerBackgrounds;
@@ -176,7 +176,7 @@ export class Config implements ConfigOptions {
       this.autoUpdate = config.autoUpdate;
       this.signalRToken = config.signalRToken;
       this.selectedDirectory = config.selectedDirectory;
-      this.playerBackgrounds = config.playerBackgrounds;
+      this.playerBackgrounds = this.applyPlayerBackgroundsMigration(config.playerBackgrounds);
       this.fontsize = config.fontsize;
       this.coloredValues = config.coloredValues;
       this.overwriteReplaysDirectory = config.overwriteReplaysDirectory;
@@ -208,5 +208,13 @@ export class Config implements ConfigOptions {
       overwriteReplaysDirectory: this._overwriteReplaysDirectory,
       seenChangelogs: this._seenChangelogs
     }));
+  }
+
+
+  private applyPlayerBackgroundsMigration(value: any) {
+    if (value === false) {
+      return 'off'
+    }
+    return 'pr';
   }
 }

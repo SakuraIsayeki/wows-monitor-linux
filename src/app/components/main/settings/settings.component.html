@@ -40,7 +40,11 @@
           {{ 'settings.appearance.playerBackgrounds.summary' | translate }}
         </summary>
         <div class="input-wrap">
-          <p-inputSwitch [(ngModel)]="config.playerBackgrounds"></p-inputSwitch>
+          <p-selectButton [options]="playerBackgroundsOptions" [(ngModel)]="config.playerBackgrounds">
+            <ng-template let-item>
+              <span class="ui-button-text ui-clickable ng-star-inserted">{{item.label | translate}}</span>
+            </ng-template>
+          </p-selectButton>
         </div>
       </article>
       <article>
@@ -68,7 +72,8 @@
           <div class="ui-inputgroup">
             <input pInputText [title]="config.overwriteReplaysDirectory" type="text" pInputText [disabled]="true"
               [(ngModel)]="config.overwriteReplaysDirectory">
-            <button *ngIf="config.overwriteReplaysDirectory" (click)="config.overwriteReplaysDirectory = ''" pButton type="button" icon="pi pi-times"></button>
+            <button *ngIf="config.overwriteReplaysDirectory" (click)="config.overwriteReplaysDirectory = ''" pButton
+              type="button" icon="pi pi-times"></button>
             <button pButton type="button" icon="pi pi-folder" (click)="selectReplaysPath()"></button>
           </div>
         </div>

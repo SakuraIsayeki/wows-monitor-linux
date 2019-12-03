@@ -29,6 +29,21 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
     }
   ];
 
+  playerBackgroundsOptions: SelectItem[] = [
+    {
+      label: 'settings.appearance.playerBackgrounds.items.off',
+      value: 'off'
+    },
+    {
+      label: 'settings.appearance.playerBackgrounds.items.pr',
+      value: 'pr'
+    },
+    {
+      label: 'settings.appearance.playerBackgrounds.items.wr',
+      value: 'wr'
+    }
+  ];
+
   constructor(public config: Config, @Optional() private electronService: ElectronService) {
     super();
   }

@@ -107,7 +107,12 @@
       },
       "playerBackgrounds": {
         "caption": "Player Backgrounds",
-        "summary": "When enabled the background of the player panels will be in the color of the PR."
+        "summary": "Choose wether you want the player panels to have the background color of the pr, winrate or no specific color.",
+        "items": {
+          "off": "Disabled",
+          "pr": "PR",
+          "wr": "Winrate"
+        }
       },
       "coloredValues": {
         "caption": "Colored Values",
