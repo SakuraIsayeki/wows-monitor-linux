@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, interval, from } from 'rxjs';
 import { ConfigService, ConfigServiceToken } from 'src/app/interfaces/config.service';
 import { skipWhile, take, switchMap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 export interface ConfigOptions {
   autoUpdate?: boolean;
@@ -11,6 +12,7 @@ export interface ConfigOptions {
   fontsize?: string;
   coloredValues?: boolean;
   overwriteReplaysDirectory?: string;
+  forceLandscape?: boolean;
   seenChangelogs?: number[];
 }
 
@@ -169,6 +171,30 @@ export class Config implements ConfigOptions {
     return this._$seenChangelogs.asObservable();
   }
 
+  // forceLandscape
+  private _forceLandscape: boolean;
+  private _$forceLandscape = new BehaviorSubject<boolean>(null);
+
+  get forceLandscape() {
+    return this._autoUpdate;
+  }
+
+  set forceLandscape(value) {
+    this._forceLandscape = value;
+    this._$forceLandscape.next(value);
+    if (environment.browser) {
+      if (value) {
+        screen.orientation.lock('landscape');
+      } else {
+        screen.orientation.unlock();
+      }
+    }
+  }
+
+  get $forceLandscape() {
+    return this._$forceLandscape.asObservable();
+  }
+
   private loaded = false;
 
   constructor(@Inject(ConfigServiceToken) private configService: ConfigService) {
@@ -181,6 +207,7 @@ export class Config implements ConfigOptions {
       this.coloredValues = config.coloredValues;
       this.overwriteReplaysDirectory = config.overwriteReplaysDirectory;
       this.seenChangelogs = config.seenChangelogs;
+      this.forceLandscape = config.forceLandscape;
 
       this.loaded = true;
     });

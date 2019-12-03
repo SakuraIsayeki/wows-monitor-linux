@@ -125,6 +125,10 @@
         "caption": "Replays directory",
         "summary": "If for some reason the automatic detection does not work for you, you can manually overwrite the replays directory here.",
         "button": "Select"
+      },
+      "forceLandscape": {
+        "caption": "Force landscape",
+        "summary": "When you're on your mobile device and have the app open as web-app/fullscreen this will lock the orientation to landscape."
       }
     }
   },
