@@ -1,13 +1,16 @@
-import { app, BrowserWindow, globalShortcut, screen } from 'electron';
+import { app, BrowserWindow, globalShortcut, Menu, screen, Tray } from 'electron';
 import * as logger from 'electron-log';
 import { autoUpdater } from 'electron-updater';
+import * as WindowStateKeeper from 'electron-window-state';
+import * as fs from 'fs';
 import * as path from 'path';
 import * as url from 'url';
 import { initElectronLogger } from './electron-log';
 import { initUpdater } from './update-tasks';
-import * as WindowStateKeeper from 'electron-window-state';
 
 let win: BrowserWindow;
+let tray: Tray;
+let contextMenu: Menu;
 const args = process.argv.slice(1);
 const isDebug = args.some(val => val === '--serve');
 const isLocal = args.some(val => val === '--local');
@@ -20,6 +23,8 @@ if (isDebug) {
 autoUpdater.logger = logger;
 
 function appReady() {
+  let isQuitting = false;
+
   logger.debug('[Electron]', '(appReady)', __dirname);
 
   app.setAppUserModelId('com.wowsmonitor.app');
@@ -30,6 +35,12 @@ function appReady() {
     defaultHeight: size.height
   });
 
+  const iconPath = isDebug
+    ? path.join(__dirname, '../src/assets/icons/favicon-light.ico')
+    : path.join(__dirname, 'dist/app-desktop/assets/icons/favicon-light.ico');
+
+  console.log(iconPath);
+
   win = new BrowserWindow({
     x: mainWindowState.x,
     y: mainWindowState.y,
@@ -37,15 +48,40 @@ function appReady() {
     height: mainWindowState.height,
     minWidth: 650,
     frame: false,
-    icon: isDebug
-      ? path.join(__dirname, '../src/assets/icons/favicon-light.ico')
-      : path.join(__dirname, 'dist/app-desktop/assets/icons/favicon-light.ico'),
+    icon: iconPath,
     webPreferences: {
       nodeIntegration: true
     }
   });
 
   mainWindowState.manage(win);
+
+  win.on('close', (event) => {
+    const config = fs.readFileSync('config.json', { encoding: 'utf-8' });
+    console.warn(config);
+    if (JSON.parse(config).closeToTray && !isQuitting) {
+      event.preventDefault();
+      win.hide();
+    }
+    return false;
+  });
+
+  tray = new Tray(iconPath);
+  contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Open', click: () => {
+        win.show();
+      }
+    },
+    {
+      label: 'Close', click: () => {
+        isQuitting = true;
+        app.quit();
+      }
+    }
+  ]);
+
+  tray.setContextMenu(contextMenu);
 
   initUpdater(logger, win, isDebug);
   initElectronLogger(logger);

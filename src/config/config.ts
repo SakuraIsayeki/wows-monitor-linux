@@ -14,6 +14,7 @@ export interface ConfigOptions {
   overwriteReplaysDirectory?: string;
   forceLandscape?: boolean;
   seenChangelogs?: number[];
+  closeToTray?: boolean;
 }
 
 export const defaultConfig: ConfigOptions = {
@@ -195,6 +196,23 @@ export class Config implements ConfigOptions {
     return this._$forceLandscape.asObservable();
   }
 
+  // closeToTray
+  private _closeToTray: boolean;
+  private _$closeToTray = new BehaviorSubject<boolean>(null);
+
+  get closeToTray() {
+    return this._closeToTray;
+  }
+
+  set closeToTray(value) {
+    this._closeToTray = value;
+    this._$closeToTray.next(value);
+  }
+
+  get $closeToTray() {
+    return this._$closeToTray.asObservable();
+  }
+
   private loaded = false;
 
   constructor(@Inject(ConfigServiceToken) private configService: ConfigService) {
@@ -208,6 +226,7 @@ export class Config implements ConfigOptions {
       this.overwriteReplaysDirectory = config.overwriteReplaysDirectory;
       this.seenChangelogs = config.seenChangelogs;
       this.forceLandscape = config.forceLandscape;
+      this.closeToTray = config.closeToTray;
 
       this.loaded = true;
     });
@@ -233,7 +252,8 @@ export class Config implements ConfigOptions {
       fontsize: this._fontsize,
       coloredValues: this._coloredValues,
       overwriteReplaysDirectory: this._overwriteReplaysDirectory,
-      seenChangelogs: this._seenChangelogs
+      seenChangelogs: this._seenChangelogs,
+      closeToTray: this._closeToTray
     }));
   }
 

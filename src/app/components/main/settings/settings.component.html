@@ -14,6 +14,17 @@
           <p-inputSwitch [(ngModel)]="config.autoUpdate"></p-inputSwitch>
         </div>
       </article>
+      <article>
+        <caption>
+          {{ 'settings.general.closeToTray.caption' | translate }}
+        </caption>
+        <summary>
+          {{ 'settings.general.closeToTray.summary' | translate }}
+        </summary>
+        <div class="input-wrap">
+          <p-inputSwitch [(ngModel)]="config.closeToTray"></p-inputSwitch>
+        </div>
+      </article>
     </section>
     <section>
       <h3>{{ 'settings.appearance.title' | translate }}</h3>

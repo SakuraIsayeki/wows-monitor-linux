@@ -3,12 +3,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
 var logger = require("electron-log");
 var electron_updater_1 = require("electron-updater");
+var WindowStateKeeper = require("electron-window-state");
+var fs = require("fs");
 var path = require("path");
 var url = require("url");
 var electron_log_1 = require("./electron-log");
 var update_tasks_1 = require("./update-tasks");
-var WindowStateKeeper = require("electron-window-state");
 var win;
+var tray;
+var contextMenu;
 var args = process.argv.slice(1);
 var isDebug = args.some(function (val) { return val === '--serve'; });
 var isLocal = args.some(function (val) { return val === '--local'; });
@@ -18,6 +21,7 @@ if (isDebug) {
 }
 electron_updater_1.autoUpdater.logger = logger;
 function appReady() {
+    var isQuitting = false;
     logger.debug('[Electron]', '(appReady)', __dirname);
     electron_1.app.setAppUserModelId('com.wowsmonitor.app');
     var size = electron_1.screen.getPrimaryDisplay().workAreaSize;
@@ -25,6 +29,10 @@ function appReady() {
         defaultWidth: size.width,
         defaultHeight: size.height
     });
+    var iconPath = isDebug
+        ? path.join(__dirname, '../src/assets/icons/favicon-light.ico')
+        : path.join(__dirname, 'dist/app-desktop/assets/icons/favicon-light.ico');
+    console.log(iconPath);
     win = new electron_1.BrowserWindow({
         x: mainWindowState.x,
         y: mainWindowState.y,
@@ -32,14 +40,36 @@ function appReady() {
         height: mainWindowState.height,
         minWidth: 650,
         frame: false,
-        icon: isDebug
-            ? path.join(__dirname, '../src/assets/icons/favicon-light.ico')
-            : path.join(__dirname, 'dist/app-desktop/assets/icons/favicon-light.ico'),
+        icon: iconPath,
         webPreferences: {
             nodeIntegration: true
         }
     });
     mainWindowState.manage(win);
+    win.on('close', function (event) {
+        var config = fs.readFileSync('config.json', { encoding: 'utf-8' });
+        console.warn(config);
+        if (JSON.parse(config).closeToTray && !isQuitting) {
+            event.preventDefault();
+            win.hide();
+        }
+        return false;
+    });
+    tray = new electron_1.Tray(iconPath);
+    contextMenu = electron_1.Menu.buildFromTemplate([
+        {
+            label: 'Open', click: function () {
+                win.show();
+            }
+        },
+        {
+            label: 'Close', click: function () {
+                isQuitting = true;
+                electron_1.app.quit();
+            }
+        }
+    ]);
+    tray.setContextMenu(contextMenu);
     update_tasks_1.initUpdater(logger, win, isDebug);
     electron_log_1.initElectronLogger(logger);
     if (isDebug) {
@@ -56,7 +86,6 @@ function appReady() {
         win.webContents.openDevTools();
     }
     else {
-        win.webContents.openDevTools();
         win.loadURL(url.format({
             pathname: path.join(__dirname, isLocal ? '../dist/app-desktop/index.html' : '../dist/app-desktop/index.html'),
             protocol: 'file:',
