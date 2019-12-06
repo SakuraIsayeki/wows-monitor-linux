@@ -235,6 +235,22 @@ app-team {
   &:hover {
     background: transparentize($secondaryColor, 0.5);
   }
+
+  .team-overall-wrapper {
+    .inner {
+      display: inline-block;
+
+      >* {
+        &:first-child {
+          display: block;
+        }
+
+        margin-right: 1em;
+      }
+
+      margin-right: 2em;
+    }
+  }
 }
 
 /* Larger than mobile */

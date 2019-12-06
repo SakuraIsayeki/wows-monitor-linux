@@ -5,15 +5,26 @@
 <span *ngIf="cw && clan" translate="monitor.cw.text"
   [translateParams]="{ rank: clan.rank, league: 'monitor.cw.leagues.' + clan.mainRating.league | translate, division: clan.mainRating.division | roman, winrate: (clan.mainRating.wins/clan.mainRating.battles * 100) | number:'0.0-2' }">
 </span>
-<span *ngIf="!cw">
-  Avg Xp: {{team.xp | number:'0.0-0'}} Avg Winrate: {{team.winrate | number:'0.0-2'}}% Avg Battles:
-  {{team.battles | number:'0.0-0'}}
+<span *ngIf="!cw" class="team-overall-wrapper">
+  <span class="inner">
+    <strong>Avg Ships</strong>
+    <span>Xp: {{team.shipXp | number:'0.0-0'}}</span>
+    <span>Winrate: {{team.shipWinrate | number:'0.0-2'}}%</span>
+    <span>Battles: {{team.shipBattles | number:'0.0-0'}} </span>
+  </span>
+  <span class="inner">
+    <strong>Avg Accounts</strong>
+    <span>Xp: {{team.overallXp | number:'0.0-0'}}</span>
+    <span>Winrate: {{team.overallWinrate | number:'0.0-2'}}%</span>
+    <span>Battles: {{team.overallBattles | number:'0.0-0'}} </span>
+  </span>
 </span>
 
 <a *ngIf="cw && clan" #weblink target="_blank" hidden="hidden"
   href="{{ clan.region | wowsNumbers }}clan/{{clan.id}},{{clan.tag + ' ' + clan.name | replaceWhitespace}}/">Link</a>
 
-<p-contextMenu *ngIf="cw && clan" styleClass="custom-contextmenu" [target]="el.nativeElement" appendTo="body" [model]="items" triggerEvent="click">
+<p-contextMenu *ngIf="cw && clan" styleClass="custom-contextmenu" [target]="el.nativeElement" appendTo="body"
+  [model]="items" triggerEvent="click">
 </p-contextMenu>
 
 <p-dialog *ngIf="cw && clan" [(visible)]="showDialog" [dismissableMask]="true" [modal]="true" appendTo="body"

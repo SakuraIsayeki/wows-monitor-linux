@@ -39,8 +39,6 @@ function appReady() {
     ? path.join(__dirname, '../src/assets/icons/favicon-light.ico')
     : path.join(__dirname, 'dist/app-desktop/assets/icons/favicon-light.ico');
 
-  console.log(iconPath);
-
   win = new BrowserWindow({
     x: mainWindowState.x,
     y: mainWindowState.y,
@@ -58,7 +56,6 @@ function appReady() {
 
   win.on('close', (event) => {
     const config = fs.readFileSync('config.json', { encoding: 'utf-8' });
-    console.warn(config);
     if (JSON.parse(config).closeToTray && !isQuitting) {
       event.preventDefault();
       win.hide();

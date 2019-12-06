@@ -17,9 +17,8 @@ export class TitlebarComponent extends BaseComponent implements OnInit, AfterVie
   maximizeIcon = faWindowMaximize;
   restoreIcon = faWindowRestore;
   minimizeIcon = faWindowMinimize;
-  canMaximize = true;
 
-  get window() {
+  get win() {
     return this.electronService.remote.BrowserWindow.getFocusedWindow();
   }
 
@@ -35,28 +34,24 @@ export class TitlebarComponent extends BaseComponent implements OnInit, AfterVie
   }
 
   ngAfterViewInit() {
-    interval(200).pipe(this.untilDestroy(), skipWhile(() => !this.window), take(1)).subscribe(() => {
-      this.canMaximize = this.window.maximizable;
-    });
   }
 
   minimize() {
-    if (this.window.minimizable) {
-      this.window.minimize();
+    if (this.win.minimizable) {
+      this.win.minimize();
     }
   }
 
   maximize() {
-    if (this.window.maximizable) {
-      this.window.unmaximize();
-    } else if (this.window.maximizable) {
-      this.window.maximize();
+    if (this.win.maximizable && !this.win.isMaximized()) {
+      this.win.maximize();
+    } else {
+      this.win.restore();
     }
-    this.canMaximize = this.window.maximizable;
   }
 
   close() {
-    if (this.window.closable) {
+    if (this.win.closable) {
       this.electronService.remote.BrowserWindow.getFocusedWindow().close();
     }
   }
