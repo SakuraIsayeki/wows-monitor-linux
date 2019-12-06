@@ -172,30 +172,6 @@ export class Config implements ConfigOptions {
     return this._$seenChangelogs.asObservable();
   }
 
-  // forceLandscape
-  private _forceLandscape: boolean;
-  private _$forceLandscape = new BehaviorSubject<boolean>(null);
-
-  get forceLandscape() {
-    return this._autoUpdate;
-  }
-
-  set forceLandscape(value) {
-    this._forceLandscape = value;
-    this._$forceLandscape.next(value);
-    if (environment.browser) {
-      if (value) {
-        screen.orientation.lock('landscape');
-      } else {
-        screen.orientation.unlock();
-      }
-    }
-  }
-
-  get $forceLandscape() {
-    return this._$forceLandscape.asObservable();
-  }
-
   // closeToTray
   private _closeToTray: boolean;
   private _$closeToTray = new BehaviorSubject<boolean>(null);
@@ -233,7 +209,6 @@ export class Config implements ConfigOptions {
       this.coloredValues = config.coloredValues;
       this.overwriteReplaysDirectory = config.overwriteReplaysDirectory;
       this.seenChangelogs = config.seenChangelogs;
-      this.forceLandscape = config.forceLandscape;
       this.closeToTray = config.closeToTray;
 
       this.loaded = true;
@@ -245,7 +220,6 @@ export class Config implements ConfigOptions {
       this.$fontsize,
       this.$useColoredValues,
       this.$overwriteReplaysDirectory,
-      this.$forceLandscape,
       this.$closeToTray
     ]).pipe(share());
   }

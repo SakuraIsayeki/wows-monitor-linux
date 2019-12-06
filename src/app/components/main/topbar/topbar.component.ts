@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { BaseComponent } from '../../base.component';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { faBars, faCompress, faExpand } from '@fortawesome/free-solid-svg-icons';
 import { SignalrService, SignalrServiceToken } from 'src/app/interfaces/signalr.service';
+import { BaseComponent } from '../../base.component';
 import { MenuComponent } from './menu/menu.component';
 
 @Component({
@@ -11,9 +11,11 @@ import { MenuComponent } from './menu/menu.component';
 export class TopbarComponent extends BaseComponent implements OnInit {
 
   @ViewChild(MenuComponent, { static: true })
-  public appMenu: MenuComponent
+  appMenu: MenuComponent;
 
   menuIcon = faBars;
+  expandIcon = faExpand;
+  compressIcon = faCompress;
   sidebarVisible = false;
 
   constructor(@Inject(SignalrServiceToken) public signalrService: SignalrService
@@ -22,6 +24,25 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    document.documentElement.onfullscreenchange = event => {
+      this.isFullscreen = document.fullscreenElement != null;
+    }
+  }
+
+  isFullscreen = false;
+
+  async fullscreenSwitch() {
+    if (this.isFullscreen) {
+      try {
+        document.exitFullscreen();
+      } catch { }
+    } else {
+      await document.documentElement.requestFullscreen();
+      this.isFullscreen = true;
+      try {
+        await screen.orientation.lock('landscape');
+      } catch { }
+    }
   }
 
   toggleSidebar = () => {
