@@ -14,7 +14,7 @@
           <p-inputSwitch [(ngModel)]="config.autoUpdate"></p-inputSwitch>
         </div>
       </article>
-      <article>
+      <article *isDesktop>
         <caption>
           {{ 'settings.general.closeToTray.caption' | translate }}
         </caption>
