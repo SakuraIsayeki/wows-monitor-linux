@@ -9,10 +9,10 @@
     </strong>
   </div>
   <div id="ovr-winrate">
-    Overall Winrate: <strong [style.color]="player.overallStats?.winrateColor | sanitizeCss">{{player.overallStats?.winrate | number:'0.0-2'}}%</strong>
+    Account Winrate: <strong [style.color]="player.overallStats?.winrateColor | sanitizeCss">{{player.overallStats?.winrate | number:'0.0-2'}}%</strong>
   </div>
   <div id="ovr-battles">
-    Overall Battles: <strong [style.color]="player.overallStats?.battlesColor | sanitizeCss">{{player.overallStats?.battles}}</strong>
+    Account Battles: <strong [style.color]="player.overallStats?.battlesColor | sanitizeCss">{{player.overallStats?.battles}}</strong>
   </div>
   <div id="karma">
     Karma: <strong>{{player.karma}}</strong>

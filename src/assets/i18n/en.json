@@ -111,7 +111,8 @@
         "items": {
           "off": "Disabled",
           "pr": "PR",
-          "wr": "Winrate"
+          "wr": "Winrate",
+          "accwr": "Account Winrate"
         }
       },
       "coloredValues": {

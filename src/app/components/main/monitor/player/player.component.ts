@@ -40,6 +40,9 @@ export class PlayerComponent extends BaseComponent implements OnInit {
       if (this.config.playerBackgrounds === 'wr') {
         return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.winrateColor + '33');
       }
+      if (this.config.playerBackgrounds === 'accwr') {
+        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.overallStats.winrateColor + '33');
+      }
     }
     return '';
   }
@@ -52,6 +55,9 @@ export class PlayerComponent extends BaseComponent implements OnInit {
       }
       if (this.config.playerBackgrounds === 'wr') {
         return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.winrateColor + '99');
+      }
+      if (this.config.playerBackgrounds === 'accwr') {
+        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.overallStats.winrateColor + '99');
       }
     }
     return '';

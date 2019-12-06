@@ -41,6 +41,10 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
     {
       label: 'settings.appearance.playerBackgrounds.items.wr',
       value: 'wr'
+    },
+    {
+      label: 'settings.appearance.playerBackgrounds.items.accwr',
+      value: 'accwr'
     }
   ];
 
