@@ -32,7 +32,6 @@ function appReady() {
     var iconPath = isDebug
         ? path.join(__dirname, '../src/assets/icons/favicon-light.ico')
         : path.join(__dirname, 'dist/app-desktop/assets/icons/favicon-light.ico');
-    console.log(iconPath);
     win = new electron_1.BrowserWindow({
         x: mainWindowState.x,
         y: mainWindowState.y,
@@ -48,14 +47,13 @@ function appReady() {
     mainWindowState.manage(win);
     win.on('close', function (event) {
         var config = fs.readFileSync('config.json', { encoding: 'utf-8' });
-        console.warn(config);
         if (JSON.parse(config).closeToTray && !isQuitting) {
             event.preventDefault();
             win.hide();
         }
         return false;
     });
-    tray = new electron_1.Tray(iconPath);
+    tray = new electron_1.Tray(electron_1.nativeImage.createFromPath(iconPath));
     contextMenu = electron_1.Menu.buildFromTemplate([
         {
             label: 'Open', click: function () {

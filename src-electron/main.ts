@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut, Menu, screen, Tray } from 'electron';
+import { app, BrowserWindow, globalShortcut, Menu, screen, Tray, NativeImage, nativeImage } from 'electron';
 import * as logger from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 import * as WindowStateKeeper from 'electron-window-state';
@@ -63,7 +63,7 @@ function appReady() {
     return false;
   });
 
-  tray = new Tray(iconPath);
+  tray = new Tray(nativeImage.createFromPath(iconPath));
   contextMenu = Menu.buildFromTemplate([
     {
       label: 'Open', click: () => {
