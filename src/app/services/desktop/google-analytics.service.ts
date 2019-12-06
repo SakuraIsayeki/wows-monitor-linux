@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
-import { interval } from 'rxjs';
-import { skipWhile, take } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { AnalyticsService } from '../../interfaces/analytics.service';
-import ua from 'universal-analytics';
 import { appConfig } from 'src/config/app.config';
+import { environment } from 'src/environments/environment';
+import ua from 'universal-analytics';
+import { AnalyticsService } from '../../interfaces/analytics.service';
+import { Config } from 'src/config/config';
 
 @Injectable()
 export class DesktopGoogleAnalyticsService implements AnalyticsService {
 
   private visitor: ua.visitor;
 
-  
-  constructor() {
-    this.visitor = ua(environment.gaCode);
+
+  constructor(appConfig: Config) {
+    this.visitor = ua(environment.gaCode, { uid: appConfig.signalRToken });
   }
 
   config(path: string, title?: string) {
-    this.visitor.screenview(title, appConfig.applicationName, appConfig.version).send();
+    this.visitor.screenview(path, appConfig.applicationName, appConfig.version, err => {
+      console.log(err);
+    }).send();
   }
 
   send(

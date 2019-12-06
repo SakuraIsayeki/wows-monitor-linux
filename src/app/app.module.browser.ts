@@ -23,8 +23,8 @@ const updateServiceFactory = (swUpdate?: SwUpdate) => {
     : new DummyUpdateService();
 };
 
-const analyticsServiceFactory = () => {
-  return environment.production ? new BrowserGoogleAnalyticsService() : new DummyAnalyticsService();
+const analyticsServiceFactory = (config: Config) => {
+  return environment.production ? new BrowserGoogleAnalyticsService(config) : new DummyAnalyticsService();
 }
 
 
@@ -39,7 +39,7 @@ const analyticsServiceFactory = () => {
     { provide: LoggerServiceToken, useClass: ConsoleLoggerService },
     { provide: SignalrServiceToken, useClass: CommonSignalrService },
     { provide: UpdateServiceToken, useFactory: updateServiceFactory, deps: [SwUpdate] },
-    { provide: AnalyticsServiceToken, useFactory: analyticsServiceFactory },
+    { provide: AnalyticsServiceToken, useFactory: analyticsServiceFactory, deps: [Config] },
     Config
   ],
   bootstrap: [AppComponent]
