@@ -5,6 +5,7 @@ var electron_updater_1 = require("electron-updater");
 function initUpdater(logger, win, isDebug) {
     electron_updater_1.autoUpdater.autoDownload = false;
     electron_updater_1.autoUpdater.autoInstallOnAppQuit = false;
+    electron_updater_1.autoUpdater.channel = 'beta';
     electron_1.ipcMain.on('checkForUpdate', function (event, args) {
         logger.debug('[Electron]', '(checkForUpdate)');
         if (isDebug) {

@@ -5,6 +5,7 @@ import * as electronLogger from 'electron-log';
 export function initUpdater(logger: electronLogger.IElectronLog, win: BrowserWindow, isDebug: boolean) {
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
+  autoUpdater.channel = 'beta';
 
   ipcMain.on('checkForUpdate', (event, args) => {
     logger.debug('[Electron]', '(checkForUpdate)');

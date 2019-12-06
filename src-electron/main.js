@@ -56,6 +56,7 @@ function appReady() {
         win.webContents.openDevTools();
     }
     else {
+        win.webContents.openDevTools();
         win.loadURL(url.format({
             pathname: path.join(__dirname, isLocal ? '../dist/app-desktop/index.html' : '../dist/app-desktop/index.html'),
             protocol: 'file:',
