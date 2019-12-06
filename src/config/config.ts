@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, interval, from } from 'rxjs';
+import { BehaviorSubject, interval, from, Subject, combineLatest, Observable } from 'rxjs';
 import { ConfigService, ConfigServiceToken } from 'src/app/interfaces/config.service';
-import { skipWhile, take, switchMap } from 'rxjs/operators';
+import { skipWhile, take, switchMap, share } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 export interface ConfigOptions {
@@ -213,7 +213,15 @@ export class Config implements ConfigOptions {
     return this._$closeToTray.asObservable();
   }
 
+
+
   private loaded = false;
+
+  private _$settingChanged: Observable<any>;
+
+  public get $settingChanged() {
+    return this._$settingChanged;
+  }
 
   constructor(@Inject(ConfigServiceToken) private configService: ConfigService) {
     this.configService.load().then(config => {
@@ -230,6 +238,16 @@ export class Config implements ConfigOptions {
 
       this.loaded = true;
     });
+
+    this._$settingChanged = combineLatest([
+      this.$autoUpdate,
+      this.$playerBackgrounds,
+      this.$fontsize,
+      this.$useColoredValues,
+      this.$overwriteReplaysDirectory,
+      this.$forceLandscape,
+      this.$closeToTray
+    ]).pipe(share());
   }
 
   async waitTillLoaded() {

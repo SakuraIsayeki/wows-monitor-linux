@@ -3,6 +3,7 @@ import { BaseComponent } from '../../base.component';
 import { Config } from 'src/config/config';
 import { SelectItem } from 'primeng/api';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
+import { skip } from 'rxjs/operators';
 
 @Component({
   selector: 'app-settings',
@@ -53,6 +54,7 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
   }
 
   ngOnInit() {
+    this.config.$settingChanged.pipe(this.untilDestroy(), skip(1)).subscribe(() => this.uiSuccess('settingsSaved'));
   }
 
   async selectReplaysPath() {
@@ -67,8 +69,5 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
 
   ngOnDestroy() {
     super.ngOnDestroy();
-    this.config.save().then(() => {
-      this.uiSuccess('settingsSaved');
-    });
   }
 }

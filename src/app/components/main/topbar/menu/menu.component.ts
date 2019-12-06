@@ -57,10 +57,10 @@ export class MenuComponent extends BaseComponent implements OnInit {
 
   constructor(private apiService: ApiService, private config: Config) {
     super();
-    combineLatest(
+    combineLatest([
       this.apiService.changelogIds(),
       this.config.$seenChangelogs
-    )
+    ])
       .pipe(this.untilDestroy())
       .subscribe(arr => {
         if (arr[0] != null && arr[1] != null) {
