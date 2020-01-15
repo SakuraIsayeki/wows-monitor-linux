@@ -11,8 +11,8 @@ export class DesktopGoogleAnalyticsService implements AnalyticsService {
   private visitor: ua.visitor;
 
 
-  constructor(appConfig: Config) {
-    this.visitor = ua(environment.gaCode, { uid: appConfig.signalRToken });
+  constructor(config: Config) {
+    this.visitor = ua(environment.gaCode, config.uuid );
   }
 
   config(path: string, title?: string) {

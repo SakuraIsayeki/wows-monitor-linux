@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, interval, from, Subject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, from, interval, Observable } from 'rxjs';
+import { share, skipWhile, take } from 'rxjs/operators';
 import { ConfigService, ConfigServiceToken } from 'src/app/interfaces/config.service';
-import { skipWhile, take, switchMap, share } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-
+const uuidv4 = require('uuid/v4');
 export interface ConfigOptions {
   autoUpdate?: boolean;
   signalRToken?: string;
@@ -15,6 +15,7 @@ export interface ConfigOptions {
   forceLandscape?: boolean;
   seenChangelogs?: number[];
   closeToTray?: boolean;
+  uuid?: string;
 }
 
 export const defaultConfig: ConfigOptions = {
@@ -22,7 +23,8 @@ export const defaultConfig: ConfigOptions = {
   playerBackgrounds: 'pr',
   fontsize: 'normal',
   coloredValues: true,
-  seenChangelogs: []
+  seenChangelogs: [],
+  uuid: environment.desktop ? uuidv4() : ''
 };
 
 @Injectable()
@@ -189,7 +191,11 @@ export class Config implements ConfigOptions {
     return this._$closeToTray.asObservable();
   }
 
+  private _uuid: string;
 
+  get uuid() {
+    return this._uuid;
+  }
 
   private loaded = false;
 
@@ -210,8 +216,11 @@ export class Config implements ConfigOptions {
       this.overwriteReplaysDirectory = config.overwriteReplaysDirectory;
       this.seenChangelogs = config.seenChangelogs;
       this.closeToTray = config.closeToTray;
+      this._uuid = config.uuid ? config.uuid : (environment.desktop ? uuidv4() : '');
 
       this.loaded = true;
+
+      this.save();
     });
 
     this._$settingChanged = combineLatest([
@@ -245,7 +254,8 @@ export class Config implements ConfigOptions {
       coloredValues: this._coloredValues,
       overwriteReplaysDirectory: this._overwriteReplaysDirectory,
       seenChangelogs: this._seenChangelogs,
-      closeToTray: this._closeToTray
+      closeToTray: this._closeToTray,
+      uuid: this._uuid
     }));
   }
 
