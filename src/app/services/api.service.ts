@@ -8,9 +8,23 @@ import { Changelog } from '../interfaces/changelog';
 @Injectable()
 export class ApiService {
 
+  mode = 'PVP';
+  lastInfo: string;
+  lastRegion: Region;
+
   constructor(private httpClient: HttpClient, private config: Config) { }
 
+  resendState() {
+    this.sendStats(this.lastInfo, this.lastRegion).subscribe();
+  }
+
   sendStats(tempArenaInfoJson: string, region: Region) {
+    this.lastInfo = tempArenaInfoJson;
+    this.lastRegion = region;
+    var temp = JSON.parse(tempArenaInfoJson);
+    console.log(this.mode);
+    temp['matchGroup'] = this.mode;
+    tempArenaInfoJson = JSON.stringify(temp);
     return this.httpClient.post(environment.apiUrl + '/stats?token=' + this.config.signalRToken, tempArenaInfoJson, {
       headers: {
         'content-type': 'application/json',

@@ -63,7 +63,7 @@
       "CLAN": "Clan War",
       "PVP": "Random",
       "COOPERATIVE": "Coop",
-      "PVE": "Pve",
+      "PVE": "PVE",
       "RANKED": "Ranked"
     },
     "cw": {
@@ -92,7 +92,7 @@
         "caption": "AutoUpdate",
         "summary": "When enabled app will check for a new version at each start."
       },
-      "closeToTray":{
+      "closeToTray": {
         "caption": "Close to tray",
         "summary": "When enabled app will minimize to tray upon clicking the close icon."
       }

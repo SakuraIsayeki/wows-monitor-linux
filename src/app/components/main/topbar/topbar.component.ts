@@ -3,6 +3,9 @@ import { faBars, faCompress, faExpand } from '@fortawesome/free-solid-svg-icons'
 import { SignalrService, SignalrServiceToken } from 'src/app/interfaces/signalr.service';
 import { BaseComponent } from '../../base.component';
 import { MenuComponent } from './menu/menu.component';
+import { SelectItem } from 'primeng/api';
+import { TranslateService } from '@ngx-translate/core';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-topbar',
@@ -18,7 +21,31 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   compressIcon = faCompress;
   sidebarVisible = false;
 
-  constructor(@Inject(SignalrServiceToken) public signalrService: SignalrService
+  modes: SelectItem[] = [
+    {
+      label: this.translateService.instant('monitor.matchGroup.PVP'),
+      value: 'PVP'
+    },
+    {
+      label: this.translateService.instant('monitor.matchGroup.RANKED'),
+      value: 'RANKED'
+    },
+    {
+      label: this.translateService.instant('monitor.matchGroup.CLAN'),
+      value: 'CLAN'
+    },
+    {
+      label: this.translateService.instant('monitor.matchGroup.COOPERATIVE'),
+      value: 'COOPERATIVE'
+    },
+    {
+      label: this.translateService.instant('monitor.matchGroup.PVE'),
+      value: 'PVE'
+    }
+  ];
+
+  constructor(@Inject(SignalrServiceToken) public signalrService: SignalrService,
+    public apiService: ApiService
   ) {
     super();
   }

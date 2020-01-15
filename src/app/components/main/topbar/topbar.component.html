@@ -21,13 +21,19 @@
 </div>
 
 <div class="states">
+  <ng-container *isDesktop>
+    <span style="float:left;margin-top: 4px;">
+      <p-dropdown [options]="modes" [(ngModel)]="apiService.mode" (ngModelChange)="apiService.resendState()"
+        [appendTo]="'body'"></p-dropdown>
+    </span>
+  </ng-container>
   <app-path-picker *isDesktop></app-path-picker>
   <app-status></app-status>
   <app-connection></app-connection>
   <div class="iconWrapper" *isBrowser (click)="fullscreenSwitch()">
-      <fa-icon *ngIf="!isFullscreen" [icon]="expandIcon" size="2x" [fixedWidth]="true"></fa-icon>
-      <fa-icon *ngIf="isFullscreen" [icon]="compressIcon" size="2x" [fixedWidth]="true"></fa-icon>
-    </div>
+    <fa-icon *ngIf="!isFullscreen" [icon]="expandIcon" size="2x" [fixedWidth]="true"></fa-icon>
+    <fa-icon *ngIf="isFullscreen" [icon]="compressIcon" size="2x" [fixedWidth]="true"></fa-icon>
+  </div>
 </div>
 
 <p-sidebar [(visible)]="sidebarVisible" appendTo="body" [showCloseIcon]="false">
