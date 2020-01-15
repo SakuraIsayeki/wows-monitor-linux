@@ -5,5 +5,5 @@ export const environment: Environment = {
   browser: false,
   desktop: true,
   apiUrl: 'https://api.wows-monitor.com',
-  gaCode: 'UA-151253199-6'
+  gaCode: 'UA-151253199-7'
 };
