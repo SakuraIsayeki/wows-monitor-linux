@@ -1,7 +1,7 @@
 {
   "name": "@wows-monitor/app",
   "description": "WoWs Monitor",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.5",
   "homepage": "https://wows-monitor.com",
   "author": {
     "name": "stewie",
