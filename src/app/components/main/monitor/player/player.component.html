@@ -24,7 +24,7 @@
     Winrate: <strong [style.color]="player.shipStats?.winrateColor | sanitizeCss">{{player.shipStats?.winrate | number:'0.0-2'}}%</strong>
   </div>
   <div id="battles">
-    Battles: <strong [style.color]="player.shipStats?.battlesColor | sanitizeCss">{{player.shipStats?.battles}}</strong>
+    Battles: <strong>{{player.shipStats?.battles}}</strong>
   </div>
   <div id="wins">
     Wins: <strong>{{player.shipStats?.wins}}</strong>
