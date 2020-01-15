@@ -22,7 +22,6 @@ export class ApiService {
     this.lastInfo = tempArenaInfoJson;
     this.lastRegion = region;
     var temp = JSON.parse(tempArenaInfoJson);
-    console.log(this.mode);
     temp['matchGroup'] = this.mode;
     tempArenaInfoJson = JSON.stringify(temp);
     return this.httpClient.post(environment.apiUrl + '/stats?token=' + this.config.signalRToken, tempArenaInfoJson, {

@@ -17,7 +17,6 @@ export class ChangelogsComponent extends BaseComponent implements OnInit, OnDest
   }
 
   ngOnInit() {
-    console.log(this.route.snapshot.data);
     if (this.route.snapshot.data.changelogs) {
       this.selectedId = this.route.snapshot.data.changelogs[0].id;
     }

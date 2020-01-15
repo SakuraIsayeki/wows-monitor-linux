@@ -12,10 +12,11 @@ export class DesktopGoogleAnalyticsService implements AnalyticsService {
 
 
   constructor(config: Config) {
-    this.visitor = ua(environment.gaCode, config.uuid );
+    config.waitTillLoaded().then(() => this.visitor = ua(environment.gaCode, config.uuid));
   }
 
   config(path: string, title?: string) {
+    if (!this.visitor) { return; }
     this.visitor.screenview(path, appConfig.applicationName, appConfig.version, err => {
       console.log(err);
     }).send();
@@ -27,6 +28,7 @@ export class DesktopGoogleAnalyticsService implements AnalyticsService {
     eventAction: string,
     eventLabel?: string,
     eventValue?: number) {
+    if (!this.visitor) { return; }
     this.visitor.event(eventCategory, eventAction, eventLabel, eventValue).send();
   }
 }
