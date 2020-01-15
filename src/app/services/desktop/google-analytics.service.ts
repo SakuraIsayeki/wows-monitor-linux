@@ -17,9 +17,7 @@ export class DesktopGoogleAnalyticsService implements AnalyticsService {
 
   config(path: string, title?: string) {
     if (!this.visitor) { return; }
-    this.visitor.screenview(path, appConfig.applicationName, appConfig.version, err => {
-      console.log(err);
-    }).send();
+    this.visitor.screenview(path, appConfig.applicationName, appConfig.version, () => { }).send();
   }
 
   send(

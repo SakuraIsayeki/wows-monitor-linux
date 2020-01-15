@@ -262,7 +262,10 @@ export class Config implements ConfigOptions {
 
   private applyPlayerBackgroundsMigration(value: any) {
     if (value === false) {
-      return 'off'
+      return 'off';
+    }
+    if (value) {
+      return value;
     }
     return 'pr';
   }
