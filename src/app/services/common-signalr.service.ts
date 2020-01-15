@@ -48,7 +48,6 @@ export class CommonSignalrService implements SignalrService {
     @Inject(LoggerServiceToken) private loggerService: LoggerService,
     private apiService: ApiService
   ) {
-    this.init();
   }
 
   async init() {
@@ -62,15 +61,13 @@ export class CommonSignalrService implements SignalrService {
         token = await this.apiService.token().toPromise();
         this.config.signalRToken = token;
         this.config.save();
-      } else {
-        this._$socketStatus.next(SignalrStatus.NoToken);
       }
     }
-    if (!token) {
-      return;
-    }
 
-    url = url + '?token=' + token + '&host=' + (environment.desktop ? 'true' : 'false');
+    url += '?host=' + (environment.desktop ? 'true' : 'false');
+    if (token) {
+      url += '&token=' + token;
+    }
 
     this.connection = new HubConnectionBuilder()
       .withUrl(url)
@@ -96,8 +93,19 @@ export class CommonSignalrService implements SignalrService {
       this._$clients.next(clients);
     });
 
-    this.connection.on('HostDisconnected', (clients) => {
-      this.connection.stop();
+    this.connection.on('Connected', () => {
+      if (environment.desktop) {
+        this._$socketStatus.next(SignalrStatus.Connected);
+      } else {
+        this._$socketStatus.next(this.config.signalRToken ? SignalrStatus.HostDisconnected : SignalrStatus.NoToken);
+      }
+    });
+
+    this.connection.on('HostConnected', () => {
+      this._$socketStatus.next(SignalrStatus.HostConnected);
+    });
+
+    this.connection.on('HostDisconnected', () => {
       this._$socketStatus.next(SignalrStatus.HostDisconnected);
     });
 
@@ -119,7 +127,6 @@ export class CommonSignalrService implements SignalrService {
           this.connection.start()
             .then(() => {
               resolve(true);
-              this._$socketStatus.next(SignalrStatus.Connected);
             })
             .catch((error) => {
               this.loggerService.error('Couldn\'t connect to the signalr hub');
@@ -142,7 +149,7 @@ export class CommonSignalrService implements SignalrService {
           this.connection.stop()
             .then(() => {
               resolve(true);
-              this._$socketStatus.next(SignalrStatus.Connected);
+              this._$socketStatus.next(SignalrStatus.Disconnected);
             })
             .catch((error) => {
               this.loggerService.error('Couldn\'t disconnect from the signalr hub');
@@ -156,6 +163,10 @@ export class CommonSignalrService implements SignalrService {
         resolve(false);
       }
     });
+  }
+
+  async connectToHost() {
+    await this.connection.send('ConnectToHost', this.config.signalRToken);
   }
 
   resetInfo() {

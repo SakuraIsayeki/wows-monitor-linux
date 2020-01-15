@@ -12,6 +12,7 @@ export interface SignalrService {
 
   connect(): Promise<any>;
   init(): Promise<any>;
+  connectToHost(): Promise<void>;
   resetInfo();
 }
 
@@ -20,7 +21,8 @@ export enum SignalrStatus {
   Connected,
   NoToken,
   HostDisconnected,
-  None
+  None,
+  HostConnected
 }
 
 export enum Status {

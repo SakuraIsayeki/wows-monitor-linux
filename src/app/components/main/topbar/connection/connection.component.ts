@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Inject, OnDestroy, ViewChild } from '@angular
 import { faQrcode, faWifi } from '@fortawesome/free-solid-svg-icons';
 import { DialogService } from 'primeng/api';
 import { OverlayPanel } from 'primeng/overlaypanel';
-import { map, take, pairwise } from 'rxjs/operators';
+import { map, take, pairwise, distinctUntilChanged } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/components/base.component';
 import { SignalrService, SignalrServiceToken, SignalrStatus } from 'src/app/interfaces/signalr.service';
 import { ResizeService } from 'src/app/services/resize.service';
@@ -27,17 +27,12 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit,
       return 'service.connected';
     } else if (status === SignalrStatus.NoToken) {
       return 'service.issues.browser.noToken';
+    } else if (status === SignalrStatus.HostConnected) {
+      return 'service.hostConnected';
+    } else if (status === SignalrStatus.HostDisconnected) {
+      return 'service.issues.browser.hostDisconnected';
     } else {
-      if (status === SignalrStatus.Disconnected) {
-        this.uiError('serviceDisconnected');
-      } else if (status === SignalrStatus.HostDisconnected) {
-        this.uiError('hostDisconnected');
-      }
-      if (this.isBrowser) {
-        return 'service.issues.browser.connection';
-      } else {
-        return 'service.issues.desktop';
-      }
+      return 'service.issues.connection';
     }
   }));
 
@@ -57,8 +52,8 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit,
     this.signalrService.$error.pipe(this.untilDestroy()).subscribe(error => this.uiError('serviceError'));
 
     if (this.isDesktop) {
-      this.signalrService.$clients.pipe(this.untilDestroy(), pairwise()).subscribe(nums => {
-        if (nums[0] < nums[1]) {
+      this.signalrService.$clients.pipe(this.untilDestroy(), pairwise(), distinctUntilChanged()).subscribe(nums => {
+        if (nums[0] <= nums[1]) {
           this.uiSuccess('clientConnected');
         } else {
           this.uiWarn('clientDisconnected');

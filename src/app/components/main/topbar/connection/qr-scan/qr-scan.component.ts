@@ -73,9 +73,7 @@ export class QrScanComponent extends BaseComponent implements AfterViewInit, OnD
     this.config.signalRToken = resultString;
     this.config.save();
     this.ref.close();
-    this.signalrService.init().then(() => {
-      this.signalrService.connect();
-    });
+    this.signalrService.connectToHost();
   }
 
   close() {

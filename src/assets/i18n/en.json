@@ -35,13 +35,14 @@
   },
   "service": {
     "connected": "Service connected",
+    "hostConnected": "Service conntected and desktop client paired",
     "reconnect": "Reconnect to service",
     "issues": {
+      "connection": "Couldn't connect to the online service.",
       "browser": {
-        "connection": "Couldn't connect to the online service. Either the service is offline or you have no connection to a desktop client.",
-        "noToken": "Setup the connection to a desktop client first"
-      },
-      "desktop": "Couldn't connect to the online service."
+        "noToken": "Service connected but no desktop client token found.",
+        "hostDisconnected": "Service connected but no desktop client is paired."
+      }
     },
     "status": {
       "idle": "Waiting for match...",
