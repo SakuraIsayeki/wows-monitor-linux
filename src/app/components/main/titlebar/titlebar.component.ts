@@ -19,7 +19,7 @@ export class TitlebarComponent extends BaseComponent implements OnInit, AfterVie
   minimizeIcon = faWindowMinimize;
 
   get win() {
-    return this.electronService.remote.BrowserWindow.getFocusedWindow();
+    return this.electronService.remote.BrowserWindow.getAllWindows()[0];
   }
 
   get title() {
