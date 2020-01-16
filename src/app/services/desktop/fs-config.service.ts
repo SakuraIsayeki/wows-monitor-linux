@@ -11,13 +11,15 @@ export class FsConfigService implements ConfigService {
     return this.electronService.fs;
   }
 
+  private configPath = process.env.APPDATA + '\\@wows-monitor\\config.json';
+
   constructor(
     private electronService: ElectronService,
     @Inject(LoggerServiceToken) private loggerService: LoggerService
   ) {
-    const exists = this.fs.existsSync('config.json');
+    const exists = this.fs.existsSync(this.configPath);
     if (!exists) {
-      this.fs.writeFile('config.json', JSON.stringify(defaultConfig), (err) => {
+      this.fs.writeFile(this.configPath, JSON.stringify(defaultConfig), (err) => {
         if (err) {
           this.loggerService.error('Create config', err.message);
         }
@@ -27,7 +29,7 @@ export class FsConfigService implements ConfigService {
 
   save(config: ConfigOptions): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.fs.writeFile('config.json', JSON.stringify(config), { encoding: 'utf8' }, (error) => {
+      this.fs.writeFile(this.configPath, JSON.stringify(config), { encoding: 'utf8' }, (error) => {
         if (error) {
           reject(error);
         }
@@ -39,7 +41,7 @@ export class FsConfigService implements ConfigService {
 
   load(): Promise<ConfigOptions> {
     return new Promise((resolve, reject) => {
-      this.fs.readFile('config.json', { encoding: 'utf8' }, (error, data) => {
+      this.fs.readFile(this.configPath, { encoding: 'utf8' }, (error, data) => {
         if (error) {
           reject(error);
         }
