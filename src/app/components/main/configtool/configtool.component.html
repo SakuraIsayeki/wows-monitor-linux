@@ -1,0 +1,11 @@
+<div class="container small" externalLink>
+  <p-card>
+    Path: {{config.$selectedDirectory | async}}
+    <button (click)="do()">Test</button>
+
+    <div>
+      Output:
+      <pre *ngFor="let line of lines">{{line.text}}</pre>
+    </div>
+  </p-card>
+</div>

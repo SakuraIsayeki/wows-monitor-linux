@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { faCog, faDesktop, faFileAlt, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faDesktop, faFileAlt, faQuestionCircle, faWrench } from '@fortawesome/free-solid-svg-icons';
 import { BaseComponent } from 'src/app/components/base.component';
 import { MenuEntry } from 'src/app/interfaces/menu-entry';
 import { ApiService } from 'src/app/services/api.service';
@@ -13,17 +13,22 @@ import { map } from 'rxjs/operators';
 })
 export class MenuComponent extends BaseComponent implements OnInit {
 
-  @Input()
-  closeAction: () => void;
-
   private $changelogsBadgeSubject = new BehaviorSubject(false);
   private $changelogsBadgeCountSubject = new BehaviorSubject(0);
+
+  @Input()
+  closeAction: () => void;
 
   menu: MenuEntry[] = [
     {
       key: 'meta.monitor.title',
       routerLink: '/home',
       icon: faDesktop
+    },
+    {
+      key: 'meta.configtool.title',
+      routerLink: '/home/configtool',
+      icon: faWrench
     },
     {
       key: 'meta.changelogs.title',
@@ -44,13 +49,13 @@ export class MenuComponent extends BaseComponent implements OnInit {
     }
   ];
 
-  public badge = combineLatest(...this.menu.filter(e => e.badge).map(e => e.badge))
+  badge = combineLatest([...this.menu.filter(e => e.badge).map(e => e.badge)])
     .pipe(map(arr => {
       return arr.some(b => b)
     }));
 
 
-  public badgeCount = combineLatest(...this.menu.filter(e => e.badgeCount).map(e => e.badgeCount))
+  badgeCount = combineLatest([...this.menu.filter(e => e.badgeCount).map(e => e.badgeCount)])
     .pipe(map(arr => {
       return arr.reduce((a, b) => a + b);
     }));

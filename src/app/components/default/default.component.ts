@@ -43,7 +43,7 @@ export class DefaultComponent extends BaseComponent implements OnInit, OnDestroy
       this.updateService.quitAndInstall();
     } else {
       this.ngZone.run(() => {
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/home/configtool');
       });
     }
   }

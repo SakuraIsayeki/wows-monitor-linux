@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main.component';
+import { environment } from 'src/environments/environment';
 
 const routes: Routes = [
   {
@@ -28,6 +29,13 @@ const routes: Routes = [
     ]
   }
 ];
+
+if (environment.desktop) {
+  routes[0].children.push({
+    path: 'configtool',
+    loadChildren: () => import('./configtool/configtool.module').then(m => m.ConfigtoolModule)
+  });
+}
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
