@@ -1,7 +1,39 @@
 <div class="container small" externalLink>
   <p-card>
-    Path: {{config.$selectedDirectory | async}}
-    <button (click)="do()">Test</button>
+    <h2>{{ 'configtool.header' | translate}}</h2>
+
+    <section class="options-wrapper">
+      <article class="options-left">
+        <div class="options-input-wrapper">
+          <label>{{ 'configtool.paths.selectedDirectory' | translate }}</label>
+          <input pInputText [title]="config.selectedDirectory" type="text" pInputText [disabled]="true"
+            [ngModel]="config.selectedDirectory">
+        </div>
+        <h3>{{ 'configtool.paths.instances' | translate }}</h3>
+        <div class="options-input-wrapper" *ngFor="let path of config.configtoolConfig.clientPaths;let i = index;">
+          <input pInputText [title]="config.selectedDirectory" type="text" pInputText [disabled]="true"
+            [(ngModel)]="path">
+         
+          <button pButton type="button" icon="pi pi-folder" (click)="selectPath(i)"></button>
+          <button (click)="removePath(i)" pButton type="button" icon="pi pi-times"></button>
+        </div>
+        <button pButton type="button" icon="pi pi-plus" (click)="config.configtoolConfig.clientPaths.push('')"></button>
+      </article>
+      <article class="options-right">
+
+      </article>
+    </section>
+
+    <!-- <div class="ui-inputgroup">
+      <input pInputText [title]="config.overwriteReplaysDirectory" type="text" pInputText [disabled]="true"
+        [(ngModel)]="config.overwriteReplaysDirectory">
+      <button *ngIf="config.overwriteReplaysDirectory" (click)="config.overwriteReplaysDirectory = ''" pButton
+        type="button" icon="pi pi-times"></button>
+      <button pButton type="button" icon="pi pi-folder" (click)="selectReplaysPath()"></button>
+    </div> -->
+
+
+    <p-button (click)="start()" [label]="'configtool.start' | translate" styleClass="ui-button-success"></p-button>
 
     <div>
       Output:

@@ -3,7 +3,9 @@ import { BehaviorSubject, combineLatest, from, interval, Observable } from 'rxjs
 import { share, skipWhile, take } from 'rxjs/operators';
 import { ConfigService, ConfigServiceToken } from 'src/app/interfaces/config.service';
 import { environment } from 'src/environments/environment';
+import { ConfigtoolConfig, defaultConfigtoolConfig } from 'src/app/interfaces/configtool-config.interface';
 const uuidv4 = require('uuid/v4');
+
 export interface ConfigOptions {
   autoUpdate?: boolean;
   signalRToken?: string;
@@ -16,6 +18,7 @@ export interface ConfigOptions {
   seenChangelogs?: number[];
   closeToTray?: boolean;
   uuid?: string;
+  configtoolConfig?: ConfigtoolConfig;
 }
 
 export const defaultConfig: ConfigOptions = {
@@ -24,7 +27,8 @@ export const defaultConfig: ConfigOptions = {
   fontsize: 'normal',
   coloredValues: true,
   seenChangelogs: [],
-  uuid: environment.desktop ? uuidv4() : ''
+  uuid: environment.desktop ? uuidv4() : '',
+  configtoolConfig: defaultConfigtoolConfig
 };
 
 @Injectable()
@@ -191,6 +195,23 @@ export class Config implements ConfigOptions {
     return this._$closeToTray.asObservable();
   }
 
+  //configToolConfig
+  private _configtoolConfig: ConfigtoolConfig;
+  private _$configtoolConfig = new BehaviorSubject<ConfigtoolConfig>(null);
+
+  get configtoolConfig() {
+    return this._configtoolConfig;
+  }
+
+  set configtoolConfig(value) {
+    this._configtoolConfig = value;
+    this._$configtoolConfig.next(value);
+  }
+
+  get $configtoolConfig() {
+    return this._$configtoolConfig.asObservable();
+  }
+
   private _uuid: string;
 
   get uuid() {
@@ -217,6 +238,7 @@ export class Config implements ConfigOptions {
       this.seenChangelogs = config.seenChangelogs;
       this.closeToTray = config.closeToTray;
       this._uuid = config.uuid ? config.uuid : (environment.desktop ? uuidv4() : '');
+      this.configtoolConfig = config.configtoolConfig ? config.configtoolConfig : defaultConfigtoolConfig;
 
       this.loaded = true;
 
@@ -255,7 +277,8 @@ export class Config implements ConfigOptions {
       overwriteReplaysDirectory: this._overwriteReplaysDirectory,
       seenChangelogs: this._seenChangelogs,
       closeToTray: this._closeToTray,
-      uuid: this._uuid
+      uuid: this._uuid,
+      configtoolConfig: this._configtoolConfig
     }));
   }
 
