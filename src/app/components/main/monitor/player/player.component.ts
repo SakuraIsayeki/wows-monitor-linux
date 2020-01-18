@@ -35,13 +35,13 @@ export class PlayerComponent extends BaseComponent implements OnInit {
   get backgroundColor() {
     if (this.player.shipStats) {
       if (this.config.playerBackgrounds === 'pr') {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.personalRatingColor + '33');
+        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.personalRatingColor + '28');
       }
       if (this.config.playerBackgrounds === 'wr') {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.winrateColor + '33');
+        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.winrateColor + '28');
       }
       if (this.config.playerBackgrounds === 'accwr') {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.overallStats.winrateColor + '33');
+        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.overallStats.winrateColor + '28');
       }
     }
     return '';
