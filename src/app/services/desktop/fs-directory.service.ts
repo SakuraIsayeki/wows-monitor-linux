@@ -198,7 +198,7 @@ export class FsDirectoryService implements DirectoryService {
       const versionResult = versionRegex.exec(content);
       const regionResult = regionRegex.exec(content);
 
-      status.region = Region[regionResult[1].replace('WOWS', '').trim()];
+      status.region = Region[regionResult[1].replace('WOWS', '').replace('CIS', 'RU').trim()];
       status.clientVersion = versionResult[1].replace(/,/g, '.').replace(/\s/g, '').trim();
     } catch (error) {
       this.loggerService.error('Error while reading preferences.xml in ' + path, error);
