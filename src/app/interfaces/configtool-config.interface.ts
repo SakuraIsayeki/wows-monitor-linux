@@ -17,7 +17,7 @@ export const defaultConfigtoolConfig: ConfigtoolConfig = {
   cacheEffectsEnabled: false,
   cacheEffects: false,
   streamCacheSizeKBEnabled: false,
-  streamCacheSizeKB: 1024,
+  streamCacheSizeKB: 2048,
   maxReplaysToSaveEnabled: false,
   maxReplaysToSave: 30,
   versionedReplaysEnabled: false,

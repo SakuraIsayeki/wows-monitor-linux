@@ -17,6 +17,7 @@ export class ConfigtoolComponent extends BaseComponent implements OnInit, OnDest
   private $configChanged = new Subject();
 
   lines: ConsoleLine[] = [];
+  showDescription = false;
 
   constructor(
     private electronService: ElectronService,

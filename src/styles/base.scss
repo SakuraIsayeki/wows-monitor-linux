@@ -28,7 +28,11 @@ body {
 }
 
 p {
-  margin-bottom: 10px !important;
+  margin-bottom: 1em !important;
+}
+
+a {
+  cursor: pointer;
 }
 
 .space-bottom {
@@ -117,9 +121,7 @@ p {
   }
 }
 
-.custom-contextmenu{
-
-}
+.custom-contextmenu {}
 
 main {
   height: calc(100% - 55px);
@@ -171,8 +173,9 @@ main {
     height: auto;
     width: auto;
   }
-  .custom-contextmenu{
-    li a{
+
+  .custom-contextmenu {
+    li a {
       white-space: nowrap;
     }
   }

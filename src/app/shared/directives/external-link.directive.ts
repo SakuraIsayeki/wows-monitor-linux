@@ -21,7 +21,10 @@ export class ExternalLinkDirective implements OnInit {
         event.preventDefault();
         const target = event.target as HTMLElement;
         if (target.tagName === 'A') {
-          this.electronService.shell.openExternal(target.getAttribute('href'));
+          const href = target.getAttribute('href');
+          if (href) {
+            this.electronService.shell.openExternal(href);
+          }
         }
       });
     }

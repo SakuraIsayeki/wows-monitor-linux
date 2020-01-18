@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
@@ -23,6 +24,7 @@ import { ConfigtoolComponent } from './configtool.component';
     InputTextModule,
     InputSwitchModule,
     ScrollPanelModule,
+    DialogModule,
     FormsModule,
     ReactiveFormsModule
   ]

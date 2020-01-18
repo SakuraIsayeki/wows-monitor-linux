@@ -1,10 +1,17 @@
 <div class="container small" externalLink>
   <p-card>
     <h2>{{ 'configtool.header' | translate}}</h2>
-    <p>
-      {{ 'configtool.description' | translate}}
+
+    <a (click)="showDescription=true">{{ 'configtool.why' | translate}}</a>
+    <p style="margin-bottom: 3em!important;" [innerHTML]="'configtool.descriptionShort' | translate | sanitizeHtml">
     </p>
-    <section class="options-wrapper">
+
+    <p-dialog [appendTo]="'body'" [blockScroll]="true" [modal]="true" [header]="'configtool.why' | translate"
+      [(visible)]="showDescription" [style]="{'max-width': '400px'}">
+      <div [innerHtml]="'configtool.description' | translate | sanitizeHtml"></div>
+    </p-dialog>
+
+    <section class=" options-wrapper">
       <article class="options-left">
         <h3>{{'configtool.headerClients' | translate}}</h3>
         <div class="options-input-wrapper">
@@ -34,7 +41,7 @@
               {{ 'configtool.options.maxFrameRate.caption' | translate }}
             </caption>
             <summary>
-              {{ 'settings.general.maxFrameRate.caption' | translate }}
+              {{ 'configtool.options.maxFrameRate.summary' | translate }}
             </summary>
             <div class="input-wrap">
               <input pInputText [(ngModel)]="config.configtoolConfig.maxFrameRate" (ngModelChange)="configChanged()"
@@ -50,7 +57,7 @@
                 (ngModelChange)="configChanged()"></p-inputSwitch>
             </div>
             <summary [class.disabled]="!config.configtoolConfig.versionedReplaysEnabled">
-              {{ 'settings.general.versionedReplays.caption' | translate }}
+              {{ 'configtool.options.versionedReplays.summary' | translate }}
             </summary>
             <div class="input-wrap" [class.disabled]="!config.configtoolConfig.versionedReplaysEnabled">
               <p-inputSwitch [(ngModel)]="config.configtoolConfig.versionedReplays" (ngModelChange)="configChanged()"
@@ -66,7 +73,7 @@
                 (ngModelChange)="configChanged()"></p-inputSwitch>
             </div>
             <summary [class.disabled]="!config.configtoolConfig.maxReplaysToSaveEnabled">
-              {{ 'settings.general.maxReplaysToSave.caption' | translate }}
+              {{ 'configtool.options.maxReplaysToSave.summary' | translate }}
             </summary>
             <div class="input-wrap" [class.disabled]="!config.configtoolConfig.maxReplaysToSaveEnabled">
               <input pInputText [(ngModel)]="config.configtoolConfig.maxReplaysToSave" (ngModelChange)="configChanged()"
@@ -82,7 +89,7 @@
                 (ngModelChange)="configChanged()"></p-inputSwitch>
             </div>
             <summary [class.disabled]="!config.configtoolConfig.streamCacheSizeKBEnabled">
-              {{ 'settings.general.streamCacheSizeKB.caption' | translate }}
+              {{ 'configtool.options.streamCacheSizeKB.summary' | translate }}
             </summary>
             <div class="input-wrap" [class.disabled]="!config.configtoolConfig.streamCacheSizeKBEnabled">
               <input pInputText [(ngModel)]="config.configtoolConfig.streamCacheSizeKB"
@@ -99,7 +106,7 @@
                 (ngModelChange)="configChanged()"></p-inputSwitch>
             </div>
             <summary [class.disabled]="!config.configtoolConfig.cacheEffectsEnabled">
-              {{ 'settings.general.cacheEffects.caption' | translate }}
+              {{ 'configtool.options.cacheEffects.summary' | translate }}
             </summary>
             <div class="input-wrap" [class.disabled]="!config.configtoolConfig.cacheEffectsEnabled">
               <p-inputSwitch [(ngModel)]="config.configtoolConfig.cacheEffects" (ngModelChange)="configChanged()"
