@@ -72,17 +72,6 @@
     </section>
     <section>
       <h3>{{ 'settings.miscellaneous.title' | translate }}</h3>
-      <article *isBrowser>
-        <caption>
-          {{ 'settings.miscellaneous.forceLandscape.caption' | translate }}
-        </caption>
-        <summary>
-          {{ 'settings.miscellaneous.forceLandscape.summary' | translate }}
-        </summary>
-        <div class="input-wrap">
-          <p-inputSwitch [(ngModel)]="config.forceLandscape"></p-inputSwitch>
-        </div>
-      </article>
       <article *isDesktop>
         <caption>
           {{ 'settings.miscellaneous.overwriteReplaysDirectory.caption' | translate }}
