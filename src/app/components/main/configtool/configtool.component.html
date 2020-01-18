@@ -1,43 +1,123 @@
 <div class="container small" externalLink>
   <p-card>
     <h2>{{ 'configtool.header' | translate}}</h2>
-
+    <p>
+      {{ 'configtool.description' | translate}}
+    </p>
     <section class="options-wrapper">
       <article class="options-left">
+        <h3>{{'configtool.headerClients' | translate}}</h3>
         <div class="options-input-wrapper">
           <label>{{ 'configtool.paths.selectedDirectory' | translate }}</label>
-          <input pInputText [title]="config.selectedDirectory" type="text" pInputText [disabled]="true"
+          <input pInputText [title]="config.selectedDirectory" type="text" [disabled]="true"
             [ngModel]="config.selectedDirectory">
         </div>
         <h3>{{ 'configtool.paths.instances' | translate }}</h3>
         <div class="options-input-wrapper" *ngFor="let path of config.configtoolConfig.clientPaths;let i = index;">
-          <input pInputText [title]="config.selectedDirectory" type="text" pInputText [disabled]="true"
-            [(ngModel)]="path">
-         
-          <button pButton type="button" icon="pi pi-folder" (click)="selectPath(i)"></button>
-          <button (click)="removePath(i)" pButton type="button" icon="pi pi-times"></button>
-        </div>
-        <button pButton type="button" icon="pi pi-plus" (click)="config.configtoolConfig.clientPaths.push('')"></button>
-      </article>
-      <article class="options-right">
+          <label>{{ 'configtool.paths.client' | translate }} {{i+1}}</label>
+          <div class="ui-inputgroup">
+            <input pInputText [title]="path" type="text" [disabled]="true" [(ngModel)]="path">
 
+            <button pButton type="button" icon="pi pi-folder" (click)="selectPath(i)"></button>
+            <button (click)="removePath(i)" pButton type="button" icon="pi pi-times"></button>
+          </div>
+        </div>
+        <button class="addButton" pButton type="button" [label]="'configtool.paths.add'| translate" icon="pi pi-plus"
+          (click)="config.configtoolConfig.clientPaths.push('')">
+        </button>
+      </article>
+      <article class="options-right settings">
+        <section>
+          <h3>{{'configtool.headerOptions' | translate}}</h3>
+          <article>
+            <caption>
+              {{ 'configtool.options.maxFrameRate.caption' | translate }}
+            </caption>
+            <summary>
+              {{ 'settings.general.maxFrameRate.caption' | translate }}
+            </summary>
+            <div class="input-wrap">
+              <input pInputText [(ngModel)]="config.configtoolConfig.maxFrameRate" (ngModelChange)="configChanged()"
+                type="number">
+            </div>
+          </article>
+          <article>
+            <caption>
+              {{ 'configtool.options.versionedReplays.caption' | translate }}
+            </caption>
+            <div class="checkbox">
+              <p-inputSwitch [(ngModel)]="config.configtoolConfig.versionedReplaysEnabled"
+                (ngModelChange)="configChanged()"></p-inputSwitch>
+            </div>
+            <summary [class.disabled]="!config.configtoolConfig.versionedReplaysEnabled">
+              {{ 'settings.general.versionedReplays.caption' | translate }}
+            </summary>
+            <div class="input-wrap" [class.disabled]="!config.configtoolConfig.versionedReplaysEnabled">
+              <p-inputSwitch [(ngModel)]="config.configtoolConfig.versionedReplays" (ngModelChange)="configChanged()"
+                [disabled]="!config.configtoolConfig.versionedReplaysEnabled"></p-inputSwitch>
+            </div>
+          </article>
+          <article>
+            <caption>
+              {{ 'configtool.options.maxReplaysToSave.caption' | translate }}
+            </caption>
+            <div class="checkbox">
+              <p-inputSwitch [(ngModel)]="config.configtoolConfig.maxReplaysToSaveEnabled"
+                (ngModelChange)="configChanged()"></p-inputSwitch>
+            </div>
+            <summary [class.disabled]="!config.configtoolConfig.maxReplaysToSaveEnabled">
+              {{ 'settings.general.maxReplaysToSave.caption' | translate }}
+            </summary>
+            <div class="input-wrap" [class.disabled]="!config.configtoolConfig.maxReplaysToSaveEnabled">
+              <input pInputText [(ngModel)]="config.configtoolConfig.maxReplaysToSave" (ngModelChange)="configChanged()"
+                type="number" [disabled]="!config.configtoolConfig.maxReplaysToSaveEnabled">
+            </div>
+          </article>
+          <article>
+            <caption>
+              {{ 'configtool.options.streamCacheSizeKB.caption' | translate }}
+            </caption>
+            <div class="checkbox">
+              <p-inputSwitch [(ngModel)]="config.configtoolConfig.streamCacheSizeKBEnabled"
+                (ngModelChange)="configChanged()"></p-inputSwitch>
+            </div>
+            <summary [class.disabled]="!config.configtoolConfig.streamCacheSizeKBEnabled">
+              {{ 'settings.general.streamCacheSizeKB.caption' | translate }}
+            </summary>
+            <div class="input-wrap" [class.disabled]="!config.configtoolConfig.streamCacheSizeKBEnabled">
+              <input pInputText [(ngModel)]="config.configtoolConfig.streamCacheSizeKB"
+                (ngModelChange)="configChanged()" type="number"
+                [disabled]="!config.configtoolConfig.streamCacheSizeKBEnabled">
+            </div>
+          </article>
+          <article>
+            <caption>
+              {{ 'configtool.options.cacheEffects.caption' | translate }}
+            </caption>
+            <div class="checkbox">
+              <p-inputSwitch [(ngModel)]="config.configtoolConfig.cacheEffectsEnabled"
+                (ngModelChange)="configChanged()"></p-inputSwitch>
+            </div>
+            <summary [class.disabled]="!config.configtoolConfig.cacheEffectsEnabled">
+              {{ 'settings.general.cacheEffects.caption' | translate }}
+            </summary>
+            <div class="input-wrap" [class.disabled]="!config.configtoolConfig.cacheEffectsEnabled">
+              <p-inputSwitch [(ngModel)]="config.configtoolConfig.cacheEffects" (ngModelChange)="configChanged()"
+                [disabled]="!config.configtoolConfig.cacheEffectsEnabled"></p-inputSwitch>
+            </div>
+          </article>
+        </section>
       </article>
     </section>
 
-    <!-- <div class="ui-inputgroup">
-      <input pInputText [title]="config.overwriteReplaysDirectory" type="text" pInputText [disabled]="true"
-        [(ngModel)]="config.overwriteReplaysDirectory">
-      <button *ngIf="config.overwriteReplaysDirectory" (click)="config.overwriteReplaysDirectory = ''" pButton
-        type="button" icon="pi pi-times"></button>
-      <button pButton type="button" icon="pi pi-folder" (click)="selectReplaysPath()"></button>
-    </div> -->
 
-
-    <p-button (click)="start()" [label]="'configtool.start' | translate" styleClass="ui-button-success"></p-button>
-
-    <div>
-      Output:
-      <pre *ngFor="let line of lines">{{line.text}}</pre>
+    <div class="button-row">
+      <p-button (click)="start()" [label]="'configtool.start' | translate" styleClass="ui-button-success"></p-button>
+    </div>
+    <div class="console-output">
+      <p-scrollPanel [style]="{width: '100%', height: '100%'}">
+        <span class="line {{line.severity}}" *ngFor="let line of lines">>&nbsp;{{line.text}}</span>
+      </p-scrollPanel>
     </div>
   </p-card>
 </div>

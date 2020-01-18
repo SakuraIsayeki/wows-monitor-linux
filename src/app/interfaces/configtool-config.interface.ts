@@ -7,6 +7,8 @@ export interface ConfigtoolConfig {
   streamCacheSizeKB?: number;
   maxReplaysToSaveEnabled?: boolean;
   maxReplaysToSave?: number;
+  versionedReplaysEnabled?: boolean;
+  versionedReplays?: boolean;
 }
 
 export const defaultConfigtoolConfig: ConfigtoolConfig = {
@@ -17,5 +19,7 @@ export const defaultConfigtoolConfig: ConfigtoolConfig = {
   streamCacheSizeKBEnabled: false,
   streamCacheSizeKB: 1024,
   maxReplaysToSaveEnabled: false,
-  maxReplaysToSave: 30
+  maxReplaysToSave: 30,
+  versionedReplaysEnabled: false,
+  versionedReplays: false,
 }

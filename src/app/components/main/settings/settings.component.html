@@ -1,4 +1,4 @@
-<div class="container small">
+<div class="container small settings">
   <p-card>
     <h2>{{ 'settings.header' | translate}}</h2>
     <section>
@@ -81,7 +81,7 @@
         </summary>
         <div class="input-wrap">
           <div class="ui-inputgroup">
-            <input pInputText [title]="config.overwriteReplaysDirectory" type="text" pInputText [disabled]="true"
+            <input pInputText [title]="config.overwriteReplaysDirectory" type="text" [disabled]="true"
               [(ngModel)]="config.overwriteReplaysDirectory">
             <button *ngIf="config.overwriteReplaysDirectory" (click)="config.overwriteReplaysDirectory = ''" pButton
               type="button" icon="pi pi-times"></button>

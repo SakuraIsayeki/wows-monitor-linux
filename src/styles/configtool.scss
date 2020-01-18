@@ -1,0 +1,82 @@
+@import '_variables.scss';
+
+app-configtool {
+  .options-wrapper {
+    display: grid;
+    grid-gap: 2em;
+    grid-template-columns: 1fr 1fr;
+
+
+    .options-input-wrapper {
+      margin-bottom: 1em;
+      display: grid;
+      grid-gap: 1em;
+      align-items: center;
+      grid-template-columns: max-content 1fr;
+
+      input[type="text"] {
+        width: 100%;
+      }
+    }
+
+    .settings {
+      margin-bottom: 1em;
+
+      section {
+        border-bottom: 0;
+      }
+
+      summary,
+      .input-wrap {
+        &.disabled {
+          opacity: 0.4;
+        }
+      }
+
+      .checkbox {
+        grid-area: checkbox;
+        text-align: right;
+      }
+    }
+
+    .addButton {
+      float: right;
+    }
+  }
+
+  .button-row {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 1em;
+  }
+
+  .console-output {
+    border-radius: 3px;
+    height: 300px;
+    background: #000;
+    padding: 1em;
+
+    .line {
+      display: block;
+      font-family: monospace;
+      font-size: 1.2em;
+
+      &.error {
+        color: lighten($dangerColor, 10%);
+      }
+
+      &.warn {
+        color: lighten($warningColor, 10%);
+      }
+    }
+  }
+}
+
+@media (min-width: 550px) {
+  .options-right.settings article {
+    grid-template-areas: 'caption checkbox'
+      'summary input';
+    grid-template-columns: auto max-content;
+    grid-template-rows: auto 1fr;
+  }
+}

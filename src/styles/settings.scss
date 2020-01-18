@@ -1,6 +1,6 @@
 @import '_variables.scss';
 
-app-settings {
+.settings {
 
   section {
     margin-bottom: 2.5em;
@@ -19,11 +19,11 @@ app-settings {
     line-height: 2em;
   }
 
-  p-card section:last-child {
+  section:last-child {
     margin: 0;
   }
 
-  p-card section:last-child article:last-child {
+  section:last-child article:last-child {
     border: 0;
   }
 
@@ -55,7 +55,7 @@ app-settings {
 
 /* Larger than phablet */
 @media (min-width: 550px) {
-  app-settings article {
+  .settings article {
     gap: 1em;
     grid-template-areas: 'caption .'
       'summary input';
