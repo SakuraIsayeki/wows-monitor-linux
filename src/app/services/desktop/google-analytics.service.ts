@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import ua from 'universal-analytics';
 import { AnalyticsService } from '../../interfaces/analytics.service';
 import { Config } from 'src/config/config';
+import { ElectronService } from './electron.service';
 
 @Injectable()
 export class DesktopGoogleAnalyticsService implements AnalyticsService {
@@ -11,13 +12,28 @@ export class DesktopGoogleAnalyticsService implements AnalyticsService {
   private visitor: ua.visitor;
 
 
-  constructor(config: Config) {
+  constructor(config: Config, private electronService: ElectronService) {
     config.waitTillLoaded().then(() => this.visitor = ua(environment.gaCode, config.uuid));
   }
 
   config(path: string, title?: string) {
     if (!this.visitor) { return; }
-    this.visitor.screenview(path, appConfig.applicationName, appConfig.version, () => { }).send();
+    const window = this.electronService.remote.BrowserWindow.getAllWindows()[0];
+    const screen = this.electronService.remote.screen;
+    const windowSize = window.getSize();
+    const windowBounds = window.getBounds();
+    const display = screen.getDisplayNearestPoint({ x: windowBounds.x, y: windowBounds.y });
+    const params = {
+      sr: `${windowSize[0]}x${windowSize[1]}`,
+      vp: `${display.size.width}x${display.size.height}`
+    };
+
+    // screenName, appName, appVersion, appId, appInstallerId, params
+    this.visitor.screenview(path, appConfig.applicationName, appConfig.version, appConfig.version, appConfig.version, params, () => { }).send();
+  }
+
+  exception(error: string) {
+    this.visitor.exception(error);
   }
 
   send(

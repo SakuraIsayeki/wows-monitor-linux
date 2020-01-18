@@ -18,8 +18,8 @@ import { FsDirectoryService } from './services/desktop/fs-directory.service';
 import { DesktopGoogleAnalyticsService } from './services/desktop/google-analytics.service';
 import { DummyAnalyticsService } from './services/dummy-analytics.service';
 
-const analyticsServiceFactory = (config: Config) => {
-  return environment.production ? new DesktopGoogleAnalyticsService(config) : new DummyAnalyticsService();
+const analyticsServiceFactory = (config: Config, electronService: ElectronService) => {
+  return environment.production ? new DesktopGoogleAnalyticsService(config, electronService) : new DummyAnalyticsService();
 }
 
 
@@ -30,7 +30,7 @@ const analyticsServiceFactory = (config: Config) => {
     { provide: UpdateServiceToken, useClass: ElectronUpdateService, deps: [ElectronService, Config, LoggerServiceToken] },
     { provide: LoggerServiceToken, useClass: ElectronLoggerService },
     { provide: SignalrServiceToken, useClass: CommonSignalrService },
-    { provide: AnalyticsServiceToken, useFactory: analyticsServiceFactory, deps: [Config] },
+    { provide: AnalyticsServiceToken, useFactory: analyticsServiceFactory, deps: [Config, ElectronService] },
     Config,
     ElectronService
   ]

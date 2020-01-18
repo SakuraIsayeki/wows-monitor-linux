@@ -12,4 +12,6 @@ export interface AnalyticsService {
     eventAction: string,
     eventLabel?: string,
     eventValue?: number);
+
+  exception(error: string);
 }

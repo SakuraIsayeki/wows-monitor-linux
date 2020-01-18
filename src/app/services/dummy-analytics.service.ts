@@ -17,4 +17,8 @@ export class DummyAnalyticsService implements AnalyticsService {
     eventValue: number = null) {
     console.log(`[Analytics] (send) ${eventName}, ${eventCategory}, ${eventAction}, ${eventLabel}, ${eventValue}`);
   }
+
+  exception(error: string) {
+
+  }
 }

@@ -22,6 +22,13 @@ export class BrowserGoogleAnalyticsService implements AnalyticsService {
     });
   }
 
+  exception(error: string) {
+    gtag('event', 'exception', {
+      description: error,
+      fatal: false
+    });
+  }
+
   send(
     eventName: string,
     eventCategory: string,
