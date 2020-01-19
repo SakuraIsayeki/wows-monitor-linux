@@ -31,6 +31,21 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
     }
   ];
 
+  layoutModeOptions: SelectItem[] = [
+    {
+      label: 'settings.appearance.layoutMode.items.normal',
+      value: 'normal'
+    },
+    {
+      label: 'settings.appearance.layoutMode.items.compact',
+      value: 'compact'
+    },
+    {
+      label: 'settings.appearance.layoutMode.items.legacy',
+      value: 'legacy'
+    }
+  ];
+
   playerBackgroundsOptions: SelectItem[] = [
     {
       label: 'settings.appearance.playerBackgrounds.items.pr',

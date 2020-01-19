@@ -9,11 +9,13 @@ const uuidv4 = require('uuid/v4');
 type PlayerBackgrounds = 'pr' | 'wr' | 'accwr' | 'avgDmg';
 type FontSize = 'small' | 'normal' | 'big' | 'huge';
 type PlayerBackgroundsMode = 'disabled' | 'background' | 'border';
+type LayoutMode = 'normal' | 'compact' | 'legacy';
 
 export interface ConfigOptions {
   autoUpdate?: boolean;
   signalRToken?: string;
   selectedDirectory?: string;
+  layoutMode?: LayoutMode;
   playerBackgrounds?: PlayerBackgrounds;
   playerBackgroundsMode?: PlayerBackgroundsMode;
   highContrastMode?: boolean;
@@ -21,13 +23,13 @@ export interface ConfigOptions {
   coloredValues?: boolean;
   overwriteReplaysDirectory?: string;
   seenChangelogs?: number[];
-  closeToTray?: boolean;
   uuid?: string;
   configtoolConfig?: ConfigtoolConfig;
 }
 
 export const defaultConfig: ConfigOptions = {
   autoUpdate: true,
+  layoutMode: 'normal',
   playerBackgrounds: 'pr',
   playerBackgroundsMode: 'background',
   fontsize: 'normal',
@@ -48,6 +50,7 @@ export class Config implements ConfigOptions {
       this.autoUpdate = config.autoUpdate;
       this.signalRToken = config.signalRToken;
       this.selectedDirectory = config.selectedDirectory;
+      this.layoutMode = config.layoutMode;
       this.playerBackgrounds = config.playerBackgrounds;
       this.playerBackgroundsMode = config.playerBackgroundsMode;
       this.highContrastMode = config.highContrastMode;
@@ -55,7 +58,6 @@ export class Config implements ConfigOptions {
       this.coloredValues = config.coloredValues;
       this.overwriteReplaysDirectory = config.overwriteReplaysDirectory;
       this.seenChangelogs = config.seenChangelogs;
-      this.closeToTray = config.closeToTray;
       this._uuid = config.uuid;
       this.configtoolConfig = config.configtoolConfig;
 
@@ -66,13 +68,13 @@ export class Config implements ConfigOptions {
 
     this._$settingChanged = combineLatest([
       this.$autoUpdate,
+      this.$layoutMode,
       this.$playerBackgrounds,
       this.$playerBackgroundsMode,
       this.$highContrastMode,
       this.$fontsize,
       this.$useColoredValues,
-      this.$overwriteReplaysDirectory,
-      this.$closeToTray
+      this.$overwriteReplaysDirectory
     ]).pipe(share());
   }
 
@@ -82,6 +84,7 @@ export class Config implements ConfigOptions {
       autoUpdate: this._autoUpdate,
       signalRToken: this._signalRToken,
       selectedDirectory: this._selectedDirectory,
+      layoutMode: this._layoutMode,
       playerBackgrounds: this._playerBackgrounds,
       playerBackgroundsMode: this.playerBackgroundsMode,
       highContrastMode: this.highContrastMode,
@@ -89,7 +92,6 @@ export class Config implements ConfigOptions {
       coloredValues: this._coloredValues,
       overwriteReplaysDirectory: this._overwriteReplaysDirectory,
       seenChangelogs: this._seenChangelogs,
-      closeToTray: this._closeToTray,
       uuid: this._uuid,
       configtoolConfig: this._configtoolConfig
     }));
@@ -153,6 +155,23 @@ export class Config implements ConfigOptions {
   get $selectedDirectory() {
     return this._$selectedDirectory.asObservable();
   }
+
+// layoutMode
+private _layoutMode: LayoutMode;
+private _$layoutMode = new BehaviorSubject<LayoutMode>(null);
+
+get layoutMode() {
+  return this._layoutMode;
+}
+
+set layoutMode(value) {
+  this._layoutMode = value;
+  this._$layoutMode.next(value);
+}
+
+get $layoutMode() {
+  return this._$layoutMode.asObservable();
+}
 
   // playerBackgroundsMode
   private _playerBackgroundsMode: PlayerBackgroundsMode;
@@ -280,23 +299,6 @@ export class Config implements ConfigOptions {
 
   get $seenChangelogs() {
     return this._$seenChangelogs.asObservable();
-  }
-
-  // closeToTray
-  private _closeToTray: boolean;
-  private _$closeToTray = new BehaviorSubject<boolean>(null);
-
-  get closeToTray() {
-    return this._closeToTray;
-  }
-
-  set closeToTray(value) {
-    this._closeToTray = value;
-    this._$closeToTray.next(value);
-  }
-
-  get $closeToTray() {
-    return this._$closeToTray.asObservable();
   }
 
   //configToolConfig

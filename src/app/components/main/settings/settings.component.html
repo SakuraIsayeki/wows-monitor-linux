@@ -14,17 +14,6 @@
           <p-inputSwitch [(ngModel)]="config.autoUpdate"></p-inputSwitch>
         </div>
       </article>
-      <article *isDesktop>
-        <caption>
-          {{ 'settings.general.closeToTray.caption' | translate }}
-        </caption>
-        <summary>
-          {{ 'settings.general.closeToTray.summary' | translate }}
-        </summary>
-        <div class="input-wrap">
-          <p-inputSwitch [(ngModel)]="config.closeToTray"></p-inputSwitch>
-        </div>
-      </article>
     </section>
     <section>
       <h3>{{ 'settings.appearance.title' | translate }}</h3>
@@ -37,6 +26,21 @@
         </summary>
         <div class="input-wrap">
           <p-selectButton [options]="fontSizeOptions" [(ngModel)]="config.fontsize">
+            <ng-template let-item>
+              <span class="ui-button-text ui-clickable ng-star-inserted">{{item.label | translate}}</span>
+            </ng-template>
+          </p-selectButton>
+        </div>
+      </article>
+      <article>
+        <caption>
+          {{ 'settings.appearance.layoutMode.caption' | translate }}
+        </caption>
+        <summary>
+          {{ 'settings.appearance.layoutMode.summary' | translate }}
+        </summary>
+        <div class="input-wrap">
+          <p-selectButton [options]="layoutModeOptions" [(ngModel)]="config.layoutMode">
             <ng-template let-item>
               <span class="ui-button-text ui-clickable ng-star-inserted">{{item.label | translate}}</span>
             </ng-template>

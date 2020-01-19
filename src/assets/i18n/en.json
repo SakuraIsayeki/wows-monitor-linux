@@ -1,223 +1,232 @@
 {
-  "appTitle": "WoWs Monitor",
-  "changelogs": {
-    "closeButton": "Got it!",
-    "dialogHeader": "Changelog v{{version}}",
-    "markAllAsSeen": "Mark all as seen"
-  },
-  "configtool": {
-    "description": "This is a tool that i built for myself and thought maybe others can use it too. <br/> It came from having multiple clients (EU, NA, ST, PublicTest, ...) for which i always had to go into the engine_config to set things like maxFrameRate after every update. <br/> While in the main client i could do that with AslainsMod, i usually set more than just the framerate. Additional to that, in the special clients mods don't work and it was easier to just write a tool that adjusts all clients at the same time. <br /> <br />I originally found information about these values in this post <a href=\"https://forum.worldofwarships.com/topic/42946-engine_configxml-fps-loading-stuttering-fix/\">https://forum.worldofwarships.com/topic/42946-engine_configxml-fps-loading-stuttering-fix/</a> and i just stuck with it ever since. <br /> <br /> If you have any parameters in the engine_config you think i should add just ping me on discord. :)",
-    "descriptionShort": "This tool writes the enabled values into <strong>res\\engine_config.xml</strong> and the configs inside <strong>res_mods</strong> for all seperate clients. A backup of each file is created at the same location. <br/> <strong> Only use if you know what you're doing.</strong>",
-    "header": "Configtool",
-    "headerClients": "Game clients",
-    "headerOptions": "Value options",
-    "options": {
-      "cacheEffects": {
-        "caption": "CacheEffects",
-        "summary": "Might increase performance"
-      },
-      "maxFrameRate": {
-        "caption": "MaxFrameRate",
-        "summary": "Sets the upper frame rate limit"
-      },
-      "maxReplaysToSave": {
-        "caption": "MaxReplaysToSave",
-        "summary": "Set to 0 for no limit"
-      },
-      "streamCacheSizeKB": {
-        "caption": "StreamCacheSizeKB",
-        "summary": "Might increase performance when setting a higher value. Multiples of 1024 suggested. Wouldn't go higher than your actual VRAM"
-      },
-      "versionedReplays": {
-        "caption": "VersionedReplays",
-        "summary": "Should replays be saved in versioned folders"
-      }
-    },
-    "paths": {
-      "add": "Add client",
-      "client": "Client",
-      "instances": "Additional clients",
-      "selectedDirectory": "Main client"
-    },
-    "start": "Write values",
-    "why": "Why is this here?"
-  },
-  "meta": {
-    "about": {
-      "title": "About"
-    },
-    "changelogs": {
-      "title": "Changelogs"
-    },
-    "configtool": {
-      "title": "Configtool"
-    },
-    "default": {
-      "title": "Welcome"
-    },
-    "monitor": {
-      "title": "Monitor"
-    },
-    "settings": {
-      "title": "Settings"
-    }
-  },
-  "monitor": {
-    "bot": "This is a bot",
-    "cw": {
-      "leagues": {
-        "0": "Gale",
-        "1": "Hurricane",
-        "2": "Squall",
-        "3": "Storm",
-        "4": "Typhoon"
-      },
-      "text": "Rank {{rank}} in {{league}}, Division {{division}}, WR {{winrate}}%"
-    },
-    "hidden": "Player has a hidden profile",
-    "map": "Map",
-    "matchGroup": {
-      "CLAN": "Clan War",
-      "COOPERATIVE": "Coop",
-      "PVE": "PVE",
-      "PVP": "Random",
-      "RANKED": "Ranked"
-    },
-    "noBattles": "Player has no battles on this ship yet",
-    "pr": {
-      "poweredBy": "Personal Rating from wows-numbers.com"
-    },
-    "season": "Season",
-    "teamPopup": {
-      "info": "more Information",
-      "wowsNumbers": "Clan on Wows-Numbers"
-    }
-  },
-  "pathPicker": {
-    "additionalInfo": "Information about selected folder",
-    "buttonLabel": "Select folder",
-    "description": "Select the main installation folder of World of Warships. <br />    If you have the WGC installation the path should look similar to this:<br />    <strong>C:\\Games\\World of Warships</strong> <br />    If you have the Steam installation the path should look similar to this:<br />    <strong>C:\\Programs\\Steam\\common<i>id</i>World of Warships</strong>",
-    "dialogHeader": "Select your game folder",
-    "info": null,
-    "pickFolder": "Select your game folder"
-  },
-  "service": {
-    "connected": "Service connected",
-    "hostConnected": "Service conntected and desktop client paired",
-    "issues": {
-      "browser": {
-        "hostDisconnected": "Service connected but no desktop client is paired.",
-        "noToken": "Service connected but no desktop client token found."
-      },
-      "connection": "Couldn't connect to the online service.",
-      "desktop": "Couldn't connect to the online service."
-    },
-    "reconnect": "Reconnect to service",
-    "status": {
-      "fetched": "Match up-to-date",
-      "fetching": "Updating match",
-      "idle": "Waiting for match..."
-    }
-  },
-  "settings": {
-    "appearance": {
-      "coloredValues": {
-        "caption": "Colored Values",
-        "summary": "When enabled the values of damage, winrate, battles, frags and PR will be colored according to the wows-numbers color scheme"
-      },
-      "fontsize": {
-        "caption": "Fontsize",
+	"appTitle": "WoWs Monitor",
+	"changelogs": {
+		"closeButton": "Got it!",
+		"dialogHeader": "Changelog v{{version}}",
+		"markAllAsSeen": "Mark all as seen"
+	},
+	"configtool": {
+		"description": "This is a tool that i built for myself and thought maybe others can use it too. <br/> It came from having multiple clients (EU, NA, ST, PublicTest, ...) for which i always had to go into the engine_config to set things like maxFrameRate after every update. <br/> While in the main client i could do that with AslainsMod, i usually set more than just the framerate. Additional to that, in the special clients mods don't work and it was easier to just write a tool that adjusts all clients at the same time. <br /> <br />I originally found information about these values in this post <a href=\"https://forum.worldofwarships.com/topic/42946-engine_configxml-fps-loading-stuttering-fix/\">https://forum.worldofwarships.com/topic/42946-engine_configxml-fps-loading-stuttering-fix/</a> and i just stuck with it ever since. <br /> <br /> If you have any parameters in the engine_config you think i should add just ping me on discord. :)",
+		"descriptionShort": "This tool writes the enabled values into <strong>res\\engine_config.xml</strong> and the configs inside <strong>res_mods</strong> for all seperate clients. A backup of each file is created at the same location. <br/> <strong> Only use if you know what you're doing.</strong>",
+		"header": "Configtool",
+		"headerClients": "Game clients",
+		"headerOptions": "Value options",
+		"options": {
+			"cacheEffects": {
+				"caption": "CacheEffects",
+				"summary": "Might increase performance"
+			},
+			"maxFrameRate": {
+				"caption": "MaxFrameRate",
+				"summary": "Sets the upper frame rate limit"
+			},
+			"maxReplaysToSave": {
+				"caption": "MaxReplaysToSave",
+				"summary": "Set to 0 for no limit"
+			},
+			"streamCacheSizeKB": {
+				"caption": "StreamCacheSizeKB",
+				"summary": "Might increase performance when setting a higher value. Multiples of 1024 suggested. Wouldn't go higher than your actual VRAM"
+			},
+			"versionedReplays": {
+				"caption": "VersionedReplays",
+				"summary": "Should replays be saved in versioned folders"
+			}
+		},
+		"paths": {
+			"add": "Add client",
+			"client": "Client",
+			"instances": "Additional clients",
+			"selectedDirectory": "Main client"
+		},
+		"start": "Write values",
+		"why": "Why is this here?"
+	},
+	"meta": {
+		"about": {
+			"title": "About"
+		},
+		"changelogs": {
+			"title": "Changelogs"
+		},
+		"configtool": {
+			"title": "Configtool"
+		},
+		"default": {
+			"title": "Welcome"
+		},
+		"monitor": {
+			"title": "Monitor"
+		},
+		"settings": {
+			"title": "Settings"
+		}
+	},
+	"monitor": {
+		"bot": "This is a bot",
+		"cw": {
+			"leagues": {
+				"0": "Gale",
+				"1": "Hurricane",
+				"2": "Squall",
+				"3": "Storm",
+				"4": "Typhoon"
+			},
+			"text": "Rank {{rank}} in {{league}}, Division {{division}}, WR {{winrate}}%"
+		},
+		"hidden": "Player has a hidden profile",
+		"map": "Map",
+		"matchGroup": {
+			"CLAN": "Clan War",
+			"COOPERATIVE": "Coop",
+			"PVE": "PVE",
+			"PVP": "Random",
+			"RANKED": "Ranked"
+		},
+		"noBattles": "Player has no battles on this ship yet",
+		"pr": {
+			"poweredBy": "Personal Rating from wows-numbers.com"
+		},
+		"season": "Season",
+		"teamPopup": {
+			"info": "more Information",
+			"wowsNumbers": "Clan on Wows-Numbers"
+		}
+	},
+	"pathPicker": {
+		"additionalInfo": "Information about selected folder",
+		"buttonLabel": "Select folder",
+		"description": "Select the main installation folder of World of Warships. <br />    If you have the WGC installation the path should look similar to this:<br />    <strong>C:\\Games\\World of Warships</strong> <br />    If you have the Steam installation the path should look similar to this:<br />    <strong>C:\\Programs\\Steam\\common<i>id</i>World of Warships</strong>",
+		"dialogHeader": "Select your game folder",
+		"info": null,
+		"pickFolder": "Select your game folder"
+	},
+	"service": {
+		"connected": "Service connected",
+		"hostConnected": "Service conntected and desktop client paired",
+		"issues": {
+			"browser": {
+				"hostDisconnected": "Service connected but no desktop client is paired.",
+				"noToken": "Service connected but no desktop client token found."
+			},
+			"connection": "Couldn't connect to the online service.",
+			"desktop": "Couldn't connect to the online service."
+		},
+		"reconnect": "Reconnect to service",
+		"status": {
+			"fetched": "Match up-to-date",
+			"fetching": "Updating match",
+			"idle": "Waiting for match..."
+		}
+	},
+	"settings": {
+		"appearance": {
+			"coloredValues": {
+				"caption": "Colored Values",
+				"summary": "When enabled the values of damage, winrate, battles, frags and PR will be colored according to the wows-numbers color scheme"
+			},
+			"fontsize": {
+				"caption": "Fontsize",
+				"items": {
+					"big": "Big",
+					"huge": "Huge",
+					"normal": "Normal",
+					"small": "small"
+				},
+				"summary": "Change the fontsize of the player and team panels."
+			},
+			"highContrastMode": {
+				"caption": "Hight Contrast Mode",
+				"summary": "Inverts the colors of background and text for the player panels."
+			},
+			"layoutMode": {
+        "caption": "Layout Mode",
         "items": {
-          "big": "Big",
-          "huge": "Huge",
-          "normal": "Normal",
-          "small": "small"
-        },
-        "summary": "Change the fontsize of the player and team information."
-      },
-      "highContrastMode": {
-        "caption": "Hight contrast mode",
-        "summary": "Inverts the colors of background and text for the player panels."
-      },
-      "playerBackgrounds": {
-        "caption": "Player Backgrounds",
-        "items": {
-          "accwr": "Account Winrate",
-          "avgDmg": "Avg Ship Damage",
-          "pr": "PR",
-          "wr": "Winrate"
-        },
-        "summary": "Choose wether you want the background color to be of the pr, winrate or no specific color."
-      },
-      "playerBackgroundsMode": {
-        "caption": "Player Backgrounds Mode",
-        "items": {
-          "background": "Background",
-          "border": "Border",
-          "disabled": "Disabled"
-        },
-        "summary": "Choose wether you want the player panels to have the background color as the actual background, just on the left border or not at all."
-      },
-      "title": "Appearance"
-    },
-    "general": {
-      "autoUpdate": {
-        "caption": "AutoUpdate",
-        "summary": "When enabled app will check for a new version at each start."
-      },
-      "closeToTray": {
-        "caption": "Close to tray",
-        "summary": "When enabled app will minimize to tray upon clicking the close icon."
-      },
-      "title": "General"
-    },
-    "header": "Settings",
-    "miscellaneous": {
-      "forceLandscape": {
-        "caption": "Force landscape",
-        "summary": "When you're on your mobile device and have the app open as web-app/fullscreen this will lock the orientation to landscape."
-      },
-      "overwriteReplaysDirectory": {
-        "button": "Select",
-        "caption": "Replays directory",
-        "summary": "If for some reason the automatic detection does not work for you, you can manually overwrite the replays directory here."
-      },
-      "title": "Miscellaneous"
-    }
-  },
-  "uiMessages": {
-    "messages": {
-      "clientConnected": "Web app client connected.",
-      "clientDisconnected": "Web app client disconnected.",
-      "fetchingError": "Error in stats fetcher api. Please contact me.",
-      "hostDisconnected": "Desktop client disconnected",
-      "matchUpdated": "Match updated.",
-      "noServiceConnection": "Service could not be connected.",
-      "serviceConnected": "Service successfully connected.",
-      "serviceDisconnected": "Service has been disconnected.",
-      "serviceError": "Error in the api service",
-      "settingsSaved": "Settings saved"
-    },
-    "summaries": {
-      "error": "Error",
-      "success": "Success",
-      "warn": "Warning"
-    }
-  },
-  "webConnect": {
-    "browser": {
-      "chooseVideo": "Select camera",
-      "description": "Connect to a desktop app by following the steps below.",
-      "step1": "Scan the QR-Code from the desktop app.",
-      "step2": "Enjoy!",
-      "title": "Web-Connect"
-    },
-    "desktop": {
-      "description": "This feature is mainly for people who don't own a second screen and don't want to tab out of the game. <br /> Visit <a href=\"https://app.wows-monitor.com\">app.wows-monitor.com</a> on your second device (phone, laptop, etc) and open the Web-Connect popup. <br /> After you scanned this QR-Code you will receive all match updates on your second device",
-      "title": "Web-Connect"
-    },
-    "issues": {
-      "permission": "Camera permission is required"
-    }
-  }
+					"normal": "Normal",
+					"compact": "Compact",
+					"legacy": "Legacy"
+				},
+				"summary": "Choose the layout for the player panels. Legacy is like the 'old' monitor. Compact has icons instead of labels."
+			},
+			"playerBackgrounds": {
+				"caption": "Player Backgrounds",
+				"items": {
+					"accwr": "Account Winrate",
+					"avgDmg": "Avg Ship Damage",
+					"pr": "PR",
+					"wr": "Winrate"
+				},
+				"summary": "Choose wether you want the background color to be of the pr, winrate or no specific color."
+			},
+			"playerBackgroundsMode": {
+				"caption": "Player Backgrounds Mode",
+				"items": {
+					"background": "Background",
+					"border": "Border",
+					"disabled": "Disabled"
+				},
+				"summary": "Choose wether you want the player panels to have the background color as the actual background, just on the left border or not at all."
+			},
+			"title": "Appearance"
+		},
+		"general": {
+			"autoUpdate": {
+				"caption": "AutoUpdate",
+				"summary": "When enabled app will check for a new version at each start."
+			},
+			"closeToTray": {
+				"caption": "Close to tray",
+				"summary": "When enabled app will minimize to tray upon clicking the close icon."
+			},
+			"title": "General"
+		},
+		"header": "Settings",
+		"miscellaneous": {
+			"forceLandscape": {
+				"caption": "Force landscape",
+				"summary": "When you're on your mobile device and have the app open as web-app/fullscreen this will lock the orientation to landscape."
+			},
+			"overwriteReplaysDirectory": {
+				"button": "Select",
+				"caption": "Replays directory",
+				"summary": "If for some reason the automatic detection does not work for you, you can manually overwrite the replays directory here."
+			},
+			"title": "Miscellaneous"
+		}
+	},
+	"uiMessages": {
+		"messages": {
+			"clientConnected": "Web app client connected.",
+			"clientDisconnected": "Web app client disconnected.",
+			"fetchingError": "Error in stats fetcher api. Please contact me.",
+			"hostDisconnected": "Desktop client disconnected",
+			"matchUpdated": "Match updated.",
+			"noServiceConnection": "Service could not be connected.",
+			"serviceConnected": "Service successfully connected.",
+			"serviceDisconnected": "Service has been disconnected.",
+			"serviceError": "Error in the api service",
+			"settingsSaved": "Settings saved"
+		},
+		"summaries": {
+			"error": "Error",
+			"success": "Success",
+			"warn": "Warning"
+		}
+	},
+	"webConnect": {
+		"browser": {
+			"chooseVideo": "Select camera",
+			"description": "Connect to a desktop app by following the steps below.",
+			"step1": "Scan the QR-Code from the desktop app.",
+			"step2": "Enjoy!",
+			"title": "Web-Connect"
+		},
+		"desktop": {
+			"description": "This feature is mainly for people who don't own a second screen and don't want to tab out of the game. <br /> Visit <a href=\"https://app.wows-monitor.com\">app.wows-monitor.com</a> on your second device (phone, laptop, etc) and open the Web-Connect popup. <br /> After you scanned this QR-Code you will receive all match updates on your second device",
+			"title": "Web-Connect"
+		},
+		"issues": {
+			"permission": "Camera permission is required"
+		}
+	}
 }
