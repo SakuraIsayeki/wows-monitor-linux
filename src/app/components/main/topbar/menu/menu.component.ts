@@ -28,7 +28,8 @@ export class MenuComponent extends BaseComponent implements OnInit {
     {
       key: 'meta.configtool.title',
       routerLink: '/home/configtool',
-      icon: faWrench
+      icon: faWrench,
+      browser: false,
     },
     {
       key: 'meta.changelogs.title',
