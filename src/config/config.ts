@@ -107,7 +107,7 @@ export class Config implements ConfigOptions {
 
   private ensureValues(config: ConfigOptions) {
     for (const key of Object.keys(defaultConfig)) {
-      if (!config[key]) {
+      if (config[key] == null || config[key] === undefined) {
         config[key] = defaultConfig[key];
       }
     }
