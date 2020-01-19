@@ -57,6 +57,10 @@
     align-items: center;
     padding-top: 1em;
     flex-direction: row-reverse;
+
+    input[type="text"] {
+      min-width: 400px;
+    }
   }
 }
 
