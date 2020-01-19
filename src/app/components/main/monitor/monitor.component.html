@@ -1,4 +1,5 @@
-<div class="container {{$fontSizeClass | async}}" *ngIf="signalrService.$info | async;let matchInfo">
+<div class="container {{$fontSizeClass | async}}"
+  *ngIf="signalrService.$info | async;let matchInfo">
   <p-card id="monitor-friendly-clan" class="no-padding">
     <app-team [clan]="matchInfo.friendlyClan" [team]="matchInfo.friendlyTeam" [cw]="matchInfo.matchGroup == 'CLAN'">
     </app-team>
