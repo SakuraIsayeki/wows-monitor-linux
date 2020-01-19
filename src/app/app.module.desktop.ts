@@ -20,7 +20,7 @@ import { DummyAnalyticsService } from './services/dummy-analytics.service';
 
 const analyticsServiceFactory = (config: Config, electronService: ElectronService) => {
   return environment.production ? new DesktopGoogleAnalyticsService(config, electronService) : new DummyAnalyticsService();
-}
+};
 
 
 @NgModule({

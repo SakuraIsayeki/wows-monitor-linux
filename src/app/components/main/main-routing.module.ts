@@ -25,16 +25,17 @@ const routes: Routes = [
       {
         path: 'about',
         loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
+      },
+      {
+        path: 'configtool',
+        loadChildren: () => import('./configtool/configtool.module').then(m => m.ConfigtoolModule)
       }
     ]
   }
 ];
 
-if (environment.desktop) {
-  routes[0].children.push({
-    path: 'configtool',
-    loadChildren: () => import('./configtool/configtool.module').then(m => m.ConfigtoolModule)
-  });
+if (environment.browser) {
+  routes[0].children.splice(routes[0].children.length);
 }
 
 @NgModule({
