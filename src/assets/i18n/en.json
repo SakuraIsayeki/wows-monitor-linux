@@ -141,7 +141,8 @@
           "accwr": "Account Winrate",
           "off": "Disabled",
           "pr": "PR",
-          "wr": "Winrate"
+          "wr": "Winrate",
+          "avgDmg": "Avg Ship Damage"
         },
         "summary": "Choose wether you want the player panels to have the background color of the pr, winrate or no specific color."
       },

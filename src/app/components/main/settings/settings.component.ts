@@ -47,6 +47,10 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
     {
       label: 'settings.appearance.playerBackgrounds.items.accwr',
       value: 'accwr'
+    },
+    {
+      label: 'settings.appearance.playerBackgrounds.items.avgDmg',
+      value: 'avgDmg'
     }
   ];
 

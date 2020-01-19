@@ -10,6 +10,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingsComponent } from './settings.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { SettingsComponent } from './settings.component';
     CardModule,
     SelectButtonModule,
     InputSwitchModule,
+    DropdownModule,
     InputTextModule,
     ButtonModule
   ],

@@ -16,7 +16,11 @@
       'input';
     grid-template-columns: auto;
     grid-template-rows: auto;
-    line-height: 2em;
+
+    p-dropdown {
+      line-height: normal;
+    }
+
   }
 
   section:last-child {

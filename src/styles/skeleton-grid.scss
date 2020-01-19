@@ -7,7 +7,7 @@
   margin: 0 auto;
   box-sizing: border-box;
 
-  &.small{
+  &.small {
     max-width: 960px;
   }
 }
@@ -29,6 +29,7 @@
 
 /* For devices larger than 750px */
 @media (min-width: 750px) {
+
   .column,
   .columns {
     margin-left: 4%;
@@ -178,6 +179,15 @@
 @media (min-width: 1000px) {
   .container {
     width: 100%;
+  }
+}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {
+  .container {
+    &.small {
+      max-width: 1200px;
+    }
   }
 }
 
