@@ -1,0 +1,9 @@
+<span [pTooltip]="label" tooltipPosition="top">
+  <ng-container *ngIf="false">
+    {{label}}:&nbsp;
+  </ng-container>
+  <ng-container *ngIf="true">
+    <fa-icon [icon]="icon" [fixedWidth]="true"></fa-icon>&nbsp;
+  </ng-container>
+  <ng-content></ng-content>
+</span>

@@ -232,6 +232,35 @@ app-player {
       }
     }
 
+    &.compact {
+
+      #wins,
+      #avg-xp,
+      #avg-frags {
+        display: none;
+      }
+
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: repeat(5, 1fr);
+      grid-template-areas: 'name ovr-battles'
+      'karma ovr-winrate'
+      'ship battles'
+      'pr winrate'
+      '. avg-damage';
+
+      &.hidden,
+      &.bot {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(5, 1fr);
+        grid-template-areas:
+          'name name'
+          'ship ship'
+          'message message'
+          'message message'
+          'message message'
+      }
+    }
+
     #message {
       grid-area: message;
       display: none;
@@ -242,6 +271,7 @@ app-player {
       grid-area: name;
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     #ovr-winrate {
@@ -258,6 +288,9 @@ app-player {
 
     #ship {
       grid-area: ship;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     #winrate {
@@ -383,6 +416,23 @@ app-team {
           'ship message message message';
         }
       }
+
+      &.compact {
+        grid-template-columns: 25% 1fr 1fr 1fr 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas:
+          'name karma ovr-battles ovr-winrate .'
+          'ship pr battles winrate avg-damage';
+
+        &.hidden,
+        &.bot {
+          grid-template-columns: 25% 1fr 1fr 1fr 1fr;
+          grid-template-rows: repeat(2, 1fr);
+          grid-template-areas:
+            'name message message message message'
+            'ship message message message message';
+        }
+      }
     }
   }
 }
@@ -449,6 +499,25 @@ app-team {
             'name message message message'
             'ship message message message'
             'ship message message message';
+        }
+      }
+
+      &.compact {
+        grid-template-columns: 34% 1fr 1fr 1fr;
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-areas:
+          'name karma ovr-battles ovr-winrate'
+          'ship battles winrate avg-damage'
+          'pr . . .';
+
+        &.hidden,
+        &.bot {
+          grid-template-columns: 34% 1fr 1fr 1fr;
+          grid-template-rows: repeat(3, 1fr);
+          grid-template-areas:
+            'name message message message'
+            'ship message message message'
+            '. message message message';
         }
       }
     }
@@ -518,6 +587,23 @@ app-team {
           'ship message message message';
         }
       }
+
+      &.compact {
+        grid-template-columns: 25% 1fr 1fr 1fr 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas:
+          'name karma ovr-battles ovr-winrate .'
+          'ship pr battles winrate avg-damage';
+
+        &.hidden,
+        &.bot {
+          grid-template-columns: 25% 1fr 1fr 1fr 1fr;
+          grid-template-rows: repeat(2, 1fr);
+          grid-template-areas:
+            'name message message message message'
+            'ship message message message message';
+        }
+      }
     }
   }
 }
@@ -562,6 +648,23 @@ app-team {
           grid-template-areas:
             'name message message message'
             'ship message message message';
+        }
+      }
+
+      &.compact {
+        grid-template-columns: 34% 1fr 1fr 1fr 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas:
+          'name karma ovr-battles ovr-winrate .'
+          'ship pr battles winrate avg-damage';
+
+        &.hidden,
+        &.bot {
+          grid-template-columns: 34% 1fr 1fr 1fr 1fr;
+          grid-template-rows: repeat(2, 1fr);
+          grid-template-areas:
+            'name message message message message'
+            'ship message message message message';
         }
       }
     }

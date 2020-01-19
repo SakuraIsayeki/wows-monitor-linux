@@ -85,7 +85,7 @@
     },
     "noBattles": "Player has no battles on this ship yet",
     "pr": {
-      "poweredBy": null
+      "poweredBy": "Personal Rating from wows-numbers.com"
     },
     "season": "Season",
     "teamPopup": {

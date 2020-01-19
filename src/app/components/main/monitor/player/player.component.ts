@@ -1,5 +1,6 @@
 import { Component, HostBinding, Input, OnInit, Optional, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { faExclamationCircle, faFire, faHeart, faSkull, faTrophy, faLightbulb, faGavel } from '@fortawesome/free-solid-svg-icons';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
 import { WowsNumbersPipe } from 'src/app/shared/pipes/wows-numbers.pipe';
 import { Config } from 'src/config/config';
@@ -73,6 +74,14 @@ export class PlayerComponent extends BaseComponent implements OnInit {
   get borderModeClass() {
     return this.config.playerBackgroundsMode === 'border';
   }
+
+  faHeart = faHeart;
+  faSkull = faSkull;
+  faTrophy = faTrophy;
+  faFire = faFire;
+  faExclamation = faExclamationCircle;
+  faBulb = faLightbulb;
+  faGavel = faGavel;
 
   constructor(private sanitizer: DomSanitizer, public config: Config, @Optional() private electronService: ElectronService) {
     super();

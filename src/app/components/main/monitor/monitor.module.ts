@@ -11,14 +11,17 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MonitorRoutingModule } from './monitor-routing.module';
 import { MonitorComponent } from './monitor.component';
 import { PlayerComponent } from './player/player.component';
+import { ValueLabelComponent } from './player/value-label/value-label.component';
 import { TeamComponent } from './team/team.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
   declarations: [
     MonitorComponent,
     PlayerComponent,
-    TeamComponent
+    TeamComponent,
+    ValueLabelComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +33,7 @@ import { TeamComponent } from './team/team.component';
     ContextMenuModule,
     MenuModule,
     TooltipModule,
+    FontAwesomeModule,
     TranslateModule.forChild()
   ],
   providers: [
