@@ -74,6 +74,7 @@
       },
       "text": "Rank {{rank}} in {{league}}, Division {{division}}, WR {{winrate}}%"
     },
+    "empty": "waiting for a match",
     "hidden": "Player has a hidden profile",
     "map": "Map",
     "matchGroup": {
