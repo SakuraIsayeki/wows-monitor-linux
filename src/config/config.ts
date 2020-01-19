@@ -13,6 +13,7 @@ type LayoutMode = 'normal' | 'compact' | 'legacy';
 
 export interface ConfigOptions {
   autoUpdate?: boolean;
+  allowBeta?: boolean;
   signalRToken?: string;
   selectedDirectory?: string;
   layoutMode?: LayoutMode;
@@ -23,6 +24,7 @@ export interface ConfigOptions {
   coloredValues?: boolean;
   overwriteReplaysDirectory?: string;
   seenChangelogs?: number[];
+  closeToTray?: boolean;
   uuid?: string;
   configtoolConfig?: ConfigtoolConfig;
 }
@@ -48,6 +50,7 @@ export class Config implements ConfigOptions {
       this.ensureValues(config);
 
       this.autoUpdate = config.autoUpdate;
+      this.allowBeta = config.allowBeta;
       this.signalRToken = config.signalRToken;
       this.selectedDirectory = config.selectedDirectory;
       this.layoutMode = config.layoutMode;
@@ -58,6 +61,7 @@ export class Config implements ConfigOptions {
       this.coloredValues = config.coloredValues;
       this.overwriteReplaysDirectory = config.overwriteReplaysDirectory;
       this.seenChangelogs = config.seenChangelogs;
+      this.closeToTray = config.closeToTray;
       this._uuid = config.uuid;
       this.configtoolConfig = config.configtoolConfig;
 
@@ -68,13 +72,15 @@ export class Config implements ConfigOptions {
 
     this._$settingChanged = combineLatest([
       this.$autoUpdate,
+      this.$allowBeta,
       this.$layoutMode,
       this.$playerBackgrounds,
       this.$playerBackgroundsMode,
       this.$highContrastMode,
       this.$fontsize,
       this.$useColoredValues,
-      this.$overwriteReplaysDirectory
+      this.$overwriteReplaysDirectory,
+      this.$closeToTray
     ]).pipe(share());
   }
 
@@ -82,6 +88,7 @@ export class Config implements ConfigOptions {
     await this.waitTillLoaded();
     return from(this.configService.save({
       autoUpdate: this._autoUpdate,
+      allowBeta: this._allowBeta,
       signalRToken: this._signalRToken,
       selectedDirectory: this._selectedDirectory,
       layoutMode: this._layoutMode,
@@ -92,6 +99,7 @@ export class Config implements ConfigOptions {
       coloredValues: this._coloredValues,
       overwriteReplaysDirectory: this._overwriteReplaysDirectory,
       seenChangelogs: this._seenChangelogs,
+      closeToTray: this._closeToTray,
       uuid: this._uuid,
       configtoolConfig: this._configtoolConfig
     }));
@@ -120,6 +128,23 @@ export class Config implements ConfigOptions {
 
   get $autoUpdate() {
     return this._$autoUpdate.asObservable();
+  }
+
+  // allowBeta
+  private _allowBeta: boolean;
+  private _$allowBeta = new BehaviorSubject<boolean>(null);
+
+  get allowBeta() {
+    return this._allowBeta;
+  }
+
+  set allowBeta(value) {
+    this._allowBeta = value;
+    this._$allowBeta.next(value);
+  }
+
+  get $allowBeta() {
+    return this._$allowBeta.asObservable();
   }
 
   // signalRToken
@@ -156,22 +181,22 @@ export class Config implements ConfigOptions {
     return this._$selectedDirectory.asObservable();
   }
 
-// layoutMode
-private _layoutMode: LayoutMode;
-private _$layoutMode = new BehaviorSubject<LayoutMode>(null);
+  // layoutMode
+  private _layoutMode: LayoutMode;
+  private _$layoutMode = new BehaviorSubject<LayoutMode>(null);
 
-get layoutMode() {
-  return this._layoutMode;
-}
+  get layoutMode() {
+    return this._layoutMode;
+  }
 
-set layoutMode(value) {
-  this._layoutMode = value;
-  this._$layoutMode.next(value);
-}
+  set layoutMode(value) {
+    this._layoutMode = value;
+    this._$layoutMode.next(value);
+  }
 
-get $layoutMode() {
-  return this._$layoutMode.asObservable();
-}
+  get $layoutMode() {
+    return this._$layoutMode.asObservable();
+  }
 
   // playerBackgroundsMode
   private _playerBackgroundsMode: PlayerBackgroundsMode;
@@ -299,6 +324,23 @@ get $layoutMode() {
 
   get $seenChangelogs() {
     return this._$seenChangelogs.asObservable();
+  }
+
+  // closeToTray
+  private _closeToTray: boolean;
+  private _$closeToTray = new BehaviorSubject<boolean>(null);
+
+  get closeToTray() {
+    return this._closeToTray;
+  }
+
+  set closeToTray(value) {
+    this._closeToTray = value;
+    this._$closeToTray.next(value);
+  }
+
+  get $closeToTray() {
+    return this._$closeToTray.asObservable();
   }
 
   //configToolConfig

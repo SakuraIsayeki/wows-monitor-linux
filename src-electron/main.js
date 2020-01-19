@@ -46,7 +46,8 @@ function appReady() {
     });
     mainWindowState.manage(win);
     win.on('close', function (event) {
-        var config = fs.readFileSync('config.json', { encoding: 'utf-8' });
+        var configPath = !isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
+        var config = fs.readFileSync(configPath, { encoding: 'utf-8' });
         if (JSON.parse(config).closeToTray && !isQuitting) {
             event.preventDefault();
             win.hide();

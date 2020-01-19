@@ -2,10 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
 var electron_updater_1 = require("electron-updater");
+var fs = require("fs");
+var path = require("path");
 function initUpdater(logger, win, isDebug) {
+    var configPath = !isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
+    var config = fs.readFileSync(configPath, { encoding: 'utf-8' });
+    var allowBeta = true; // JSON.parse(config).allowBeta;
     electron_updater_1.autoUpdater.autoDownload = false;
     electron_updater_1.autoUpdater.autoInstallOnAppQuit = false;
-    electron_updater_1.autoUpdater.channel = 'beta';
+    electron_updater_1.autoUpdater.channel = allowBeta ? 'beta' : 'release';
     electron_1.ipcMain.on('checkForUpdate', function (event, args) {
         logger.debug('[Electron]', '(checkForUpdate)');
         if (isDebug) {

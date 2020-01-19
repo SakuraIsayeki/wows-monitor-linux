@@ -1,11 +1,17 @@
 import { ipcMain, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import * as electronLogger from 'electron-log';
+import * as fs from 'fs';
+import * as path from 'path';
 
 export function initUpdater(logger: electronLogger.IElectronLog, win: BrowserWindow, isDebug: boolean) {
+  const configPath = !isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
+  const config = fs.readFileSync(configPath, { encoding: 'utf-8' });
+  const allowBeta = true; // JSON.parse(config).allowBeta;
+
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
-  autoUpdater.channel = 'beta';
+  autoUpdater.channel = allowBeta ? 'beta' : 'release';
 
   ipcMain.on('checkForUpdate', (event, args) => {
     logger.debug('[Electron]', '(checkForUpdate)');
