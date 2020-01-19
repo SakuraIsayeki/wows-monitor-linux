@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Config } from 'src/config/config';
-import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
 import { AppSharedModule } from './app.module.shared';
 import { AnalyticsServiceToken } from './interfaces/analytics.service';
@@ -16,10 +15,9 @@ import { ElectronService } from './services/desktop/electron.service';
 import { FsConfigService } from './services/desktop/fs-config.service';
 import { FsDirectoryService } from './services/desktop/fs-directory.service';
 import { DesktopGoogleAnalyticsService } from './services/desktop/google-analytics.service';
-import { DummyAnalyticsService } from './services/dummy-analytics.service';
 
 const analyticsServiceFactory = (config: Config, electronService: ElectronService) => {
-  return environment.production ? new DesktopGoogleAnalyticsService(config, electronService) : new DummyAnalyticsService();
+  return new DesktopGoogleAnalyticsService(config, electronService);
 };
 
 
