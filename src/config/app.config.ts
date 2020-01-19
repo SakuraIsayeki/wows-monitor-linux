@@ -1,6 +1,6 @@
 export const appConfig = {
   applicationName: 'WoWs Monitor',
   defautTitle: 'appTitle',
-  version: '1.0.0-beta.5',
+  version: '1.0.0-beta.6',
   hub: '/hub'
 };
