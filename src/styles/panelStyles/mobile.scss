@@ -1,0 +1,100 @@
+@mixin mobile {
+
+  &.normal {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(6, 1fr);
+
+    &.player {
+      grid-template-areas: 'name karma'
+        'ovr-winrate ovr-battles'
+        'ship pr'
+        'winrate battles'
+        'wins avg-damage'
+        'avg-frags avg-xp';
+    }
+
+    &.hidden,
+    &.bot {
+      grid-template-areas: 'name karma'
+        '. .'
+        'ship message'
+        '. message'
+        '. message'
+        '. message';
+    }
+
+    &.no-battles {
+      grid-template-areas: 'name karma'
+        'ovr-winrate ovr-battles'
+        'ship .'
+        'message message '
+        'message message'
+        'message message';
+    }
+  }
+
+  &.legacy {
+
+    #wins,
+    #avg-xp {
+      display: none;
+    }
+
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+
+    &.player {
+      grid-template-areas: 'name winrate'
+        'ship avg-damage'
+        'battles avg-frags';
+    }
+
+
+    &.hidden,
+    &.bot {
+      grid-template-areas:
+        'name message message message'
+        'ship message message message'
+        'ship message message message';
+    }
+
+    &.no-battles {
+      grid-template-areas:
+        'name message'
+        'ship message'
+        '. message';
+
+    }
+  }
+
+  &.compact {
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(5, 1fr);
+
+    &.player {
+      grid-template-areas: 'name ovr-battles'
+        'karma ovr-winrate'
+        'ship battles'
+        'pr winrate'
+        '. avg-damage';
+    }
+
+    &.hidden,
+    &.bot {
+      grid-template-areas:
+        'name name'
+        '. .'
+        'ship ship'
+        'message message'
+        'message message'
+    }
+
+    &.no-battles {
+      grid-template-areas: 'name ovr-battles'
+        'karma ovr-winrate'
+        'ship .'
+        'message message'
+        'message message';
+    }
+  }
+}

@@ -1,5 +1,5 @@
 <div class="info-wrapper"
-  [ngClass]="{ 'me': player.relation == 0, 'bot': player.bot, 'hidden': player.hidden, 'player': !player.bot && !player.hidden, 'no-battles': !player.bot && !player.hidden && !player.shipStats, 'force-white': !config.coloredValues, 'legacy': config.layoutMode === 'legacy', 'compact': config.layoutMode === 'compact' }"
+  [ngClass]="{ 'me': player.relation == 0, 'bot': player.bot, 'hidden': player.hidden, 'player': !player.bot && !player.hidden && player.shipStats, 'no-battles': !player.bot && !player.hidden && !player.shipStats, 'force-white': !config.coloredValues, 'normal': config.layoutMode === 'normal', 'legacy': config.layoutMode === 'legacy', 'compact': config.layoutMode === 'compact' }"
   (click)="openWowsNumbers(player)">
   <div id="name">
     <strong>
