@@ -33,7 +33,7 @@ export class PlayerComponent extends BaseComponent implements OnInit {
 
   @HostBinding('style.background-color')
   get backgroundColor() {
-    if (this.player.shipStats) {
+    if (this.player.shipStats && this.config.playerBackgroundsMode === 'background') {
       if (this.config.playerBackgrounds === 'pr') {
         return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.personalRatingColor + '28');
       }
@@ -66,7 +66,12 @@ export class PlayerComponent extends BaseComponent implements OnInit {
         return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.averageDamageColor + '99');
       }
     }
-    return '';
+    return this.sanitizer.sanitize(SecurityContext.STYLE, '#FFF');
+  }
+
+  @HostBinding('class.border-mode')
+  get borderModeClass() {
+    return this.config.playerBackgroundsMode === 'border';
   }
 
   constructor(private sanitizer: DomSanitizer, public config: Config, @Optional() private electronService: ElectronService) {

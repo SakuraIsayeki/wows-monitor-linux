@@ -62,19 +62,64 @@ app-monitor {
   }
 }
 
+// app-player {
+//   // display: block;
+//   background: $secondaryDarkColor;
+
+//   &.high-contrast-mode {
+//     background: #FFF;
+//     color: $primaryTextColor;
+
+//     app-player.me {
+//       border-color: $primaryTextColor;
+//     }
+//   }
+
+
+// }
+
+.high-contrast-mode {
+  .ui-card {
+    background: #FFF;
+  }
+
+
+  app-player {
+    color: $primaryTextColor;
+
+    &:hover {
+      background: transparentize($secondaryColor, 0.75) !important;
+    }
+  }
+}
+
+hr.player-seperator {
+  background: $secondaryColor;
+  height: 1px;
+  margin: 0 1em;
+  padding: 0;
+  border: 0;
+}
 
 app-player {
+  box-sizing: border-box;
   display: block;
   padding: 0 1em;
   cursor: pointer;
   transition: all .3s ease-in-out;
   width: 100%;
+  border-width: 2px;
+  border-style: solid;
   // border: 1px solid #FFF;
 
-  &.me {
-    border-width: 2px;
+  &:not(.me):not(.border-mode) {
+    border-color: transparent !important;
+  }
+
+  &.border-mode {
+    padding: 2px 1em 2px .3em;
+    border-width: 0 0 0 .7em;
     border-style: solid;
-    border-radius: $borderRadius;
   }
 
   &:hover {
@@ -86,8 +131,7 @@ app-player {
     grid-gap: .5em;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(6, 1fr);
-    border-bottom: 1px solid $secondaryColor;
-    padding: 0.75em 0;
+    padding: calc(0.75em - 2px) 0;
     width: 100%;
     overflow: hidden;
 

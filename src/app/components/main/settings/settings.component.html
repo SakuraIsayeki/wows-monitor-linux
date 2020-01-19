@@ -45,6 +45,32 @@
       </article>
       <article>
         <caption>
+          {{ 'settings.appearance.highContrastMode.caption' | translate }}
+        </caption>
+        <summary>
+          {{ 'settings.appearance.highContrastMode.summary' | translate }}
+        </summary>
+        <div class="input-wrap">
+          <p-inputSwitch [(ngModel)]="config.highContrastMode"></p-inputSwitch>
+        </div>
+      </article>
+      <article>
+        <caption>
+          {{ 'settings.appearance.playerBackgroundsMode.caption' | translate }}
+        </caption>
+        <summary>
+          {{ 'settings.appearance.playerBackgroundsMode.summary' | translate }}
+        </summary>
+        <div class="input-wrap">
+          <p-selectButton [options]="playerBackgroundsModeOptions" [(ngModel)]="config.playerBackgroundsMode">
+            <ng-template let-item>
+              <span class="ui-button-text ui-clickable ng-star-inserted">{{item.label | translate}}</span>
+            </ng-template>
+          </p-selectButton>
+        </div>
+      </article>
+      <article [class.disabled]="config.playerBackgroundsMode == 'disabled'">
+        <caption>
           {{ 'settings.appearance.playerBackgrounds.caption' | translate }}
         </caption>
         <summary>

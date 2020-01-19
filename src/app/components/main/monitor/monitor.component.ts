@@ -16,7 +16,7 @@ export class MonitorComponent extends BaseComponent implements OnInit {
 
   constructor(
     @Inject(SignalrServiceToken) public signalrService: SignalrService,
-    private config: Config
+    public config: Config
   ) {
     super();
   }

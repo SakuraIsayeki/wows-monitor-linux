@@ -8,12 +8,20 @@
     <app-team [clan]="matchInfo.enemyClan" [team]="matchInfo.enemyTeam" [cw]="matchInfo.matchGroup == 'CLAN'">
     </app-team>
   </p-card>
-  <p-card id="monitor-friendly" class="no-padding">
-    <app-player [player]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="playerCard"
-      *ngFor="let player of matchInfo.friendly; let l = last; let f = first;" [last]="l" [first]="f"></app-player>
+  <p-card id="monitor-friendly" class="no-padding" [class.high-contrast-mode]="config.highContrastMode">
+    <ng-container *ngFor="let player of matchInfo.friendly; let l = last; let f = first;">
+      <app-player [player]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f">
+      </app-player>
+      <hr class="player-seperator" *ngIf="!l" />
+    </ng-container>
   </p-card>
-  <p-card id="monitor-enemy" class="no-padding">
-    <app-player [player]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="playerCard"
-      *ngFor="let player of matchInfo.enemy; let l = last; let f = first;" [last]="l" [first]="f"></app-player>
+  <p-card id="monitor-enemy" class="no-padding" [class.high-contrast-mode]="config.highContrastMode">
+    <ng-container *ngFor="let player of matchInfo.enemy; let l = last; let f = first;">
+      <app-player [player]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f">
+      </app-player>
+      <hr class="player-seperator" *ngIf="!l" />
+    </ng-container>
+
+
   </p-card>
 </div>

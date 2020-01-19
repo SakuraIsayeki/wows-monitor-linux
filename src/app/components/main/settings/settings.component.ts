@@ -33,10 +33,6 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
 
   playerBackgroundsOptions: SelectItem[] = [
     {
-      label: 'settings.appearance.playerBackgrounds.items.off',
-      value: 'off'
-    },
-    {
       label: 'settings.appearance.playerBackgrounds.items.pr',
       value: 'pr'
     },
@@ -51,6 +47,21 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
     {
       label: 'settings.appearance.playerBackgrounds.items.avgDmg',
       value: 'avgDmg'
+    }
+  ];
+
+  playerBackgroundsModeOptions: SelectItem[] = [
+    {
+      label: 'settings.appearance.playerBackgroundsMode.items.disabled',
+      value: 'disabled'
+    },
+    {
+      label: 'settings.appearance.playerBackgroundsMode.items.background',
+      value: 'background'
+    },
+    {
+      label: 'settings.appearance.playerBackgroundsMode.items.border',
+      value: 'border'
     }
   ];
 

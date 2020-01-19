@@ -9,10 +9,12 @@
     </strong>
   </div>
   <div id="ovr-winrate">
-    Account Winrate: <strong [style.color]="player.overallStats?.winrateColor | sanitizeCss">{{player.overallStats?.winrate | number:'0.0-2'}}%</strong>
+    Account Winrate: <strong
+      [style.color]="player.overallStats?.winrateColor | sanitizeCss">{{player.overallStats?.winrate | number:'0.0-2'}}%</strong>
   </div>
   <div id="ovr-battles">
-    Account Battles: <strong [style.color]="player.overallStats?.battlesColor | sanitizeCss">{{player.overallStats?.battles}}</strong>
+    Account Battles: <strong
+      [style.color]="player.overallStats?.battlesColor | sanitizeCss">{{player.overallStats?.battles}}</strong>
   </div>
   <div id="karma">
     Karma: <strong>{{player.karma}}</strong>
@@ -21,7 +23,8 @@
     <strong>{{player.shipInfo.name}}</strong> (Tier {{player.shipInfo.tier | roman}})
   </div>
   <div id="winrate">
-    Winrate: <strong [style.color]="player.shipStats?.winrateColor | sanitizeCss">{{player.shipStats?.winrate | number:'0.0-2'}}%</strong>
+    Winrate: <strong
+      [style.color]="player.shipStats?.winrateColor | sanitizeCss">{{player.shipStats?.winrate | number:'0.0-2'}}%</strong>
   </div>
   <div id="battles">
     Battles: <strong>{{player.shipStats?.battles}}</strong>
@@ -34,10 +37,12 @@
       [style.color]="player.shipStats?.personalRatingColor | sanitizeCss"><strong>{{player.shipStats?.personalRating}}</strong></span>
   </div>
   <div id="avg-damage">
-    Avg Damage: <strong [style.color]="player.shipStats?.averageDamageColor | sanitizeCss">{{player.shipStats?.averageDamage | number:'0.0-0'}}</strong>
+    Avg Damage: <strong
+      [style.color]="player.shipStats?.averageDamageColor | sanitizeCss">{{player.shipStats?.averageDamage | number:'0.0-0'}}</strong>
   </div>
   <div id="avg-frags">
-    Avg Frags: <strong [style.color]="player.shipStats?.averageFragsColor | sanitizeCss">{{player.shipStats?.averageFrags | number:'0.0-1'}}</strong>
+    Avg Frags: <strong
+      [style.color]="player.shipStats?.averageFragsColor | sanitizeCss">{{player.shipStats?.averageFrags | number:'0.0-1'}}</strong>
   </div>
   <div id="avg-xp">
     <ng-container *ngIf="!cw">

@@ -2,19 +2,24 @@ import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, from, interval, Observable } from 'rxjs';
 import { share, skipWhile, take } from 'rxjs/operators';
 import { ConfigService, ConfigServiceToken } from 'src/app/interfaces/config.service';
-import { environment } from 'src/environments/environment';
 import { ConfigtoolConfig, defaultConfigtoolConfig } from 'src/app/interfaces/configtool-config.interface';
+import { environment } from 'src/environments/environment';
 const uuidv4 = require('uuid/v4');
+
+type PlayerBackgrounds = 'pr' | 'wr' | 'accwr' | 'avgDmg';
+type FontSize = 'small' | 'normal' | 'big' | 'huge';
+type PlayerBackgroundsMode = 'disabled' | 'background' | 'border';
 
 export interface ConfigOptions {
   autoUpdate?: boolean;
   signalRToken?: string;
   selectedDirectory?: string;
-  playerBackgrounds?: string;
-  fontsize?: string;
+  playerBackgrounds?: PlayerBackgrounds;
+  playerBackgroundsMode?: PlayerBackgroundsMode;
+  highContrastMode?: boolean;
+  fontsize?: FontSize;
   coloredValues?: boolean;
   overwriteReplaysDirectory?: string;
-  forceLandscape?: boolean;
   seenChangelogs?: number[];
   closeToTray?: boolean;
   uuid?: string;
@@ -24,6 +29,7 @@ export interface ConfigOptions {
 export const defaultConfig: ConfigOptions = {
   autoUpdate: true,
   playerBackgrounds: 'pr',
+  playerBackgroundsMode: 'background',
   fontsize: 'normal',
   coloredValues: true,
   seenChangelogs: [],
@@ -33,6 +39,69 @@ export const defaultConfig: ConfigOptions = {
 
 @Injectable()
 export class Config implements ConfigOptions {
+
+  constructor(@Inject(ConfigServiceToken) private configService: ConfigService) {
+    this.configService.load().then(config => {
+
+      this.ensureValues(config);
+
+      this.autoUpdate = config.autoUpdate;
+      this.signalRToken = config.signalRToken;
+      this.selectedDirectory = config.selectedDirectory;
+      this.playerBackgrounds = config.playerBackgrounds;
+      this.playerBackgroundsMode = config.playerBackgroundsMode;
+      this.highContrastMode = config.highContrastMode;
+      this.fontsize = config.fontsize;
+      this.coloredValues = config.coloredValues;
+      this.overwriteReplaysDirectory = config.overwriteReplaysDirectory;
+      this.seenChangelogs = config.seenChangelogs;
+      this.closeToTray = config.closeToTray;
+      this._uuid = config.uuid;
+      this.configtoolConfig = config.configtoolConfig;
+
+      this.loaded = true;
+
+      this.save();
+    });
+
+    this._$settingChanged = combineLatest([
+      this.$autoUpdate,
+      this.$playerBackgrounds,
+      this.$playerBackgroundsMode,
+      this.$highContrastMode,
+      this.$fontsize,
+      this.$useColoredValues,
+      this.$overwriteReplaysDirectory,
+      this.$closeToTray
+    ]).pipe(share());
+  }
+
+  async save(): Promise<any> {
+    await this.waitTillLoaded();
+    return from(this.configService.save({
+      autoUpdate: this._autoUpdate,
+      signalRToken: this._signalRToken,
+      selectedDirectory: this._selectedDirectory,
+      playerBackgrounds: this._playerBackgrounds,
+      playerBackgroundsMode: this.playerBackgroundsMode,
+      highContrastMode: this.highContrastMode,
+      fontsize: this._fontsize,
+      coloredValues: this._coloredValues,
+      overwriteReplaysDirectory: this._overwriteReplaysDirectory,
+      seenChangelogs: this._seenChangelogs,
+      closeToTray: this._closeToTray,
+      uuid: this._uuid,
+      configtoolConfig: this._configtoolConfig
+    }));
+  }
+
+  private ensureValues(config: ConfigOptions) {
+    for (const key of Object.keys(defaultConfig)) {
+      if (!config[key]) {
+        config[key] = defaultConfig[key];
+      }
+    }
+  }
 
   // autoUpdate
   private _autoUpdate: boolean;
@@ -85,9 +154,26 @@ export class Config implements ConfigOptions {
     return this._$selectedDirectory.asObservable();
   }
 
+  // playerBackgroundsMode
+  private _playerBackgroundsMode: PlayerBackgroundsMode;
+  private _$playerBackgroundsMode = new BehaviorSubject<PlayerBackgroundsMode>(null);
+
+  get playerBackgroundsMode() {
+    return this._playerBackgroundsMode;
+  }
+
+  set playerBackgroundsMode(value) {
+    this._playerBackgroundsMode = value;
+    this._$playerBackgroundsMode.next(value);
+  }
+
+  get $playerBackgroundsMode() {
+    return this._$playerBackgroundsMode.asObservable();
+  }
+
   // PlayerBackgrounds
-  private _playerBackgrounds: string;
-  private _$playerBackgrounds = new BehaviorSubject<string>(null);
+  private _playerBackgrounds: PlayerBackgrounds;
+  private _$playerBackgrounds = new BehaviorSubject<PlayerBackgrounds>(null);
 
   get playerBackgrounds() {
     return this._playerBackgrounds;
@@ -102,9 +188,26 @@ export class Config implements ConfigOptions {
     return this._$playerBackgrounds.asObservable();
   }
 
+  // PlayerBackgrounds
+  private _highContrastMode: boolean;
+  private _$highContrastMode = new BehaviorSubject<boolean>(null);
+
+  get highContrastMode() {
+    return this._highContrastMode;
+  }
+
+  set highContrastMode(value) {
+    this._highContrastMode = value;
+    this._$highContrastMode.next(value);
+  }
+
+  get $highContrastMode() {
+    return this._$highContrastMode.asObservable();
+  }
+
   // Fontsize
-  private _fontsize: string;
-  private _$fontsize = new BehaviorSubject<string>(null);
+  private _fontsize: FontSize;
+  private _$fontsize = new BehaviorSubject<FontSize>(null);
 
   get fontsize() {
     return this._fontsize;
@@ -167,8 +270,9 @@ export class Config implements ConfigOptions {
   }
 
   pushSeenChangelogs(...items: number[]) {
-    if (!this._seenChangelogs)
+    if (!this._seenChangelogs) {
       this._seenChangelogs = [];
+    }
     this._seenChangelogs.push(...items);
     this._seenChangelogs = this._seenChangelogs.filter((value, index, self) => self.indexOf(value) === index);
     this._$seenChangelogs.next(this._seenChangelogs);
@@ -218,41 +322,18 @@ export class Config implements ConfigOptions {
     return this._uuid;
   }
 
+  set uuid(value: string) {
+    if (!this._uuid) {
+      this._uuid = value;
+    }
+  }
+
   private loaded = false;
 
   private _$settingChanged: Observable<any>;
 
   public get $settingChanged() {
     return this._$settingChanged;
-  }
-
-  constructor(@Inject(ConfigServiceToken) private configService: ConfigService) {
-    this.configService.load().then(config => {
-      this.autoUpdate = config.autoUpdate;
-      this.signalRToken = config.signalRToken;
-      this.selectedDirectory = config.selectedDirectory;
-      this.playerBackgrounds = this.applyPlayerBackgroundsMigration(config.playerBackgrounds);
-      this.fontsize = config.fontsize;
-      this.coloredValues = config.coloredValues;
-      this.overwriteReplaysDirectory = config.overwriteReplaysDirectory;
-      this.seenChangelogs = config.seenChangelogs;
-      this.closeToTray = config.closeToTray;
-      this._uuid = config.uuid ? config.uuid : (environment.desktop ? uuidv4() : '');
-      this.configtoolConfig = config.configtoolConfig ? config.configtoolConfig : defaultConfigtoolConfig;
-
-      this.loaded = true;
-
-      this.save();
-    });
-
-    this._$settingChanged = combineLatest([
-      this.$autoUpdate,
-      this.$playerBackgrounds,
-      this.$fontsize,
-      this.$useColoredValues,
-      this.$overwriteReplaysDirectory,
-      this.$closeToTray
-    ]).pipe(share());
   }
 
   async waitTillLoaded() {
@@ -264,24 +345,6 @@ export class Config implements ConfigOptions {
       take(1)).toPromise();
     return true;
   }
-
-  async save(): Promise<any> {
-    await this.waitTillLoaded();
-    return from(this.configService.save({
-      autoUpdate: this._autoUpdate,
-      signalRToken: this._signalRToken,
-      selectedDirectory: this._selectedDirectory,
-      playerBackgrounds: this._playerBackgrounds,
-      fontsize: this._fontsize,
-      coloredValues: this._coloredValues,
-      overwriteReplaysDirectory: this._overwriteReplaysDirectory,
-      seenChangelogs: this._seenChangelogs,
-      closeToTray: this._closeToTray,
-      uuid: this._uuid,
-      configtoolConfig: this._configtoolConfig
-    }));
-  }
-
 
   private applyPlayerBackgroundsMigration(value: any) {
     if (value === false) {

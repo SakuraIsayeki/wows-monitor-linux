@@ -3,6 +3,7 @@ import { ConfigService } from 'src/app/interfaces/config.service';
 import { ConfigOptions, defaultConfig } from 'src/config/config';
 import { ElectronService } from './electron.service';
 import { LoggerServiceToken, LoggerService } from 'src/app/interfaces/logger.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class FsConfigService implements ConfigService {
@@ -11,7 +12,7 @@ export class FsConfigService implements ConfigService {
     return this.electronService.fs;
   }
 
-  private configPath = process.env.APPDATA + '\\@wows-monitor\\config.json';
+  private configPath = environment.production ? process.env.APPDATA + '\\@wows-monitor\\config.json' : 'config.json';
 
   constructor(
     private electronService: ElectronService,

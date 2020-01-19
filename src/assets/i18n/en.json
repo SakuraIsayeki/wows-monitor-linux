@@ -135,16 +135,28 @@
         },
         "summary": "Change the fontsize of the player and team information."
       },
+      "highContrastMode": {
+        "caption": "Hight contrast mode",
+        "summary": "Inverts the colors of background and text for the player panels."
+      },
       "playerBackgrounds": {
         "caption": "Player Backgrounds",
         "items": {
           "accwr": "Account Winrate",
-          "off": "Disabled",
+          "avgDmg": "Avg Ship Damage",
           "pr": "PR",
-          "wr": "Winrate",
-          "avgDmg": "Avg Ship Damage"
+          "wr": "Winrate"
         },
-        "summary": "Choose wether you want the player panels to have the background color of the pr, winrate or no specific color."
+        "summary": "Choose wether you want the background color to be of the pr, winrate or no specific color."
+      },
+      "playerBackgroundsMode": {
+        "caption": "Player Backgrounds Mode",
+        "items": {
+          "background": "Background",
+          "border": "Border",
+          "disabled": "Disabled"
+        },
+        "summary": "Choose wether you want the player panels to have the background color as the actual background, just on the left border or not at all."
       },
       "title": "Appearance"
     },

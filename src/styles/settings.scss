@@ -17,6 +17,10 @@
     grid-template-columns: auto;
     grid-template-rows: auto;
 
+    &.disabled {
+      opacity: .4;
+    }
+
     p-dropdown {
       line-height: normal;
     }
