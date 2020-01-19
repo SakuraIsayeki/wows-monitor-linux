@@ -7,6 +7,7 @@ export type PathBase = 'CWD' | 'EXE_PATH';
 
 export interface DirectoryService {
 
+  gameVersion: string;
   /** returns file content */
   $changeDetected: Observable<string>;
   $status: Observable<DirectoryStatus>;

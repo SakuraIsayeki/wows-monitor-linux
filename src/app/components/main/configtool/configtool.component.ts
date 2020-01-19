@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { j2xParser, parse as parseXml2Json } from 'fast-xml-parser';
 import { join as pathJoin } from 'path';
 import { Subject } from 'rxjs';
@@ -7,6 +7,7 @@ import { ElectronService } from 'src/app/services/desktop/electron.service';
 import { Config } from 'src/config/config';
 import { BaseComponent } from '../../base.component';
 import { debounceTime } from 'rxjs/operators';
+import { DirectoryService, DirectoryServiceToken } from 'src/app/interfaces/directory.service';
 
 @Component({
   selector: 'app-configtool',
@@ -21,7 +22,8 @@ export class ConfigtoolComponent extends BaseComponent implements OnInit, OnDest
 
   constructor(
     private electronService: ElectronService,
-    public config: Config) {
+    public config: Config,
+    @Inject(DirectoryServiceToken) private directoryService: DirectoryService) {
     super();
   }
 
@@ -92,7 +94,12 @@ export class ConfigtoolComponent extends BaseComponent implements OnInit, OnDest
     }
     try {
       const fileContents = this.electronService.fs.readFileSync(path, { encoding: 'utf8' });
-      this.electronService.fs.writeFileSync(path.replace('engine_config.xml', 'engine_config_backup.xml'), fileContents);
+      const version = this.directoryService.gameVersion;
+      const backupPath = path.replace('engine_config.xml', `engine_config_backup${version}.xml`);
+      if (!this.electronService.fs.existsSync(backupPath)) {
+        this.electronService.fs.writeFileSync(backupPath, fileContents);
+      }
+
 
       this.writeInfo(`Config backup ${path.replace('engine_config.xml', 'engine_config_backup.xml')} saved`);
 

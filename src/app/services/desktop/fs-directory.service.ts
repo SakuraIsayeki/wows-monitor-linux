@@ -25,6 +25,13 @@ export class FsDirectoryService implements DirectoryService {
   private readDirAsync: (path: fs.PathLike, encoding: BufferEncoding) => Promise<string[]>;
   private readFileAsync: (path: fs.PathLike, encoding: BufferEncoding) => Promise<string>;
 
+  get gameVersion() {
+    if (!this._$status.value) {
+      return '';
+    }
+    return this._$status.value.clientVersion;
+  }
+
   get $status() {
     return this._$status.asObservable();
   }
