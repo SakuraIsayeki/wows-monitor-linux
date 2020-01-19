@@ -5,9 +5,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 export function initUpdater(logger: electronLogger.IElectronLog, win: BrowserWindow, isDebug: boolean) {
-  const configPath = !isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
-  const config = fs.readFileSync(configPath, { encoding: 'utf-8' });
-  const allowBeta = true; // JSON.parse(config).allowBeta;
+  const allowBeta = true;
+  const configPath = isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
+  if (fs.existsSync(configPath)) {
+    const config = fs.readFileSync(configPath, { encoding: 'utf-8' });
+    // allowBeta = JSON.parse(config).allowBeta;
+  }
 
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;

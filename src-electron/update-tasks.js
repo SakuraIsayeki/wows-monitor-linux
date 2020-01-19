@@ -5,9 +5,12 @@ var electron_updater_1 = require("electron-updater");
 var fs = require("fs");
 var path = require("path");
 function initUpdater(logger, win, isDebug) {
-    var configPath = !isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
-    var config = fs.readFileSync(configPath, { encoding: 'utf-8' });
-    var allowBeta = true; // JSON.parse(config).allowBeta;
+    var allowBeta = true;
+    var configPath = isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
+    if (fs.existsSync(configPath)) {
+        var config = fs.readFileSync(configPath, { encoding: 'utf-8' });
+        // allowBeta = JSON.parse(config).allowBeta;
+    }
     electron_updater_1.autoUpdater.autoDownload = false;
     electron_updater_1.autoUpdater.autoInstallOnAppQuit = false;
     electron_updater_1.autoUpdater.channel = allowBeta ? 'beta' : 'release';
