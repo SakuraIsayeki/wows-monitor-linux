@@ -3,7 +3,7 @@ import { BaseComponent } from '../../base.component';
 import { SignalrServiceToken, SignalrService } from 'src/app/interfaces/signalr.service';
 import { Config } from 'src/config/config';
 import { map, filter } from 'rxjs/operators';
-import { faWifi } from '@fortawesome/free-solid-svg-icons';
+import { faWifi, faPaintBrush } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-monitor',
@@ -12,6 +12,7 @@ import { faWifi } from '@fortawesome/free-solid-svg-icons';
 export class MonitorComponent extends BaseComponent implements OnInit {
 
   faWifi = faWifi;
+  faPaintBrush = faPaintBrush;
 
   get $fontSizeClass() {
     return this.config.$fontsize.pipe(map(fz => 'fz-' + fz));

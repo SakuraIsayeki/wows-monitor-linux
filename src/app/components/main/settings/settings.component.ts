@@ -1,16 +1,20 @@
-import { Component, OnInit, OnDestroy, Optional } from '@angular/core';
-import { BaseComponent } from '../../base.component';
-import { Config } from 'src/config/config';
+import { AfterViewInit, Component, OnDestroy, OnInit, Optional } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { faDesktop } from '@fortawesome/free-solid-svg-icons';
 import { SelectItem } from 'primeng/api';
-import { ElectronService } from 'src/app/services/desktop/electron.service';
-import { skip, switchMap } from 'rxjs/operators';
 import { from } from 'rxjs';
+import { skip, switchMap } from 'rxjs/operators';
+import { ElectronService } from 'src/app/services/desktop/electron.service';
+import { Config } from 'src/config/config';
+import { BaseComponent } from '../../base.component';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html'
 })
-export class SettingsComponent extends BaseComponent implements OnInit, OnDestroy {
+export class SettingsComponent extends BaseComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  faDesktop = faDesktop;
 
   fontSizeOptions: SelectItem[] = [
     {
@@ -95,7 +99,9 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
     }
   ];
 
-  constructor(public config: Config, @Optional() private electronService: ElectronService) {
+  constructor(public config: Config,
+    @Optional() private electronService: ElectronService,
+    private activatedRoute: ActivatedRoute) {
     super();
   }
 
@@ -109,8 +115,20 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
     });
   }
 
+  ngAfterViewInit() {
+    this.activatedRoute.params
+      .pipe(this.untilDestroy())
+      .subscribe(params => {
+        if (params.goto) {
+          const scrollView = document.getElementsByClassName('ui-scrollpanel-content')[0];
+          const el = document.getElementById(params.goto);
+          setTimeout(() => scrollView.scrollTo({ top: el.offsetTop }), 0);
+        }
+      });
+  }
+
   async selectReplaysPath() {
-    var odr = await this.electronService.dialog.showOpenDialog(this.electronService.remote.BrowserWindow.getFocusedWindow(), {
+    const odr = await this.electronService.dialog.showOpenDialog(this.electronService.remote.BrowserWindow.getFocusedWindow(), {
       defaultPath: this.config.selectedDirectory,
       properties: ['openDirectory']
     });

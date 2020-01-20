@@ -48,6 +48,47 @@ a {
 }
 
 
+.floating-buttons {
+  position: fixed;
+  bottom: 3em;
+  left: 3em;
+  z-index: 99;
+  opacity: 0;
+  transition: .3s all ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  a {
+    position: relative;
+    background: $primaryColor;
+    color: #FFF !important;
+    display: block;
+    border-radius: 50%;
+    height: 2.5em;
+    font-size: 1.5em;
+    width: 2.5em;
+    cursor: pointer;
+    transition: .3s all ease-in-out;
+
+    &:hover,
+    &:active {
+
+      background: $primaryDarkColor;
+    }
+
+    fa-icon {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+
 
 .custom .ui-scrollpanel-wrapper {
   border-right: 9px solid fade-out($secondaryDarkColor, $amount: 0.5);
@@ -188,4 +229,11 @@ main {
 @media (min-width: 1000px) {}
 
 /* Larger than Desktop HD */
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 1800px) {
+  .floating-buttons {
+    opacity: 1;
+  }
+}

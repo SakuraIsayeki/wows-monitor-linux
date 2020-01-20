@@ -11,6 +11,15 @@ const routes: Routes = [
         title: 'meta.settings.title'
       }
     }
+  },
+  {
+    path: ':goto',
+    component: SettingsComponent,
+    data: {
+      meta: {
+        title: 'meta.settings.title'
+      }
+    }
   }
 ];
 

@@ -11,6 +11,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingsComponent } from './settings.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { DropdownModule } from 'primeng/dropdown';
     InputSwitchModule,
     DropdownModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    FontAwesomeModule
   ],
   providers: [
   ]

@@ -1,3 +1,9 @@
+<div class="floating-buttons">
+  <a routerLink="/home">
+    <fa-icon [icon]="faDesktop" [fixedWidth]="true"></fa-icon>
+  </a>
+</div>
+
 <div class="container small settings">
   <p-card>
     <h2>{{ 'settings.header' | translate}}</h2>
@@ -38,6 +44,7 @@
       </article>
     </section>
     <section>
+      <a id="appearance" href="#appearance"></a>
       <h3>{{ 'settings.appearance.title' | translate }}</h3>
       <article>
         <caption>

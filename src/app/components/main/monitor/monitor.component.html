@@ -1,3 +1,9 @@
+<div class="floating-buttons">
+  <a routerLink="/home/settings/appearance">
+    <fa-icon [icon]="faPaintBrush" [fixedWidth]="true"></fa-icon>
+  </a>
+</div>
+
 <div class="container {{$fontSizeClass | async}}" *ngIf="signalrService.$info | async;let matchInfo">
   <p-card id="monitor-friendly-clan" class="no-padding">
     <app-team [clan]="matchInfo.friendlyClan" [team]="matchInfo.friendlyTeam" [cw]="matchInfo.matchGroup == 'CLAN'">
