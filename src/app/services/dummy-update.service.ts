@@ -6,6 +6,8 @@ export class DummyUpdateService implements UpdateService {
   $updateAvailable: Observable<boolean> = of(false);
   $updateProgress: Observable<number>;
 
+  updateChecked: boolean;
+
   constructor() { }
 
   checkForUpdate() {

@@ -1,8 +1,8 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { DialogService } from 'primeng/api';
 import { ApiService } from 'src/app/services/api.service';
 import { Config } from 'src/config/config';
 import { BaseComponent } from '../base.component';
-import { DialogService } from 'primeng/api';
 import { ChangelogComponent } from './changelogs/changelog/changelog.component';
 
 @Component({
@@ -11,7 +11,9 @@ import { ChangelogComponent } from './changelogs/changelog/changelog.component';
 })
 export class MainComponent extends BaseComponent implements AfterViewInit {
 
-  constructor(private apiService: ApiService, private config: Config, private dialogService: DialogService) {
+  constructor(private apiService: ApiService,
+    private config: Config,
+    private dialogService: DialogService) {
     super();
   }
 
@@ -21,7 +23,7 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
       .pipe(this.untilDestroy())
       .subscribe(changelog => {
         if (!this.config.seenChangelogs || !this.config.seenChangelogs.some(id => id == changelog.id)) {
-          let ref = this.dialogService.open(ChangelogComponent, {
+          const ref = this.dialogService.open(ChangelogComponent, {
             styleClass: 'custom-popup ' + (this.isDesktop ? 'desktop' : 'browser'),
             header: this.translateService.instant('changelogs.dialogHeader', { version: changelog.version }),
             data: {

@@ -8,50 +8,12 @@ import { AnalyticsService, AnalyticsServiceToken } from '../interfaces/analytics
 import { LoggerService, LoggerServiceToken } from '../interfaces/logger.service';
 import { LocatorService } from '../services/locator.service';
 
-export class BaseComponent implements OnDestroy {
+export class BaseInjection {
 
-  private appRef: ApplicationRef;
   private messageService: MessageService;
-  private loggerService: LoggerService;
-  private ngUnsubscribe = new Subject();
-
-  ngZone: NgZone;
-  translateService: TranslateService;
-  analyticsService: AnalyticsService;
 
   constructor() {
-    this.appRef = LocatorService.Injector.get(ApplicationRef);
-    this.ngZone = LocatorService.Injector.get(NgZone);
-    this.loggerService = LocatorService.Injector.get(LoggerServiceToken) as LoggerService;
-    this.translateService = LocatorService.Injector.get(TranslateService) as TranslateService;
     this.messageService = LocatorService.Injector.get(MessageService);
-    this.analyticsService = LocatorService.Injector.get(AnalyticsServiceToken) as AnalyticsService;
-  }
-
-  get isStable(): Observable<boolean> {
-    return this.appRef.isStable.pipe(filter(stable => stable), take(1), this.untilDestroy());
-  }
-
-  get isDesktop() {
-    return environment.desktop;
-  }
-
-  get isBrowser() {
-    return environment.browser;
-  }
-
-  get isProduction() {
-    return environment.production;
-  }
-
-  logDebug(...args: any[]) {
-    if (!environment.production) {
-      this.loggerService.debug(...args);
-    }
-  }
-
-  logError(...args: any[]) {
-    this.loggerService.error(...args);
   }
 
   uiSuccess(messageKey: string) {
@@ -82,6 +44,50 @@ export class BaseComponent implements OnDestroy {
       summary: 'uiMessages.summaries.error',
       detail: `uiMessages.messages.${messageKey}`
     });
+  }
+}
+
+export class BaseComponent extends BaseInjection implements OnDestroy {
+
+  private appRef: ApplicationRef;
+  private loggerService: LoggerService;
+  private ngUnsubscribe = new Subject();
+
+  ngZone: NgZone;
+  translateService: TranslateService;
+  analyticsService: AnalyticsService;
+
+  constructor() {
+    super();
+    this.appRef = LocatorService.Injector.get(ApplicationRef);
+    this.ngZone = LocatorService.Injector.get(NgZone);
+    this.loggerService = LocatorService.Injector.get(LoggerServiceToken) as LoggerService;
+    this.translateService = LocatorService.Injector.get(TranslateService) as TranslateService;
+    this.analyticsService = LocatorService.Injector.get(AnalyticsServiceToken) as AnalyticsService;
+  }
+
+  get isStable(): Observable<boolean> {
+    return this.appRef.isStable.pipe(filter(stable => stable), take(1), this.untilDestroy());
+  }
+
+  get isDesktop() {
+    return environment.desktop;
+  }
+
+  get isBrowser() {
+    return environment.browser;
+  }
+
+  get isProduction() {
+    return environment.production;
+  }
+
+  logDebug(...args: any[]) {
+    this.loggerService.debug(...args);
+  }
+
+  logError(...args: any[]) {
+    this.loggerService.error(...args);
   }
 
   ngOnDestroy() {

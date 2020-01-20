@@ -4,12 +4,16 @@ import { UpdateService, UpdateServiceToken } from 'src/app/interfaces/update.ser
 import { BaseComponent } from '../base.component';
 import { of, interval } from 'rxjs';
 import { skip } from 'rxjs/operators';
+import { LoggerServiceToken, LoggerService } from 'src/app/interfaces/logger.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-default',
   templateUrl: './default.component.html'
 })
 export class DefaultComponent extends BaseComponent implements OnInit, OnDestroy {
+
+  updating = false;
 
   get updateProgress() {
     if (this.isBrowser) {
@@ -27,19 +31,17 @@ export class DefaultComponent extends BaseComponent implements OnInit, OnDestroy
   }
 
   ngOnInit() {
-    this.updateService.$updateAvailable.pipe(this.untilDestroy(), skip(1)).subscribe(available => this.handleUpdate(available));
-    this.checkForUpdate();
-  }
-
-  checkForUpdate() {
-    if (this.isBrowser) {
-      interval(2000).pipe(this.untilDestroy()).subscribe(() => this.handleUpdate(false));
+    if (environment.desktop) {
+      this.updateService.$updateAvailable.pipe(this.untilDestroy(), skip(1)).subscribe(available => this.handleUpdate(available));
+      this.updateService.checkForUpdate();
+    } else {
+      this.router.navigateByUrl('/home');
     }
-    this.updateService.checkForUpdate();
   }
 
   private handleUpdate(available) {
     if (available) {
+      this.updating = true;
       this.updateService.quitAndInstall();
     } else {
       this.ngZone.run(() => {

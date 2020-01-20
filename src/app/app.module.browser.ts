@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { AppSharedModule } from './app.module.shared';
 import { AnalyticsServiceToken } from './interfaces/analytics.service';
 import { ConfigServiceToken } from './interfaces/config.service';
-import { LoggerServiceToken } from './interfaces/logger.service';
+import { LoggerServiceToken, LoggerService } from './interfaces/logger.service';
 import { SignalrServiceToken } from './interfaces/signalr.service';
 import { UpdateServiceToken } from './interfaces/update.service';
 import { ConsoleLoggerService } from './services/browser/console.logger.service';
@@ -17,9 +17,9 @@ import { CommonSignalrService } from './services/common-signalr.service';
 import { DummyAnalyticsService } from './services/dummy-analytics.service';
 import { DummyUpdateService } from './services/dummy-update.service';
 
-const updateServiceFactory = (swUpdate?: SwUpdate) => {
+const updateServiceFactory = (swUpdate?: SwUpdate, logger?: LoggerService) => {
   return environment.production
-    ? new ServiceWorkerUpdateService(swUpdate)
+    ? new ServiceWorkerUpdateService(swUpdate, logger)
     : new DummyUpdateService();
 };
 
@@ -38,7 +38,7 @@ const analyticsServiceFactory = (config: Config) => {
     { provide: ConfigServiceToken, useClass: LocalStorageConfigService },
     { provide: LoggerServiceToken, useClass: ConsoleLoggerService },
     { provide: SignalrServiceToken, useClass: CommonSignalrService },
-    { provide: UpdateServiceToken, useFactory: updateServiceFactory, deps: [SwUpdate] },
+    { provide: UpdateServiceToken, useFactory: updateServiceFactory, deps: [SwUpdate, LoggerServiceToken] },
     { provide: AnalyticsServiceToken, useFactory: analyticsServiceFactory, deps: [Config] },
     Config
   ],

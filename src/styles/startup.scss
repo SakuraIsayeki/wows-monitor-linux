@@ -15,6 +15,16 @@
       margin-bottom: 10px;
       display: block;
     }
+
+    > div {
+      padding: .5em 0;
+      width: calc(100% + 3em);
+      transform: translateX(-1.5em);
+    }
+
+    .ui-progressbar {
+      height: .3em;
+    }
   }
 }
 

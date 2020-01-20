@@ -5,6 +5,8 @@ export const UpdateServiceToken = new InjectionToken('update-service');
 
 export interface UpdateService {
 
+  updateChecked: boolean;
+
   $updateAvailable: Observable<boolean>;
   $updateProgress: Observable<number>;
 

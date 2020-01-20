@@ -6,6 +6,7 @@ import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '
 import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MessageService } from 'primeng/api';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { appConfig } from 'src/config/app.config';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -76,7 +77,8 @@ const metaFactory = (translate: TranslateService) => {
       provide: MetaLoader,
       useFactory: (metaFactory),
       deps: [TranslateService]
-    })
+    }),
+    ProgressBarModule
   ],
   providers: [
     { provide: ErrorHandler, useClass: CommonErrorHandler },

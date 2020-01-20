@@ -207,6 +207,7 @@
       "hostDisconnected": "Desktop client disconnected",
       "matchUpdated": "Match updated.",
       "noServiceConnection": "Service could not be connected.",
+      "restartForUpdate": "App updating..",
       "serviceConnected": "Service successfully connected.",
       "serviceDisconnected": "Service has been disconnected.",
       "serviceError": "Error in the api service",

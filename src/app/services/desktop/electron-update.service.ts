@@ -1,17 +1,16 @@
 import { Inject } from '@angular/core';
-import { UpdateCheckResult } from 'electron-updater';
-import { Observable, Observer, of, BehaviorSubject } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { ElectronService } from './electron.service';
+import { BehaviorSubject } from 'rxjs';
+import { Config } from 'src/config/config';
 import { LoggerService, LoggerServiceToken } from '../../interfaces/logger.service';
 import { UpdateService } from '../../interfaces/update.service';
-import { Config } from 'src/config/config';
+import { ElectronService } from './electron.service';
 
 export class ElectronUpdateService implements UpdateService {
 
   private _$updateAvailable = new BehaviorSubject<boolean>(null);
   private _$updateProgress = new BehaviorSubject<number>(0);
+
+  updateChecked: boolean;
 
   get $updateAvailable() {
     return this._$updateAvailable.asObservable();
