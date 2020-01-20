@@ -10,6 +10,7 @@ type PlayerBackgrounds = 'pr' | 'wr' | 'accwr' | 'avgDmg';
 type FontSize = 'small' | 'normal' | 'big' | 'huge';
 type PlayerBackgroundsMode = 'disabled' | 'background' | 'border';
 type LayoutMode = 'normal' | 'compact' | 'legacy';
+type TeamWinrate = 'average' | 'weighted' | 'median';
 
 export interface ConfigOptions {
   autoUpdate?: boolean;
@@ -22,6 +23,7 @@ export interface ConfigOptions {
   highContrastMode?: boolean;
   fontsize?: FontSize;
   coloredValues?: boolean;
+  teamWinrate?: TeamWinrate;
   overwriteReplaysDirectory?: string;
   seenChangelogs?: number[];
   closeToTray?: boolean;
@@ -36,6 +38,7 @@ export const defaultConfig: ConfigOptions = {
   playerBackgroundsMode: 'background',
   fontsize: 'normal',
   coloredValues: true,
+  teamWinrate: 'average',
   seenChangelogs: [],
   uuid: environment.desktop ? uuidv4() : '',
   configtoolConfig: defaultConfigtoolConfig
@@ -59,6 +62,7 @@ export class Config implements ConfigOptions {
       this.highContrastMode = config.highContrastMode;
       this.fontsize = config.fontsize;
       this.coloredValues = config.coloredValues;
+      this.teamWinrate = config.teamWinrate;
       this.overwriteReplaysDirectory = config.overwriteReplaysDirectory;
       this.seenChangelogs = config.seenChangelogs;
       this.closeToTray = config.closeToTray;
@@ -79,6 +83,7 @@ export class Config implements ConfigOptions {
       this.$highContrastMode,
       this.$fontsize,
       this.$useColoredValues,
+      this.$teamWinrate,
       this.$overwriteReplaysDirectory,
       this.$closeToTray
     ]).pipe(share());
@@ -97,6 +102,7 @@ export class Config implements ConfigOptions {
       highContrastMode: this.highContrastMode,
       fontsize: this._fontsize,
       coloredValues: this._coloredValues,
+      teamWinrate: this._teamWinrate,
       overwriteReplaysDirectory: this._overwriteReplaysDirectory,
       seenChangelogs: this._seenChangelogs,
       closeToTray: this._closeToTray,
@@ -281,6 +287,23 @@ export class Config implements ConfigOptions {
 
   get $useColoredValues() {
     return this._$coloredValues.asObservable();
+  }
+
+  // TeamWinrate
+  private _teamWinrate: TeamWinrate;
+  private _$teamWinrate = new BehaviorSubject<TeamWinrate>(null);
+
+  get teamWinrate() {
+    return this._teamWinrate;
+  }
+
+  set teamWinrate(value) {
+    this._teamWinrate = value;
+    this._$teamWinrate.next(value);
+  }
+
+  get $teamWinrate() {
+    return this._$teamWinrate.asObservable();
   }
 
   // OverwriteReplaysDirectory

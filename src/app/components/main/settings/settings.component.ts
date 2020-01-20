@@ -80,6 +80,21 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
     }
   ];
 
+  teamWinrateOptions: SelectItem[] = [
+    {
+      label: 'settings.appearance.teamWinrate.items.average',
+      value: 'average'
+    },
+    {
+      label: 'settings.appearance.teamWinrate.items.weighted',
+      value: 'weighted'
+    },
+    {
+      label: 'settings.appearance.teamWinrate.items.median',
+      value: 'median'
+    }
+  ];
+
   constructor(public config: Config, @Optional() private electronService: ElectronService) {
     super();
   }

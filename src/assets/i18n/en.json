@@ -168,6 +168,15 @@
         },
         "summary": "Choose wether you want the player panels to have the background color as the actual background, just on the left border or not at all."
       },
+      "teamWinrate": {
+        "caption": "Team Winrate",
+        "items": {
+          "average": "Average",
+          "median": "Median",
+          "weighted": "Weighted"
+        },
+        "summary": "Select what type of average winrate you want to see in the team panels."
+      },
       "title": "Appearance"
     },
     "general": {

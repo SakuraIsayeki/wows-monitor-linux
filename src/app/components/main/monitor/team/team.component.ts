@@ -3,6 +3,7 @@ import { BaseComponent } from '../../../base.component';
 import { MenuItem } from 'primeng/api';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Config } from 'src/config/config';
 
 @Component({
   selector: 'app-team',
@@ -26,7 +27,27 @@ export class TeamComponent extends BaseComponent implements OnInit {
 
   items: MenuItem[];
 
-  constructor(public el: ElementRef, @Optional() private electronService: ElectronService) {
+  get shipWinrate() {
+    if (this.config.teamWinrate === 'weighted') {
+      return this.team.weightedShipWinrate;
+    } else if (this.config.teamWinrate === 'median') {
+      return this.team.medianShipWinrate;
+    }
+    return this.team.shipWinrate;
+  }
+
+  get overallWinrate() {
+    if (this.config.teamWinrate === 'weighted') {
+      return this.team.weightedOverallWinrate;
+    } else if (this.config.teamWinrate === 'median') {
+      return this.team.medianOverallWinrate;
+    }
+    return this.team.overallWinrate;
+  }
+
+  constructor(public el: ElementRef,
+    private config: Config,
+    @Optional() private electronService: ElectronService) {
     super();
   }
 

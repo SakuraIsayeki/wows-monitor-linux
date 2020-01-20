@@ -129,10 +129,25 @@
           <p-inputSwitch [(ngModel)]="config.coloredValues"></p-inputSwitch>
         </div>
       </article>
+      <article>
+        <caption>
+          {{ 'settings.appearance.teamWinrate.caption' | translate }}
+        </caption>
+        <summary>
+          {{ 'settings.appearance.teamWinrate.summary' | translate }}
+        </summary>
+        <div class="input-wrap">
+          <p-selectButton [options]="teamWinrateOptions" [(ngModel)]="config.teamWinrate">
+            <ng-template let-item>
+              <span class="ui-button-text ui-clickable ng-star-inserted">{{item.label | translate}}</span>
+            </ng-template>
+          </p-selectButton>
+        </div>
+      </article>
     </section>
-    <section>
+    <section *isDesktop>
       <h3>{{ 'settings.miscellaneous.title' | translate }}</h3>
-      <article *isDesktop>
+      <article>
         <caption>
           {{ 'settings.miscellaneous.overwriteReplaysDirectory.caption' | translate }}
         </caption>
