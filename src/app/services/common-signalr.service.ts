@@ -8,9 +8,10 @@ import { Config } from 'src/config/config';
 import { environment } from 'src/environments/environment';
 import { LoggerService, LoggerServiceToken } from '../interfaces/logger.service';
 import { ApiService } from './api.service';
+import { BaseInjection } from '../components/base.component';
 
 @Injectable()
-export class CommonSignalrService implements SignalrService {
+export class CommonSignalrService extends BaseInjection implements SignalrService {
 
   private connection: HubConnection;
   private _$socketStatus = new BehaviorSubject<SignalrStatus>(SignalrStatus.None);
@@ -48,6 +49,7 @@ export class CommonSignalrService implements SignalrService {
     @Inject(LoggerServiceToken) private loggerService: LoggerService,
     private apiService: ApiService
   ) {
+    super();
   }
 
   async init() {
@@ -106,6 +108,11 @@ export class CommonSignalrService implements SignalrService {
     });
 
     this.connection.on('HostDisconnected', () => {
+      if (this._$socketStatus.value === SignalrStatus.HostConnected) {
+        this.uiWarn('hostLost');
+      } else {
+        this.uiWarn('noHostPaired');
+      }
       this._$socketStatus.next(SignalrStatus.HostDisconnected);
     });
 
