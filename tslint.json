@@ -27,7 +27,7 @@
     ],
     "member-access": [true, "no-public"],
     "member-ordering": [
-      true,
+      false,
       {
         "order": [
           "private-static-field",

@@ -7,13 +7,14 @@ export type PathBase = 'CWD' | 'EXE_PATH';
 
 export interface DirectoryService {
 
-  gameVersion: string;
+  currentStatus: DirectoryStatus;
   /** returns file content */
   $changeDetected: Observable<string>;
   $status: Observable<DirectoryStatus>;
 
   changePath(path: string): void;
   refresh(): void;
+  getResFolderPath(basePath: string, status?: DirectoryStatus): Promise<string>;
 }
 
 export interface DirectoryStatus {

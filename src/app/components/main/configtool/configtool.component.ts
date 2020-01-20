@@ -33,7 +33,7 @@ export class ConfigtoolComponent extends BaseComponent implements OnInit, OnDest
     });
   }
 
-  start() {
+  async start() {
     this.lines = [];
     const combinedPaths = [...this.config.configtoolConfig.clientPaths];
     combinedPaths.unshift(this.config.selectedDirectory);
@@ -44,8 +44,12 @@ export class ConfigtoolComponent extends BaseComponent implements OnInit, OnDest
 
       this.writeWarn(i === 0 ? 'Processing main client' : `Processing client ${i}`);
 
-      this.res(path, this.config.configtoolConfig);
-      this.resMods(path, this.config.configtoolConfig);
+      let resPath = pathJoin(path, 'res');
+      if (this.directoryService.currentStatus.steamVersion) {
+        resPath = await this.directoryService.getResFolderPath(path);
+      }
+      await this.setValues(pathJoin(resPath, 'engine_config.xml'), this.config.configtoolConfig);
+      await this.setValues(pathJoin(resPath + '_mods', this.directoryService.currentStatus.clientVersion, 'engine_config.xml'), this.config.configtoolConfig);
     }
   }
 
@@ -74,19 +78,6 @@ export class ConfigtoolComponent extends BaseComponent implements OnInit, OnDest
     super.ngOnDestroy();
   }
 
-  private res(gamePath: string, config: ConfigtoolConfig) {
-    const resPath = pathJoin(gamePath, 'res', 'engine_config.xml');
-    this.setValues(resPath, config);
-  }
-
-  private resMods(gamePath: string, config: ConfigtoolConfig) {
-    const resModsPath = pathJoin(gamePath, 'res_mods');
-    this.electronService.fs.readdirSync(resModsPath).forEach(folder => {
-      const path = pathJoin(resModsPath, folder, 'engine_config.xml');
-      this.setValues(path, config);
-    });
-  }
-
   private setValues(path: string, config: ConfigtoolConfig) {
     if (!this.electronService.fs.existsSync(path)) {
       this.writeWarn(`Couldn't find config in ${path}`);
@@ -94,7 +85,7 @@ export class ConfigtoolComponent extends BaseComponent implements OnInit, OnDest
     }
     try {
       const fileContents = this.electronService.fs.readFileSync(path, { encoding: 'utf8' });
-      const version = this.directoryService.gameVersion;
+      const version = this.directoryService.currentStatus.clientVersion;
       const backupPath = path.replace('engine_config.xml', `engine_config_backup${version}.xml`);
       if (!this.electronService.fs.existsSync(backupPath)) {
         this.electronService.fs.writeFileSync(backupPath, fileContents);

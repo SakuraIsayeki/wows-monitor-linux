@@ -25,11 +25,8 @@ export class FsDirectoryService implements DirectoryService {
   private readDirAsync: (path: fs.PathLike, encoding: BufferEncoding) => Promise<string[]>;
   private readFileAsync: (path: fs.PathLike, encoding: BufferEncoding) => Promise<string>;
 
-  get gameVersion() {
-    if (!this._$status.value) {
-      return '';
-    }
-    return this._$status.value.clientVersion;
+  get currentStatus() {
+    return this._$status.value;
   }
 
   get $status() {
@@ -132,7 +129,11 @@ export class FsDirectoryService implements DirectoryService {
     }
   }
 
-  private async getResFolderPath(basePath: string, status: DirectoryStatus) {
+  async getResFolderPath(basePath: string, status?: DirectoryStatus) {
+    if (status == null) {
+      status = this._$status.value;
+    }
+
     if (!status.steamVersion) {
       return pathJoin(basePath, 'res');
     } else {
