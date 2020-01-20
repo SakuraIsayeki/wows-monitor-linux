@@ -27,7 +27,7 @@ export function initUpdater(logger: electronLogger.IElectronLog, win: BrowserWin
 
   ipcMain.on('quitAndInstall', (event, args) => {
     logger.debug('[Electron]', '(quitAndInstall)');
-    autoUpdater.quitAndInstall();
+    autoUpdater.downloadUpdate();
   });
 
   autoUpdater.on('checking-for-update', () => {
@@ -38,7 +38,6 @@ export function initUpdater(logger: electronLogger.IElectronLog, win: BrowserWin
   autoUpdater.on('update-available', (info) => {
     logger.debug('[Electron]', '(update-available)');
     win.webContents.send('update-available');
-    autoUpdater.downloadUpdate();
   });
 
   autoUpdater.on('update-not-available', (info) => {
@@ -59,5 +58,6 @@ export function initUpdater(logger: electronLogger.IElectronLog, win: BrowserWin
   autoUpdater.on('update-downloaded', (info) => {
     logger.debug('[Electron]', '(update-downloaded)');
     win.webContents.send('update-downloaded');
+    autoUpdater.quitAndInstall();
   });
 }

@@ -25,7 +25,7 @@ function initUpdater(logger, win, isDebug) {
     });
     electron_1.ipcMain.on('quitAndInstall', function (event, args) {
         logger.debug('[Electron]', '(quitAndInstall)');
-        electron_updater_1.autoUpdater.quitAndInstall();
+        electron_updater_1.autoUpdater.downloadUpdate();
     });
     electron_updater_1.autoUpdater.on('checking-for-update', function () {
         logger.debug('[Electron]', '(checking-for-update)');
@@ -34,7 +34,6 @@ function initUpdater(logger, win, isDebug) {
     electron_updater_1.autoUpdater.on('update-available', function (info) {
         logger.debug('[Electron]', '(update-available)');
         win.webContents.send('update-available');
-        electron_updater_1.autoUpdater.downloadUpdate();
     });
     electron_updater_1.autoUpdater.on('update-not-available', function (info) {
         logger.debug('[Electron]', '(update-not-available)');
@@ -51,6 +50,7 @@ function initUpdater(logger, win, isDebug) {
     electron_updater_1.autoUpdater.on('update-downloaded', function (info) {
         logger.debug('[Electron]', '(update-downloaded)');
         win.webContents.send('update-downloaded');
+        electron_updater_1.autoUpdater.quitAndInstall();
     });
 }
 exports.initUpdater = initUpdater;

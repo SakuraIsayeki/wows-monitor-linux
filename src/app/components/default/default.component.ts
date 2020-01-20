@@ -41,8 +41,10 @@ export class DefaultComponent extends BaseComponent implements OnInit, OnDestroy
 
   private handleUpdate(available) {
     if (available) {
-      this.updating = true;
-      this.updateService.quitAndInstall();
+      this.ngZone.run(() => {
+        this.updating = true;
+      });
+      setTimeout(() => this.updateService.quitAndInstall(), 2000);
     } else {
       this.ngZone.run(() => {
         this.router.navigateByUrl('/home');

@@ -28,6 +28,7 @@ export class ElectronUpdateService implements UpdateService {
     electronService.ipcRenderer.on('checking-for-update', () => { });
     electronService.ipcRenderer.on('update-available', () => {
       loggerService.debug('update-available');
+      this._$updateAvailable.next(true);
     });
 
     electronService.ipcRenderer.on('update-not-available', () => {
@@ -35,8 +36,8 @@ export class ElectronUpdateService implements UpdateService {
       this._$updateAvailable.next(false);
     });
 
-    electronService.ipcRenderer.on('update-error', () => {
-      loggerService.debug('update-error');
+    electronService.ipcRenderer.on('update-error', (event) => {
+      loggerService.debug('update-error', event);
       this._$updateAvailable.next(false);
     });
 
