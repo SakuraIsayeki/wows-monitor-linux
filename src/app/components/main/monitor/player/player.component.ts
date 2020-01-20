@@ -38,10 +38,10 @@ export class PlayerComponent extends BaseComponent implements OnInit {
       if (this.config.playerBackgrounds === 'pr') {
         return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.personalRatingColor + '28');
       }
-      if (this.config.playerBackgrounds === 'wr') {
+      if (this.config.playerBackgrounds === 'wr' && this.player.shipStats.battles > 0) {
         return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.winrateColor + '28');
       }
-      if (this.config.playerBackgrounds === 'accwr') {
+      if (this.config.playerBackgrounds === 'accwr' || (this.config.playerBackgrounds === 'wr' && this.player.shipStats.battles <= 0)) {
         return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.overallStats.winrateColor + '28');
       }
       if (this.config.playerBackgrounds === 'avgDmg') {
@@ -57,10 +57,10 @@ export class PlayerComponent extends BaseComponent implements OnInit {
       if (this.config.playerBackgrounds === 'pr') {
         return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.personalRatingColor + '99');
       }
-      if (this.config.playerBackgrounds === 'wr') {
+      if (this.config.playerBackgrounds === 'wr' && this.player.shipStats.battles > 0) {
         return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.winrateColor + '99');
       }
-      if (this.config.playerBackgrounds === 'accwr') {
+      if (this.config.playerBackgrounds === 'accwr' || (this.config.playerBackgrounds === 'wr' && this.player.shipStats.battles <= 0)) {
         return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.overallStats.winrateColor + '99');
       }
       if (this.config.playerBackgrounds === 'avgDmg') {
