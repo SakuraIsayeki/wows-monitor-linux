@@ -1,9 +1,8 @@
-import { Component, OnInit, Inject, Input, ElementRef, ViewChild, Optional } from '@angular/core';
-import { BaseComponent } from '../../../base.component';
+import { Component, ElementRef, Input, OnInit, Optional, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
-import { TranslateService } from '@ngx-translate/core';
 import { Config } from 'src/config/config';
+import { BaseComponent } from '../../../base.component';
 
 @Component({
   selector: 'app-team',

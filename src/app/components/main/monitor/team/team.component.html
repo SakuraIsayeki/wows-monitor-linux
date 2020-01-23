@@ -3,7 +3,7 @@
   <span>{{clan.name}} ({{clan.region | region}})</span>
 </h3>
 <span *ngIf="cw && clan" translate="monitor.cw.text"
-  [translateParams]="{ rank: clan.rank, league: 'monitor.cw.leagues.' + clan.mainRating.league | translate, division: clan.mainRating.division | roman, winrate: (clan.mainRating.wins/clan.mainRating.battles * 100) | number:'0.0-2' }">
+  [translateParams]="{ rank: clan.rank, league: 'monitor.cw.leagues.' + clan.leadingRating.league | translate, division: clan.leadingRating.division | roman, winrate: (clan.leadingRating.wins/clan.leadingRating.battles * 100) | number:'0.0-2' }">
 </span>
 <span *ngIf="!cw" class="team-overall-wrapper">
   <span class="inner">
@@ -33,33 +33,33 @@
     <span [style.color]="clan.color | sanitizeCss">[{{clan.tag}}]</span>&nbsp;
     <span>{{clan.name}} ({{clan.region | region}})</span>
   </p-header>
-  <ng-container *ngIf="clan.mainRating">
+  <ng-container *ngIf="clan.alphaRating">
     <h3>
-      Main Rating
+      Alpha Rating
     </h3>
     <pre>
-League:         {{ 'monitor.cw.leagues.' +clan.mainRating.league | translate }}
-Division:       {{ clan.mainRating.division | roman }}
-Points:         {{ clan.mainRating.rating }}
-Battles:        {{ clan.mainRating.battles }}
-Wins:           {{ clan.mainRating.wins }}
-Longest Streak: {{ clan.mainRating.longestWinningStreak }}
-Current Streak: {{ clan.mainRating.currentWinningStreak }}
+League:         {{ 'monitor.cw.leagues.' +clan.alphaRating.league | translate }}
+Division:       {{ clan.alphaRating.division | roman }}
+Points:         {{ clan.alphaRating.rating }}
+Battles:        {{ clan.alphaRating.battles }}
+Wins:           {{ clan.alphaRating.wins }}
+Longest Streak: {{ clan.alphaRating.longestWinningStreak }}
+Current Streak: {{ clan.alphaRating.currentWinningStreak }}
       </pre>
   </ng-container>
 
-  <ng-container *ngIf="clan.secondaryRating">
+  <ng-container *ngIf="clan.bravoRating">
     <h3>
-      Secondary Rating
+      Bravo Rating
     </h3>
     <pre>
-League:         {{ 'monitor.cw.leagues.' +clan.secondaryRating.league | translate }}
-Division:       {{ clan.secondaryRating.division | roman }}
-Points:         {{ clan.secondaryRating.rating }}
-Battles:        {{ clan.secondaryRating.battles }}
-Wins:           {{ clan.secondaryRating.wins }}
-Longest Streak: {{ clan.secondaryRating.longestWinningStreak }}
-Current Streak: {{ clan.secondaryRating.currentWinningStreak }}
+League:         {{ 'monitor.cw.leagues.' +clan.bravoRating.league | translate }}
+Division:       {{ clan.bravoRating.division | roman }}
+Points:         {{ clan.bravoRating.rating }}
+Battles:        {{ clan.bravoRating.battles }}
+Wins:           {{ clan.bravoRating.wins }}
+Longest Streak: {{ clan.bravoRating.longestWinningStreak }}
+Current Streak: {{ clan.bravoRating.currentWinningStreak }}
         </pre>
   </ng-container>
   <!-- <a routerLink="/wcw/{{clan.id}}">Learn more</a> -->
