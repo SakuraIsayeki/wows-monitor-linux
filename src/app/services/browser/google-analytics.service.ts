@@ -10,15 +10,30 @@ declare var gtag: any;
 @Injectable()
 export class BrowserGoogleAnalyticsService implements AnalyticsService {
 
+  private interval: number;
+
   constructor(private appConfig: Config) { }
 
   config(path: string, title?: string) {
     interval(300).pipe(skipWhile(() => gtag === undefined), take(1)).subscribe(() => {
+
+      if (this.interval) {
+        window.clearInterval(this.interval);
+      }
+
       gtag('config', environment.gaCode, {
         page_title: title,
         page_path: path,
         user_id: this.appConfig.signalRToken
       });
+
+      this.interval = window.setInterval(() => {
+        gtag('config', environment.gaCode, {
+          page_title: title,
+          page_path: path,
+          user_id: this.appConfig.signalRToken
+        });
+      }, 30000);
     });
   }
 

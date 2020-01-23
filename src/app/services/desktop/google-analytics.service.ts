@@ -10,7 +10,7 @@ import { ElectronService } from './electron.service';
 export class DesktopGoogleAnalyticsService implements AnalyticsService {
 
   private visitor: ua.visitor;
-
+  private interval: NodeJS.Timeout;
 
   constructor(config: Config, private electronService: ElectronService) {
     config.waitTillLoaded().then(() => this.visitor = ua(environment.gaCode, config.uuid));
@@ -28,8 +28,15 @@ export class DesktopGoogleAnalyticsService implements AnalyticsService {
       vp: `${display.size.width}x${display.size.height}`
     };
 
-    // screenName, appName, appVersion, appId, appInstallerId, params
-    this.visitor.screenview(path, appConfig.applicationName, appConfig.version, appConfig.version, appConfig.version, params, () => { }).send();
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+    this.visitor
+      .screenview(path, appConfig.applicationName, appConfig.version, appConfig.version, appConfig.version, params, () => { }).send();
+    this.interval = setInterval(() => {
+      this.visitor
+        .screenview(path, appConfig.applicationName, appConfig.version, appConfig.version, appConfig.version, params, () => { }).send();
+    }, 30000);
   }
 
   exception(error: string) {
