@@ -49,7 +49,8 @@ export class ConfigtoolComponent extends BaseComponent implements OnInit, OnDest
         resPath = await this.directoryService.getResFolderPath(path);
       }
       await this.setValues(pathJoin(resPath, 'engine_config.xml'), this.config.configtoolConfig);
-      await this.setValues(pathJoin(resPath + '_mods', this.directoryService.currentStatus.clientVersion, 'engine_config.xml'), this.config.configtoolConfig);
+      await this.setValues(pathJoin(resPath + '_mods', this.directoryService.currentStatus.clientVersion, 'engine_config.xml'),
+        this.config.configtoolConfig, true);
     }
   }
 
@@ -78,9 +79,10 @@ export class ConfigtoolComponent extends BaseComponent implements OnInit, OnDest
     super.ngOnDestroy();
   }
 
-  private setValues(path: string, config: ConfigtoolConfig) {
+  private setValues(path: string, config: ConfigtoolConfig, resMods: boolean = false) {
     if (!this.electronService.fs.existsSync(path)) {
-      this.writeWarn(`Couldn't find config in ${path}`);
+      resMods ? this.writeWarn(`Config override not found in ${path}`)
+        : this.writeWarn(`Couldn't find config in ${path}`);
       return;
     }
     try {
