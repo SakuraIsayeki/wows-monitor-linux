@@ -10,10 +10,12 @@ import { ElectronService } from './electron.service';
 export class DesktopGoogleAnalyticsService implements AnalyticsService {
 
   private visitor: ua.visitor;
-  private interval: NodeJS.Timeout;
 
   constructor(config: Config, private electronService: ElectronService) {
-    config.waitTillLoaded().then(() => this.visitor = ua(environment.gaCode, config.uuid));
+    config.waitTillLoaded().then(() => {
+      this.visitor = ua(environment.gaCode, config.uuid);
+      setInterval(() => this.send('heartbeat', 'heartbeat', 'heartbeat', 'heartbeat'), 90000);
+    });
   }
 
   config(path: string, title?: string) {
@@ -28,15 +30,7 @@ export class DesktopGoogleAnalyticsService implements AnalyticsService {
       vp: `${display.size.width}x${display.size.height}`
     };
 
-    if (this.interval) {
-      clearInterval(this.interval);
-    }
-    this.visitor
-      .screenview(path, appConfig.applicationName, appConfig.version, appConfig.version, appConfig.version, params, () => { }).send();
-    this.interval = setInterval(() => {
-      this.visitor
-        .screenview(path, appConfig.applicationName, appConfig.version, appConfig.version, appConfig.version, params, () => { }).send();
-    }, 30000);
+    this.visitor.screenview(path, appConfig.applicationName, appConfig.version, appConfig.version, appConfig.version, params, () => { }).send();
   }
 
   exception(error: string) {
