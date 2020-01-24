@@ -7,6 +7,12 @@
     "dist/app-desktop/**/*",
     "src-electron/*.js"
   ],
+  "extraResources": [
+    {
+      "from": "favicon-tray.ico",
+      "to": ""
+    }
+  ],
   "generateUpdatesFilesForAllChannels": true,
   "win": {
     "icon": "dist/app-desktop/assets/icons",
