@@ -1,5 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
+import { LivefeedItem } from './livefeed-item';
 
 export const SignalrServiceToken = new InjectionToken('signalr-service');
 
@@ -10,9 +11,11 @@ export interface SignalrService {
   $error: Observable<string>;
   $clients: Observable<number>;
 
+  $livefeedUpdate: Observable<LivefeedItem[]>;
+
   connect(): Promise<any>;
   init(): Promise<any>;
-  connectToHost(): Promise<void>;
+  sendSettings(settings: SignalrSettings): Promise<void>;
   resetInfo();
 }
 
@@ -29,4 +32,9 @@ export enum Status {
   Idle = 1,
   Fetching = 2,
   Fetched = 3
+}
+
+export interface SignalrSettings {
+  token?: string,
+  liveUpdate?: boolean;
 }

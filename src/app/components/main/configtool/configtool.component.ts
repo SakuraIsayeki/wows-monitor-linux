@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { j2xParser, parse as parseXml2Json } from 'fast-xml-parser';
 import { join as pathJoin } from 'path';
 import { Subject } from 'rxjs';
-import { ConfigtoolConfig } from 'src/app/interfaces/configtool-config.interface';
+import { ConfigtoolConfig } from 'src/app/interfaces/configtool-config';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
 import { Config } from 'src/config/config';
 import { BaseComponent } from '../../base.component';

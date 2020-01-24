@@ -1,8 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, from, interval, Observable } from 'rxjs';
 import { share, skipWhile, take } from 'rxjs/operators';
+import { ClanWarsConfig, defaultClanWarsConfig } from 'src/app/interfaces/clanwars-config';
 import { ConfigService, ConfigServiceToken } from 'src/app/interfaces/config.service';
-import { ConfigtoolConfig, defaultConfigtoolConfig } from 'src/app/interfaces/configtool-config.interface';
+import { ConfigtoolConfig, defaultConfigtoolConfig } from 'src/app/interfaces/configtool-config';
+import { defaultLivefeedConfig, LivefeedConfig } from 'src/app/interfaces/livefeed-config';
 import { environment } from 'src/environments/environment';
 const uuidv4 = require('uuid/v4');
 
@@ -29,6 +31,8 @@ export interface ConfigOptions {
   closeToTray?: boolean;
   uuid?: string;
   configtoolConfig?: ConfigtoolConfig;
+  livefeedConfig?: LivefeedConfig;
+  clanWarsConfig?: ClanWarsConfig;
 }
 
 export const defaultConfig: ConfigOptions = {
@@ -41,7 +45,9 @@ export const defaultConfig: ConfigOptions = {
   teamWinrate: 'average',
   seenChangelogs: [],
   uuid: environment.desktop ? uuidv4() : '',
-  configtoolConfig: defaultConfigtoolConfig
+  configtoolConfig: defaultConfigtoolConfig,
+  livefeedConfig: defaultLivefeedConfig,
+  clanWarsConfig: defaultClanWarsConfig
 };
 
 @Injectable()
@@ -68,6 +74,8 @@ export class Config implements ConfigOptions {
       this.closeToTray = config.closeToTray;
       this._uuid = config.uuid;
       this.configtoolConfig = config.configtoolConfig;
+      this.livefeedConfig = config.livefeedConfig;
+      this.clanWarsConfig = config.clanWarsConfig
 
       this.loaded = true;
 
@@ -85,7 +93,9 @@ export class Config implements ConfigOptions {
       this.$useColoredValues,
       this.$teamWinrate,
       this.$overwriteReplaysDirectory,
-      this.$closeToTray
+      this.$closeToTray,
+      this.$livefeedConfig,
+      this.$clanWarsConfig
     ]).pipe(share());
   }
 
@@ -107,7 +117,9 @@ export class Config implements ConfigOptions {
       seenChangelogs: this._seenChangelogs,
       closeToTray: this._closeToTray,
       uuid: this._uuid,
-      configtoolConfig: this._configtoolConfig
+      configtoolConfig: this._configtoolConfig,
+      livefeedConfig: this._livefeedConfig,
+      clanWarsConfig: this.clanWarsConfig
     }));
   }
 
@@ -383,6 +395,40 @@ export class Config implements ConfigOptions {
     return this._$configtoolConfig.asObservable();
   }
 
+  //liveFeedConfig
+  private _livefeedConfig: LivefeedConfig;
+  private _$livefeedConfig = new BehaviorSubject<LivefeedConfig>(null);
+
+  get livefeedConfig() {
+    return this._livefeedConfig;
+  }
+
+  set livefeedConfig(value) {
+    this._livefeedConfig = value;
+    this._$livefeedConfig.next(value);
+  }
+
+  get $livefeedConfig() {
+    return this._$livefeedConfig.asObservable();
+  }
+
+  //ClanWarsConfig
+  private _clanWarsConfig: ClanWarsConfig;
+  private _$clanWarsConfig = new BehaviorSubject<ClanWarsConfig>(null);
+
+  get clanWarsConfig() {
+    return this._clanWarsConfig;
+  }
+
+  set clanWarsConfig(value) {
+    this._clanWarsConfig = value;
+    this._$clanWarsConfig.next(value);
+  }
+
+  get $clanWarsConfig() {
+    return this._$clanWarsConfig.asObservable();
+  }
+
   private _uuid: string;
 
   get uuid() {
@@ -411,15 +457,5 @@ export class Config implements ConfigOptions {
       skipWhile(() => !this.loaded),
       take(1)).toPromise();
     return true;
-  }
-
-  private applyPlayerBackgroundsMigration(value: any) {
-    if (value === false) {
-      return 'off';
-    }
-    if (value) {
-      return value;
-    }
-    return 'pr';
   }
 }

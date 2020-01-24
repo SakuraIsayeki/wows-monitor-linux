@@ -1,6 +1,6 @@
 import { ApplicationRef, NgZone, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { MessageService } from 'primeng/api';
+import { Message, MessageService } from 'primeng/api';
 import { Observable, Subject } from 'rxjs';
 import { filter, take, takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -22,7 +22,7 @@ export class BaseInjection {
       life: 3000,
       severity: 'c-success',
       summary: 'uiMessages.summaries.success',
-      detail: `uiMessages.messages.${messageKey}`
+      detail: `uiMessages.messages.${messageKey}`,
     });
   }
 
@@ -44,6 +44,10 @@ export class BaseInjection {
       summary: 'uiMessages.summaries.error',
       detail: `uiMessages.messages.${messageKey}`
     });
+  }
+
+  uiCustom(message: Message) {
+    this.messageService.add(message);
   }
 }
 

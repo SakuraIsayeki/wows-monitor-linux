@@ -2,23 +2,27 @@ import { Inject, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
-import { SignalrService, SignalrStatus, Status } from 'src/app/interfaces/signalr.service';
+import { SignalrService, SignalrStatus, Status, SignalrSettings } from 'src/app/interfaces/signalr.service';
 import { appConfig } from 'src/config/app.config';
 import { Config } from 'src/config/config';
 import { environment } from 'src/environments/environment';
 import { LoggerService, LoggerServiceToken } from '../interfaces/logger.service';
 import { ApiService } from './api.service';
 import { BaseInjection } from '../components/base.component';
+import { LivefeedItem } from '../interfaces/livefeed-item';
 
 @Injectable()
 export class CommonSignalrService extends BaseInjection implements SignalrService {
 
   private connection: HubConnection;
+  private _settings: SignalrSettings[];
   private _$socketStatus = new BehaviorSubject<SignalrStatus>(SignalrStatus.None);
   private _$status = new BehaviorSubject<Status>(Status.Idle);
   private _$info = new BehaviorSubject<any>(null);
   private _$error = new Subject<string>();
   private _$clients = new BehaviorSubject<number>(0);
+  private _$livefeedUpdate = new BehaviorSubject<LivefeedItem[]>([]);
+
 
 
   get $socketStatus(): Observable<SignalrStatus> {
@@ -42,6 +46,10 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
       throw new Error('Only the desktop client can be the host and get his client count');
     }
     return this._$clients.asObservable();
+  }
+
+  get $livefeedUpdate(): Observable<LivefeedItem[]> {
+    return this._$livefeedUpdate.asObservable();
   }
 
   constructor(
@@ -122,6 +130,10 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
       this._$status.next(Status.Idle);
     });
 
+    this.connection.on('LifefeedUpdate', (items: LivefeedItem[]) => {
+      this._$livefeedUpdate.next(items);
+    });
+
     this.connection.onclose((error) => {
       this._$socketStatus.next(SignalrStatus.Disconnected);
     });
@@ -172,8 +184,11 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
     });
   }
 
-  async connectToHost() {
-    await this.connection.send('ConnectToHost', this.config.signalRToken);
+  async sendSettings(settings: SignalrSettings) {
+    for (let key in Object.keys(settings)) {
+      this._settings[key] = settings[key];
+    }
+    await this.connection.send('SendSettings', this._settings);
   }
 
   resetInfo() {
