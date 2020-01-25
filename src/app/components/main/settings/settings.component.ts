@@ -16,6 +16,8 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
 
   faDesktop = faDesktop;
 
+  showExaplanationDialog = false;
+
   fontSizeOptions: SelectItem[] = [
     {
       label: 'settings.appearance.fontsize.items.small',

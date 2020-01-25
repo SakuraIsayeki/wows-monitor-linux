@@ -176,7 +176,8 @@
           "median": "Median",
           "weighted": "Weighted"
         },
-        "summary": "Select what type of average winrate you want to see in the team panels."
+        "summary": "Select what type of average winrate you want to see in the team panels.",
+        "explanation":"Explanation of modes"
       },
       "title": "Appearance"
     },
