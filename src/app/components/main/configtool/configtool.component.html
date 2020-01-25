@@ -16,8 +16,8 @@
         <h3>{{'configtool.headerClients' | translate}}</h3>
         <div class="options-input-wrapper">
           <label>{{ 'configtool.paths.selectedDirectory' | translate }}</label>
-          <input pInputText [title]="config.selectedDirectory" type="text" [disabled]="true"
-            [ngModel]="config.selectedDirectory">
+          <input pInputText [title]="config.mainClient" type="text" [disabled]="true"
+            [ngModel]="config.mainClient">
         </div>
         <h3>{{ 'configtool.paths.instances' | translate }}</h3>
         <div class="options-input-wrapper" *ngFor="let path of config.configtoolConfig.clientPaths;let i = index;">

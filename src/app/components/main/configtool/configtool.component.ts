@@ -55,6 +55,10 @@ export class ConfigtoolComponent extends BaseComponent implements OnInit, OnDest
   }
 
   async removePath(i: number) {
+    const path = this.config.configtoolConfig.clientPaths[i];
+    if (path == this.config.selectedDirectory) {
+      this.config.selectedDirectory = this.config.mainClient;
+    }
     this.config.configtoolConfig.clientPaths.splice(i, 1);
     this.configChanged();
   }

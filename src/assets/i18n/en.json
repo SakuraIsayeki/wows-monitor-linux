@@ -8,7 +8,7 @@
   "configtool": {
     "description": "This is a tool that i built for myself and thought maybe others can use it too. <br/> It came from having multiple clients (EU, NA, ST, PublicTest, ...) for which i always had to go into the engine_config to set things like maxFrameRate after every update. <br/> While in the main client i could do that with AslainsMod, i usually set more than just the framerate. Additional to that, in the special clients mods don't work and it was easier to just write a tool that adjusts all clients at the same time. <br /> <br />I originally found information about these values in this post <a href=\"https://forum.worldofwarships.com/topic/42946-engine_configxml-fps-loading-stuttering-fix/\">https://forum.worldofwarships.com/topic/42946-engine_configxml-fps-loading-stuttering-fix/</a> and i just stuck with it ever since. <br /> <br /> If you have any parameters in the engine_config you think i should add just ping me on discord. :)",
     "descriptionShort": "This tool writes the enabled values into <strong>res\\engine_config.xml</strong> and the configs inside <strong>res_mods</strong> for all seperate clients. A backup of each file is created at the same location. <br/> <strong> Only use if you know what you're doing.</strong>",
-    "header": "Configtool",
+    "header": "Multiclient-/Configtool",
     "headerClients": "Game clients",
     "headerOptions": "Value options",
     "options": {
@@ -50,7 +50,7 @@
       "title": "Changelogs"
     },
     "configtool": {
-      "title": "Configtool"
+      "title": "Multiclient-/Configtool"
     },
     "default": {
       "title": "Welcome"
@@ -100,6 +100,7 @@
     "description": "Select the main installation folder of World of Warships. <br />    If you have the WGC installation the path should look similar to this:<br />    <strong>C:\\Games\\World of Warships</strong> <br />    If you have the Steam installation the path should look similar to this:<br />    <strong>C:\\Programs\\Steam\\common<i>id</i>World of Warships</strong>",
     "dialogHeader": "Select your game folder",
     "info": null,
+    "multiClientSelect": "Select active client",
     "pickFolder": "Select your game folder"
   },
   "service": {

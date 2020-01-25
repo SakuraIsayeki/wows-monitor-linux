@@ -17,6 +17,7 @@ export interface ConfigOptions {
   allowBeta?: boolean;
   signalRToken?: string;
   selectedDirectory?: string;
+  mainClient?: string;
   layoutMode?: LayoutMode;
   playerBackgrounds?: PlayerBackgrounds;
   playerBackgroundsMode?: PlayerBackgroundsMode;
@@ -56,6 +57,7 @@ export class Config implements ConfigOptions {
       this.allowBeta = config.allowBeta;
       this.signalRToken = config.signalRToken;
       this.selectedDirectory = config.selectedDirectory;
+      this.mainClient = config.mainClient;
       this.layoutMode = config.layoutMode;
       this.playerBackgrounds = config.playerBackgrounds;
       this.playerBackgroundsMode = config.playerBackgroundsMode;
@@ -96,6 +98,7 @@ export class Config implements ConfigOptions {
       allowBeta: this._allowBeta,
       signalRToken: this._signalRToken,
       selectedDirectory: this._selectedDirectory,
+      mainClient: this._mainClient,
       layoutMode: this._layoutMode,
       playerBackgrounds: this._playerBackgrounds,
       playerBackgroundsMode: this.playerBackgroundsMode,
@@ -116,6 +119,9 @@ export class Config implements ConfigOptions {
       if (config[key] == null || config[key] === undefined) {
         config[key] = defaultConfig[key];
       }
+    }
+    if (!config.mainClient) {
+      config.mainClient = config.selectedDirectory;
     }
   }
 
@@ -185,6 +191,23 @@ export class Config implements ConfigOptions {
 
   get $selectedDirectory() {
     return this._$selectedDirectory.asObservable();
+  }
+
+  // SelectedDirectory
+  private _mainClient: string;
+  private _$mainClient = new BehaviorSubject<string>(null);
+
+  get mainClient() {
+    return this._mainClient;
+  }
+
+  set mainClient(value) {
+    this._mainClient = value;
+    this._$mainClient.next(value);
+  }
+
+  get $mainClient() {
+    return this._$mainClient.asObservable();
   }
 
   // layoutMode
