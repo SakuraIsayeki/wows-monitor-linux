@@ -75,7 +75,7 @@ export class Config implements ConfigOptions {
       this._uuid = config.uuid;
       this.configtoolConfig = config.configtoolConfig;
       this.livefeedConfig = config.livefeedConfig;
-      this.clanWarsConfig = config.clanWarsConfig
+      this.clanWarsConfig = config.clanWarsConfig;
 
       this.loaded = true;
 

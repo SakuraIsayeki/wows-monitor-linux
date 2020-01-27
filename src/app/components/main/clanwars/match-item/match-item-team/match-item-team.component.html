@@ -1,0 +1,46 @@
+<ng-container *ngIf="clan">
+  <div id="name" class="info-row">
+    <strong [style.color]="entry.color | sanitizeCss">[{{ clan?.tag }}]</strong>
+    <span>{{ clan?.name }}</span>
+  </div>
+  <div id="ladder" class="info-row">
+    <img class="team" src="assets/team-{{entry.team}}.svg" />
+    <span>{{ 'monitor.cw.leagues.' + entry.league | translate }}&nbsp;{{ entry.division | roman }}</span>
+    <ng-container *ngIf="!entry.stageType">
+      <span>|</span>
+      <span>
+        <strong style="font-size: 1.1em">{{entry.publicRatingDiff | addPlus}}</strong>&nbsp;
+        <span style="font-size: 1.1em">Points</span>
+      </span>
+    </ng-container>
+
+  </div>
+  <div id="region" class="info-row">
+    <img class="region" src="assets/region-{{clan.region}}.svg" />
+    <span>#{{ entry.regionRank}}</span>
+    <fa-icon style="font-size: 1.4em" [icon]="regionRankIcon"></fa-icon>
+    <strong style="font-size: 1.1em">{{entry.regionRankDiff * -1 | addPlus}}</strong>
+  </div>
+  <div id="global" class="info-row">
+    <img class="globe" src="assets/globe.svg" />
+    <span>#{{ entry.globalRank }}</span>
+    <fa-icon style="font-size: 1.4em" [icon]="globalRankIcon"></fa-icon>
+    <strong style="font-size: 1.1em">{{entry.globalRankDiff * -1 | addPlus}}</strong>
+  </div>
+  <div id="stage" class="info-row" *ngIf="entry.stageProgress?.length > 0">
+    <div class="stage-progress">
+      <ng-container *ngFor="let state of entry.stageProgress">
+        <fa-icon *ngIf="state == 0  || state == 2" [class.fade]="state == 2" [icon]="faStar" [fixedWidth]="true">
+        </fa-icon>
+        <fa-icon *ngIf="state == 1" [icon]="faStarSolid" [fixedWidth]="true">
+        </fa-icon>
+      </ng-container>
+    </div>
+    <span> {{ entry.stageType === 1 ? 'Promotion' : 'Demotion' }}</span>
+  </div>
+</ng-container>
+<ng-container *ngIf="!clan">
+  <div id="empty">
+    <span>Couldn't match opponent</span>
+  </div>
+</ng-container>

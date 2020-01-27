@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { faCog, faDesktop, faFileAlt, faQuestionCircle, faWrench } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faDesktop, faFileAlt, faQuestionCircle, faWrench, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { BaseComponent } from 'src/app/components/base.component';
 import { MenuEntry } from 'src/app/interfaces/menu-entry';
 import { ApiService } from 'src/app/services/api.service';
@@ -31,6 +31,16 @@ export class MenuComponent extends BaseComponent implements OnInit {
       icon: faWrench,
       browser: false,
       desktop: true,
+    },
+    {
+      key: 'meta.livefeed.title',
+      routerLink: '/home/clanwars/livefeed',
+      icon: faShieldAlt,
+    },
+    {
+      key: 'meta.clanwars.title',
+      routerLink: '/home/clanwars',
+      icon: faShieldAlt,
     },
     {
       key: 'meta.changelogs.title',

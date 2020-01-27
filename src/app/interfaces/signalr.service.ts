@@ -35,6 +35,7 @@ export enum Status {
 }
 
 export interface SignalrSettings {
-  token?: string,
+  token?: string;
   liveUpdate?: boolean;
+  sendToken?: boolean;
 }

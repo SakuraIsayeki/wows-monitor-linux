@@ -4,19 +4,19 @@ import { Region } from './region';
 export interface ClanWarsConfig {
   favClanIds?: number[];
   onlyShowFavs?: boolean;
-  league?: number;
-  division?: number;
-  region?: Region;
+  league?: number[];
+  division?: number[];
+  region?: Region[];
   season?: number;
 }
 
 export const defaultClanWarsConfig: ClanWarsConfig = {
   favClanIds: [],
   onlyShowFavs: false,
-  league: null,
-  division: null,
-  region: null
-}
+  league: [],
+  division: [],
+  region: []
+};
 
 export class ClanWarsForm extends FormGroup {
   constructor(config: ClanWarsConfig) {
@@ -61,6 +61,6 @@ export class ClanWarsForm extends FormGroup {
   }
 
   get season() {
-    return this.get('region');
+    return this.get('season');
   }
 }

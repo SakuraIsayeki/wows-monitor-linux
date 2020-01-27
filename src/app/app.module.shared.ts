@@ -19,6 +19,8 @@ import { CommonErrorHandler } from './services/common-error.handler';
 import { CustomMissingTranslationHandler } from './services/custom-missing-translation.handler';
 import { LocatorService } from './services/locator.service';
 import { ResizeService } from './services/resize.service';
+import { LivefeedService } from './services/livefeed.service';
+import { ClanWarsService } from './services/clanwars.service';
 
 const translateHttpLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -87,7 +89,9 @@ const metaFactory = (translate: TranslateService) => {
     LoggerServiceDepHolder,
     MessageService,
     ClientIdHttpInterceptor,
-    ClientVersionHttpInterceptor
+    ClientVersionHttpInterceptor,
+    LivefeedService,
+    ClanWarsService
   ]
 })
 export class AppSharedModule {

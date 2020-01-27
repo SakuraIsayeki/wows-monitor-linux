@@ -15,7 +15,7 @@ import { LivefeedItem } from '../interfaces/livefeed-item';
 export class CommonSignalrService extends BaseInjection implements SignalrService {
 
   private connection: HubConnection;
-  private _settings: SignalrSettings[];
+  private _settings: SignalrSettings;
   private _$socketStatus = new BehaviorSubject<SignalrStatus>(SignalrStatus.None);
   private _$status = new BehaviorSubject<Status>(Status.Idle);
   private _$info = new BehaviorSubject<any>(null);
@@ -63,7 +63,7 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
   async init() {
 
     // Url Param Testing
-    let url = environment.apiUrl + appConfig.hub;
+    let url = environment.apiUrl + appConfig.hub + '?host=' + (environment.desktop ? 'true' : 'false');
     await this.config.waitTillLoaded();
     let token = this.config.signalRToken;
     if (!token) {
@@ -74,10 +74,10 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
       }
     }
 
-    url += '?host=' + (environment.desktop ? 'true' : 'false');
-    if (token) {
-      url += '&token=' + token;
-    }
+    this._settings = {
+      token: this.config.signalRToken,
+      liveUpdate: this.config.livefeedConfig.liveUpdate
+    };
 
     this.connection = new HubConnectionBuilder()
       .withUrl(url)
@@ -130,7 +130,7 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
       this._$status.next(Status.Idle);
     });
 
-    this.connection.on('LifefeedUpdate', (items: LivefeedItem[]) => {
+    this.connection.on('LivefeedUpdate', (items: LivefeedItem[]) => {
       this._$livefeedUpdate.next(items);
     });
 
@@ -145,6 +145,7 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
         try {
           this.connection.start()
             .then(() => {
+              this.sendSettings(this._settings);
               resolve(true);
             })
             .catch((error) => {
@@ -184,11 +185,13 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
     });
   }
 
-  async sendSettings(settings: SignalrSettings) {
-    for (let key in Object.keys(settings)) {
-      this._settings[key] = settings[key];
+  async sendSettings(settings?: SignalrSettings) {
+    if (settings) {
+      for (const key of Object.keys(settings)) {
+        this._settings[key] = settings[key];
+      }
     }
-    await this.connection.send('SendSettings', this._settings);
+    await this.connection.send('SendSettings', { ...this._settings, sendToken: settings != null && settings.token != null });
   }
 
   resetInfo() {

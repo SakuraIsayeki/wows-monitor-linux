@@ -12,6 +12,8 @@ import { WowsNumbersPipe } from './pipes/wows-numbers.pipe';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { ExternalLinkDirective } from './directives/external-link.directive';
 import { ReplaceWhitespacePipe } from './pipes/replace-whitespaces.pipe';
+import { AddPlusPipe } from './pipes/add-plus.pipe';
+import { ResolveClansPipe } from './pipes/resolve-clans.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { ReplaceWhitespacePipe } from './pipes/replace-whitespaces.pipe';
     RegionPipe,
     ReplaceWhitespacePipe,
     RomanPipe,
-    WowsNumbersPipe
+    WowsNumbersPipe,
+    AddPlusPipe,
+    ResolveClansPipe
   ],
   exports: [
     IsDesktopDirective,
@@ -42,7 +46,9 @@ import { ReplaceWhitespacePipe } from './pipes/replace-whitespaces.pipe';
     RegionPipe,
     ReplaceWhitespacePipe,
     RomanPipe,
-    WowsNumbersPipe
+    WowsNumbersPipe,
+    AddPlusPipe,
+    ResolveClansPipe
   ],
   imports: [],
   providers: []

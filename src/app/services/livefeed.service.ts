@@ -1,4 +1,5 @@
-import { Inject, Injectable } from "@angular/core";
+import { Inject, Injectable } from '@angular/core';
+import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Config } from 'src/config/config';
 import { BaseInjection } from '../components/base.component';
@@ -12,58 +13,75 @@ export class LivefeedService extends BaseInjection {
   private _items: LivefeedItem[] = [];
   private _form: LivefeedForm;
 
+  get items() {
+    return this._items;
+  }
+
+  get form() {
+    return this._form;
+  }
+
+  showFilters = true;
+
   constructor(
     private config: Config,
     @Inject(SignalrServiceToken) private signalrService: SignalrService) {
     super();
 
     this._form = new LivefeedForm(this.config.livefeedConfig);
-    this._form.valueChanges.pipe(switchMap(value => this.config.livefeedConfig = value)).subscribe();
+    this._form.valueChanges.pipe(switchMap(value => {
+      this.config.livefeedConfig = value;
+      return of(null);
+    })).subscribe(() => this.config.save());
     this._form.liveUpdate.valueChanges.subscribe(value => this.signalrService.sendSettings({ liveUpdate: value }));
 
-    if (this.config.livefeedConfig.liveUpdate) {
-      this.signalrService.sendSettings({ liveUpdate: true });
-    }
-
-    this.signalrService.$livefeedUpdate.subscribe(items => this.addItems(items))
+    this.signalrService.$livefeedUpdate.subscribe(items => this.addItems(items));
   }
 
 
   private addItems(items: LivefeedItem[]) {
-    let livefeedConfig = this.config.livefeedConfig;
-    let clanwarsConfig = this.config.clanWarsConfig;
+    if (items.length < 0) {
+      return;
+    }
+    const livefeedConfig = this.config.livefeedConfig;
+    const clanwarsConfig = this.config.clanWarsConfig;
 
     if (clanwarsConfig.onlyShowFavs && clanwarsConfig.favClanIds) {
-      items = items.filter(item => clanwarsConfig.favClanIds.includes(item.clanId));
+      items = items.filter(item => clanwarsConfig.favClanIds.includes(item.winnerClanId) || clanwarsConfig.favClanIds.includes(item.looserClanId));
     } else {
-      if (clanwarsConfig.division) {
-        items = items.filter(item => item.division == clanwarsConfig.division);
+      if (clanwarsConfig.division.length > 0) {
+        items = items.filter(item => clanwarsConfig.division.includes(item.winnerDivision) || clanwarsConfig.division.includes(item.looserDivision));
       }
 
-      if (clanwarsConfig.league) {
-        items = items.filter(item => item.league == clanwarsConfig.league);
+      if (clanwarsConfig.league.length > 0) {
+        items = items.filter(item => clanwarsConfig.league.includes(item.winnerLeague) || clanwarsConfig.league.includes(item.looserLeague));
       }
 
-      if (clanwarsConfig.region) {
-        items = items.filter(item => item.region == clanwarsConfig.region);
+      if (clanwarsConfig.region.length > 0) {
+        items = items.filter(item => clanwarsConfig.region.includes(item.winnerRegion) || clanwarsConfig.region.includes(item.looserRegion));
       }
     }
 
     if (livefeedConfig.notification) {
-      var count = items.length;
+      let count = items.length;
       if (livefeedConfig.notificationFavsOnly) {
-        count = items.filter(item => clanwarsConfig.favClanIds.includes(item.clanId)).length;
+        count = items.filter(item => clanwarsConfig.favClanIds.includes(item.winnerClanId) || clanwarsConfig.favClanIds.includes(item.looserClanId)).length;
       }
-      this.uiCustom({
-        summary: 'Feed',
-        detail: `New feed ${count}`
-      })
+      if (count > 0) {
+        this.uiCustom({
+          severity: 'c-success',
+          summary: 'Feed',
+          detail: `New feed ${count}`,
+          closable: false,
+          life: 1500
+        });
+      }
     }
 
-    var newLength = livefeedConfig.entries + items.length;
+    const newLength = this._items.length + items.length;
     if (newLength >= livefeedConfig.entries) {
-      let toDelete = newLength - livefeedConfig.entries;
-      this._items.splice(livefeedConfig.entries - 1, toDelete);
+      const toDelete = newLength - livefeedConfig.entries;
+      this._items.splice(livefeedConfig.entries, toDelete);
     }
 
     this._items.unshift(...items);

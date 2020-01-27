@@ -1,0 +1,18 @@
+<p-card>
+  <div class="livefeed-filter-card" [class.hidden]="!service.form.showFilters.value">
+    <h2>{{ 'clanwars.livefeed.title' | translate }}</h2>
+    <div [@showHideAnimation] *ngIf="service.form.showFilters.value" class="livefeed-filters">
+      <app-general-filter></app-general-filter>
+      <app-livefeed-filter></app-livefeed-filter>
+    </div>
+    <a class="round-icon-button show-hide-filters"
+      (click)="service.form.showFilters.setValue(!service.form.showFilters.value)">
+      <fa-icon [icon]="faFilter"></fa-icon>
+    </a>
+  </div>
+</p-card>
+<div @items *ngFor="let item of service.items">
+  <p-card class="no-padding">
+    <app-match-item [match]="item.clanMatch"></app-match-item>
+  </p-card>
+</div>

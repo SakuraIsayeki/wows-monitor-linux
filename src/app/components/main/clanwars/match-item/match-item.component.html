@@ -1,0 +1,7 @@
+<app-match-item-team id="left" [clan]="match.winner" [entry]="match.winnerEntry"></app-match-item-team>
+<div id="center">
+  <span class="vs">vs.</span>
+  <span class="date">{{match.date | date:'d.M.yy H:mm:ss'}}</span>
+  <strong class="estimated" *ngIf="match.estimated">Estimated</strong>
+</div>
+<app-match-item-team id="right" [clan]="match.looser" [entry]="match.looserEntry" [right]="true"></app-match-item-team>

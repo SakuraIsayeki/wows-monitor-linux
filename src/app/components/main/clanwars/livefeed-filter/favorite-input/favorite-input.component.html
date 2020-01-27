@@ -1,0 +1,6 @@
+<app-clan-search (clanSelected)="clanSelected($event)"></app-clan-search>
+<p-chips [ngModel]="array | resolveClans | async" (onRemove)="clanRemoved($event)">
+  <ng-template let-item pTemplate="item">
+    {{item.tag}}
+  </ng-template>
+</p-chips>

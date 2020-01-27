@@ -40,7 +40,6 @@ export class ApiService {
     return this.httpClient.get<number[]>((environment.apiUrl + '/changelog/ids'), { observe: 'body' });
   }
 
-
   changelogList() {
     return this.httpClient.get<Changelog[]>((environment.apiUrl + '/changelog/list'), { observe: 'body' });
   }
@@ -51,5 +50,13 @@ export class ApiService {
 
   token() {
     return this.httpClient.get(environment.apiUrl + '/qr/token', { responseType: 'text' });
+  }
+
+  clansAutocomplete(query: string) {
+    return this.httpClient.post<any[]>(environment.apiUrl + '/clans/autocomplete?query=' + query, null, { observe: 'body' });
+  }
+
+  clansResolveIds(arr: number[]) {
+    return this.httpClient.post<any[]>(environment.apiUrl + '/clans/resolveids?ids=' + arr.join(','), null, { observe: 'body' });
   }
 }

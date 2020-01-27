@@ -34,6 +34,7 @@ export class ChangelogsComponent extends BaseComponent implements OnInit, OnDest
 
   markAllAsSeen() {
     this.config.pushSeenChangelogs(...this.route.snapshot.data.changelogs.map(c => c.id));
+    this.config.save();
   }
 
   ngOnDestroy() {

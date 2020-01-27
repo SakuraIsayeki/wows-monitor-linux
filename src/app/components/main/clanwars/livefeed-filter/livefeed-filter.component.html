@@ -1,0 +1,35 @@
+<div class="filters-wrap livefeed">
+
+  <div id="liveUpdate" class="filter-wrap input-switch">
+    <p-inputSwitch [formControl]="service.form.liveUpdate"></p-inputSwitch>
+    <label>
+      {{ 'clanwars.filters.liveUpdate.label' | translate }}
+    </label>
+  </div>
+
+  <div id="notification" class="filter-wrap input-switch">
+    <p-inputSwitch [formControl]="service.form.notification"></p-inputSwitch>
+    <label>
+      {{ 'clanwars.filters.notification.label' | translate }}
+    </label>
+  </div>
+
+  <div id="favsOnly" class="filter-wrap input-switch">
+    <p-inputSwitch [formControl]="service.form.favsOnly"></p-inputSwitch>
+    <label>
+      {{ 'clanwars.filters.favsOnly.label' | translate }}
+    </label>
+  </div>
+
+  <div id="notificationFavsOnly" class="filter-wrap input-switch" [class.disabled]="!service.form.notification.value">
+    <p-inputSwitch [formControl]="service.form.notificationFavsOnly" [disabled]="!service.form.notification.value">
+    </p-inputSwitch>
+    <label>
+      {{ 'clanwars.filters.notificationFavsOnly.label' | translate }}
+    </label>
+  </div>
+
+  <div id="favorites" class="filter-wrap">
+    <app-favorite-input [control]="cwService.form.favClanIds"></app-favorite-input>
+  </div>
+</div>
