@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { Changelog } from 'src/app/interfaces/changelog';
+import { ActivatedRoute } from '@angular/router';
+import { ChangelogResponse } from 'src/app/generated/models';
 import { Config } from 'src/config/config';
 import { BaseComponent } from '../../base.component';
 
@@ -10,7 +10,7 @@ import { BaseComponent } from '../../base.component';
 })
 export class ChangelogsComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  public selectedId: number;
+  selectedId: number;
 
   constructor(public route: ActivatedRoute, private config: Config) {
     super();
@@ -22,11 +22,11 @@ export class ChangelogsComponent extends BaseComponent implements OnInit, OnDest
     }
   }
 
-  isSeen(changelog: Changelog) {
+  isSeen(changelog: ChangelogResponse) {
     return this.config.seenChangelogs && this.config.seenChangelogs.some(id => changelog.id == id)
   }
 
-  selectChangelog(changelog: Changelog) {
+  selectChangelog(changelog: ChangelogResponse) {
     this.selectedId = changelog.id;
     this.config.pushSeenChangelogs(changelog.id);
     this.config.save();

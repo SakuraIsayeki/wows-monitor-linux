@@ -3,8 +3,8 @@ import { of, Subject } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
 import { Config } from 'src/config/config';
 import { BaseInjection } from '../components/base.component';
+import { ClansService } from '../generated/services';
 import { HistoryListRequestForm } from '../interfaces/history-list-request';
-import { ApiService } from './api.service';
 
 @Injectable()
 export class ClanWarsHistoryService extends BaseInjection {
@@ -35,7 +35,7 @@ export class ClanWarsHistoryService extends BaseInjection {
 
   constructor(
     private config: Config,
-    private apiService: ApiService) {
+    private clansService: ClansService) {
     super();
 
     this._form = new HistoryListRequestForm(this.config.clanWarsConfig);
@@ -47,7 +47,7 @@ export class ClanWarsHistoryService extends BaseInjection {
     this._form.valueChanges.subscribe(() => this.load());
     this._$load.pipe(
       debounceTime(300),
-      switchMap(() => this.apiService.clansHistory(this._form.getRequestModel()))
+      switchMap(() => this.clansService.clansHistory({ body: this._form.getRequestModel() }))
     )
       .subscribe(result => this._pagedResult = result)
   }

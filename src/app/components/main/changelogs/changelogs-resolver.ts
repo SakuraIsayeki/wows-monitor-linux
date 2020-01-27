@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { Changelog } from 'src/app/interfaces/changelog';
-import { ApiService } from 'src/app/services/api.service';
+import { ChangelogResponse } from 'src/app/generated/models';
+import { ChangelogService } from 'src/app/generated/services';
 import { Config } from 'src/config/config';
 
 @Injectable()
-export class ChangelogsResolver implements Resolve<Changelog[]> {
+export class ChangelogsResolver implements Resolve<ChangelogResponse[]> {
 
-  constructor(private apiService: ApiService, private config: Config) {
+  constructor(private changelogService: ChangelogService, private config: Config) {
   }
 
-  async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Changelog[]> {
+  async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<ChangelogResponse[]> {
     await this.config.waitTillLoaded();
-    return this.apiService.changelogList().toPromise();
+    return this.changelogService.changelogList().toPromise();
   }
 }

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { DialogService } from 'primeng/api';
-import { ApiService } from 'src/app/services/api.service';
+import { ChangelogService } from 'src/app/generated/services';
 import { Config } from 'src/config/config';
 import { BaseComponent } from '../base.component';
 import { ChangelogComponent } from './changelogs/changelog/changelog.component';
@@ -11,7 +11,7 @@ import { ChangelogComponent } from './changelogs/changelog/changelog.component';
 })
 export class MainComponent extends BaseComponent implements AfterViewInit {
 
-  constructor(private apiService: ApiService,
+  constructor(private changelogsService: ChangelogService,
     private config: Config,
     private dialogService: DialogService) {
     super();
@@ -19,7 +19,7 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
 
   async ngAfterViewInit() {
     await this.config.waitTillLoaded();
-    this.apiService.changelogLatest()
+    this.changelogsService.changelogLatest()
       .pipe(this.untilDestroy())
       .subscribe(changelog => {
         if (!this.config.seenChangelogs || !this.config.seenChangelogs.some(id => id == changelog.id)) {

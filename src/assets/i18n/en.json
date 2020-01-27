@@ -39,7 +39,14 @@
       "season": {
         "empty": "All seasons",
         "label": "Season"
+      },
+      "team": {
+        "empty": "Both Ratings",
+        "label": "Rating"
       }
+    },
+    "history": {
+      "title": "Clan Wars History"
     },
     "livefeed": {
       "title": "Clan Wars Livefeed"

@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@angular/core';
 import { parse as parseXml2Json } from 'fast-xml-parser';
 import * as fs from 'fs';
-import { dirname, join as pathJoin, normalize as pathNormalize } from 'path';
-import { BehaviorSubject, interval, Subscription, merge, combineLatest } from 'rxjs';
-import { filter, startWith, switchMap, debounceTime, } from 'rxjs/operators';
+import { join as pathJoin, normalize as pathNormalize } from 'path';
+import { BehaviorSubject, combineLatest, interval, Subscription } from 'rxjs';
+import { debounceTime, filter, startWith, switchMap } from 'rxjs/operators';
+import { Region } from 'src/app/generated/models';
 import { DirectoryService, DirectoryStatus } from 'src/app/interfaces/directory.service';
 import { LoggerService, LoggerServiceToken } from 'src/app/interfaces/logger.service';
-import { Region } from 'src/app/interfaces/region';
-import { Config, ConfigOptions } from 'src/config/config';
+import { Config } from 'src/config/config';
 import { promisify } from 'util';
 import { ElectronService } from './electron.service';
 

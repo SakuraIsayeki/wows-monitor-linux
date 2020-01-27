@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SelectItem } from 'primeng/api';
-import { Region } from 'src/app/interfaces/region';
-import { ApiService } from 'src/app/services/api.service';
-import { BaseComponent } from '../../base.component';
-import { ScrollService } from 'src/app/services/scroll.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { SelectItem } from 'primeng/api';
+import { ClanSeason, Region } from 'src/app/generated/models';
+import { ClansService } from 'src/app/generated/services';
+import { ScrollService } from 'src/app/services/scroll.service';
+import { BaseComponent } from '../../base.component';
 
 @Component({
   selector: 'app-clanwars',
@@ -71,27 +71,27 @@ export class ClanwarsComponent extends BaseComponent implements OnInit, OnDestro
 
   teamOptions: SelectItem[] = [
     {
-      label: '1',
-      value: '1'
+      label: 'Alpha',
+      value: 1
     },
     {
-      label: '2',
+      label: 'Bravo',
       value: 2
     }
   ];
 
-  seasonOptions: SelectItem[] = [];
+  seasonOptions: ClanSeason[] = [];
 
   faChevronUp = faChevronUp;
 
   constructor(
-    private apiService: ApiService,
+    private clansService: ClansService,
     public scrollService: ScrollService) {
     super();
   }
 
   ngOnInit() {
-    this.apiService.clansSeasons().pipe(this.untilDestroy()).subscribe(seasons => this.seasonOptions = seasons);
+    this.clansService.clansSeasons().pipe(this.untilDestroy()).subscribe(seasons => this.seasonOptions = seasons);
   }
 
   ngOnDestroy() {

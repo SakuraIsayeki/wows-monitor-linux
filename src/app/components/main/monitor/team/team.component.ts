@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, Optional, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { ClanInfo, TeamAverage } from 'src/app/generated/models';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
 import { Config } from 'src/config/config';
 import { BaseComponent } from '../../../base.component';
@@ -11,10 +12,10 @@ import { BaseComponent } from '../../../base.component';
 export class TeamComponent extends BaseComponent implements OnInit {
 
   @Input()
-  clan: any;
+  clan: ClanInfo;
 
   @Input()
-  team: any;
+  team: TeamAverage;
 
   @Input()
   cw: boolean;

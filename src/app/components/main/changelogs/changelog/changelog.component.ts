@@ -1,10 +1,9 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, Optional, SimpleChanges } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/api';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { BaseComponent } from 'src/app/components/base.component';
-import { Changelog } from 'src/app/interfaces/changelog';
-import { ApiService } from 'src/app/services/api.service';
-import { Config } from 'src/config/config';
+import { ChangelogResponse } from 'src/app/generated/models';
+import { ChangelogService } from 'src/app/generated/services';
 
 @Component({
   selector: 'app-changelog',
@@ -13,16 +12,16 @@ import { Config } from 'src/config/config';
 export class ChangelogComponent extends BaseComponent implements OnChanges, OnDestroy {
 
   @Input()
-  public id: number;
+  id: number;
 
-  public changelog: Changelog;
+  changelog: ChangelogResponse;
 
   private changelogSubscription: Subscription;
 
   constructor(
     @Optional() public ref: DynamicDialogRef,
     @Optional() private dialogConfig: DynamicDialogConfig,
-    private apiService: ApiService
+    private changelogService: ChangelogService
   ) {
     super();
 
@@ -32,11 +31,12 @@ export class ChangelogComponent extends BaseComponent implements OnChanges, OnDe
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['id'] && changes['id'].currentValue) {
-      if (this.changelogSubscription)
+    if (changes.id && changes.id.currentValue) {
+      if (this.changelogSubscription) {
         this.changelogSubscription.unsubscribe();
+      }
 
-      this.changelogSubscription = this.apiService.changelogDetail(changes['id'].currentValue)
+      this.changelogSubscription = this.changelogService.changelogDetail(changes.id.currentValue)
         .pipe(this.untilDestroy())
         .subscribe(c => {
           this.loadChangelog(c);
@@ -44,7 +44,7 @@ export class ChangelogComponent extends BaseComponent implements OnChanges, OnDe
     }
   }
 
-  private loadChangelog(changelog: Changelog) {
+  private loadChangelog(changelog: ChangelogResponse) {
     this.changelog = changelog;
   }
 

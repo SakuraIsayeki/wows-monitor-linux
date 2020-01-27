@@ -1,6 +1,7 @@
 <ng-container *ngIf="changelog">
   <markdown [data]="changelog.markdown"></markdown>
   <div class="align-right-wrapper" *ngIf="ref">
-    <p-button [label]="'changelogs.closeButton' | translate" [styleClass]="ui-button-success" (click)="ref.close()"></p-button>
+    <p-button [label]="'changelogs.closeButton' | translate" [styleClass]="'ui-button-success'" (click)="ref.close()">
+    </p-button>
   </div>
 </ng-container>

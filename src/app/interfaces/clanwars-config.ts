@@ -1,5 +1,5 @@
 import { FormControl, FormGroup } from '@angular/forms';
-import { Region } from './region';
+import { Region } from '../generated/models';
 
 export interface ClanWarsConfig {
   favClanIds?: number[];

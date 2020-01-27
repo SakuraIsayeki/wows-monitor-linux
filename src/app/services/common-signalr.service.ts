@@ -2,14 +2,14 @@ import { Inject, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
-import { SignalrService, SignalrStatus, Status, SignalrSettings } from 'src/app/interfaces/signalr.service';
+import { SignalrService, SignalrSettings, SignalrStatus, Status } from 'src/app/interfaces/signalr.service';
 import { appConfig } from 'src/config/app.config';
 import { Config } from 'src/config/config';
 import { environment } from 'src/environments/environment';
-import { LoggerService, LoggerServiceToken } from '../interfaces/logger.service';
-import { ApiService } from './api.service';
 import { BaseInjection } from '../components/base.component';
-import { LivefeedItem } from '../interfaces/livefeed-item';
+import { LivefeedItem, MatchInfo } from '../generated/models';
+import { QrService } from '../generated/services';
+import { LoggerService, LoggerServiceToken } from '../interfaces/logger.service';
 
 @Injectable()
 export class CommonSignalrService extends BaseInjection implements SignalrService {
@@ -18,7 +18,7 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
   private _settings: SignalrSettings;
   private _$socketStatus = new BehaviorSubject<SignalrStatus>(SignalrStatus.None);
   private _$status = new BehaviorSubject<Status>(Status.Idle);
-  private _$info = new BehaviorSubject<any>(null);
+  private _$info = new BehaviorSubject<MatchInfo>(null);
   private _$error = new Subject<string>();
   private _$clients = new BehaviorSubject<number>(0);
   private _$livefeedUpdate = new BehaviorSubject<LivefeedItem[]>([]);
@@ -33,7 +33,7 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
     return this._$status.asObservable();
   }
 
-  get $info(): Observable<any> {
+  get $info(): Observable<MatchInfo> {
     return this._$info.asObservable();
   }
 
@@ -55,7 +55,7 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
   constructor(
     private config: Config,
     @Inject(LoggerServiceToken) private loggerService: LoggerService,
-    private apiService: ApiService
+    private qrService: QrService
   ) {
     super();
   }
@@ -68,7 +68,7 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
     let token = this.config.signalRToken;
     if (!token) {
       if (environment.desktop) {
-        token = await this.apiService.token().toPromise();
+        token = await this.qrService.qrToken().toPromise();
         this.config.signalRToken = token;
         this.config.save();
       }

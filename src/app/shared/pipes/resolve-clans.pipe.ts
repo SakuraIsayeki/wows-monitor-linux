@@ -1,18 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { ApiService } from 'src/app/services/api.service';
+import { ClansService } from 'src/app/generated/services';
 
 @Pipe({
   name: 'resolveClans'
 })
 export class ResolveClansPipe implements PipeTransform {
 
-  constructor(private apiService: ApiService) { }
+  constructor(private clansService: ClansService) { }
 
   transform(arr: number[]): Observable<any[]> {
     if (!arr || arr.length === 0) {
       return of([]);
     }
-    return this.apiService.clansResolveIds(arr);
+    return this.clansService.clansResolveIds({ ids: arr.join(',') });
   }
 }

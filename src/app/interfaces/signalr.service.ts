@@ -1,13 +1,13 @@
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LivefeedItem } from './livefeed-item';
+import { LivefeedItem, MatchInfo } from '../generated/models';
 
 export const SignalrServiceToken = new InjectionToken('signalr-service');
 
 export interface SignalrService {
   $socketStatus: Observable<SignalrStatus>;
   $status: Observable<Status>;
-  $info: Observable<any>;
+  $info: Observable<MatchInfo>;
   $error: Observable<string>;
   $clients: Observable<number>;
 

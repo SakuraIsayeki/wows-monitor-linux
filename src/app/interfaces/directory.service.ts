@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Region } from './region';
+import { Region } from '../generated/models';
 
 export const DirectoryServiceToken = new InjectionToken('directory-service');
 export type PathBase = 'CWD' | 'EXE_PATH';

@@ -1,7 +1,9 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, HostListener, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faStar as faStar } from '@fortawesome/free-regular-svg-icons';
-import { faCaretDown, faCaretUp, faStar as faStarSolid, faGripLines, IconDefinition, faSort } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCaretUp, faSort, faStar as faStarSolid, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { BaseComponent } from 'src/app/components/base.component';
+import { CwClan } from 'src/app/generated/models';
 
 @Component({
   selector: 'app-match-item-team',
@@ -13,7 +15,7 @@ export class MatchItemTeamComponent extends BaseComponent implements OnInit {
   faStar = faStar;
 
   @Input()
-  clan: any;
+  clan: CwClan;
 
   @Input()
   entry: any;
@@ -30,9 +32,18 @@ export class MatchItemTeamComponent extends BaseComponent implements OnInit {
   globalRankIcon: IconDefinition;
   regionRankIcon: IconDefinition;
 
-  constructor() {
+  constructor(private router: Router) {
     super();
   }
+
+
+  @HostListener('click')
+  click(event: any) {
+    if (this.clan) {
+      this.router.navigateByUrl('/home/clanwars/' + this.clan.id);
+    }
+  }
+
 
   ngOnInit() {
     if (this.entry) {

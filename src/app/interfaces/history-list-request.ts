@@ -1,17 +1,6 @@
 import { FormControl } from '@angular/forms';
+import { HistoryListRequest } from '../generated/models';
 import { ClanWarsConfig, ClanWarsForm } from './clanwars-config';
-import { ListRequest } from './list-request';
-import { Region } from './region';
-
-export interface HistoryListRequest extends ListRequest {
-  clanId?: number;
-  clanIds?: number[];
-  filterClanIds?: boolean;
-  regions?: Region[];
-  leagues?: number[];
-  divisions?: number[];
-  season?: number;
-}
 
 export class HistoryListRequestForm extends ClanWarsForm {
 
@@ -19,12 +8,17 @@ export class HistoryListRequestForm extends ClanWarsForm {
     super(config);
 
     this.addControl('clanId', new FormControl(null));
+    this.addControl('team', new FormControl(null));
     this.addControl('page', new FormControl(1));
     this.addControl('pageSize', new FormControl(25));
   }
 
   get clanId() {
     return this.get('clanId');
+  }
+
+  get team() {
+    return this.get('team');
   }
 
   get page() {
@@ -38,6 +32,7 @@ export class HistoryListRequestForm extends ClanWarsForm {
   getRequestModel(): HistoryListRequest {
     return {
       clanId: this.clanId.value,
+      team: this.team.value,
       clanIds: this.favClanIds.value,
       filterClanIds: this.onlyShowFavs.value,
       regions: this.region.value,
@@ -45,7 +40,7 @@ export class HistoryListRequestForm extends ClanWarsForm {
       leagues: this.league.value,
       season: this.season.value,
       page: this.page.value,
-      pageSize: this.pageSize.value
-    }
+      pagesize: this.pageSize.value
+    };
   }
 }

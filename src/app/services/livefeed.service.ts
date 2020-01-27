@@ -3,8 +3,8 @@ import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Config } from 'src/config/config';
 import { BaseInjection } from '../components/base.component';
+import { LivefeedItem } from '../generated/models';
 import { LivefeedForm } from '../interfaces/livefeed-config';
-import { LivefeedItem } from '../interfaces/livefeed-item';
 import { SignalrService, SignalrServiceToken } from '../interfaces/signalr.service';
 
 @Injectable()

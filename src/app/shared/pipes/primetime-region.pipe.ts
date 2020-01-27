@@ -1,7 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { ApiService } from 'src/app/services/api.service';
-import { Region } from 'src/app/interfaces/region';
+import { Region } from 'src/app/generated/models';
 
 const map = [{
   seasons: [6, 7, 8],

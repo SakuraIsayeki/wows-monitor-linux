@@ -13,6 +13,9 @@ export class GeneralFilterComponent extends BaseComponent implements OnInit, OnD
   @Input()
   isHistory = false;
 
+  @Input()
+  isClan = false;
+
   constructor(
     public clanwars: ClanwarsComponent,
     public service: ClanWarsHistoryService) {

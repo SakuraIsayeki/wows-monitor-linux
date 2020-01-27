@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ClanwarsComponent } from './clanwars.component';
-import { LivefeedComponent } from './livefeed/livefeed.component';
+import { HistoryClanComponent } from './history/history-clan/history-clan.component';
 import { HistoryComponent } from './history/history.component';
+import { LivefeedComponent } from './livefeed/livefeed.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,15 @@ const routes: Routes = [
         data: {
           meta: {
             title: 'meta.livefeed.title'
+          }
+        }
+      },
+      {
+        path: ':clanId',
+        component: HistoryClanComponent,
+        data: {
+          meta: {
+            title: 'meta.clanwars.title'
           }
         }
       },

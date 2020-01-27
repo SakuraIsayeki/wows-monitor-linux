@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/cor
 import { BaseComponent } from 'src/app/components/base.component';
 import { ClanWarsHistoryService } from 'src/app/services/clanwars-history.service';
 import { ApiService } from 'src/app/services/api.service';
+import { ClansService } from 'src/app/generated/services';
 
 @Component({
   selector: 'app-clan-search',
@@ -18,7 +19,7 @@ export class ClanSearchComponent extends BaseComponent implements OnInit, OnDest
 
   constructor(
     public cwService: ClanWarsHistoryService,
-    private apiService: ApiService
+    private clansService: ClansService
   ) {
     super();
   }
@@ -28,7 +29,7 @@ export class ClanSearchComponent extends BaseComponent implements OnInit, OnDest
 
   autocomplete(event: any) {
     if (event.query && event.query.length > 2) {
-      this.apiService.clansAutocomplete(event.query)
+      this.clansService.clansAutocomplete({ query: event.query })
         .pipe(this.untilDestroy())
         .subscribe(result => this.autoCompleteResult = result);
     }

@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { faCog, faDesktop, faFileAlt, faQuestionCircle, faWrench, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
-import { BaseComponent } from 'src/app/components/base.component';
-import { MenuEntry } from 'src/app/interfaces/menu-entry';
-import { ApiService } from 'src/app/services/api.service';
-import { Config } from 'src/config/config';
-import { combineLatest, BehaviorSubject, of } from 'rxjs';
+import { faCog, faDesktop, faFileAlt, faQuestionCircle, faShieldAlt, faWrench } from '@fortawesome/free-solid-svg-icons';
+import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { BaseComponent } from 'src/app/components/base.component';
+import { ChangelogService } from 'src/app/generated/services';
+import { MenuEntry } from 'src/app/interfaces/menu-entry';
+import { Config } from 'src/config/config';
 
 @Component({
   selector: 'app-menu',
@@ -72,10 +72,10 @@ export class MenuComponent extends BaseComponent implements OnInit {
       return arr.reduce((a, b) => a + b);
     }));
 
-  constructor(private apiService: ApiService, private config: Config) {
+  constructor(private changelogService: ChangelogService, private config: Config) {
     super();
     combineLatest([
-      this.apiService.changelogIds(),
+      this.changelogService.changelogIds(),
       this.config.$seenChangelogs
     ])
       .pipe(this.untilDestroy())

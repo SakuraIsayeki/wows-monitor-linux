@@ -1,6 +1,7 @@
 import { Component, HostBinding, Input, OnInit, Optional, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { faExclamationCircle, faFire, faHeart, faSkull, faTrophy, faLightbulb, faGavel } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationCircle, faFire, faGavel, faHeart, faLightbulb, faSkull, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { PlayerInfo } from 'src/app/generated/models';
 import { ElectronService } from 'src/app/services/desktop/electron.service';
 import { WowsNumbersPipe } from 'src/app/shared/pipes/wows-numbers.pipe';
 import { Config } from 'src/config/config';
@@ -13,7 +14,7 @@ import { BaseComponent } from '../../../base.component';
 export class PlayerComponent extends BaseComponent implements OnInit {
 
   @Input()
-  player: any;
+  player: PlayerInfo;
 
   @Input()
   @HostBinding('class.cw')
