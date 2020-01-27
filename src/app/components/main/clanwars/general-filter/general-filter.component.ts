@@ -1,24 +1,30 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, OnDestroy } from '@angular/core';
 import { BaseComponent } from 'src/app/components/base.component';
-import { ClanWarsService } from 'src/app/services/clanwars.service';
+import { ClanWarsHistoryService } from 'src/app/services/clanwars-history.service';
 import { ClanwarsComponent } from '../clanwars.component';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-general-filter',
   templateUrl: './general-filter.component.html'
 })
-export class GeneralFilterComponent extends BaseComponent implements OnInit {
+export class GeneralFilterComponent extends BaseComponent implements OnInit, OnDestroy {
 
   @Input()
   isHistory = false;
 
   constructor(
     public clanwars: ClanwarsComponent,
-    public service: ClanWarsService) {
+    public service: ClanWarsHistoryService) {
     super();
   }
 
   ngOnInit() {
+
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
   }
 
 }

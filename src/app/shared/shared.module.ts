@@ -14,6 +14,8 @@ import { ExternalLinkDirective } from './directives/external-link.directive';
 import { ReplaceWhitespacePipe } from './pipes/replace-whitespaces.pipe';
 import { AddPlusPipe } from './pipes/add-plus.pipe';
 import { ResolveClansPipe } from './pipes/resolve-clans.pipe';
+import { ShowOnScrollDirective } from './directives/show-on-scroll.directive';
+import { Primetime2RegionPipe } from './pipes/primetime-region.pipe';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { ResolveClansPipe } from './pipes/resolve-clans.pipe';
     ShowMenuEntryDirective,
     ShowOnDirective,
     ExternalLinkDirective,
+    ShowOnScrollDirective,
     JoinPipe,
     MatchGroupPipe,
     SanitizeCssPipe,
@@ -31,7 +34,8 @@ import { ResolveClansPipe } from './pipes/resolve-clans.pipe';
     RomanPipe,
     WowsNumbersPipe,
     AddPlusPipe,
-    ResolveClansPipe
+    ResolveClansPipe,
+    Primetime2RegionPipe
   ],
   exports: [
     IsDesktopDirective,
@@ -39,6 +43,7 @@ import { ResolveClansPipe } from './pipes/resolve-clans.pipe';
     ShowMenuEntryDirective,
     ShowOnDirective,
     ExternalLinkDirective,
+    ShowOnScrollDirective,
     JoinPipe,
     MatchGroupPipe,
     SanitizeCssPipe,
@@ -48,7 +53,8 @@ import { ResolveClansPipe } from './pipes/resolve-clans.pipe';
     RomanPipe,
     WowsNumbersPipe,
     AddPlusPipe,
-    ResolveClansPipe
+    ResolveClansPipe,
+    Primetime2RegionPipe
   ],
   imports: [],
   providers: []

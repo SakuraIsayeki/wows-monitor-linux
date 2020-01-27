@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from 'src/app/components/base.component';
-import { ClanWarsService } from 'src/app/services/clanwars.service';
+import { ClanWarsHistoryService } from 'src/app/services/clanwars-history.service';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class ClanSearchComponent extends BaseComponent implements OnInit, OnDest
   clanSelected = new EventEmitter<number>();
 
   constructor(
-    public cwService: ClanWarsService,
+    public cwService: ClanWarsHistoryService,
     private apiService: ApiService
   ) {
     super();

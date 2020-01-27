@@ -20,7 +20,8 @@ import { CustomMissingTranslationHandler } from './services/custom-missing-trans
 import { LocatorService } from './services/locator.service';
 import { ResizeService } from './services/resize.service';
 import { LivefeedService } from './services/livefeed.service';
-import { ClanWarsService } from './services/clanwars.service';
+import { ClanWarsHistoryService } from './services/clanwars-history.service';
+import { ScrollService } from './services/scroll.service';
 
 const translateHttpLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -91,7 +92,8 @@ const metaFactory = (translate: TranslateService) => {
     ClientIdHttpInterceptor,
     ClientVersionHttpInterceptor,
     LivefeedService,
-    ClanWarsService
+    ClanWarsHistoryService,
+    ScrollService
   ]
 })
 export class AppSharedModule {

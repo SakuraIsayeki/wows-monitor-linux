@@ -1,4 +1,4 @@
-<div class="filters-wrap">
+<div class="filters-wrap" [class.history]="isHistory">
   <div class="filter-wrap">
     <label>{{'clanwars.filters.region.label' | translate}}</label>
     <p-multiSelect appendTo="body" [options]="clanwars.regionOptions" [formControl]="service.form.region"
@@ -60,12 +60,6 @@
     <label>{{'clanwars.filters.season.label' | translate}}</label>
     <p-dropdown appendTo="body" [options]="clanwars.seasonOptions" [formControl]="service.form.season"
       [placeholder]="'clanwars.filters.season.empty' | translate" [showClear]="true">
-      <ng-template let-item pTemplate="selectedItem">
-        {{ item.label }}
-      </ng-template>
-      <ng-template let-item pTemplate="item">
-        {{ item.value }}
-      </ng-template>
     </p-dropdown>
   </div>
 </div>

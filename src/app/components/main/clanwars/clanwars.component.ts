@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { Region } from 'src/app/interfaces/region';
+import { ApiService } from 'src/app/services/api.service';
+import { BaseComponent } from '../../base.component';
+import { ScrollService } from 'src/app/services/scroll.service';
+import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-clanwars',
   templateUrl: './clanwars.component.html'
 })
-export class ClanwarsComponent implements OnInit {
+export class ClanwarsComponent extends BaseComponent implements OnInit, OnDestroy {
 
   regionOptions: SelectItem[] = [
     {
@@ -76,20 +80,22 @@ export class ClanwarsComponent implements OnInit {
     }
   ];
 
-  seasonOptions: SelectItem[] = [
-    {
-      label: '1',
-      value: 1
-    },
-    {
-      label: '2',
-      value: 2
-    }
-  ];
+  seasonOptions: SelectItem[] = [];
 
-  constructor() { }
+  faChevronUp = faChevronUp;
+
+  constructor(
+    private apiService: ApiService,
+    public scrollService: ScrollService) {
+    super();
+  }
 
   ngOnInit() {
+    this.apiService.clansSeasons().pipe(this.untilDestroy()).subscribe(seasons => this.seasonOptions = seasons);
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
   }
 
 }

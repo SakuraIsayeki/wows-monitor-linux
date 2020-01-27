@@ -23,6 +23,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ChipsModule } from 'primeng/chips';
 import { FavoriteInputComponent } from './livefeed-filter/favorite-input/favorite-input.component';
 import { ClanSearchComponent } from './clan-search/clan-search.component';
+import { PaginatorModule } from 'primeng/paginator';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 
 @NgModule({
@@ -53,7 +55,9 @@ import { ClanSearchComponent } from './clan-search/clan-search.component';
     CalendarModule,
     CheckboxModule,
     MultiSelectModule,
-    ChipsModule
+    ChipsModule,
+    PaginatorModule,
+    ProgressBarModule
   ]
 })
 export class ClanwarsModule { }

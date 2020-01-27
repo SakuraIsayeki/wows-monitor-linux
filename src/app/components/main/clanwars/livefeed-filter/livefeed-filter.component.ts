@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BaseComponent } from 'src/app/components/base.component';
-import { ClanWarsService } from 'src/app/services/clanwars.service';
+import { ClanWarsHistoryService } from 'src/app/services/clanwars-history.service';
 import { LivefeedService } from 'src/app/services/livefeed.service';
 import { ClanwarsComponent } from '../clanwars.component';
 
@@ -13,7 +13,7 @@ export class LivefeedFilterComponent extends BaseComponent implements OnInit, On
   constructor(
     public clanwars: ClanwarsComponent,
     public service: LivefeedService,
-    public cwService: ClanWarsService
+    public cwService: ClanWarsHistoryService
   ) {
     super();
   }

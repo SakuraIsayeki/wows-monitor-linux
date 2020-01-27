@@ -30,16 +30,6 @@ export class ClanWarsForm extends FormGroup {
     this.addControl('season', new FormControl(config.season));
   }
 
-  get model() {
-    return {
-      favClanIds: this.favClanIds.value,
-      onlyShowFavs: this.onlyShowFavs.value,
-      league: this.league.value,
-      division: this.division.value,
-      region: this.region.value,
-    } as ClanWarsConfig;
-  }
-
   get favClanIds() {
     return this.get('favClanIds');
   }

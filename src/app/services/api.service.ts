@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Config } from 'src/config/config';
 import { Region } from '../interfaces/region';
 import { Changelog } from '../interfaces/changelog';
+import { HistoryListRequest } from '../interfaces/history-list-request';
 
 @Injectable()
 export class ApiService {
@@ -58,5 +59,13 @@ export class ApiService {
 
   clansResolveIds(arr: number[]) {
     return this.httpClient.post<any[]>(environment.apiUrl + '/clans/resolveids?ids=' + arr.join(','), null, { observe: 'body' });
+  }
+
+  clansSeasons() {
+    return this.httpClient.get<any[]>(environment.apiUrl + '/clans/seasons', { observe: 'body' });
+  }
+
+  clansHistory(request: HistoryListRequest) {
+    return this.httpClient.post<any>(environment.apiUrl + '/clans/history', request, { observe: 'body' });
   }
 }

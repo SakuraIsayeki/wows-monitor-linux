@@ -57,6 +57,15 @@ a {
   &:hover {
     opacity: 1;
   }
+
+  &.force-show {
+    opacity: 1 !important;
+  }
+
+  &.right {
+    left: auto;
+    right: 3em;
+  }
 }
 
 .round-icon-button {

@@ -2,7 +2,6 @@ import { FormGroup, FormControl } from '@angular/forms'
 
 export interface LivefeedConfig {
   liveUpdate?: boolean;
-  favsOnly?: boolean;
   notification?: boolean;
   notificationFavsOnly?: boolean;
   homeScroller?: boolean;
@@ -12,7 +11,6 @@ export interface LivefeedConfig {
 
 export const defaultLivefeedConfig: LivefeedConfig = {
   liveUpdate: false,
-  favsOnly: false,
   notification: true,
   notificationFavsOnly: false,
   homeScroller: false,
@@ -25,7 +23,6 @@ export class LivefeedForm extends FormGroup {
     super({});
 
     this.addControl('liveUpdate', new FormControl(config.liveUpdate));
-    this.addControl('favsOnly', new FormControl(config.favsOnly));
     this.addControl('notification', new FormControl(config.notification));
     this.addControl('notificationFavsOnly', new FormControl(config.liveUpdate));
     this.addControl('homeScroller', new FormControl(config.homeScroller));
@@ -36,7 +33,6 @@ export class LivefeedForm extends FormGroup {
   get model() {
     return {
       liveUpdate: this.liveUpdate.value,
-      favsOnly: this.favsOnly.value,
       notification: this.notification.value,
       notificationFavsOnly: this.notificationFavsOnly.value,
       homeScroller: this.homeScroller.value,
@@ -47,10 +43,6 @@ export class LivefeedForm extends FormGroup {
 
   get liveUpdate() {
     return this.get('liveUpdate');
-  }
-
-  get favsOnly() {
-    return this.get('favsOnly');
   }
 
   get notification() {

@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { faCaretDown, faCaretUp, faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { BaseComponent } from 'src/app/components/base.component';
 import { LivefeedService } from 'src/app/services/livefeed.service';
 
@@ -37,7 +37,9 @@ export class LivefeedComponent extends BaseComponent implements OnInit {
 
   faFilter = faFilter;
 
-  constructor(public service: LivefeedService) {
+  constructor(
+    public service: LivefeedService
+  ) {
     super();
   }
 
