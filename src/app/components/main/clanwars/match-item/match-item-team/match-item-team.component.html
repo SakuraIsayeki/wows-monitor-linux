@@ -8,7 +8,7 @@
     <span>{{ 'monitor.cw.leagues.' + entry.league | translate }}&nbsp;{{ entry.division | roman }}</span>
     <ng-container *ngIf="!entry.stageType">
       <span>|</span>
-      <span>
+      <span *ngIf="entry.publicRatingDiff ">
         <strong style="font-size: 1.1em">{{entry.publicRatingDiff | addPlus}}</strong>&nbsp;
         <span style="font-size: 1.1em">Points</span>
       </span>
@@ -19,7 +19,7 @@
     <img class="region" src="assets/region-{{clan.region}}.svg" />
     <span>#{{ entry.regionRank}}</span>
     <fa-icon style="font-size: 1.4em" [icon]="regionRankIcon"></fa-icon>
-    <strong style="font-size: 1.1em">{{entry.regionRankDiff * -1 | addPlus}}</strong>
+    <strong style="font-size: 1.1em">{{entry.regionRankDiff | addPlus}}</strong>
   </div>
   <div id="global" class="info-row">
     <img class="globe" src="assets/globe.svg" />

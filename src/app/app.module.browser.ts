@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { AppSharedModule } from './app.module.shared';
 import { AnalyticsServiceToken } from './interfaces/analytics.service';
 import { ConfigServiceToken } from './interfaces/config.service';
-import { LoggerServiceToken, LoggerService } from './interfaces/logger.service';
+import { LoggerService, LoggerServiceToken } from './interfaces/logger.service';
 import { SignalrServiceToken } from './interfaces/signalr.service';
 import { UpdateServiceToken } from './interfaces/update.service';
 import { ConsoleLoggerService } from './services/browser/console.logger.service';

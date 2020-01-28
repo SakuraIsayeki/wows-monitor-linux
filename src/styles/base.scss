@@ -39,9 +39,18 @@ a {
 
 .align-right-wrapper {
   display: flex;
+  justify-content: flex-end;
 
   >* {
     margin-left: auto;
+  }
+
+  >p-button {
+    margin-left: 1em;
+
+    &:first-child {
+      margin-left: 0;
+    }
   }
 }
 
@@ -170,6 +179,12 @@ a {
 }
 
 .custom-contextmenu {}
+
+ngx-loading-bar.desktop {
+  #loading-bar .bar {
+    top: 25px
+  }
+}
 
 main {
   height: calc(100% - 55px);

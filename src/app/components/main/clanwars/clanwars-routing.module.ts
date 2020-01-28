@@ -4,6 +4,7 @@ import { ClanwarsComponent } from './clanwars.component';
 import { HistoryClanComponent } from './history/history-clan/history-clan.component';
 import { HistoryComponent } from './history/history.component';
 import { LivefeedComponent } from './livefeed/livefeed.component';
+import { HistoryClanResolver } from './history/history-clan/history-clan.resolver';
 
 const routes: Routes = [
   {
@@ -22,6 +23,9 @@ const routes: Routes = [
       {
         path: ':clanId',
         component: HistoryClanComponent,
+        resolve: {
+          clan: HistoryClanResolver
+        },
         data: {
           meta: {
             title: 'meta.clanwars.title'

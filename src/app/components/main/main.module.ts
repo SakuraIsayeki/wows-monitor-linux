@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { DialogService } from 'primeng/api';
@@ -16,6 +18,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AnalyticsInfoComponent } from './analytics-info/analytics-info.component';
 import { ChangelogModule } from './changelogs/changelog/changelog.module';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
@@ -40,7 +43,8 @@ import { TopbarComponent } from './topbar/topbar.component';
     TitlebarComponent,
     QrComponent,
     QrScanComponent,
-    PathPickerDialogComponent
+    PathPickerDialogComponent,
+    AnalyticsInfoComponent
   ],
   imports: [
     CommonModule,
@@ -61,7 +65,9 @@ import { TopbarComponent } from './topbar/topbar.component';
     ScrollPanelModule,
     ZXingScannerModule,
     ScrollPanelModule,
-    ToastModule
+    ToastModule,
+    LoadingBarModule,
+    LoadingBarRouterModule
   ],
   providers: [
     DialogService
@@ -69,7 +75,8 @@ import { TopbarComponent } from './topbar/topbar.component';
   entryComponents: [
     QrComponent,
     QrScanComponent,
-    PathPickerDialogComponent
+    PathPickerDialogComponent,
+    AnalyticsInfoComponent
   ]
 })
 export class MainModule { }

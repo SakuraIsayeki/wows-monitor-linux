@@ -73,6 +73,8 @@
     "@ngx-meta/core": "7.0.0",
     "@ngx-translate/core": "11.0.1",
     "@ngx-translate/http-loader": "4.0.0",
+    "@ngx-loading-bar/core": "4.2.0",
+    "@ngx-loading-bar/router": "4.2.0",
     "@types/jasmine": "3.3.13",
     "@types/jasminewd2": "2.0.6",
     "@types/node": "12.11.7",

@@ -1,4 +1,10 @@
 {
+  "analytics": {
+    "anonymize": "Anonymize my IP",
+    "dialogHeader": "Privacy Disclaimer",
+    "disable": "Disable Analytics",
+    "okButton": "Agree"
+  },
   "appTitle": "WoWs Monitor",
   "changelogs": {
     "closeButton": "Got it!",
@@ -95,6 +101,9 @@
     },
     "changelogs": {
       "title": "Changelogs"
+    },
+    "clanwars": {
+      "title": "Clan Wars History"
     },
     "configtool": {
       "title": "Configtool"
@@ -234,6 +243,10 @@
         "caption": "Allow Beta Releases",
         "summary": "When enabled app will check for releases in beta state."
       },
+      "anonymIp": {
+        "caption": "IP anonymization",
+        "summary": "Don't send my IP for analytics requests"
+      },
       "autoUpdate": {
         "caption": "Automatic Update",
         "summary": "When enabled app will check for a new version at each start. Highly recommended."
@@ -241,6 +254,10 @@
       "closeToTray": {
         "caption": "Close to tray",
         "summary": "When enabled app will minimize to tray upon clicking the close icon."
+      },
+      "enableAnalytics": {
+        "caption": "Google analytics",
+        "summary": "Enable Google Analytics"
       },
       "title": "General"
     },
@@ -265,6 +282,9 @@
       "fetchingError": "Error in stats fetcher api. Please contact me.",
       "hostDisconnected": "Desktop client disconnected",
       "hostLost": "Desktop client disconnected",
+      "http0": "HTTP Unknown Error",
+      "http404": "HTTP Not found",
+      "http500": "HTTP Server Error",
       "matchUpdated": "Match updated.",
       "noHostPaired": "No desktop client paired",
       "noServiceConnection": "Service could not be connected.",

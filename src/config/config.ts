@@ -16,6 +16,9 @@ type TeamWinrate = 'average' | 'weighted' | 'median';
 
 export interface ConfigOptions {
   autoUpdate?: boolean;
+  analyticsInfoSeen?: boolean;
+  anonymIp?: boolean;
+  enableAnalytics?: boolean;
   allowBeta?: boolean;
   signalRToken?: string;
   selectedDirectory?: string;
@@ -37,6 +40,9 @@ export interface ConfigOptions {
 
 export const defaultConfig: ConfigOptions = {
   autoUpdate: true,
+  analyticsInfoSeen: false,
+  anonymIp: false,
+  enableAnalytics: true,
   layoutMode: 'normal',
   playerBackgrounds: 'pr',
   playerBackgroundsMode: 'background',
@@ -59,6 +65,9 @@ export class Config implements ConfigOptions {
       this.ensureValues(config);
 
       this.autoUpdate = config.autoUpdate;
+      this.analyticsInfoSeen = config.analyticsInfoSeen;
+      this.anonymIp = config.anonymIp;
+      this.enableAnalytics = config.enableAnalytics;
       this.allowBeta = config.allowBeta;
       this.signalRToken = config.signalRToken;
       this.selectedDirectory = config.selectedDirectory;
@@ -84,6 +93,8 @@ export class Config implements ConfigOptions {
 
     this._$settingChanged = combineLatest([
       this.$autoUpdate,
+      this.$anonymIp,
+      this.$enableAnalytics,
       this.$allowBeta,
       this.$layoutMode,
       this.$playerBackgrounds,
@@ -103,6 +114,9 @@ export class Config implements ConfigOptions {
     await this.waitTillLoaded();
     return from(this.configService.save({
       autoUpdate: this._autoUpdate,
+      analyticsInfoSeen: this._analyticsInfoSeen,
+      anonymIp: this._anonymIp,
+      enableAnalytics: this._enableAnalytics,
       allowBeta: this._allowBeta,
       signalRToken: this._signalRToken,
       selectedDirectory: this._selectedDirectory,
@@ -146,6 +160,57 @@ export class Config implements ConfigOptions {
 
   get $autoUpdate() {
     return this._$autoUpdate.asObservable();
+  }
+
+  // analyticsInfoSeen
+  private _analyticsInfoSeen: boolean;
+  private _$analyticsInfoSeen = new BehaviorSubject<boolean>(null);
+
+  get analyticsInfoSeen() {
+    return this._analyticsInfoSeen;
+  }
+
+  set analyticsInfoSeen(value) {
+    this._analyticsInfoSeen = value;
+    this._$analyticsInfoSeen.next(value);
+  }
+
+  get $analyticsInfoSeen() {
+    return this._$analyticsInfoSeen.asObservable();
+  }
+
+  // anonymIp
+  private _anonymIp: boolean;
+  private _$anonymIp = new BehaviorSubject<boolean>(null);
+
+  get anonymIp() {
+    return this._anonymIp;
+  }
+
+  set anonymIp(value) {
+    this._anonymIp = value;
+    this._$anonymIp.next(value);
+  }
+
+  get $anonymIp() {
+    return this._$anonymIp.asObservable();
+  }
+
+  // anonymIp
+  private _enableAnalytics: boolean;
+  private _$enableAnalytics = new BehaviorSubject<boolean>(null);
+
+  get enableAnalytics() {
+    return this._enableAnalytics;
+  }
+
+  set enableAnalytics(value) {
+    this._enableAnalytics = value;
+    this._$enableAnalytics.next(value);
+  }
+
+  get $enableAnalytics() {
+    return this._$enableAnalytics.asObservable();
   }
 
   // allowBeta

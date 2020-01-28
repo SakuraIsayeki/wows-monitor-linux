@@ -21,7 +21,6 @@ export class ApiService {
     ApiService.lastRegion = region;
     const tempArenaInfo = JSON.parse(tempArenaInfoJson) as TempArenaInfo;
     tempArenaInfo.matchGroup = this.mode;
-    sessionStorage.setItem('x-region', ApiService.lastRegion.toString());
     return this.statsService.statsSendStats({ token: this.config.signalRToken, body: tempArenaInfo });
   }
 }

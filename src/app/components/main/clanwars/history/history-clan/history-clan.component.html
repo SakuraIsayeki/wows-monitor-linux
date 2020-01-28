@@ -2,6 +2,7 @@
   <div class="history-filter-card">
     <h2>{{ 'clanwars.history.title' | translate }}</h2>
     <app-general-filter [isHistory]="true" [isClan]="true"></app-general-filter>
+    {{ (route.data | async).clan | json }}
     <p-paginator [rows]="service.form.pageSize.value" [first]="service.first" [totalRecords]="service.totalCount"
       [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.onPage($event)"></p-paginator>
     <a class="round-icon-button reload-list" (click)="service.load()">
@@ -11,7 +12,7 @@
 </p-card>
 <div *ngFor="let item of service.items">
   <p-card class="no-padding">
-    <app-match-item [match]="item" [clanId]=""></app-match-item>
+    <app-match-item [match]="item" [clanId]="service.form.clanId.value"></app-match-item>
   </p-card>
 </div>
 <p-paginator *ngIf="service.items.length > 0" [first]="service.first" [rows]="service.form.pageSize.value"

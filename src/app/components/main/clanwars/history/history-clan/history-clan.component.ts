@@ -1,8 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { faRedo } from '@fortawesome/free-solid-svg-icons';
 import { BaseComponent } from 'src/app/components/base.component';
+import { ClanInfo } from 'src/app/generated/models';
+import { ClansService } from 'src/app/generated/services';
 import { ClanWarsHistoryService } from 'src/app/services/clanwars-history.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-history-clan',
@@ -12,17 +14,17 @@ export class HistoryClanComponent extends BaseComponent implements OnInit, OnDes
 
   faRedo = faRedo;
 
+  clan: ClanInfo;
+
   constructor(
     public service: ClanWarsHistoryService,
-    private route: ActivatedRoute
+    public route: ActivatedRoute
   ) {
     super();
   }
 
   ngOnInit() {
-    this.route.params.pipe(this.untilDestroy()).subscribe(p => {
-      this.service.form.clanId.setValue(p.clanId);
-    });
+
   }
 
   ngOnDestroy() {

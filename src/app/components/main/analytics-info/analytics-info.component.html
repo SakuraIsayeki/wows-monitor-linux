@@ -1,0 +1,45 @@
+<p *isDesktop>
+  This app uses Google Analytics with the <a
+    href="https://developers.google.com/analytics/devguides/collection/protocol/v1">Measurement Protocol</a>
+  implementation. <br />
+  It is used to track the current users, user actions, the screen size, the app version and errors. <br />
+  Due to it not being in your browser it doesn't track anything but the raw data (mentioned above) that i choose to
+  send. <br />
+  <br />
+  None of the collected data is used for anything but statistical analytics and is not send or sold to any other
+  party.<br />
+  <br />
+  No other personal data is collected, tracked or saved. <br />
+  <br />
+  <strong>If you don't want your IP to be tracked (used for approximate location, mainly Country) you can choose to
+    anonymize your IP </strong><br />
+  <br />
+  <strong>If you change your mind you can always go to the settings and change the option.</strong>
+</p>
+<p *isBrowser>
+  This website/app uses Google Analytics with the <a href="https://developers.google.com/gtagjs">gtag.js</a>
+  implementation. <br />
+  It is used to track the visitor amount, visitor actions, the screen size and errors. <br />
+  Due to being in the browser it also tracks when you came from another page (referer) <br />
+  <br />
+  None of the collected data is used for anything but statistical analytics and is not send or sold to any other
+  party.<br />
+  <br />
+  No other personal data is collected, tracked or saved. <br />
+  <br />
+  <strong>If you don't want your IP to be tracked (used for approximate location, mainly Country) you can choose to
+    anonymize your IP </strong><br />
+  <br />
+  <strong>If you don't want to enable Google Analytics at all you can also choose to do so.</strong> <br />
+  <br />
+  <strong>If you change your mind you can always go to the settings and change the options.</strong>
+</p>
+<div class="align-right-wrapper">
+  <p-button *isBrowser [label]="'analytics.disable' | translate" [styleClass]="'ui-button-secondary'"
+    (click)="click(1)">
+  </p-button>
+  <p-button [label]="'analytics.anonymize' | translate" [styleClass]="'ui-button-secondary'" (click)="click(2)">
+  </p-button>
+  <p-button [label]="'analytics.okButton' | translate" [styleClass]="'ui-button-success'" (click)="click(3)">
+  </p-button>
+</div>

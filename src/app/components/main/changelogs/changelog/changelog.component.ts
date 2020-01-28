@@ -36,7 +36,7 @@ export class ChangelogComponent extends BaseComponent implements OnChanges, OnDe
         this.changelogSubscription.unsubscribe();
       }
 
-      this.changelogSubscription = this.changelogService.changelogDetail(changes.id.currentValue)
+      this.changelogSubscription = this.changelogService.changelogDetail({ id: changes.id.currentValue })
         .pipe(this.untilDestroy())
         .subscribe(c => {
           this.loadChangelog(c);

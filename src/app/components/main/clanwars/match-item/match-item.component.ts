@@ -12,10 +12,15 @@ export class MatchItemComponent extends BaseComponent implements OnInit {
   match: CwClanMatch;
 
   @Input()
-  clanId: number;
+  clanId: string;
 
   @HostBinding('class.normal')
-  classNormal = true;
+  normal = true;
+
+  @HostBinding('class.inverted')
+  get inverted() {
+    return !this.normal;
+  }
 
   constructor() {
     super();
@@ -23,8 +28,8 @@ export class MatchItemComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     if (this.clanId) {
-      if (this.clanId === this.match.looserId) {
-        this.classNormal = false;
+      if (parseInt(this.clanId, 0) === this.match.looserId) {
+        this.normal = false;
       }
     }
   }

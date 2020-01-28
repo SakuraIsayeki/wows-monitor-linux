@@ -1,6 +1,12 @@
 <app-titlebar *isDesktop></app-titlebar>
 <app-topbar></app-topbar>
 <!-- <app-menu></app-menu> -->
+<ng-container *isDesktop>
+  <ngx-loading-bar class="desktop" color="#eb4a0f" [includeSpinner]="false"></ngx-loading-bar>
+</ng-container>
+<ng-container *isBrowser>
+  <ngx-loading-bar color="#eb4a0f" [includeSpinner]="false"></ngx-loading-bar>
+</ng-container>
 
 <main>
   <p-scrollPanel [style]="{width: '100%', height: '100%'}">

@@ -2,6 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { ApiService } from './api.service';
 
 
 
@@ -10,10 +11,10 @@ import { tap } from 'rxjs/operators';
 export class RegionRequestInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Apply the headers
-    if (window.sessionStorage.getItem('x-region')) {
+    if (ApiService.lastRegion) {
       req = req.clone({
         setHeaders: {
-          'x-region': window.sessionStorage.getItem('x-region')
+          'x-region': ApiService.lastRegion.toString()
         }
       });
     }
