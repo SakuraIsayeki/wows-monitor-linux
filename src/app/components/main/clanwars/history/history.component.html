@@ -2,6 +2,22 @@
   <div class="history-filter-card">
     <h2>{{ 'clanwars.history.title' | translate }}</h2>
     <app-general-filter [isHistory]="true"></app-general-filter>
+    <div class="filters-wrap history-second">
+      <div class="filter-wrap">
+        <app-clan-search id="clansearch" [placeholder]="'clanwars.clansearch.placeholder' | translate"
+          (clanSelected)="clanSelected($event)">
+        </app-clan-search>
+      </div>
+      <div id="favsOnly" class="filter-wrap input-switch">
+        <p-inputSwitch [formControl]="service.form.onlyShowFavs"></p-inputSwitch>
+        <label>
+          {{ 'clanwars.filters.favsOnly.labelHistory' | translate }}
+        </label>
+      </div>
+      <div id="favorites" class="filter-wrap">
+        <app-favorite-input [control]="service.form.favClanIds"></app-favorite-input>
+      </div>
+    </div>
     <p-paginator [rows]="service.form.pageSize.value" [first]="service.first" [totalRecords]="service.totalCount"
       [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.onPage($event)"></p-paginator>
     <a class="round-icon-button reload-list" (click)="service.load()">

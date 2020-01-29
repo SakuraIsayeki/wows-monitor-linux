@@ -33,6 +33,18 @@ const routes: Routes = [
         }
       },
       {
+        path: ':clanId/:season',
+        component: HistoryClanComponent,
+        resolve: {
+          clan: HistoryClanResolver
+        },
+        data: {
+          meta: {
+            title: 'meta.clanwars.title'
+          }
+        }
+      },
+      {
         path: '',
         component: HistoryComponent,
         data: {

@@ -1,5 +1,6 @@
 <p-autoComplete appendTo="body" [(ngModel)]="selection" (onSelect)="onSelect($event)" [suggestions]="autoCompleteResult"
-  (completeMethod)="autocomplete($event)" [placeholder]="'clanwars.filters.favorites.placeholder' | translate">
+  (completeMethod)="autocomplete($event)"
+  [placeholder]="placeholder ? placeholder : 'clanwars.filters.favorites.placeholder' | translate">
   <ng-template let-item pTemplate="item">
     [{{item.tag}}]&nbsp;{{item.name}}
   </ng-template>

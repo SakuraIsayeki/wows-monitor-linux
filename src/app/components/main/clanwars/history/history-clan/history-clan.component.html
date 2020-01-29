@@ -1,10 +1,28 @@
 <p-card>
   <div class="history-filter-card">
-    <h2>{{ 'clanwars.history.title' | translate }}</h2>
+    <h2><span [style.color]="clan.color | sanitizeCss">[{{clan.tag}}]</span>&nbsp;{{clan.name}}</h2>
+
     <app-general-filter [isHistory]="true" [isClan]="true"></app-general-filter>
-    {{ (route.data | async).clan | json }}
+
+    <div class="claninfo ranking-wrapper">
+      <div id="global" class="info-row" *ngIf="clan.leadingRating?.globalRank">
+        <img class="globe" src="assets/globe.svg" />
+        <span>#{{ clan.leadingRating?.globalRank }}</span>
+      </div>
+      <div id="region" class="info-row" *ngIf="clan.leadingRating?.rank > 0 || clan.rank > 0">
+        <img class="region" src="assets/region-{{clan.region}}.svg" />
+        <span>#{{ clan.leadingRating?.rank ? clan.leadingRating?.rank : clan.rank}}</span>
+      </div>
+    </div>
+
+    <div class="claninfo rating-wrapper">
+      <app-clanrating-info [rating]="clan.alphaRating"></app-clanrating-info>
+      <app-clanrating-info [rating]="clan.bravoRating"></app-clanrating-info>
+    </div>
+
     <p-paginator [rows]="service.form.pageSize.value" [first]="service.first" [totalRecords]="service.totalCount"
-      [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.onPage($event)"></p-paginator>
+      [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.onPage($event)">
+    </p-paginator>
     <a class="round-icon-button reload-list" (click)="service.load()">
       <fa-icon [icon]="faRedo"></fa-icon>
     </a>

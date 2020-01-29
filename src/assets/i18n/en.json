@@ -12,6 +12,9 @@
     "markAllAsSeen": "Mark all as seen"
   },
   "clanwars": {
+    "clansearch": {
+      "placeholder": "Search for clans"
+    },
     "filters": {
       "division": {
         "empty": "All divisions",
@@ -22,7 +25,8 @@
         "placeholder": "Search for clans to add them as favorites"
       },
       "favsOnly": {
-        "label": "Only update favorites"
+        "label": "Only update favorites",
+        "labelHistory": "Only show favorites"
       },
       "league": {
         "empty": "All leagues",

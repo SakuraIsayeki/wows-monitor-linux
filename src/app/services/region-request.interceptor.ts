@@ -11,7 +11,7 @@ import { ApiService } from './api.service';
 export class RegionRequestInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Apply the headers
-    if (ApiService.lastRegion) {
+    if (ApiService.lastRegion != null) {
       req = req.clone({
         setHeaders: {
           'x-region': ApiService.lastRegion.toString()

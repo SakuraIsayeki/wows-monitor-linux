@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { BaseComponent } from 'src/app/components/base.component';
 import { ClanWarsHistoryService } from 'src/app/services/clanwars-history.service';
 import { ApiService } from 'src/app/services/api.service';
@@ -13,6 +13,9 @@ export class ClanSearchComponent extends BaseComponent implements OnInit, OnDest
   autoCompleteResult: any[];
 
   selection = null;
+
+  @Input()
+  placeholder: string;
 
   @Output()
   clanSelected = new EventEmitter<number>();

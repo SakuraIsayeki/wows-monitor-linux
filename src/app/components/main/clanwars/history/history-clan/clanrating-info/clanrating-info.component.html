@@ -1,0 +1,23 @@
+<div class="claninfo-rating info-row" *ngIf="rating">
+  <img class="team" src="assets/team-{{rating.team}}.svg" />
+  <span>{{ 'monitor.cw.leagues.' + rating.league | translate }}&nbsp;{{ rating.division | roman }}</span>
+  <span>|</span>
+  <span>
+    <strong style="font-size: 1.1em">{{rating.rating}}</strong>&nbsp;
+    <span style="font-size: 1.1em">Points</span>
+  </span>
+</div>
+<div class="info-row" *ngIf="rating.battles > 0">
+  <span>
+    <strong>Battles</strong>&nbsp;{{rating.battles}}
+  </span>
+  <span>
+    <strong>Winrate</strong>&nbsp;{{rating.wins / rating.battles * 100 | number:'0.0-2'}}%
+  </span>
+  <span>
+    <strong>Winstreak</strong>&nbsp;{{rating.currentWinningStreak}}
+  </span>
+  <span>
+    <strong>Longest Winstreak</strong>&nbsp;{{rating.longestWinningStreak}}
+  </span>
+</div>

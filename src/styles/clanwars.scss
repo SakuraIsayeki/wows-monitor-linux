@@ -49,6 +49,20 @@ app-match-item {
   }
 }
 
+.info-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  >* {
+    margin-right: .5em;
+  }
+
+  img {
+    width: 1.5em;
+  }
+}
+
 app-match-item-team {
   padding: .5em;
   cursor: default;
@@ -80,20 +94,6 @@ app-match-item-team {
 
     &:hover {
       background: transparentize($secondaryColor, 0.5) !important;
-    }
-  }
-
-  .info-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    >* {
-      margin-right: .5em;
-    }
-
-    img {
-      width: 1.5em;
     }
   }
 
@@ -227,6 +227,12 @@ app-favorite-input {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 
+  &.history-second {
+    grid-template-columns: auto auto 40%;
+    grid-template-areas: "clansearch favsOnly favorites"
+      ". . favorites";
+  }
+
   &.livefeed {
     grid-template-columns: auto auto 40%;
     grid-template-areas: "liveUpdate notification favorites"
@@ -268,6 +274,10 @@ app-favorite-input {
   }
 }
 
+#clansearch {
+  grid-area: clansearch;
+}
+
 #liveUpdate {
   grid-area: liveUpdate;
 }
@@ -286,4 +296,34 @@ app-favorite-input {
 
 #favorites {
   grid-area: favorites;
+}
+
+.claninfo {
+  margin-bottom: 1em;
+
+  .info-row{
+    margin-bottom: .5em;
+  }
+
+  &.ranking-wrapper {
+    display: flex;
+    direction: row;
+
+    >.info-row {
+      margin-right: 1em;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &.rating-wrapper {
+    display: flex;
+    direction: row;
+
+    >:first-child {
+      margin-right: 2em;
+    }
+  }
 }

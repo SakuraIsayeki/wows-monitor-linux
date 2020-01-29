@@ -15,13 +15,13 @@
     </ng-container>
 
   </div>
-  <div id="region" class="info-row">
+  <div id="region" class="info-row" *ngIf="entry.regionRank > 0">
     <img class="region" src="assets/region-{{clan.region}}.svg" />
     <span>#{{ entry.regionRank}}</span>
     <fa-icon style="font-size: 1.4em" [icon]="regionRankIcon"></fa-icon>
     <strong style="font-size: 1.1em">{{entry.regionRankDiff | addPlus}}</strong>
   </div>
-  <div id="global" class="info-row">
+  <div id="global" class="info-row"  *ngIf="entry.globalRank > 0">
     <img class="globe" src="assets/globe.svg" />
     <span>#{{ entry.globalRank }}</span>
     <fa-icon style="font-size: 1.4em" [icon]="globalRankIcon"></fa-icon>

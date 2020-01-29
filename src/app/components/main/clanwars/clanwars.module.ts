@@ -26,6 +26,7 @@ import { LivefeedFilterComponent } from './livefeed-filter/livefeed-filter.compo
 import { LivefeedComponent } from './livefeed/livefeed.component';
 import { MatchItemTeamComponent } from './match-item/match-item-team/match-item-team.component';
 import { MatchItemComponent } from './match-item/match-item.component';
+import { ClanratingInfoComponent } from './history/history-clan/clanrating-info/clanrating-info.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { MatchItemComponent } from './match-item/match-item.component';
     GeneralFilterComponent,
     HistoryClanComponent,
     FavoriteInputComponent,
-    ClanSearchComponent
+    ClanSearchComponent,
+    ClanratingInfoComponent
   ],
   imports: [
     CommonModule,
