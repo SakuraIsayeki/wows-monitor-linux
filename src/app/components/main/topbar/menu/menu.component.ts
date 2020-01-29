@@ -32,16 +32,16 @@ export class MenuComponent extends BaseComponent implements OnInit {
       browser: false,
       desktop: true,
     },
-    {
-      key: 'meta.livefeed.title',
-      routerLink: '/home/clanwars/livefeed',
-      icon: faShieldAlt,
-    },
-    {
-      key: 'meta.clanwars.title',
-      routerLink: '/home/clanwars',
-      icon: faShieldAlt,
-    },
+    // {
+    //   key: 'meta.livefeed.title',
+    //   routerLink: '/home/clanwars/livefeed',
+    //   icon: faShieldAlt,
+    // },
+    // {
+    //   key: 'meta.clanwars.title',
+    //   routerLink: '/home/clanwars',
+    //   icon: faShieldAlt,
+    // },
     {
       key: 'meta.changelogs.title',
       routerLink: '/home/changelogs',
