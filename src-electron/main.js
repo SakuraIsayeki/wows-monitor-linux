@@ -32,6 +32,9 @@ function appReady() {
     var iconPath = isDebug
         ? path.join(__dirname, '../src/assets/icons/favicon-light.ico')
         : path.join(__dirname, 'dist/app-desktop/assets/icons/favicon-light.ico');
+    var trayIconPath = isDebug
+        ? path.join(__dirname, '../src/assets/icons/favicon-light.ico')
+        : path.join(__dirname, '../../favicon-tray.ico');
     win = new electron_1.BrowserWindow({
         x: mainWindowState.x,
         y: mainWindowState.y,
@@ -54,7 +57,7 @@ function appReady() {
         }
         return false;
     });
-    tray = new electron_1.Tray(electron_1.nativeImage.createFromPath(iconPath));
+    tray = new electron_1.Tray(trayIconPath);
     contextMenu = electron_1.Menu.buildFromTemplate([
         {
             label: 'Open', click: function () {
@@ -68,6 +71,9 @@ function appReady() {
             }
         }
     ]);
+    tray.addListener('click', function () {
+        win.show();
+    });
     tray.setContextMenu(contextMenu);
     update_tasks_1.initUpdater(logger, win, isDebug);
     electron_log_1.initElectronLogger(logger);
@@ -92,6 +98,8 @@ function appReady() {
         }));
     }
     win.on('closed', function () {
+        tray.destroy();
+        contextMenu = null;
         win = null;
     });
 }

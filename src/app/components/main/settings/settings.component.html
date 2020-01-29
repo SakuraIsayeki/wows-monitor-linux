@@ -4,7 +4,7 @@
   </a>
 </div>
 
-<div class="container small settings">
+<div class="container small settings" externalLink>
   <p-card>
     <h2>{{ 'settings.header' | translate}}</h2>
     <section>
@@ -163,8 +163,34 @@
           {{ 'settings.appearance.teamWinrate.caption' | translate }}
         </caption>
         <summary>
-          {{ 'settings.appearance.teamWinrate.summary' | translate }}
+          <div [innerHTML]="'settings.appearance.teamWinrate.summary' | translate | sanitizeHtml"></div>
+          <a (click)="showExaplanationDialog = true">{{'settings.appearance.teamWinrate.explanation' | translate}}</a>
         </summary>
+        <p-dialog [header]="'settings.appearance.teamWinrate.explanation' | translate"
+          [(visible)]="showExaplanationDialog" [style]="{'max-width': '600px'}" [modal]="true" appendTo="body">
+          <p externalLink>
+            <strong>Average (Mean) and Median</strong> <br />
+            <a href="https://www.purplemath.com/modules/meanmode.htm">https://www.purplemath.com/modules/meanmode.htm</a>
+          </p>
+          <p>
+            <strong>Weighted</strong> <br />
+            Weighted calculates the average by taking all wins divided by all battles, so that players with less battles
+            have less impact on the end result. However, it caps the battles at 40. Meaning all players with more than
+            40 battles are weighted equally.
+          </p>
+          <pre>
+total_wins = 0.0
+total_battles = 0.0
+for player in players:
+    if player.battles < 40:
+        total_wins += player.wins
+        total_battles += player.battles
+    else:
+        total_wins += 40*(player.wins/player.battles)
+        total_battles += 40
+weighted_WR = total_wins/total_battles
+        </pre>
+        </p-dialog>
         <div class="input-wrap">
           <p-selectButton [options]="teamWinrateOptions" [(ngModel)]="config.teamWinrate">
             <ng-template let-item>

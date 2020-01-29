@@ -12,6 +12,8 @@ import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingsComponent } from './settings.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DialogModule } from 'primeng/dialog';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     DropdownModule,
     InputTextModule,
     ButtonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    DialogModule,
+    OverlayPanelModule
   ],
   providers: [
   ]

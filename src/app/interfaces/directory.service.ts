@@ -12,7 +12,6 @@ export interface DirectoryService {
   $changeDetected: Observable<string>;
   $status: Observable<DirectoryStatus>;
 
-  changePath(path: string): void;
   refresh(): void;
   getResFolderPath(basePath: string, status?: DirectoryStatus): Promise<string>;
 }

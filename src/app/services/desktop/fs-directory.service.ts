@@ -64,11 +64,6 @@ export class FsDirectoryService implements DirectoryService {
       });
   }
 
-  changePath(path: string): void {
-    this.config.selectedDirectory = pathNormalize(path);
-    this.config.save();
-  }
-
   refresh() {
     this.checkPath();
     this.startWatcher();
