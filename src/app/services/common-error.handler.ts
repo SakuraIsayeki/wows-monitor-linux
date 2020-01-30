@@ -8,7 +8,7 @@ import { LocatorService } from './locator.service';
 export class CommonErrorHandler implements ErrorHandler {
 
   handleError(error) {
-    if (error instanceof HttpErrorResponse) {
+    if (error instanceof HttpErrorResponse && error.status !== 200) {
       (LocatorService.Injector.get(MessageService) as MessageService).add({
         closable: false,
         life: 3000,
