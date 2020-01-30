@@ -286,6 +286,7 @@
       "clientConnected": "Web app client connected.",
       "clientDisconnected": "Web app client disconnected.",
       "fetchingError": "Error in stats fetcher api. Please contact me.",
+      "hostConnected": "Desktop client connected",
       "hostDisconnected": "Desktop client disconnected",
       "hostLost": "Desktop client disconnected",
       "http0": "HTTP Unknown Error",

@@ -113,6 +113,7 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
 
     this.connection.on('HostConnected', () => {
       this._$socketStatus.next(SignalrStatus.HostConnected);
+      this.uiSuccess('hostConnected');
     });
 
     this.connection.on('HostDisconnected', () => {
