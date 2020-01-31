@@ -35,7 +35,9 @@ export class DefaultComponent extends BaseComponent implements OnInit, OnDestroy
       this.updateService.$updateAvailable.pipe(this.untilDestroy(), skip(1)).subscribe(available => this.handleUpdate(available));
       this.updateService.checkForUpdate();
     } else {
-      this.router.navigateByUrl('/home');
+      if (this.router.url === '/') {
+        this.router.navigateByUrl('/home');
+      }
     }
   }
 

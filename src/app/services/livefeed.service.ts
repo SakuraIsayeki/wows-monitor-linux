@@ -70,8 +70,8 @@ export class LivefeedService extends BaseInjection {
       if (count > 0) {
         this.uiCustom({
           severity: 'c-success',
-          summary: 'Feed',
-          detail: `New feed ${count}`,
+          summary: 'Clanwars',
+          detail: `Feed updated`,
           closable: false,
           life: 1500
         });

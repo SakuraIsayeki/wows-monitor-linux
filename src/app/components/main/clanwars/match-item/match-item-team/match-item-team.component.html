@@ -19,7 +19,7 @@
     <img class="region" src="assets/region-{{clan.region}}.svg" />
     <span>#{{ entry.regionRank}}</span>
     <fa-icon style="font-size: 1.4em" [icon]="regionRankIcon"></fa-icon>
-    <strong style="font-size: 1.1em">{{entry.regionRankDiff | addPlus}}</strong>
+    <strong style="font-size: 1.1em">{{entry.regionRankDiff * -1 | addPlus}}</strong>
   </div>
   <div id="global" class="info-row"  *ngIf="entry.globalRank > 0">
     <img class="globe" src="assets/globe.svg" />

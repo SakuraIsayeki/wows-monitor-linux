@@ -29,11 +29,11 @@ const routes: Routes = [
       {
         path: 'configtool',
         loadChildren: () => import('./configtool/configtool.module').then(m => m.ConfigtoolModule)
-      }//,
-      // {
-      //   path: 'clanwars',
-      //   loadChildren: () => import('./clanwars/clanwars.module').then(m => m.ClanwarsModule)
-      // }
+      },
+      {
+        path: 'clanwars',
+        loadChildren: () => import('./clanwars/clanwars.module').then(m => m.ClanwarsModule)
+      }
     ]
   }
 ];
