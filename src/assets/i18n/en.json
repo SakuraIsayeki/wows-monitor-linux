@@ -240,7 +240,7 @@
           "weighted": "Weighted"
         },
         "summary": "Select what type of average winrate you want to see in the team panels.",
-        "explanation":"Explanation of modes"
+        "explanation": "Explanation of modes"
       },
       "title": "Appearance"
     },
@@ -298,8 +298,11 @@
       "restartForUpdate": "App updating..",
       "serviceConnected": "Service successfully connected.",
       "serviceDisconnected": "Service has been disconnected.",
-      "serviceError": "Error in the api service",
-      "settingsSaved": "Settings saved"
+      "settingsSaved": "Settings saved",
+      "apiError": {
+        "unknown": "Unknown error in the api service",
+        "wrongRegion": "Couldn't find accounts. Wrong region?"
+      }
     },
     "summaries": {
       "error": "Error",

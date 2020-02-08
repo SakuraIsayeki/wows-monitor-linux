@@ -49,7 +49,13 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit,
   ngAfterViewInit() {
     this.signalrService.init().then(() => this.connect());
 
-    this.signalrService.$error.pipe(this.untilDestroy()).subscribe(error => this.uiError('serviceError'));
+    this.signalrService.$error.pipe(this.untilDestroy()).subscribe(error => {
+      if (error.startsWith('apiError')) {
+        this.uiError(error);
+      } else {
+        this.uiError('apiError.unknown');
+      }
+    });
 
     if (this.isDesktop) {
       this.signalrService.$clients.pipe(this.untilDestroy(), pairwise(), distinctUntilChanged()).subscribe(nums => {
