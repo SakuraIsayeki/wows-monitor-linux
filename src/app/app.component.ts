@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { BaseComponent } from './components/base.component';
 
@@ -27,14 +26,9 @@ export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
       }
     });
 
-    if (environment.production) {
-      this.router.navigateByUrl('/');
-    }
+    console.warn(window.location.pathname);
 
-    this.isStable.subscribe(() => {
-      this.ngZone.run(() => {
-      });
-    });
+    this.router.navigateByUrl('/', { state: { redirUrl: window.location.pathname } });
   }
 
 }
