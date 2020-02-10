@@ -37,24 +37,6 @@ a {
   margin-bottom: 1em;
 }
 
-.align-right-wrapper {
-  display: flex;
-  justify-content: flex-end;
-
-  >* {
-    margin-left: auto;
-  }
-
-  >p-button {
-    margin-left: 1em;
-
-    &:first-child {
-      margin-left: 0;
-    }
-  }
-}
-
-
 .floating-buttons {
   position: fixed;
   bottom: 3em;
@@ -170,11 +152,13 @@ a {
 .custom-popup {
   // height: calc(100vh - 100px);
   width: calc(100vw - 20px);
-  max-height: calc(100vh - 100px);
+  min-width: 80vw;
 
   &.ui-dialog .ui-dialog-content {
     background: $secondaryColor;
-    height: 100%;
+    max-height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 }
 
@@ -224,15 +208,44 @@ main {
   position: relative;
 }
 
+.align-right-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  >* {
+    margin-bottom: 1em;
+  }
+}
+
 /* Mobile first queries */
 
 /* Larger than mobile */
-@media (min-width: 400px) {}
+@media (min-width: 400px){
+  .align-right-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+  
+    >* {
+      margin-left: auto;
+    }
+  
+    >p-button {
+      margin-left: 1em;
+  
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
 
 /* Larger than phablet */
 @media (min-width: 550px) {
   .custom-popup {
     max-width: 530px;
+    min-width: auto;
     height: auto;
     width: auto;
   }
