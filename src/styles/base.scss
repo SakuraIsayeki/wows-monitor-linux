@@ -33,6 +33,12 @@ a {
   cursor: pointer;
 }
 
+.u-full-width{
+  > input{
+    width: 100%;
+  }
+}
+
 .space-bottom {
   margin-bottom: 1em;
 }
@@ -157,7 +163,7 @@ a {
   &.ui-dialog .ui-dialog-content {
     background: $secondaryColor;
     max-height: 80vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
   }
 }
