@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { BaseComponent } from './components/base.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +28,9 @@ export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
 
     console.warn(window.location.pathname);
 
-    this.router.navigateByUrl('/', { state: { redirUrl: window.location.pathname } });
+    if (environment.desktop || !location.href.startsWith('/connect')) {
+      this.router.navigateByUrl('/', { state: { redirUrl: window.location.pathname } });
+    }
   }
 
 }
