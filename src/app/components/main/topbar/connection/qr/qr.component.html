@@ -1,4 +1,8 @@
 <fa-icon [icon]="closeIcon" (click)="close()"></fa-icon>
 <h2>{{ 'webConnect.desktop.title' | translate }}</h2>
 <img [src]="tokenPath" />
+<div class="ui-inputgroup u-full-width">
+  <input type="text" pInputText [ngModel]="tokenCopyUrl" readonly #input>
+  <button (click)="copy(input)" pButton type="button" icon="pi pi-copy"></button>
+</div>
 <p externalLink [innerHTML]="'webConnect.desktop.description' | translate"></p>

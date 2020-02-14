@@ -11,6 +11,7 @@ import { appConfig } from 'src/config/app.config';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ConnectComponent } from './components/connect/connect.component';
 import { DefaultComponent } from './components/default/default.component';
 import { ApiModule } from './generated/api.module';
 import { LoggerService, LoggerServiceToken } from './interfaces/logger.service';
@@ -61,11 +62,13 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
 @NgModule({
   declarations: [
     AppComponent,
-    DefaultComponent
+    DefaultComponent,
+    ConnectComponent
   ],
   exports: [
     AppComponent,
-    DefaultComponent
+    DefaultComponent,
+    ConnectComponent
   ],
   imports: [
     BrowserModule,

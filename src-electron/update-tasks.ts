@@ -1,10 +1,10 @@
-import { ipcMain, BrowserWindow } from 'electron';
-import { autoUpdater } from 'electron-updater';
+import { BrowserWindow, ipcMain } from 'electron';
 import * as electronLogger from 'electron-log';
+import { autoUpdater } from 'electron-updater';
 import * as fs from 'fs';
 import * as path from 'path';
 
-export function initUpdater(logger: electronLogger.IElectronLog, win: BrowserWindow, isDebug: boolean) {
+export function initUpdater(logger: electronLogger.ElectronLog, win: BrowserWindow, isDebug: boolean) {
   const allowBeta = true;
   const configPath = isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
   if (fs.existsSync(configPath)) {
