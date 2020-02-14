@@ -3,5 +3,6 @@ export interface Environment {
   browser: boolean;
   desktop: boolean;
   apiUrl: string;
+  appUrl?: string;
   gaCode?: string;
 }

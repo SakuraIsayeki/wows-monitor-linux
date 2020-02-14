@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faRedo } from '@fortawesome/free-solid-svg-icons';
+import { faRedo, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { BaseComponent } from 'src/app/components/base.component';
 import { ClanInfo } from 'src/app/generated/models';
 import { ClansService } from 'src/app/generated/services';
@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 export class HistoryClanComponent extends BaseComponent implements OnInit, OnDestroy {
 
   faRedo = faRedo;
+  faLeft = faArrowLeft;
 
   clan: ClanInfo;
 
@@ -37,6 +38,10 @@ export class HistoryClanComponent extends BaseComponent implements OnInit, OnDes
           this.router.navigateByUrl(`/home/clanwars/${this.clan.id}`);
         }
       });
+  }
+
+  back() {
+    history.back();
   }
 
   ngOnDestroy() {

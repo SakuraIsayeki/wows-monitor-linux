@@ -43,7 +43,7 @@ export class MatchItemTeamComponent extends BaseComponent implements OnInit {
   @HostListener('click')
   click(event: any) {
     if (this.clan) {
-      this.router.navigateByUrl(`/home/clanwars/${this.clan.id}/${this.season}`);
+      this.router.navigateByUrl(`/home/clanwars/${this.clan.id}/${this.season}`, { state: { prevUrl: location.pathname } });
     }
   }
 

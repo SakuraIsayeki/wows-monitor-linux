@@ -1,6 +1,11 @@
 <p-card>
   <div class="history-filter-card">
+    <a (click)="back()">
+      <fa-icon [icon]="faLeft" [fixedWidth]="true"></fa-icon> {{ 'clanwars.back' | translate }}
+    </a>
     <h2><span [style.color]="clan.color | sanitizeCss">[{{clan.tag}}]</span>&nbsp;{{clan.name}}</h2>
+
+
 
     <app-general-filter [isHistory]="true" [isClan]="true"></app-general-filter>
 

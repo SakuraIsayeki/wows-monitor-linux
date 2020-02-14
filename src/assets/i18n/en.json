@@ -12,6 +12,7 @@
     "markAllAsSeen": "Mark all as seen"
   },
   "clanwars": {
+    "back": "go back",
     "clansearch": {
       "placeholder": "Search for clans"
     },

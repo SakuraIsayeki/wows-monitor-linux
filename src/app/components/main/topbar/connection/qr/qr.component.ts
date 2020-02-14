@@ -29,7 +29,7 @@ export class QrComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tokenCopyUrl = `${location.protocol}//${location.host}/connect/${this.config.signalRToken}`;
+    this.tokenCopyUrl = `${environment.appUrl}/connect/${this.config.signalRToken}`;
   }
 
   copy(inputText: HTMLInputElement) {

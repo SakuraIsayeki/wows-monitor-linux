@@ -1,13 +1,14 @@
-import { Pipe, PipeTransform, Sanitizer, SecurityContext } from '@angular/core';
+import { Pipe, PipeTransform, SecurityContext, Inject } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Pipe({
   name: 'sanitizeCss'
 })
 export class SanitizeCssPipe implements PipeTransform {
 
-  constructor(private sanitizer: Sanitizer) { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   transform(css: string): string {
-    return this.sanitizer.sanitize(SecurityContext.STYLE, css);
+    return css != null ? this.sanitizer.sanitize(SecurityContext.STYLE, css) : null;
   }
 }

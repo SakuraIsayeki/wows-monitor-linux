@@ -6,6 +6,7 @@ import { Config } from 'src/config/config';
 import { BaseComponent } from '../base.component';
 import { AnalyticsInfoComponent } from './analytics-info/analytics-info.component';
 import { ChangelogComponent } from './changelogs/changelog/changelog.component';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main',
@@ -35,7 +36,7 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
       closable: false,
       header: this.translateService.instant('analytics.dialogHeader'),
     });
-    ref.onClose.pipe(this.untilDestroy()).subscribe(() => {
+    ref.onClose.pipe(this.untilDestroy(), first()).subscribe(() => {
       this.showChangelogs();
     });
   }

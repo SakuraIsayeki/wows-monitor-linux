@@ -4,5 +4,6 @@ export const environment: Environment = {
   production: false,
   browser: false,
   desktop: false,
-  apiUrl: ''
+  apiUrl: '',
+  appUrl: ''
 };
