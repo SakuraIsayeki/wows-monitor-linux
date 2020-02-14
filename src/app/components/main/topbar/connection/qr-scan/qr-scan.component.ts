@@ -1,7 +1,8 @@
-import { Component, Inject, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
-import { DynamicDialogRef, SelectItem } from 'primeng/api';
+import { SelectItem } from 'primeng/api';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BaseComponent } from 'src/app/components/base.component';
 import { SignalrService, SignalrServiceToken } from 'src/app/interfaces/signalr.service';
 import { Config } from 'src/config/config';

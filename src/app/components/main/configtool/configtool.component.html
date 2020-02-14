@@ -16,14 +16,15 @@
         <h3>{{'configtool.headerClients' | translate}}</h3>
         <div class="options-input-wrapper">
           <label>{{ 'configtool.paths.selectedDirectory' | translate }}</label>
-          <input pInputText [title]="config.mainClient" type="text" [disabled]="true"
-            [ngModel]="config.mainClient">
+          <input pInputText [title]="config.mainClient" type="text" [disabled]="true" [ngModel]="config.mainClient">
         </div>
         <h3>{{ 'configtool.paths.instances' | translate }}</h3>
-        <div class="options-input-wrapper" *ngFor="let path of config.configtoolConfig.clientPaths;let i = index;">
+        <div class="options-input-wrapper"
+          *ngFor="let clientPath of config.configtoolConfig.clientPaths;let i = index;">
           <label>{{ 'configtool.paths.client' | translate }} {{i+1}}</label>
           <div class="ui-inputgroup">
-            <input pInputText [title]="path" type="text" [disabled]="true" [(ngModel)]="path">
+            <input pInputText [title]="clientPath" type="text" [disabled]="true"
+              [(ngModel)]="config.configtoolConfig.clientPaths[i]">
 
             <button pButton type="button" icon="pi pi-folder" (click)="selectPath(i)"></button>
             <button (click)="removePath(i)" pButton type="button" icon="pi pi-times"></button>

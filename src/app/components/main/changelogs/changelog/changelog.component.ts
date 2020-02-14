@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnDestroy, Optional, SimpleChanges } from '@angular/core';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/api';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { BaseComponent } from 'src/app/components/base.component';
 import { ChangelogResponse } from 'src/app/generated/models';

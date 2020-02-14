@@ -6,7 +6,7 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { DialogService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';

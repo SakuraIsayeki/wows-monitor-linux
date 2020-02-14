@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { faQrcode, faWifi } from '@fortawesome/free-solid-svg-icons';
-import { DialogService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { map, take, pairwise, distinctUntilChanged } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/components/base.component';

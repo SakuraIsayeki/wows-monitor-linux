@@ -1,6 +1,6 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { DynamicDialogRef } from 'primeng/api';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BaseComponent } from 'src/app/components/base.component';
 import { Config } from 'src/config/config';
 import { environment } from 'src/environments/environment';

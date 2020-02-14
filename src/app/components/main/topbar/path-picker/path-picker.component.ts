@@ -1,16 +1,14 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
+import { DialogService } from 'primeng/dynamicdialog';
 import { combineLatest, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/components/base.component';
 import { DirectoryService, DirectoryServiceToken } from 'src/app/interfaces/directory.service';
 import { SignalrService, SignalrServiceToken, SignalrStatus } from 'src/app/interfaces/signalr.service';
 import { ApiService } from 'src/app/services/api.service';
-import { ElectronService } from 'src/app/services/desktop/electron.service';
 import { Config } from 'src/config/config';
-import { DialogService } from 'primeng/api';
 import { PathPickerDialogComponent } from './path-picker-dialog/path-picker-dialog.component';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-path-picker',

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DialogService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { ChangelogService } from 'src/app/generated/services';
 import { Config } from 'src/config/config';
 import { BaseComponent } from '../base.component';
