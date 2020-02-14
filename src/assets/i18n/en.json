@@ -151,6 +151,7 @@
     "pr": {
       "poweredBy": "Personal Rating from wows-numbers.com"
     },
+    "testship": "Ship is in live testing",
     "season": "Season",
     "teamPopup": {
       "info": "more Information",
@@ -240,7 +241,7 @@
           "weighted": "Weighted"
         },
         "summary": "Select what type of average winrate you want to see in the team panels.",
-        "explanation":"Explanation of modes"
+        "explanation": "Explanation of modes"
       },
       "title": "Appearance"
     },

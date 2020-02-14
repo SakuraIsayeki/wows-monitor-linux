@@ -5,4 +5,5 @@ export interface ShipInfo {
   name?: null | string;
   tier?: number;
   type?: WgShipType;
+  testship?: boolean;
 }
