@@ -1,8 +1,8 @@
-import { Injectable, Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/interfaces/config.service';
+import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
+import { LoggerService, LoggerServiceToken } from 'src/app/interfaces/logger.service';
 import { ConfigOptions, defaultConfig } from 'src/config/config';
-import { ElectronService } from './electron.service';
-import { LoggerServiceToken, LoggerService } from 'src/app/interfaces/logger.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class FsConfigService implements ConfigService {
   private configPath = environment.production ? process.env.APPDATA + '\\@wows-monitor\\config.json' : 'config.json';
 
   constructor(
-    private electronService: ElectronService,
+    @Inject(ElectronServiceToken) private electronService: ElectronService,
     @Inject(LoggerServiceToken) private loggerService: LoggerService
   ) {
     const exists = this.fs.existsSync(this.configPath);

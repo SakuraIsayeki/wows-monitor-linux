@@ -1,7 +1,7 @@
 
 
-import { Directive, OnInit, ElementRef, Renderer2, Optional } from '@angular/core';
-import { ElectronService } from 'src/app/services/desktop/electron.service';
+import { Directive, ElementRef, Inject, OnInit, Renderer2 } from '@angular/core';
+import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
 import { environment } from 'src/environments/environment';
 
 @Directive({
@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class ExternalLinkDirective implements OnInit {
 
   constructor(
-    @Optional() private electronService: ElectronService,
+    @Inject(ElectronServiceToken) private electronService: ElectronService,
     private el: ElementRef,
     private renderer: Renderer2
   ) { }

@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { appConfig } from 'src/config/app.config';
 import { Config } from 'src/config/config';
 import { environment } from 'src/environments/environment';
 import ua from 'universal-analytics';
 import { AnalyticsService } from '../../interfaces/analytics.service';
-import { ElectronService } from './electron.service';
+import { ElectronService, ElectronServiceToken } from '../../interfaces/electron.service';
 
 @Injectable()
 export class DesktopGoogleAnalyticsService implements AnalyticsService {
@@ -12,7 +12,7 @@ export class DesktopGoogleAnalyticsService implements AnalyticsService {
   private visitor: ua.visitor;
   private interval: NodeJS.Timeout;
 
-  constructor(private _config: Config, private electronService: ElectronService) {
+  constructor(private _config: Config, @Inject(ElectronServiceToken) private electronService: ElectronService) {
     _config.waitTillLoaded().then(() => {
       this.visitor = ua(environment.gaCode, _config.uuid);
       setInterval(() => this.send('heartbeat', 'heartbeat', 'heartbeat', 'heartbeat'), 90000);

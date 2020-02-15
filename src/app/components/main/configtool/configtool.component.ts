@@ -3,11 +3,11 @@ import { j2xParser, parse as parseXml2Json } from 'fast-xml-parser';
 import { join as pathJoin } from 'path';
 import { Subject } from 'rxjs';
 import { ConfigtoolConfig } from 'src/app/interfaces/configtool-config';
-import { ElectronService } from 'src/app/services/desktop/electron.service';
 import { Config } from 'src/config/config';
 import { BaseComponent } from '../../base.component';
 import { debounceTime } from 'rxjs/operators';
 import { DirectoryService, DirectoryServiceToken } from 'src/app/interfaces/directory.service';
+import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
 
 @Component({
   selector: 'app-configtool',
@@ -21,7 +21,7 @@ export class ConfigtoolComponent extends BaseComponent implements OnInit, OnDest
   showDescription = false;
 
   constructor(
-    private electronService: ElectronService,
+    @Inject(ElectronServiceToken) private electronService: ElectronService,
     public config: Config,
     @Inject(DirectoryServiceToken) private directoryService: DirectoryService) {
     super();

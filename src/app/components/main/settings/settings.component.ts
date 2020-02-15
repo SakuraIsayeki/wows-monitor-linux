@@ -1,13 +1,13 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, Optional } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faDesktop } from '@fortawesome/free-solid-svg-icons';
 import { SelectItem } from 'primeng/api';
 import { from } from 'rxjs';
 import { skip, switchMap } from 'rxjs/operators';
-import { ElectronService } from 'src/app/services/desktop/electron.service';
+import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
+import { ScrollService } from 'src/app/services/scroll.service';
 import { Config } from 'src/config/config';
 import { BaseComponent } from '../../base.component';
-import { ScrollService } from 'src/app/services/scroll.service';
 
 @Component({
   selector: 'app-settings',
@@ -103,7 +103,7 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
   ];
 
   constructor(public config: Config,
-    @Optional() private electronService: ElectronService,
+    @Inject(ElectronServiceToken) private electronService: ElectronService,
     private activatedRoute: ActivatedRoute,
     private scrollService: ScrollService) {
     super();

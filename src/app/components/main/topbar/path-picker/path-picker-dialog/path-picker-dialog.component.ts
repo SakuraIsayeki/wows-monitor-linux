@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { SelectItem } from 'primeng/api';
 import { BaseComponent } from 'src/app/components/base.component';
 import { DirectoryService, DirectoryServiceToken } from 'src/app/interfaces/directory.service';
-import { ElectronService } from 'src/app/services/desktop/electron.service';
+import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
 import { Config } from 'src/config/config';
-import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-path-picker-dialog',
@@ -15,7 +15,7 @@ export class PathPickerDialogComponent extends BaseComponent implements OnInit {
   options: SelectItem[] = [];
 
   constructor(
-    private electronService: ElectronService,
+    @Inject(ElectronServiceToken) private electronService: ElectronService,
     @Inject(DirectoryServiceToken) public directoryService: DirectoryService,
     public config: Config,
   ) {

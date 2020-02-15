@@ -6,10 +6,10 @@ import { BehaviorSubject, combineLatest, interval, Subscription } from 'rxjs';
 import { debounceTime, filter, startWith, switchMap } from 'rxjs/operators';
 import { Region } from 'src/app/generated/models';
 import { DirectoryService, DirectoryStatus } from 'src/app/interfaces/directory.service';
+import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
 import { LoggerService, LoggerServiceToken } from 'src/app/interfaces/logger.service';
 import { Config } from 'src/config/config';
 import { promisify } from 'util';
-import { ElectronService } from './electron.service';
 
 @Injectable()
 export class FsDirectoryService implements DirectoryService {
@@ -42,7 +42,7 @@ export class FsDirectoryService implements DirectoryService {
   }
 
   constructor(
-    electronService: ElectronService,
+    @Inject(ElectronServiceToken) private electronService: ElectronService,
     @Inject(LoggerServiceToken) private loggerService: LoggerService,
     private config: Config
   ) {

@@ -1,9 +1,9 @@
 import { Inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
 import { Config } from 'src/config/config';
 import { LoggerService, LoggerServiceToken } from '../../interfaces/logger.service';
 import { UpdateService } from '../../interfaces/update.service';
-import { ElectronService } from './electron.service';
 
 export class ElectronUpdateService implements UpdateService {
 
@@ -21,7 +21,7 @@ export class ElectronUpdateService implements UpdateService {
   }
 
   constructor(
-    private electronService: ElectronService,
+    @Inject(ElectronServiceToken) private electronService: ElectronService,
     private config: Config,
     @Inject(LoggerServiceToken) private loggerService: LoggerService
   ) {

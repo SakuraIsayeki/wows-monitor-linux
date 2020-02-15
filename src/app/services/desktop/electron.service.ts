@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as childProcess from 'child_process';
 import { IpcMain, ipcRenderer, remote, webFrame, dialog, shell } from 'electron';
 import * as fs from 'fs';
+import { ElectronService } from 'src/app/interfaces/electron.service';
 
 declare global {
   interface Window {
@@ -11,7 +12,7 @@ declare global {
 }
 
 @Injectable()
-export class ElectronService {
+export class DesktopElectronService implements ElectronService {
 
   ipcRenderer: typeof ipcRenderer;
   ipcMain: IpcMain;
