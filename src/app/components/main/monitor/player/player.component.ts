@@ -35,18 +35,18 @@ export class PlayerComponent extends BaseComponent implements OnInit {
 
   @HostBinding('style.background-color')
   get backgroundColor() {
-    if (this.player.shipStats && this.config.playerBackgroundsMode === 'background') {
-      if (this.config.playerBackgrounds === 'pr') {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.personalRatingColor + '28');
+    if (this.config.playerBackgroundsMode === 'background') {
+      if (this.config.playerBackgrounds === 'pr' && this.player.shipStats) {
+        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.personalRatingColor + '28');
       }
-      if (this.config.playerBackgrounds === 'wr' && this.player.shipStats.battles > 0) {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.winrateColor + '28');
+      if (this.config.playerBackgrounds === 'wr' && this.player.shipStats?.battles > 0) {
+        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.winrateColor + '28');
       }
-      if (this.config.playerBackgrounds === 'accwr' || (this.config.playerBackgrounds === 'wr' && this.player.shipStats.battles <= 0)) {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.overallStats.winrateColor + '28');
+      if (this.config.playerBackgrounds === 'accwr' || (this.config.playerBackgrounds === 'wr' && this.player.shipStats?.battles <= 0)) {
+        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.overallStats?.winrateColor + '28');
       }
-      if (this.config.playerBackgrounds === 'avgDmg') {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.averageDamageColor + '28');
+      if (this.config.playerBackgrounds === 'avgDmg' && this.player.shipStats) {
+        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.averageDamageColor + '28');
       }
     }
     return '';
@@ -54,19 +54,17 @@ export class PlayerComponent extends BaseComponent implements OnInit {
 
   @HostBinding('style.border-color')
   get borderColor() {
-    if (this.player.shipStats) {
-      if (this.config.playerBackgrounds === 'pr') {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.personalRatingColor + '99');
-      }
-      if (this.config.playerBackgrounds === 'wr' && this.player.shipStats.battles > 0) {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.winrateColor + '99');
-      }
-      if (this.config.playerBackgrounds === 'accwr' || (this.config.playerBackgrounds === 'wr' && this.player.shipStats.battles <= 0)) {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.overallStats.winrateColor + '99');
-      }
-      if (this.config.playerBackgrounds === 'avgDmg') {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats.averageDamageColor + '99');
-      }
+    if (this.config.playerBackgrounds === 'pr' && this.player.shipStats) {
+      return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.personalRatingColor + '99');
+    }
+    if (this.config.playerBackgrounds === 'wr' && this.player.shipStats?.battles > 0) {
+      return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.winrateColor + '99');
+    }
+    if (this.config.playerBackgrounds === 'accwr' || (this.config.playerBackgrounds === 'wr' && this.player.shipStats?.battles <= 0)) {
+      return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.overallStats?.winrateColor + '99');
+    }
+    if (this.config.playerBackgrounds === 'avgDmg' && this.player.shipStats) {
+      return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.averageDamageColor + '99');
     }
     return this.sanitizer.sanitize(SecurityContext.STYLE, '#FFF');
   }
