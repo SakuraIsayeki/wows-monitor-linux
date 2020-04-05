@@ -26,7 +26,11 @@ export class ScrollService {
   }
 
   scrollTo(scrollTop: number) {
-    setTimeout(() => this._el.scrollTo({ top: scrollTop, behavior: 'smooth' }), 0);
+    interval(200)
+      .pipe(skipWhile(() => !this._el), first())
+      .subscribe(() => {
+        this._el.scrollTo({ top: scrollTop, behavior: 'smooth' });
+      });
   }
 
   scrollToAnchor(anchor: string) {
