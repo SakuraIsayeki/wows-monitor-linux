@@ -8,5 +8,11 @@ if (environment.production) {
   enableProdMode();
 }
 
+window.addEventListener('keydown', event => {
+  if (event.key === 'F11') {
+    event.preventDefault();
+  }
+});
+
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
