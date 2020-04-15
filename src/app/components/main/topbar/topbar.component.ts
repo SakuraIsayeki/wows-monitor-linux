@@ -6,6 +6,7 @@ import { MenuComponent } from './menu/menu.component';
 import { SelectItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from 'src/app/services/api.service';
+import { Config } from 'src/config/config';
 
 @Component({
   selector: 'app-topbar',
@@ -45,7 +46,8 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   ];
 
   constructor(@Inject(SignalrServiceToken) public signalrService: SignalrService,
-    public apiService: ApiService
+    public apiService: ApiService,
+    public config: Config
   ) {
     super();
   }
@@ -74,5 +76,10 @@ export class TopbarComponent extends BaseComponent implements OnInit {
 
   toggleSidebar = () => {
     this.sidebarVisible = !this.sidebarVisible;
+  }
+
+  async changeForcePVP() {
+    await this.config.save();
+    this.apiService.resendState();
   }
 }

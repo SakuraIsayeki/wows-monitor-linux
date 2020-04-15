@@ -1,1 +1,179 @@
-{"clientVersionFromXml": "0,9,1,2249466", "gameMode": 7, "clientVersionFromExe": "0,9,1,2249466", "scenarioUiCategoryId": 0, "mapDisplayName": "45_Zigzag", "mapId": 27, "weatherParams": {"0": ["PCOW007_Dull"], "1": ["PCOW007_Dull", "PCOW006_Storm_Logic"]}, "mapBorder": null, "duration": 1200, "gameLogic": "Domination", "name": "12x12", "scenario": "Domination", "playerID": 0, "vehicles": [{"shipId": 4074682352, "relation": 2, "id": 805452288, "name": "ErwinRommel77_warrior"}, {"shipId": 3655251408, "relation": 2, "id": 939777928, "name": "Eyewax"}, {"shipId": 4179539760, "relation": 1, "id": 939552279, "name": "Xterminate01"}, {"shipId": 4281219056, "relation": 1, "id": 939971740, "name": "luijenn"}, {"shipId": 4179572560, "relation": 1, "id": 805485598, "name": "seraf_steel"}, {"shipId": 4277090288, "relation": 2, "id": 939822753, "name": "Punkoteloco"}, {"shipId": 4179572176, "relation": 2, "id": 939796650, "name": "vladimirharkonen_2017"}, {"shipId": 4179539696, "relation": 2, "id": 939737644, "name": "FrankyTwoFingers"}, {"shipId": 4282267344, "relation": 2, "id": 805469363, "name": "Tempelritter1970"}, {"shipId": 4179572528, "relation": 2, "id": 939940282, "name": "littlebigship"}, {"shipId": 3655251952, "relation": 1, "id": 939655355, "name": "sqandzxy"}, {"shipId": 4276041424, "relation": 1, "id": 939610185, "name": "barrysoft135"}, {"shipId": 4179506992, "relation": 1, "id": 805341132, "name": "salgol"}, {"shipId": 4179572176, "relation": 1, "id": 939705425, "name": "mugdin31"}, {"shipId": 4277090288, "relation": 1, "id": 939753818, "name": "parbird4_ich"}, {"shipId": 3550394352, "relation": 2, "id": 805437405, "name": "ussvortex"}, {"shipId": 3655218480, "relation": 0, "id": 939753961, "name": "Sinthanor"}, {"shipId": 4179539920, "relation": 1, "id": 939753965, "name": "Zlaty_lev"}, {"shipId": 4179539408, "relation": 1, "id": 939660144, "name": "DivineUnion"}, {"shipId": 4273911792, "relation": 1, "id": 939628791, "name": "columbiuslp"}, {"shipId": 4179506992, "relation": 2, "id": 805411322, "name": "febosub"}, {"shipId": 4281219056, "relation": 2, "id": 805358972, "name": "tankow3326"}, {"shipId": 4179539760, "relation": 2, "id": 939552170, "name": "Kapt_Breitseite"}, {"shipId": 4277090288, "relation": 2, "id": 939748734, "name": "Vidua_Proxima"}], "playersPerTeam": 12, "dateTime": "14.02.2020 11:47:57", "mapName": "spaces/45_Zigzag", "playerName": "Sinthanor", "scenarioConfigId": 191, "teamsCount": 2, "logic": "Domination", "playerVehicle": "PWSD610-Smaland", "battleDuration": 1200}
+{
+  "clientVersionFromXml": "0,9,1,2249466",
+  "matchGroup": "COOPERATIVE",
+  "gameMode": 7,
+  "clientVersionFromExe": "0,9,1,2249466",
+  "scenarioUiCategoryId": 0,
+  "mapDisplayName": "45_Zigzag",
+  "mapId": 27,
+  "weatherParams": {
+    "0": [
+      "PCOW007_Dull"
+    ],
+    "1": [
+      "PCOW007_Dull",
+      "PCOW006_Storm_Logic"
+    ]
+  },
+  "mapBorder": null,
+  "duration": 1200,
+  "gameLogic": "Domination",
+  "name": "12x12",
+  "scenario": "Domination",
+  "playerID": 0,
+  "vehicles": [
+    {
+      "shipId": 4074682352,
+      "relation": 2,
+      "id": 805452288,
+      "name": "ErwinRommel77_warrior"
+    },
+    {
+      "shipId": 3655251408,
+      "relation": 2,
+      "id": 939777928,
+      "name": "Eyewax"
+    },
+    {
+      "shipId": 4179539760,
+      "relation": 1,
+      "id": 939552279,
+      "name": "Xterminate01"
+    },
+    {
+      "shipId": 4281219056,
+      "relation": 1,
+      "id": 939971740,
+      "name": "luijenn"
+    },
+    {
+      "shipId": 4179572560,
+      "relation": 1,
+      "id": 805485598,
+      "name": "seraf_steel"
+    },
+    {
+      "shipId": 4277090288,
+      "relation": 2,
+      "id": 939822753,
+      "name": "Punkoteloco"
+    },
+    {
+      "shipId": 4179572176,
+      "relation": 2,
+      "id": 939796650,
+      "name": "vladimirharkonen_2017"
+    },
+    {
+      "shipId": 4179539696,
+      "relation": 2,
+      "id": 939737644,
+      "name": "FrankyTwoFingers"
+    },
+    {
+      "shipId": 4282267344,
+      "relation": 2,
+      "id": 805469363,
+      "name": "Tempelritter1970"
+    },
+    {
+      "shipId": 4179572528,
+      "relation": 2,
+      "id": 939940282,
+      "name": "littlebigship"
+    },
+    {
+      "shipId": 3655251952,
+      "relation": 1,
+      "id": 939655355,
+      "name": "sqandzxy"
+    },
+    {
+      "shipId": 4276041424,
+      "relation": 1,
+      "id": 939610185,
+      "name": "barrysoft135"
+    },
+    {
+      "shipId": 4179506992,
+      "relation": 1,
+      "id": 805341132,
+      "name": "salgol"
+    },
+    {
+      "shipId": 4179572176,
+      "relation": 1,
+      "id": 939705425,
+      "name": "mugdin31"
+    },
+    {
+      "shipId": 4277090288,
+      "relation": 1,
+      "id": 939753818,
+      "name": "parbird4_ich"
+    },
+    {
+      "shipId": 3550394352,
+      "relation": 2,
+      "id": 805437405,
+      "name": "ussvortex"
+    },
+    {
+      "shipId": 3655218480,
+      "relation": 0,
+      "id": 939753961,
+      "name": "Sinthanor"
+    },
+    {
+      "shipId": 4179539920,
+      "relation": 1,
+      "id": 939753965,
+      "name": "Zlaty_lev"
+    },
+    {
+      "shipId": 4179539408,
+      "relation": 1,
+      "id": 939660144,
+      "name": "DivineUnion"
+    },
+    {
+      "shipId": 4273911792,
+      "relation": 1,
+      "id": 939628791,
+      "name": "columbiuslp"
+    },
+    {
+      "shipId": 4179506992,
+      "relation": 2,
+      "id": 805411322,
+      "name": "febosub"
+    },
+    {
+      "shipId": 4281219056,
+      "relation": 2,
+      "id": 805358972,
+      "name": "tankow3326"
+    },
+    {
+      "shipId": 4179539760,
+      "relation": 2,
+      "id": 939552170,
+      "name": "Kapt_Breitseite"
+    },
+    {
+      "shipId": 4277090288,
+      "relation": 2,
+      "id": 939748734,
+      "name": "Vidua_Proxima"
+    }
+  ],
+  "playersPerTeam": 12,
+  "dateTime": "14.02.2020 11:47:57",
+  "mapName": "spaces/45_Zigzag",
+  "playerName": "Sinthanor",
+  "scenarioConfigId": 191,
+  "teamsCount": 2,
+  "logic": "Domination",
+  "playerVehicle": "PWSD610-Smaland",
+  "battleDuration": 1200
+}

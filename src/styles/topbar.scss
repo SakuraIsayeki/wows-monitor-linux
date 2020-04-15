@@ -1,7 +1,8 @@
 @import '_variables.scss';
 
 app-topbar {
-  display: block;
+  display: flex;
+  flex-direction: row;
   position: sticky;
   box-sizing: border-box;
   padding: .5em;
@@ -10,20 +11,45 @@ app-topbar {
   height: 55px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  align-items: center;
+}
+
+.left-top {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.states {
+  flex: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.forcepvp,
+app-connection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  p-inputswitch{
+    margin-left: .5em;
+  }
 }
 
 .iconWrapper {
-  height: 45px;
+  // height: 45px;
   display: flex;
   align-items: center;
-  float: left;
+  // float: left;
   transition: color 0.3s ease-in-out;
 
   fa-icon {
     cursor: pointer;
   }
 
-  &.clickable{
+  &.clickable {
     cursor: pointer;
   }
 
@@ -58,11 +84,12 @@ body .ui-sidebar {
   border: 0;
 }
 
-#menuIconWrapper{
+#menuIconWrapper {
   position: relative;
-  .badge{
+
+  .badge {
     position: absolute;
-    top:0;
+    top: 0;
     right: 0;
   }
 }
@@ -104,7 +131,7 @@ body .ui-sidebar {
         padding: 1em;
         color: $textColor;
 
-        .badge{
+        .badge {
           margin-left: .25em;
         }
       }

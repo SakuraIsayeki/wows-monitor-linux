@@ -24,7 +24,7 @@ app-monitor {
 
   .container {
     display: grid;
-    margin-bottom: 2em;
+    // margin-bottom: 2em; WHY WAS THIS HERE
     grid-gap: 1em;
     grid-template-areas:
       'title'
@@ -346,6 +346,7 @@ app-team {
 @media (min-width: 1200px) {
   app-monitor {
     .container {
+      grid-template-rows: auto auto;
       grid-template-areas:
         'friendly-clan friendly-clan enemy-clan enemy-clan'
         'friendly friendly enemy enemy';

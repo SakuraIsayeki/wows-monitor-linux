@@ -6,7 +6,6 @@ import { StatsService } from '../generated/services';
 @Injectable()
 export class ApiService {
 
-  mode = MatchGroup.PVP;
   lastInfo: string;
   static lastRegion: Region;
 
@@ -20,7 +19,9 @@ export class ApiService {
     this.lastInfo = tempArenaInfoJson;
     ApiService.lastRegion = region;
     const tempArenaInfo = JSON.parse(tempArenaInfoJson) as TempArenaInfo;
-    tempArenaInfo.matchGroup = this.mode;
+    if (this.config.forcePVP) {
+      tempArenaInfo.matchGroup = MatchGroup.PVP;
+    }
     return this.statsService.statsSendStats({ token: this.config.signalRToken, body: tempArenaInfo });
   }
 }

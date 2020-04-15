@@ -37,6 +37,7 @@ export interface ConfigOptions {
   configtoolConfig?: ConfigtoolConfig;
   livefeedConfig?: LivefeedConfig;
   clanWarsConfig?: ClanWarsConfig;
+  forcePVP?: boolean;
 }
 
 export const defaultConfig: ConfigOptions = {
@@ -54,7 +55,8 @@ export const defaultConfig: ConfigOptions = {
   uuid: environment.desktop ? uuidv4() : '',
   configtoolConfig: defaultConfigtoolConfig,
   livefeedConfig: defaultLivefeedConfig,
-  clanWarsConfig: defaultClanWarsConfig
+  clanWarsConfig: defaultClanWarsConfig,
+  forcePVP: false
 };
 
 @Injectable()
@@ -87,6 +89,7 @@ export class Config implements ConfigOptions {
       this.configtoolConfig = config.configtoolConfig;
       this.livefeedConfig = config.livefeedConfig;
       this.clanWarsConfig = config.clanWarsConfig;
+      this.forcePVP = config.forcePVP;
 
       this.loaded = true;
 
@@ -108,7 +111,8 @@ export class Config implements ConfigOptions {
       this.$overwriteReplaysDirectory,
       this.$closeToTray,
       this.$livefeedConfig,
-      this.$clanWarsConfig
+      this.$clanWarsConfig,
+      this.$forcePVP
     ]).pipe(share());
   }
 
@@ -136,7 +140,8 @@ export class Config implements ConfigOptions {
       uuid: this._uuid,
       configtoolConfig: this._configtoolConfig,
       livefeedConfig: this._livefeedConfig,
-      clanWarsConfig: this.clanWarsConfig
+      clanWarsConfig: this.clanWarsConfig,
+      forcePVP: this.forcePVP
     }));
   }
 
@@ -515,6 +520,23 @@ export class Config implements ConfigOptions {
 
   get $clanWarsConfig() {
     return this._$clanWarsConfig.asObservable();
+  }
+
+  // ForcePVP
+  private _forcePVP: boolean;
+  private _$forcePVP = new BehaviorSubject<boolean>(null);
+
+  get forcePVP() {
+    return this._forcePVP;
+  }
+
+  set forcePVP(value) {
+    this._forcePVP = value;
+    this._$forcePVP.next(value);
+  }
+
+  get $forcePVP() {
+    return this._$forcePVP.asObservable();
   }
 
   private _uuid: string;

@@ -4,29 +4,30 @@
  -->
 
 
-
-<div id="menuIconWrapper" class="iconWrapper" (click)="toggleSidebar()">
-  <span *ngIf="appMenu.badge | async" class="badge">{{appMenu.badgeCount | async}}</span>
-  <fa-icon id="menuIcon" [icon]="menuIcon" size="2x" [fixedWidth]="true"></fa-icon>
-</div>
-<ng-container *showOn="'tablet';higher:true">
-  <div id="matchInfoWrapper" class="iconWrapper" *ngIf="signalrService.$info | async;let matchInfo">
-    <span>{{matchInfo.matchGroup | matchGroup | translate}}</span>
-    <ng-container *ngIf="matchInfo.matchGroup == 'CLAN'">
-      &nbsp;(Season {{matchInfo.clanwarsSeason}})
-    </ng-container>
-    <ng-container *ngIf="matchInfo.matchGroup == 'RANKED'">
-      &nbsp;(Season {{matchInfo.rankedSeason}})
-    </ng-container>
-    <span>, {{matchInfo.map.name}}</span>
+<div class="left-top">
+  <div id="menuIconWrapper" class="iconWrapper" (click)="toggleSidebar()">
+    <span *ngIf="appMenu.badge | async" class="badge">{{appMenu.badgeCount | async}}</span>
+    <fa-icon id="menuIcon" [icon]="menuIcon" size="2x" [fixedWidth]="true"></fa-icon>
   </div>
-</ng-container>
+  <ng-container *showOn="'tablet';higher:true">
+    <div id="matchInfoWrapper" class="iconWrapper" *ngIf="signalrService.$info | async;let matchInfo">
+      <span>{{matchInfo.matchGroup | matchGroup | translate}}</span>
+      <ng-container *ngIf="matchInfo.matchGroup == 'CLAN'">
+        &nbsp;(Season {{matchInfo.clanwarsSeason}})
+      </ng-container>
+      <ng-container *ngIf="matchInfo.matchGroup == 'RANKED'">
+        &nbsp;(Season {{matchInfo.rankedSeason}})
+      </ng-container>
+      <span>, {{matchInfo.map.name}}</span>
+    </div>
+  </ng-container>
+</div>
 
 <div class="states">
   <ng-container *isDesktop>
-    <span style="float:left;margin-top: 4px;">
-      <p-dropdown [options]="modes" [(ngModel)]="apiService.mode" (ngModelChange)="apiService.resendState()"
-        [appendTo]="'body'"></p-dropdown>
+    <span class="forcepvp">
+      <span>{{ 'monitor.forcePVP' | translate }}</span>
+      <p-inputSwitch [(ngModel)]="config.forcePVP" (onChange)="changeForcePVP()"></p-inputSwitch>
     </span>
   </ng-container>
   <app-path-picker *isDesktop></app-path-picker>

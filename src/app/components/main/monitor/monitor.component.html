@@ -14,6 +14,7 @@
     <app-team [clan]="matchInfo.enemyClan" [team]="matchInfo.enemyTeam" [cw]="matchInfo.matchGroup == 'CLAN'">
     </app-team>
   </p-card>
+  <div id="monitor-enemy-clan" *ngIf="matchInfo.matchGroup === 'COOPERATIVE' || matchInfo.matchGroup === 'PVE'"></div>
   <p-card id="monitor-friendly" class="no-padding" [class.high-contrast-mode]="config.highContrastMode">
     <ng-container *ngFor="let player of matchInfo.friendly; let l = last; let f = first;">
       <app-player [player]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f">
