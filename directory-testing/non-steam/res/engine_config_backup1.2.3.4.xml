@@ -1,7 +1,7 @@
 <engine_config.xml>
   <renderer>
     <cacheEffects>true</cacheEffects>
-    <maxFrameRate>75</maxFrameRate>
+    <maxFrameRate>200</maxFrameRate>
   </renderer>
   <preferences>
     <pathBase>EXE_PATH</pathBase>

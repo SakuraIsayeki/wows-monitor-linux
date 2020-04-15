@@ -6,7 +6,7 @@
     <p style="margin-bottom: 3em!important;" [innerHTML]="'configtool.descriptionShort' | translate | sanitizeHtml">
     </p>
 
-    <p-dialog [appendTo]="'body'" [blockScroll]="true" [modal]="true" [header]="'configtool.why' | translate"
+    <p-dialog [blockScroll]="true" [modal]="true" [header]="'configtool.why' | translate"
       [(visible)]="showDescription" [style]="{'max-width': '400px'}">
       <div [innerHtml]="'configtool.description' | translate | sanitizeHtml"></div>
     </p-dialog>
