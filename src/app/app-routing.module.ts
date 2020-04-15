@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MetaGuard } from '@ngx-meta/core';
 import { ConnectComponent } from './components/connect/connect.component';
 import { DefaultComponent } from './components/default/default.component';
+import { BackButtonGuard } from './services/back-button.guard';
 
 const routes: Routes = [
   {
@@ -20,7 +21,8 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        loadChildren: () => import('./components/main/main.module').then(m => m.MainModule)
+        loadChildren: () => import('./components/main/main.module').then(m => m.MainModule),
+        canDeactivate: [BackButtonGuard]
       },
       {
         path: 'connect/:token',

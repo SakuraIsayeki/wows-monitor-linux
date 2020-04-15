@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { BaseComponent } from './components/base.component';
 import { environment } from 'src/environments/environment';
+import { LocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,20 @@ import { environment } from 'src/environments/environment';
 })
 export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
 
+  static backButtonFired = false;
+
   constructor(
-    private router: Router
+    private router: Router,
+    private location: LocationStrategy
   ) {
     super();
+
+    if (environment.desktop) {
+      this.location.onPopState(() => {
+        AppComponent.backButtonFired = true;
+        return false;
+      });
+    }
   }
 
   ngOnInit() {

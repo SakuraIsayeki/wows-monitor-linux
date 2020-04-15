@@ -16,6 +16,7 @@ import { DefaultComponent } from './components/default/default.component';
 import { ApiModule } from './generated/api.module';
 import { LoggerService, LoggerServiceToken } from './interfaces/logger.service';
 import { ApiService } from './services/api.service';
+import { BackButtonGuard } from './services/back-button.guard';
 import { ClanWarsHistoryService } from './services/clanwars-history.service';
 import { ClientIdHttpInterceptor } from './services/client-id.http-interceptor';
 import { ClientVersionHttpInterceptor } from './services/client-version.http-interceptor';
@@ -108,7 +109,8 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     ClientVersionHttpInterceptor,
     LivefeedService,
     ClanWarsHistoryService,
-    ScrollService
+    ScrollService,
+    BackButtonGuard
   ]
 })
 export class AppSharedModule {

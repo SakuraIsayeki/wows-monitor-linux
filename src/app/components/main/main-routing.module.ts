@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainComponent } from './main.component';
+import { BackButtonGuard } from 'src/app/services/back-button.guard';
 import { environment } from 'src/environments/environment';
+import { MainComponent } from './main.component';
 
 const routes: Routes = [
   {
@@ -12,27 +13,33 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule)
+        loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule),
+        canDeactivate: [BackButtonGuard]
       },
       {
         path: 'changelogs',
-        loadChildren: () => import('./changelogs/changelogs.module').then(m => m.ChangelogsModule)
+        loadChildren: () => import('./changelogs/changelogs.module').then(m => m.ChangelogsModule),
+        canDeactivate: [BackButtonGuard]
       },
       {
         path: 'settings',
-        loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
+        loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
+        canDeactivate: [BackButtonGuard]
       },
       {
         path: 'about',
-        loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
+        loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
+        canDeactivate: [BackButtonGuard]
       },
       {
         path: 'configtool',
-        loadChildren: () => import('./configtool/configtool.module').then(m => m.ConfigtoolModule)
+        loadChildren: () => import('./configtool/configtool.module').then(m => m.ConfigtoolModule),
+        canDeactivate: [BackButtonGuard]
       },
       {
         path: 'clanwars',
-        loadChildren: () => import('./clanwars/clanwars.module').then(m => m.ClanwarsModule)
+        loadChildren: () => import('./clanwars/clanwars.module').then(m => m.ClanwarsModule),
+        canDeactivate: [BackButtonGuard]
       }
     ]
   }
