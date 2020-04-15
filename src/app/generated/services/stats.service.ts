@@ -8,7 +8,6 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { LivefeedItem } from '../models/livefeed-item';
 import { MatchInfo } from '../models/match-info';
 import { TempArenaInfo } from '../models/temp-arena-info';
 
@@ -21,52 +20,6 @@ export class StatsService extends BaseService {
     http: HttpClient
   ) {
     super(config, http);
-  }
-
-  /**
-   * Path part for operation statsTestPush
-   */
-  static readonly StatsTestPushPath = '/testpush';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `statsTestPush()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  statsTestPush$Response(params?: {
-
-  }): Observable<StrictHttpResponse<Array<LivefeedItem>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, StatsService.StatsTestPushPath, 'get');
-    if (params) {
-
-
-    }
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<LivefeedItem>>;
-      })
-    );
-  }
-
-  /**
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `statsTestPush$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  statsTestPush(params?: {
-
-  }): Observable<Array<LivefeedItem>> {
-
-    return this.statsTestPush$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<LivefeedItem>>) => r.body as Array<LivefeedItem>)
-    );
   }
 
   /**

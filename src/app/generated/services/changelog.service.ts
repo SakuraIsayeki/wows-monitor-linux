@@ -33,12 +33,14 @@ export class ChangelogService extends BaseService {
    * This method doesn't expect any request body.
    */
   changelogLatest$Response(params?: {
+    channel?: null | string;
 
   }): Observable<StrictHttpResponse<ChangelogResponse>> {
 
     const rb = new RequestBuilder(this.rootUrl, ChangelogService.ChangelogLatestPath, 'get');
     if (params) {
 
+      rb.query('channel', params.channel);
 
     }
     return this.http.request(rb.build({
@@ -59,6 +61,7 @@ export class ChangelogService extends BaseService {
    * This method doesn't expect any request body.
    */
   changelogLatest(params?: {
+    channel?: null | string;
 
   }): Observable<ChangelogResponse> {
 

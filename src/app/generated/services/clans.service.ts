@@ -12,6 +12,7 @@ import { ClanInfo } from '../models/clan-info';
 import { ClanSearchResult } from '../models/clan-search-result';
 import { ClanSeason } from '../models/clan-season';
 import { HistoryListRequest } from '../models/history-list-request';
+import { LivefeedItem } from '../models/livefeed-item';
 import { PagedResultOfCwClanMatch } from '../models/paged-result-of-cw-clan-match';
 
 @Injectable({
@@ -23,6 +24,52 @@ export class ClansService extends BaseService {
     http: HttpClient
   ) {
     super(config, http);
+  }
+
+  /**
+   * Path part for operation clansDummyRequest
+   */
+  static readonly ClansDummyRequestPath = '/clans/dummylivefeed';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `clansDummyRequest()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  clansDummyRequest$Response(params?: {
+
+  }): Observable<StrictHttpResponse<LivefeedItem>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ClansService.ClansDummyRequestPath, 'get');
+    if (params) {
+
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<LivefeedItem>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `clansDummyRequest$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  clansDummyRequest(params?: {
+
+  }): Observable<LivefeedItem> {
+
+    return this.clansDummyRequest$Response(params).pipe(
+      map((r: StrictHttpResponse<LivefeedItem>) => r.body as LivefeedItem)
+    );
   }
 
   /**
