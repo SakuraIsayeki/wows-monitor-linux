@@ -20,7 +20,7 @@
           <p-inputSwitch [(ngModel)]="config.autoUpdate"></p-inputSwitch>
         </div>
       </article>
-      <!-- <article>
+      <article>
         <caption>
           {{ 'settings.general.allowBeta.caption' | translate }}
         </caption>
@@ -30,7 +30,7 @@
         <div class="input-wrap">
           <p-inputSwitch [(ngModel)]="config.allowBeta"></p-inputSwitch>
         </div>
-      </article> -->
+      </article>
       <article *isBrowser>
         <caption>
           {{ 'settings.general.enableAnalytics.caption' | translate }}
@@ -170,7 +170,8 @@
           [(visible)]="showExaplanationDialog" [style]="{'max-width': '600px'}" [modal]="true">
           <p externalLink>
             <strong>Average (Mean) and Median</strong> <br />
-            <a href="https://www.purplemath.com/modules/meanmode.htm">https://www.purplemath.com/modules/meanmode.htm</a>
+            <a
+              href="https://www.purplemath.com/modules/meanmode.htm">https://www.purplemath.com/modules/meanmode.htm</a>
           </p>
           <p>
             <strong>Weighted</strong> <br />

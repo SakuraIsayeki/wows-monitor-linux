@@ -9,7 +9,7 @@ function initUpdater(logger, win, isDebug) {
     var configPath = isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
     if (fs.existsSync(configPath)) {
         var config = fs.readFileSync(configPath, { encoding: 'utf-8' });
-        // allowBeta = JSON.parse(config).allowBeta;
+        allowBeta = JSON.parse(config).allowBeta;
     }
     electron_updater_1.autoUpdater.autoDownload = false;
     electron_updater_1.autoUpdater.autoInstallOnAppQuit = false;
