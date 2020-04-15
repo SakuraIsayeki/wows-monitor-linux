@@ -21,5 +21,6 @@ export interface TempArenaInfo {
   scenario?: null | string;
   scenarioConfigId?: number;
   teamsCount?: number;
+  useMatchGroup?: MatchGroup;
   vehicles?: null | Array<Vehicle>;
 }

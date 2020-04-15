@@ -20,7 +20,7 @@ export class ApiService {
     ApiService.lastRegion = region;
     const tempArenaInfo = JSON.parse(tempArenaInfoJson) as TempArenaInfo;
     if (this.config.forcePVP) {
-      tempArenaInfo.matchGroup = MatchGroup.PVP;
+      tempArenaInfo.useMatchGroup = MatchGroup.PVP;
     }
     return this.statsService.statsSendStats({ token: this.config.signalRToken, body: tempArenaInfo });
   }
