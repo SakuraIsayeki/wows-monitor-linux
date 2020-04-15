@@ -27,6 +27,11 @@ export class ExternalLinkDirective implements OnInit {
           }
         }
       });
+    } else {
+      this.renderer.listen(this.el.nativeElement, 'click', (event: MouseEvent) => {
+        const target = event.target as HTMLElement;
+        target.setAttribute('target', '_blank');
+      });
     }
   }
 }
