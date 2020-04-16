@@ -4,9 +4,8 @@ import { autoUpdater } from 'electron-updater';
 import * as fs from 'fs';
 import * as path from 'path';
 
-export function initUpdater(logger: electronLogger.ElectronLog, win: BrowserWindow, isDebug: boolean) {
+export function initUpdater(logger: electronLogger.ElectronLog, win: BrowserWindow, isDebug: boolean, configPath: string) {
   let allowBeta = false;
-  const configPath = !isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
   if (fs.existsSync(configPath)) {
     const config = fs.readFileSync(configPath, { encoding: 'utf-8' });
     allowBeta = JSON.parse(config).allowBeta;

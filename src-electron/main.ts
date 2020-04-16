@@ -69,8 +69,9 @@ function appReady() {
     ? path.join(process.env.APPDATA, '@wows-monitor')
     : path.join(process.env.HOME, '.wows-monitor');
 
+  const configPath = !isDebug ? path.join(configBasePath, 'config.json') : 'config.json';
+
   win.on('close', (event) => {
-    const configPath = !isDebug ? path.join(configBasePath, 'config.json') : 'config.json';
     const config = fs.readFileSync(configPath, { encoding: 'utf-8' });
     if (JSON.parse(config).closeToTray && !isQuitting) {
       event.preventDefault();
@@ -101,10 +102,7 @@ function appReady() {
 
   tray.setContextMenu(contextMenu);
 
-  if (isWindows) {
-    initUpdater(logger, win, isDebug);
-  }
-
+  initUpdater(logger, win, isDebug, configPath);
   initElectronLogger(logger);
   if (isDebug) {
 
