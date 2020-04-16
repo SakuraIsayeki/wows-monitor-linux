@@ -14,7 +14,7 @@ export function initUpdater(logger: electronLogger.ElectronLog, win: BrowserWind
 
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
-  autoUpdater.channel = allowBeta ? 'beta' : 'release';
+  autoUpdater.channel = allowBeta ? 'beta' : 'latest';
 
   ipcMain.on('checkForUpdate', (event, args) => {
     logger.debug('[Electron]', '(checkForUpdate)');
