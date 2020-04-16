@@ -24,7 +24,7 @@ export class LivefeedForm extends FormGroup {
 
     this.addControl('liveUpdate', new FormControl(config.liveUpdate));
     this.addControl('notification', new FormControl(config.notification));
-    this.addControl('notificationFavsOnly', new FormControl(config.liveUpdate));
+    this.addControl('notificationFavsOnly', new FormControl(config.notificationFavsOnly));
     this.addControl('homeScroller', new FormControl(config.homeScroller));
     this.addControl('entries', new FormControl(config.entries));
     this.addControl('showFilters', new FormControl(config.showFilters));
