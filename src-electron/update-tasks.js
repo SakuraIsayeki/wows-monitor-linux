@@ -5,15 +5,17 @@ var electron_updater_1 = require("electron-updater");
 var fs = require("fs");
 var path = require("path");
 function initUpdater(logger, win, isDebug) {
-    var allowBeta = true;
-    var configPath = isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
+    var allowBeta = false;
+    var configPath = !isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
     if (fs.existsSync(configPath)) {
         var config = fs.readFileSync(configPath, { encoding: 'utf-8' });
         allowBeta = JSON.parse(config).allowBeta;
     }
+    else {
+    }
     electron_updater_1.autoUpdater.autoDownload = false;
     electron_updater_1.autoUpdater.autoInstallOnAppQuit = false;
-    electron_updater_1.autoUpdater.channel = allowBeta ? 'beta' : 'release';
+    electron_updater_1.autoUpdater.channel = allowBeta ? 'beta' : 'latest';
     electron_1.ipcMain.on('checkForUpdate', function (event, args) {
         logger.debug('[Electron]', '(checkForUpdate)');
         if (isDebug) {
