@@ -9,7 +9,7 @@
     <h2>{{ 'settings.header' | translate}}</h2>
     <section>
       <h3>{{ 'settings.general.title' | translate }}</h3>
-      <article>
+      <article *isDesktop>
         <caption>
           {{ 'settings.general.autoUpdate.caption' | translate }}
         </caption>
@@ -20,7 +20,7 @@
           <p-inputSwitch [(ngModel)]="config.autoUpdate"></p-inputSwitch>
         </div>
       </article>
-      <article>
+      <article *isDesktop>
         <caption>
           {{ 'settings.general.allowBeta.caption' | translate }}
         </caption>

@@ -154,6 +154,9 @@ export class Config implements ConfigOptions {
     if (!config.mainClient) {
       config.mainClient = config.selectedDirectory;
     }
+    if (environment.browser) {
+      config.autoUpdate = true;
+    }
   }
 
   // autoUpdate
