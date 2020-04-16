@@ -1,6 +1,6 @@
 ## About wows-monitor
 
-Version: **1.0.0-beta.12**
+Version: **1.0.0-beta.11**
 
 This app was created with [Electron](https://electronjs.org/) and [Angular](https://angular.io/).  
 It mainly functions as a user interface for data provided by a centralized API written in [.NET Core](https://github.com/dotnet/core).  

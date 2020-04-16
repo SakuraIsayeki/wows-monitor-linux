@@ -54,9 +54,9 @@ function appReady() {
     mainWindowState.manage(win);
     var configBasePath = isWindows
         ? path.join(process.env.APPDATA, '@wows-monitor')
-        : path.join(process.env.HOME, '.wows-monitor');
+        : path.join(process.env.HOME, '.config', '@wows-monitor');
+    var configPath = !isDebug ? path.join(configBasePath, 'config.json') : 'config.json';
     win.on('close', function (event) {
-        var configPath = !isDebug ? path.join(configBasePath, 'config.json') : 'config.json';
         var config = fs.readFileSync(configPath, { encoding: 'utf-8' });
         if (JSON.parse(config).closeToTray && !isQuitting) {
             event.preventDefault();
@@ -82,9 +82,7 @@ function appReady() {
         win.show();
     });
     tray.setContextMenu(contextMenu);
-    if (isWindows) {
-        update_tasks_1.initUpdater(logger, win, isDebug);
-    }
+    update_tasks_1.initUpdater(logger, win, isDebug, configPath);
     electron_log_1.initElectronLogger(logger);
     if (isDebug) {
         electron_1.globalShortcut.register('f5', function () {
