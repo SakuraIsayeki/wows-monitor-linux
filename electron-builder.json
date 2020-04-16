@@ -28,7 +28,7 @@
     ],
     "publish": {
       "provider": "generic",
-      "url": "http://localhost:5000/releases"
+      "url": "https://api.wows-monitor.com/releases"
     }
   },
   "nsisWeb": {
