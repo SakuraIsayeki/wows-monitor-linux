@@ -41,7 +41,7 @@
     "artifactName": "wows-monitor-setup-${version}.${ext}"
   },
   "linux": {
-    "icon": "dist",
+    "icon": "dist/app-desktop/assets/icons",
     "target": [
       "AppImage"
     ],
