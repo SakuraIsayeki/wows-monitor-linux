@@ -14,7 +14,8 @@ import { first } from 'rxjs/operators';
 })
 export class MainComponent extends BaseComponent implements AfterViewInit {
 
-  constructor(private changelogsService: ChangelogService,
+  constructor(
+    private changelogsService: ChangelogService,
     private config: Config,
     private dialogService: DialogService,
     private router: Router) {

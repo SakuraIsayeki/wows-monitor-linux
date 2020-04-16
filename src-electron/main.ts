@@ -5,8 +5,11 @@ import * as WindowStateKeeper from 'electron-window-state';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as url from 'url';
+import * as os from 'os';
 import { initElectronLogger } from './electron-log';
 import { initUpdater } from './update-tasks';
+
+const isWindows = os.platform() === 'win32';
 
 let win: BrowserWindow;
 let tray: Tray;
@@ -35,13 +38,15 @@ function appReady() {
     defaultHeight: size.height
   });
 
+  const iconExt = isWindows ? 'ico' : 'png';
+
   const iconPath = isDebug
-    ? path.join(__dirname, '../src/assets/icons/favicon-light.ico')
-    : path.join(__dirname, 'dist/app-desktop/assets/icons/favicon-light.ico');
+    ? path.join(__dirname, `../src/assets/icons/favicon-light.${iconExt}`)
+    : path.join(__dirname, `dist/app-desktop/assets/icons/favicon-light.${iconExt}`);
 
   const trayIconPath = isDebug
-    ? path.join(__dirname, '../src/assets/icons/favicon-light.ico')
-    : path.join(__dirname, '../../favicon-tray.ico');
+    ? path.join(__dirname, `../src/assets/icons/favicon-light.${iconExt}`)
+    : path.join(__dirname, `../../favicon-tray.${iconExt}`);
 
   win = new BrowserWindow({
     x: mainWindowState.x,
@@ -49,17 +54,23 @@ function appReady() {
     width: mainWindowState.width,
     height: mainWindowState.height,
     minWidth: 650,
-    frame: false,
+    frame: isWindows ? false : true,
     icon: iconPath,
     webPreferences: {
       nodeIntegration: true
     }
   });
 
+  win.setMenu(null);
+
   mainWindowState.manage(win);
 
+  const configBasePath = isWindows
+    ? path.join(process.env.APPDATA, '@wows-monitor')
+    : path.join(process.env.HOME, '.wows-monitor');
+
   win.on('close', (event) => {
-    const configPath = !isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
+    const configPath = !isDebug ? path.join(configBasePath, 'config.json') : 'config.json';
     const config = fs.readFileSync(configPath, { encoding: 'utf-8' });
     if (JSON.parse(config).closeToTray && !isQuitting) {
       event.preventDefault();
@@ -90,7 +101,10 @@ function appReady() {
 
   tray.setContextMenu(contextMenu);
 
-  initUpdater(logger, win, isDebug);
+  if (isWindows) {
+    initUpdater(logger, win, isDebug);
+  }
+
   initElectronLogger(logger);
   if (isDebug) {
 

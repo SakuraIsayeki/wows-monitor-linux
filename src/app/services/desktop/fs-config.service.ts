@@ -12,12 +12,18 @@ export class FsConfigService implements ConfigService {
     return this.electronService.fs;
   }
 
-  private configPath = environment.production ? process.env.APPDATA + '\\@wows-monitor\\config.json' : 'config.json';
+  private configPath: string;
 
   constructor(
     @Inject(ElectronServiceToken) private electronService: ElectronService,
     @Inject(LoggerServiceToken) private loggerService: LoggerService
   ) {
+    const configBasePath = this.electronService.isWindows()
+      ? process.env.APPDATA + '\\@wows-monitor\\'
+      : process.env.HOME + '/.wows-monitor/';
+
+    this.configPath = environment.production ? configBasePath + 'config.json' : 'config.json';
+
     const exists = this.fs.existsSync(this.configPath);
     if (!exists) {
       this.fs.writeFile(this.configPath, JSON.stringify(defaultConfig), (err) => {

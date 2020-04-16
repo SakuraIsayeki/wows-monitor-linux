@@ -1,4 +1,7 @@
-<app-titlebar *isDesktop></app-titlebar>
+<ng-container *isDesktop>
+  <app-titlebar *isWindows></app-titlebar>
+</ng-container>
+
 <app-topbar></app-topbar>
 <!-- <app-menu></app-menu> -->
 <ng-container *isDesktop>

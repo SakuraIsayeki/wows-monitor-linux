@@ -21,4 +21,7 @@ export class BrowserElectronService implements ElectronService {
     return false;
   }
 
+  isWindows() {
+    return true;
+  }
 }

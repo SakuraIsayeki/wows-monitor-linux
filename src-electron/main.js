@@ -7,8 +7,10 @@ var WindowStateKeeper = require("electron-window-state");
 var fs = require("fs");
 var path = require("path");
 var url = require("url");
+var os = require("os");
 var electron_log_1 = require("./electron-log");
 var update_tasks_1 = require("./update-tasks");
+var isWindows = os.platform() === 'win32';
 var win;
 var tray;
 var contextMenu;
@@ -29,27 +31,32 @@ function appReady() {
         defaultWidth: size.width,
         defaultHeight: size.height
     });
+    var iconExt = isWindows ? 'ico' : 'png';
     var iconPath = isDebug
-        ? path.join(__dirname, '../src/assets/icons/favicon-light.ico')
-        : path.join(__dirname, 'dist/app-desktop/assets/icons/favicon-light.ico');
+        ? path.join(__dirname, "../src/assets/icons/favicon-light." + iconExt)
+        : path.join(__dirname, "dist/app-desktop/assets/icons/favicon-light." + iconExt);
     var trayIconPath = isDebug
-        ? path.join(__dirname, '../src/assets/icons/favicon-light.ico')
-        : path.join(__dirname, '../../favicon-tray.ico');
+        ? path.join(__dirname, "../src/assets/icons/favicon-light." + iconExt)
+        : path.join(__dirname, "../../favicon-tray." + iconExt);
     win = new electron_1.BrowserWindow({
         x: mainWindowState.x,
         y: mainWindowState.y,
         width: mainWindowState.width,
         height: mainWindowState.height,
         minWidth: 650,
-        frame: false,
+        frame: isWindows ? false : true,
         icon: iconPath,
         webPreferences: {
             nodeIntegration: true
         }
     });
+    win.setMenu(null);
     mainWindowState.manage(win);
+    var configBasePath = isWindows
+        ? path.join(process.env.APPDATA, '@wows-monitor')
+        : path.join(process.env.HOME, '.wows-monitor');
     win.on('close', function (event) {
-        var configPath = !isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
+        var configPath = !isDebug ? path.join(configBasePath, 'config.json') : 'config.json';
         var config = fs.readFileSync(configPath, { encoding: 'utf-8' });
         if (JSON.parse(config).closeToTray && !isQuitting) {
             event.preventDefault();
@@ -75,7 +82,9 @@ function appReady() {
         win.show();
     });
     tray.setContextMenu(contextMenu);
-    update_tasks_1.initUpdater(logger, win, isDebug);
+    if (isWindows) {
+        update_tasks_1.initUpdater(logger, win, isDebug);
+    }
     electron_log_1.initElectronLogger(logger);
     if (isDebug) {
         electron_1.globalShortcut.register('f5', function () {

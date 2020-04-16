@@ -11,11 +11,17 @@
     {
       "from": "favicon-tray.ico",
       "to": ""
+    },
+    {
+      "from": "favicon-tray.png",
+      "to": ""
     }
   ],
   "generateUpdatesFilesForAllChannels": true,
   "win": {
-    "publisherName": ["Benjamin Heilmann"],
+    "publisherName": [
+      "Benjamin Heilmann"
+    ],
     "icon": "dist/app-desktop/assets/icons",
     "target": [
       {
@@ -34,16 +40,14 @@
   "nsisWeb": {
     "artifactName": "wows-monitor-setup-${version}.${ext}"
   },
-  "mac": {
-    "icon": "dist",
-    "target": [
-      "dmg"
-    ]
-  },
   "linux": {
     "icon": "dist",
     "target": [
       "AppImage"
-    ]
+    ],
+    "publish": {
+      "provider": "generic",
+      "url": "http://localhost:5000/releases"
+    }
   }
 }

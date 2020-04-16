@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as childProcess from 'child_process';
 import { IpcMain, ipcRenderer, remote, webFrame, dialog, shell } from 'electron';
 import * as fs from 'fs';
+import * as os from 'os';
 import { ElectronService } from 'src/app/interfaces/electron.service';
 
 declare global {
@@ -22,6 +23,7 @@ export class DesktopElectronService implements ElectronService {
   shell: typeof shell;
   fs: typeof fs;
   dialog: typeof dialog;
+  os: typeof os;
 
   constructor() {
     if (this.isElectron()) {
@@ -38,6 +40,10 @@ export class DesktopElectronService implements ElectronService {
 
   isElectron() {
     return window && window.process && window.process.type;
+  }
+
+  isWindows() {
+    return os.platform() === 'win32';
   }
 
 }

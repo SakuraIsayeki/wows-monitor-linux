@@ -13,4 +13,5 @@ export class ElectronService {
   fs: any;
   dialog: any;
   isElectron: () => boolean;
+  isWindows: () => boolean;
 }
