@@ -15,6 +15,7 @@
   ],
   "generateUpdatesFilesForAllChannels": true,
   "win": {
+    "publisherName": ["Benjamin Heilmann"],
     "icon": "dist/app-desktop/assets/icons",
     "target": [
       {
@@ -27,7 +28,7 @@
     ],
     "publish": {
       "provider": "generic",
-      "url": "https://api.wows-monitor.com/releases"
+      "url": "http://localhost:5000/releases"
     }
   },
   "nsisWeb": {
