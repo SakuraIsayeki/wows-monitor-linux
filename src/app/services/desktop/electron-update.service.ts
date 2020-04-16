@@ -55,7 +55,7 @@ export class ElectronUpdateService implements UpdateService {
 
   async checkForUpdate() {
     await this.config.waitTillLoaded();
-    if (this.config.autoUpdate && this.electronService.isWindows()) {
+    if (this.config.autoUpdate) {
       this.electronService.ipcRenderer.send('checkForUpdate');
     } else {
       this._$updateAvailable.next(false);
