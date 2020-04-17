@@ -1,5 +1,5 @@
 {
-  "productName": "WoWs Monitor",
+  "productName": "wows-monitor",
   "directories": {
     "output": "dist/release"
   },
@@ -34,20 +34,20 @@
     ],
     "publish": {
       "provider": "generic",
-      "url": "https://wows-monitor.com/releases"
+      "url": "https://api.wows-monitor.com/releases"
     }
   },
   "nsisWeb": {
     "artifactName": "wows-monitor-setup-${version}.${ext}"
   },
   "linux": {
+    "executableName": "wows-monitor",
+    "artifactName": "wows-monitor-setup-${version}.${ext}",
+    "category": "Utility.Monitor",
     "icon": "dist/app-desktop/assets/icons",
     "target": [
-      "AppImage"
-    ],
-    "publish": {
-      "provider": "generic",
-      "url": "https://wows-monitor.com/releases"
-    }
+      "deb",
+      "tar.gz"
+    ]
   }
 }

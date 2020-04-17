@@ -3,10 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
 var electron_updater_1 = require("electron-updater");
 var fs = require("fs");
-var path = require("path");
-function initUpdater(logger, win, isDebug) {
+function initUpdater(logger, win, isDebug, configPath) {
     var allowBeta = false;
-    var configPath = !isDebug ? path.join(process.env.APPDATA, '@wows-monitor', 'config.json') : 'config.json';
     if (fs.existsSync(configPath)) {
         var config = fs.readFileSync(configPath, { encoding: 'utf-8' });
         allowBeta = JSON.parse(config).allowBeta;

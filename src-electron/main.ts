@@ -67,7 +67,7 @@ function appReady() {
 
   const configBasePath = isWindows
     ? path.join(process.env.APPDATA, '@wows-monitor')
-    : path.join(process.env.HOME, '.config', 'wows-monitor');
+    : path.join(process.env.HOME, '.config', '@wows-monitor');
 
   const configPath = !isDebug ? path.join(configBasePath, 'config.json') : 'config.json';
 
