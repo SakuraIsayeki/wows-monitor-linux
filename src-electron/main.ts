@@ -1,11 +1,11 @@
-import { app, BrowserWindow, globalShortcut, Menu, screen, Tray, nativeImage } from 'electron';
+import { app, BrowserWindow, globalShortcut, Menu, screen, Tray } from 'electron';
 import * as logger from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 import * as WindowStateKeeper from 'electron-window-state';
 import * as fs from 'fs';
+import * as os from 'os';
 import * as path from 'path';
 import * as url from 'url';
-import * as os from 'os';
 import { initElectronLogger } from './electron-log';
 import { initUpdater } from './update-tasks';
 
@@ -102,7 +102,10 @@ function appReady() {
 
   tray.setContextMenu(contextMenu);
 
-  initUpdater(logger, win, isDebug, configPath);
+  if (isWindows) {
+    initUpdater(logger, win, isDebug, configPath);
+  }
+
   initElectronLogger(logger);
   if (isDebug) {
 

@@ -9,28 +9,30 @@
     <h2>{{ 'settings.header' | translate}}</h2>
     <section>
       <h3>{{ 'settings.general.title' | translate }}</h3>
-      <article *isDesktop>
-        <caption>
-          {{ 'settings.general.autoUpdate.caption' | translate }}
-        </caption>
-        <summary>
-          {{ 'settings.general.autoUpdate.summary' | translate }}
-        </summary>
-        <div class="input-wrap">
-          <p-inputSwitch [(ngModel)]="config.autoUpdate"></p-inputSwitch>
-        </div>
-      </article>
-      <article *isDesktop>
-        <caption>
-          {{ 'settings.general.allowBeta.caption' | translate }}
-        </caption>
-        <summary>
-          {{ 'settings.general.allowBeta.summary' | translate }}
-        </summary>
-        <div class="input-wrap">
-          <p-inputSwitch [(ngModel)]="config.allowBeta"></p-inputSwitch>
-        </div>
-      </article>
+      <ng-container *isWindows>
+        <article *isDesktop>
+          <caption>
+            {{ 'settings.general.autoUpdate.caption' | translate }}
+          </caption>
+          <summary>
+            {{ 'settings.general.autoUpdate.summary' | translate }}
+          </summary>
+          <div class="input-wrap">
+            <p-inputSwitch [(ngModel)]="config.autoUpdate"></p-inputSwitch>
+          </div>
+        </article>
+        <article *isDesktop>
+          <caption>
+            {{ 'settings.general.allowBeta.caption' | translate }}
+          </caption>
+          <summary>
+            {{ 'settings.general.allowBeta.summary' | translate }}
+          </summary>
+          <div class="input-wrap">
+            <p-inputSwitch [(ngModel)]="config.allowBeta"></p-inputSwitch>
+          </div>
+        </article>
+      </ng-container>
       <article *isBrowser>
         <caption>
           {{ 'settings.general.enableAnalytics.caption' | translate }}
