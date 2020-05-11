@@ -20,7 +20,7 @@ export class FsConfigService implements ConfigService {
   ) {
     const configBasePath = this.electronService.isWindows()
       ? process.env.APPDATA + '\\@wows-monitor\\'
-      : process.env.HOME + '/.config/wows-monitor';
+      : process.env.HOME + '/.config/@wows-monitor/';
 
     this.configPath = environment.production ? configBasePath + 'config.json' : 'config.json';
 

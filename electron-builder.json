@@ -47,7 +47,7 @@
     "icon": "dist/app-desktop/assets/icons",
     "target": [
       "deb",
-      "tar.gz"
+      "snap"
     ]
   }
 }
