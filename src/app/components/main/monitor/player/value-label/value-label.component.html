@@ -1,9 +1,9 @@
 <span [pTooltip]="config.layoutMode !== 'compact' ? null : label" tooltipPosition="top">
+  <ng-container><!--*ngIf="config.layoutMode === 'compact'"-->
+    <fa-icon [icon]="icon" [fixedWidth]="true"></fa-icon>&nbsp;
+  </ng-container>
   <ng-container *ngIf="config.layoutMode !== 'compact'">
     {{label}}:&nbsp;
-  </ng-container>
-  <ng-container *ngIf="config.layoutMode === 'compact'">
-    <fa-icon [icon]="icon" [fixedWidth]="true"></fa-icon>&nbsp;
   </ng-container>
   <ng-content></ng-content>
 </span>
