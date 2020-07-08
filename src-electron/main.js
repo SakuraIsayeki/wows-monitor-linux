@@ -5,9 +5,9 @@ var logger = require("electron-log");
 var electron_updater_1 = require("electron-updater");
 var WindowStateKeeper = require("electron-window-state");
 var fs = require("fs");
+var os = require("os");
 var path = require("path");
 var url = require("url");
-var os = require("os");
 var electron_log_1 = require("./electron-log");
 var update_tasks_1 = require("./update-tasks");
 var isWindows = os.platform() === 'win32';
@@ -82,7 +82,9 @@ function appReady() {
         win.show();
     });
     tray.setContextMenu(contextMenu);
-    update_tasks_1.initUpdater(logger, win, isDebug, configPath);
+    if (isWindows) {
+        update_tasks_1.initUpdater(logger, win, isDebug, configPath);
+    }
     electron_log_1.initElectronLogger(logger);
     if (isDebug) {
         electron_1.globalShortcut.register('f5', function () {

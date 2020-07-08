@@ -45,9 +45,9 @@ export class ConfigtoolComponent extends BaseComponent implements OnInit, OnDest
       this.writeWarn(i === 0 ? 'Processing main client' : `Processing client ${i}`);
 
       let resPath = pathJoin(path, 'res');
-      if (this.directoryService.currentStatus.steamVersion) {
-        resPath = await this.directoryService.getResFolderPath(path);
-      }
+      //if (this.directoryService.currentStatus.steamVersion) {
+      resPath = await this.directoryService.getResFolderPath(path);
+      //}
       await this.setValues(pathJoin(resPath, 'engine_config.xml'), this.config.configtoolConfig);
       await this.setValues(pathJoin(resPath + '_mods', this.directoryService.currentStatus.clientVersion, 'engine_config.xml'),
         this.config.configtoolConfig, true);

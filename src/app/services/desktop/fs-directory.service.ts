@@ -129,18 +129,18 @@ export class FsDirectoryService implements DirectoryService {
       status = this._$status.value;
     }
 
-    if (!status.steamVersion) {
-      return pathJoin(basePath, 'res');
-    } else {
-      const binFilesString = (await this.readDirAsync(pathJoin(basePath, 'bin'), 'utf8')) as string[];
-      const binFilesSorted = binFilesString
-        .filter(s => s.toLowerCase() !== 'clientrunner')
-        .map(s => parseInt(s))
-        .sort((a, b) => b - a);
-      const latest = binFilesSorted[0];
-      status.folderVersion = latest.toString();
-      return pathJoin(basePath, 'bin', status.folderVersion, 'res');
-    }
+    // if (!status.steamVersion) {
+    //  return pathJoin(basePath, 'res');
+    // } else {
+    const binFilesString = (await this.readDirAsync(pathJoin(basePath, 'bin'), 'utf8')) as string[];
+    const binFilesSorted = binFilesString
+      .filter(s => s.toLowerCase() !== 'clientrunner')
+      .map(s => parseInt(s))
+      .sort((a, b) => b - a);
+    const latest = binFilesSorted[0];
+    status.folderVersion = latest.toString();
+    return pathJoin(basePath, 'bin', status.folderVersion, 'res');
+    // }
   }
 
   private async readEngineConfig(resPath: string, status: DirectoryStatus) {
@@ -189,11 +189,11 @@ export class FsDirectoryService implements DirectoryService {
     const versionRegex = new RegExp(/<clientVersion>([\s,0-9]*)<\/clientVersion>/g);
     const regionRegex = new RegExp(/<active_server>([\sA-Z]*)<\/active_server>/g);
     let path = '';
-    if (status.steamVersion) {
-      path = status.preferencesPathBase === 'CWD' ? basePath : pathJoin(basePath, 'bin', status.folderVersion);
-    } else {
-      path = basePath;
-    }
+    // if (status.steamVersion) {
+    path = status.preferencesPathBase === 'CWD' ? basePath : pathJoin(basePath, 'bin', status.folderVersion);
+    // } else {
+    // path = basePath;
+    // }
 
     try {
       const content = await this.readFileAsync(pathJoin(path, 'preferences.xml'), 'utf8');
@@ -214,18 +214,18 @@ export class FsDirectoryService implements DirectoryService {
     } else if (status.replaysPathBase === 'CWD') {
       status.replaysFolders = [pathJoin(basePath, status.replaysDirPath)];
     } else if (status.replaysPathBase === 'EXE_PATH') {
-      if (status.steamVersion) {
-        status.replaysFolders = [
-          pathJoin(basePath, 'bin', status.folderVersion, 'bin32', status.replaysDirPath),
-          pathJoin(basePath, 'bin', status.folderVersion, 'bin64', status.replaysDirPath)
-        ];
+      //if (status.steamVersion) {
+      status.replaysFolders = [
+        pathJoin(basePath, 'bin', status.folderVersion, 'bin32', status.replaysDirPath),
+        pathJoin(basePath, 'bin', status.folderVersion, 'bin64', status.replaysDirPath)
+      ];
 
-      } else {
-        status.replaysFolders = [
-          pathJoin(basePath, 'bin32', status.replaysDirPath),
-          pathJoin(basePath, 'bin64', status.replaysDirPath)
-        ];
-      }
+      //} else {
+      //  status.replaysFolders = [
+      //    pathJoin(basePath, 'bin32', status.replaysDirPath),
+      pathJoin(basePath, 'bin64', status.replaysDirPath)
+      //  ];
+      //}
     }
 
     if (status.replaysVersioned) {
