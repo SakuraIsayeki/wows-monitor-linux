@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Region } from 'src/app/generated/models';
 
 const map = [{
-  seasons: [6, 7, 8, 9, 10],
+  seasons: [6, 7, 8, 9, 10, 11, 12, 13],
   primetimes: [
     {
       primetime: [0, 1, 2, 3],
