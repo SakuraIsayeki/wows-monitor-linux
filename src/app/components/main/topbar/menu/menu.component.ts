@@ -75,7 +75,7 @@ export class MenuComponent extends BaseComponent implements OnInit {
   constructor(private changelogService: ChangelogService, private config: Config) {
     super();
     combineLatest([
-      this.changelogService.changelogIds(!this.config.allowBeta ? { channel: 'beta' } : null),
+      this.changelogService.changelogIds(this.config.allowBeta ? { channel: 'beta' } : null),
       this.config.$seenChangelogs
     ])
       .pipe(this.untilDestroy())

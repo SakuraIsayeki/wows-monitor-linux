@@ -18,7 +18,7 @@ export class DesktopElectronService implements ElectronService {
   ipcRenderer: typeof ipcRenderer;
   ipcMain: IpcMain;
   webFrame: typeof webFrame;
-  remote: typeof remote;
+  remote: typeof remote; // https://github.com/electron/electron/issues/21408
   childProcess: typeof childProcess;
   shell: typeof shell;
   fs: typeof fs;

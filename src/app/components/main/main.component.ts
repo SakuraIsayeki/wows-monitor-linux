@@ -43,7 +43,7 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
   }
 
   showChangelogs() {
-    this.changelogsService.changelogLatest(!this.config.allowBeta ? { channel: 'beta' } : null)
+    this.changelogsService.changelogLatest(this.config.allowBeta ? { channel: 'beta' } : null)
       .pipe(this.untilDestroy())
       .subscribe(changelog => {
         if (!this.config.seenChangelogs || !this.config.seenChangelogs.some(id => id == changelog.id)) {
