@@ -3,44 +3,54 @@
 app-titlebar {
 
   display: block;
-  -webkit-app-region: drag;
   background: $secondaryColor;
   height: 25px;
   overflow: hidden;
+  padding: 2px;
+  position: relative;
 
-  .app-title-wrapper{
-    float:left;
+  .app-titlebar-draggable {
+    -webkit-app-region: drag;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .app-title-wrapper {
+    float: left;
     margin-left: .2em;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 25px;
+    height: 21px;
     font-size: .8em;
   }
 
-  .app-icon-wrapper{
-    float:left;
+  .app-icon-wrapper {
+    float: left;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 25px;
+    height: 21px;
     width: 40px;
 
-    .app-icon{
-      height:15px;
+    .app-icon {
+      height: 15px;
     }
   }
 
-  .icon-wrapper{
-    float:right;
+  .icon-wrapper {
+    float: right;
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 
-  .title-icon{
+  .title-icon {
     -webkit-app-region: no-drag;
     background: $secondaryLightColor;
     height: 25px;
@@ -50,18 +60,19 @@ app-titlebar {
     align-items: center;
     justify-content: center;
 
-    &:hover{
+    &:hover {
       background: lighten($secondaryLightColor, 20%);
     }
-    &.close{
-      &:hover{
+
+    &.close {
+      &:hover {
         background: $dangerColor;
       }
     }
   }
 }
 
-#matchInfoWrapper{
+#matchInfoWrapper {
   padding-left: 1em;
 }
 
