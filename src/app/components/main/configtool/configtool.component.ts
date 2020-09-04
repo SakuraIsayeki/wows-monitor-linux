@@ -49,7 +49,7 @@ export class ConfigtoolComponent extends BaseComponent implements OnInit, OnDest
       resPath = await this.directoryService.getResFolderPath(path);
       //}
       await this.setValues(pathJoin(resPath, 'engine_config.xml'), this.config.configtoolConfig);
-      await this.setValues(pathJoin(resPath + '_mods', this.directoryService.currentStatus.clientVersion, 'engine_config.xml'),
+      await this.setValues(pathJoin(resPath + '_mods', 'engine_config.xml'),
         this.config.configtoolConfig, true);
     }
   }
