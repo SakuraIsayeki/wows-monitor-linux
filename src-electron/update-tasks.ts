@@ -2,13 +2,16 @@ import { BrowserWindow, ipcMain } from 'electron';
 import * as electronLogger from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 import * as fs from 'fs';
-import * as path from 'path';
 
 export function initUpdater(logger: electronLogger.ElectronLog, win: BrowserWindow, isDebug: boolean, configPath: string) {
   let allowBeta = false;
   if (fs.existsSync(configPath)) {
     const config = fs.readFileSync(configPath, { encoding: 'utf-8' });
-    allowBeta = JSON.parse(config).allowBeta;
+    try {
+      allowBeta = JSON.parse(config).allowBeta;
+    } catch (error) {
+      logger.error('[Electron]', '(initUpdater)', 'Error reading config json', error);
+    }
   } else {
   }
 
