@@ -58,9 +58,14 @@ function appReady() {
     var configPath = !isDebug ? path.join(configBasePath, 'config.json') : 'config.json';
     win.on('close', function (event) {
         var config = fs.readFileSync(configPath, { encoding: 'utf-8' });
-        if (JSON.parse(config).closeToTray && !isQuitting) {
-            event.preventDefault();
-            win.hide();
+        try {
+            if (JSON.parse(config).closeToTray && !isQuitting) {
+                event.preventDefault();
+                win.hide();
+            }
+        }
+        catch (error) {
+            logger.error('[Electron]', '(onWinClose)', 'Error when reading config', error);
         }
         return false;
     });
@@ -103,7 +108,7 @@ function appReady() {
         win.loadURL(url.format({
             pathname: path.join(__dirname, isLocal ? '../dist/app-desktop/index.html' : '../dist/app-desktop/index.html'),
             protocol: 'file:',
-            slashes: true,
+            slashes: true
         }));
     }
     win.on('closed', function () {

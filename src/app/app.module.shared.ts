@@ -1,7 +1,9 @@
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, forwardRef, Inject, Injectable, Injector, NgModule, Provider } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -75,6 +77,8 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    LoadingBarRouterModule,
+    LoadingBarHttpClientModule,
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
     AppRoutingModule,
     TranslateModule.forRoot({

@@ -2,8 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { LoadingBarModule,LOADING_BAR_CONFIG } from '@ngx-loading-bar/core';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { TranslateModule } from '@ngx-translate/core';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ButtonModule } from 'primeng/button';
@@ -67,11 +68,11 @@ import { TopbarComponent } from './topbar/topbar.component';
     ScrollPanelModule,
     ToastModule,
     LoadingBarModule,
-    LoadingBarRouterModule,
     InputSwitchModule
   ],
   providers: [
-    DialogService
+    DialogService,
+    [{ provide: LOADING_BAR_CONFIG, useValue: { latencyThreshold: 100 } }]
   ],
   entryComponents: [
     QrComponent,

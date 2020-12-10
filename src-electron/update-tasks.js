@@ -7,7 +7,12 @@ function initUpdater(logger, win, isDebug, configPath) {
     var allowBeta = false;
     if (fs.existsSync(configPath)) {
         var config = fs.readFileSync(configPath, { encoding: 'utf-8' });
-        allowBeta = JSON.parse(config).allowBeta;
+        try {
+            allowBeta = JSON.parse(config).allowBeta;
+        }
+        catch (error) {
+            logger.error('[Electron]', '(initUpdater)', 'Error reading config json', error);
+        }
     }
     else {
     }
