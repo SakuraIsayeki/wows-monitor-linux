@@ -151,7 +151,11 @@ app-player {
     width: 100%;
     overflow: hidden;
 
-    &.force-white>div:not(#name)  strong {
+    &.force-white:not(.contrast-mode)>div:not(#name)  strong {
+      color: $textColor !important;
+    }
+
+    &.force-white.contrast-mode>div:not(#name)  strong {
       color: $primaryTextColor !important;
     }
 
