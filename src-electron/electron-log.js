@@ -8,6 +8,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
+var vi = require('win-version-info');
 function initElectronLogger(logger) {
     electron_1.ipcMain.on('log-debug', function (event, args) {
         logger.debug.apply(logger, __spreadArrays(['[Angular Debug]'], args));
@@ -17,6 +18,15 @@ function initElectronLogger(logger) {
     });
     electron_1.ipcMain.on('log-error', function (event, args) {
         logger.error.apply(logger, __spreadArrays(['[Angular Error]'], args));
+    });
+    electron_1.ipcMain.on('get-file-verion', function (event, args) {
+        try {
+            event.returnValue = vi(args);
+        }
+        catch (e) {
+            logger.error('[Electron Error]', 'get-file-version failed', e);
+            event.returnValue = null;
+        }
     });
 }
 exports.initElectronLogger = initElectronLogger;

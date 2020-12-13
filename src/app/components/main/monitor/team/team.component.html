@@ -2,7 +2,7 @@
   <span [style.color]="clan.color | sanitizeCss">[{{clan.tag}}]</span>&nbsp;
   <span>{{clan.name}} ({{clan.region | region}})</span>
 </h3>
-<span *ngIf="cw && clan" translate="monitor.cw.text"
+<span *ngIf="cw && clan && clan.rank > 0" translate="monitor.cw.text"
   [translateParams]="{ rank: clan.rank, league: 'monitor.cw.leagues.' + clan.leadingRating.league | translate, division: clan.leadingRating.division | roman, winrate: (clan.leadingRating.wins/clan.leadingRating.battles * 100) | number:'0.0-2' }">
 </span>
 <span *ngIf="!cw" class="team-overall-wrapper">

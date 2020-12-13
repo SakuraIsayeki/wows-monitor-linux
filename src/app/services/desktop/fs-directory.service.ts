@@ -106,11 +106,11 @@ export class FsDirectoryService implements DirectoryService {
         } catch {
           // For non-steam versions
         }
+        await this.readPreferences(path, status);
         const resFolder = await this.getResFolderPath(path, status);
         this.loggerService.debug('CheckPath', 'resFolder', resFolder);
         if (await this.readEngineConfig(resFolder, status)) {
           this.loggerService.debug('CheckPath', 'preferences', status.preferencesPathBase.toString());
-          await this.readPreferences(path, status);
           await this.readEngineConfig(pathJoin(resFolder + '_mods'), status);
           this.setReplaysFolder(path, status);
           this.loggerService.debug('CheckPath', 'replaysFolders', status.replaysFolders.join(','));
@@ -128,19 +128,36 @@ export class FsDirectoryService implements DirectoryService {
     if (status == null) {
       status = this._$status.value;
     }
-
-    // if (!status.steamVersion) {
-    //  return pathJoin(basePath, 'res');
-    // } else {
     const binFilesString = (await this.readDirAsync(pathJoin(basePath, 'bin'), 'utf8')) as string[];
-    const binFilesSorted = binFilesString
-      .filter(s => s.toLowerCase() !== 'clientrunner')
-      .map(s => parseInt(s))
-      .sort((a, b) => b - a);
-    const latest = binFilesSorted[0];
-    status.folderVersion = latest.toString();
+    try {
+      for (const binPath of binFilesString) {
+        const res = this.electronService.ipcRenderer.sendSync('get-file-verion', pathJoin(basePath, 'bin', binPath, 'bin32', 'WorldOfWarships32.exe'));
+        if (res && res.FileVersion) {
+          const version = res.FileVersion.replace(/,/g, '.').replace(/\s/g, '').trim();
+          if (version === status.clientVersion) {
+            status.folderVersion = binPath;
+          }
+        }
+      }
+      if (!status.folderVersion) {
+        throw new Error('Couldn\'t determine folderVersion');
+      }
+    } catch {
+      const binFilesSorted = binFilesString
+        .filter(s => s.toLowerCase() !== 'clientrunner')
+        .map(s => {
+          try {
+            const val = parseInt(s, 0);
+            return isNaN(val) ? 0 : val;
+          } catch {
+            return 0;
+          }
+        })
+        .sort((a, b) => b - a);
+      const latest = binFilesSorted[0];
+      status.folderVersion = latest.toString();
+    }
     return pathJoin(basePath, 'bin', status.folderVersion, 'res');
-    // }
   }
 
   private async readEngineConfig(resPath: string, status: DirectoryStatus) {
@@ -190,10 +207,12 @@ export class FsDirectoryService implements DirectoryService {
     const regionRegex = new RegExp(/<active_server>([\sA-Z]*)<\/active_server>/g);
     let path = '';
     // if (status.steamVersion) {
-    path = status.preferencesPathBase === 'CWD' ? basePath : pathJoin(basePath, 'bin', status.folderVersion);
+    // path = status.preferencesPathBase === 'CWD' ? basePath : pathJoin(basePath, 'bin', status.folderVersion);
     // } else {
     // path = basePath;
     // }
+    path = basePath;
+
 
     try {
       const content = await this.readFileAsync(pathJoin(path, 'preferences.xml'), 'utf8');
@@ -223,7 +242,7 @@ export class FsDirectoryService implements DirectoryService {
       //} else {
       //  status.replaysFolders = [
       //    pathJoin(basePath, 'bin32', status.replaysDirPath),
-      pathJoin(basePath, 'bin64', status.replaysDirPath)
+      pathJoin(basePath, 'bin64', status.replaysDirPath);
       //  ];
       //}
     }

@@ -12,8 +12,8 @@
       </chatBoxPositionX>
     </ui>
     <net_credentials>
-      <active_server> WOWS NA </active_server>
+      <active_server> WOWS ASIA </active_server>
     </net_credentials>
   </scriptsPreferences>
-  <clientVersion>	1, 2, 3, 4	</clientVersion>
+  <clientVersion>	0,9,11,0	</clientVersion>
 </preferences.xml>

@@ -1,1 +1,60 @@
-{"clientVersionFromXml":"0,9,11,3173843","gameMode":14,"clientVersionFromExe":"0,9,11,3173843","mapDisplayName":"s07_Advance","mapId":40,"matchGroup":"PVE","useMatchGroup":"PVE","duration":1200,"gameLogic":"Domination","name":"7x7","scenario":"OP_02_03_s07_Advance","playerID":0,"vehicles":[{"id":269132391,"relation":1,"name":"Cap_Storm2","shipId":3763222224},{"id":403413708,"relation":1,"name":"coolmiau","shipId":4182685136},{"id":403356077,"relation":0,"name":"Isabeartw","shipId":3763287856},{"id":269122461,"relation":1,"name":"thegeneral_lee","shipId":4182685488},{"id":403392432,"relation":1,"name":"CFagan1987","shipId":4182718288},{"id":403392369,"relation":1,"name":"Capoellatw","shipId":4284430032},{"id":403353970,"relation":1,"name":"Pokitguks","shipId":4182685680},{"id":-1,"relation":1,"name":"IDS_OP_02_03_AT_TRANSPORT_A_3","shipId":4291049456},{"id":-10,"relation":2,"name":"IDS_OP_02_03_AT_ATTAKA_US_A1","shipId":4181702640},{"id":-9,"relation":2,"name":"IDS_OP_02_03_AT_ATTAKA_US_51","shipId":4280170480},{"id":-8,"relation":2,"name":"IDS_OP_02_03_AT_ATTAKA_US_23","shipId":4269717488},{"id":-7,"relation":2,"name":"IDS_OP_02_03_AT_ATTAKA_GB_32","shipId":4280170480},{"id":-6,"relation":2,"name":"IDS_OP_02_03_AT_TRANSPORT_E_5","shipId":3767416784},{"id":-5,"relation":1,"name":"IDS_OP_02_03_AT_TRANSPORT_A_2","shipId":4291049456},{"id":-4,"relation":1,"name":"IDS_OP_02_03_AT_TRANSPORT_A_4","shipId":4291049456},{"id":-3,"relation":1,"name":"IDS_OP_02_03_AT_TRANSPORT_A_R","shipId":4293146608},{"id":-2,"relation":1,"name":"IDS_OP_02_03_AT_TRANSPORT_A_1","shipId":4291049456}],"playersPerTeam":7,"dateTime":"12.12.2020 02:50:43","mapName":"spaces/s07_Advance","playerName":"Isabeartw","scenarioConfigId":257,"teamsCount":2,"logic":"Domination","playerVehicle":"PGSB507-Scharnhorst"}
+{
+  "clientVersionFromXml": "0,9,11,3173843",
+  "gameMode": 16,
+  "clientVersionFromExe": "0,9,11,3173843",
+  "mapDisplayName": "20_NE_two_brothers",
+  "mapId": 13,
+  "matchGroup": "CLAN",
+  "useMatchGroup": "PVP",
+  "duration": 1200,
+  "gameLogic": "Domination",
+  "name": "12x12",
+  "scenario": "Epicenter_Special",
+  "playerID": 0,
+  "vehicles": [
+    {
+      "id": 672043938,
+      "relation": 1,
+      "name": "kaede800",
+      "shipId": 3530504176
+    },
+    {
+      "id": 537886021,
+      "relation": 0,
+      "name": "kurohyou_san",
+      "shipId": 3750672176
+    },
+    {
+      "id": 538035217,
+      "relation": 1,
+      "name": "soruto_ky",
+      "shipId": 4180555600
+    },
+    {
+      "id": 538138869,
+      "relation": 2,
+      "name": "Corsair95",
+      "shipId": 3760109552
+    },
+    {
+      "id": 672152056,
+      "relation": 2,
+      "name": "Starkiller2001",
+      "shipId": 4180621104
+    },
+    {
+      "id": 537862469,
+      "relation": 2,
+      "name": "zainess",
+      "shipId": 4075697872
+    }
+  ],
+  "playersPerTeam": 12,
+  "dateTime": "13.12.2020 23:15:30",
+  "mapName": "spaces/20_NE_two_brothers",
+  "playerName": "kurohyou_san",
+  "scenarioConfigId": 101,
+  "teamsCount": 2,
+  "logic": "Domination",
+  "playerVehicle": "PGSC519-Aegir"
+}
