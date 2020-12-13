@@ -123,7 +123,7 @@ export class FsDirectoryService implements DirectoryService {
         this.loggerService.debug('CheckPath', 'resFolder', resFolder);
         if (await this.readEngineConfig(resFolder, status)) {
           this.loggerService.debug('CheckPath', 'preferences', status.preferencesPathBase.toString());
-          await this.readEngineConfig(pathJoin(resFolder + '_mods', status.clientVersion), status);
+          await this.readEngineConfig(pathJoin(resFolder + '_mods'), status);
           this.setReplaysFolder(path, status);
           this.loggerService.debug('CheckPath', 'replaysFolders', status.replaysFolders.join(','));
           status.replaysFoldersFound = status.replaysFolders.some(p => this._fs.existsSync(p));
