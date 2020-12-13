@@ -4,6 +4,7 @@ let semver = require('semver');
 let level = process.argv[2];
 let version = packageJson(level);
 appConfig();
+readme();
 
 function packageJson(level) {
   let json = read('package.json');
