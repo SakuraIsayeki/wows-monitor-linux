@@ -136,6 +136,7 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
 
     this.connection.onclose(() => {
       this._$socketStatus.next(SignalrStatus.Disconnected);
+      setTimeout(() => this.connect(), 2000);
     });
   }
 
@@ -150,6 +151,7 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
             })
             .catch(() => {
               this.loggerService.error('Couldn\'t connect to the signalr hub');
+              setTimeout(() => this.connect(), 2000);
               resolve(false);
             });
         } catch (e) {
