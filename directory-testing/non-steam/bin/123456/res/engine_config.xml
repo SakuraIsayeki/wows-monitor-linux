@@ -4,7 +4,7 @@
     <maxFrameRate>75</maxFrameRate>
   </renderer>
   <preferences>
-    <pathBase>EXE_PATH</pathBase>
+    <pathBase>CWD</pathBase>
   </preferences>
   <replays>
     <dirPath>replays</dirPath>
