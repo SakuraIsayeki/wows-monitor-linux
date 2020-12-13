@@ -25,6 +25,5 @@ export interface DirectoryStatus {
   folderVersion?: string;
   replaysPathBase?: PathBase;
   preferencesPathBase?: PathBase;
-  steamVersion?: boolean;
   region?: Region;
 }
