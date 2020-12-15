@@ -25,7 +25,7 @@
     "lint": "ng lint && tslint ./src-electron/*.ts",
     "lint-electron": "./node_modules/.bin/eslint ./tooling/*.js --debug",
     "e2e": "ng e2e",
-    "preelectron": "tsc -p tsconfig-serve.json",
+    "preelectron": "electron-rebuild && tsc -p tsconfig-serve.json",
     "electron:start": "npm-run-all -p start:desktop:electron electron:serve",
     "electron:serve": "wait-on http-get://localhost:4200/ && npm run preelectron && electron . --serve",
     "electron:local": "npm run preelectron && electron . --local",
