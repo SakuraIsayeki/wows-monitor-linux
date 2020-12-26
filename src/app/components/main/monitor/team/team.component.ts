@@ -22,8 +22,11 @@ export class TeamComponent extends BaseComponent implements OnInit {
 
   showDialog = false;
 
-  @ViewChild('weblink', { static: false })
-  weblink: ElementRef<HTMLLinkElement>;
+  @ViewChild('wowsNumbersLink', { static: false })
+  wowsNumbersLink: ElementRef<HTMLLinkElement>;
+  @ViewChild('wowsKarmaLink', { static: false })
+  wowsKarmaLink: ElementRef<HTMLLinkElement>;
+
 
   items: MenuItem[];
 
@@ -61,9 +64,19 @@ export class TeamComponent extends BaseComponent implements OnInit {
         label: this.translateService.instant('monitor.teamPopup.wowsNumbers'),
         command: () => {
           if (this.isBrowser) {
-            window.open(this.weblink.nativeElement.href, '_blank');
+            window.open(this.wowsNumbersLink.nativeElement.href, '_blank');
           } else {
-            this.electronService.shell.openExternal(this.weblink.nativeElement.href);
+            this.electronService.shell.openExternal(this.wowsNumbersLink.nativeElement.href);
+          }
+        }
+      },
+      {
+        label: this.translateService.instant('monitor.teamPopup.wowsKarma'),
+        command: () => {
+          if (this.isBrowser) {
+            window.open(this.wowsKarmaLink.nativeElement.href, '_blank');
+          } else {
+            this.electronService.shell.openExternal(this.wowsKarmaLink.nativeElement.href);
           }
         }
       }

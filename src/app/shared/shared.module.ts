@@ -17,6 +17,7 @@ import { RomanPipe } from './pipes/roman.pipe';
 import { SanitizeCssPipe } from './pipes/sanitize-css.pipe';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { WowsNumbersPipe } from './pipes/wows-numbers.pipe';
+import { WowsKarmaPipe } from './pipes/wows-karma.pipe';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { WowsNumbersPipe } from './pipes/wows-numbers.pipe';
     ReplaceWhitespacePipe,
     RomanPipe,
     WowsNumbersPipe,
+    WowsKarmaPipe,
     AddPlusPipe,
     ResolveClansPipe,
     Primetime2RegionPipe
@@ -55,6 +57,7 @@ import { WowsNumbersPipe } from './pipes/wows-numbers.pipe';
     ReplaceWhitespacePipe,
     RomanPipe,
     WowsNumbersPipe,
+    WowsKarmaPipe,
     AddPlusPipe,
     ResolveClansPipe,
     Primetime2RegionPipe

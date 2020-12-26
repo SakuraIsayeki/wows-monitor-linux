@@ -4,6 +4,7 @@ import { faExclamationCircle, faFire, faGavel, faHeart, faLightbulb, faSkull, fa
 import { PlayerInfo } from 'src/app/generated/models';
 import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
 import { WowsNumbersPipe } from 'src/app/shared/pipes/wows-numbers.pipe';
+import { WowsKarmaPipe } from 'src/app/shared/pipes/wows-karma.pipe';
 import { Config } from 'src/config/config';
 import { BaseComponent } from '../../../base.component';
 
@@ -91,6 +92,16 @@ export class PlayerComponent extends BaseComponent implements OnInit {
 
   openWowsNumbers(player) {
     const baseUrl = WowsNumbersPipe.staticTransform(player.region);
+    const url = `${baseUrl}player/${player.accountId},${player.name}/`;
+    if (this.isBrowser) {
+      window.open(url, '_blank');
+    } else {
+      this.electronService.shell.openExternal(url);
+    }
+  }
+
+  openWowsKarma(player) {
+    const baseUrl = WowsKarmaPipe.staticTransform(player.region);
     const url = `${baseUrl}player/${player.accountId},${player.name}/`;
     if (this.isBrowser) {
       window.open(url, '_blank');

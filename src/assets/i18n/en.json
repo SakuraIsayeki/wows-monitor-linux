@@ -156,7 +156,8 @@
     "season": "Season",
     "teamPopup": {
       "info": "more Information",
-      "wowsNumbers": "Clan on Wows-Numbers"
+      "wowsNumbers": "Clan on WOWS Numbers",
+      "wowsKarma": "Clan on WOWS Karma"
     },
     "testship": "Ship is in live testing"
   },
