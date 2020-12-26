@@ -3,7 +3,7 @@
   (click)="openWowsNumbers(player)">
   <div id="name">
     <strong>
-      <span *ngIf="player.clan && !cw"
+      <span *ngIf="player.clan"
         [style.color]="player.clan.color | sanitizeCss">[{{player.clan.tag}}]&nbsp;</span>
       <span>{{player.name}}</span>
     </strong>
