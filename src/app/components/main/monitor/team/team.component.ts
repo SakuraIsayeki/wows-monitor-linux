@@ -1,6 +1,6 @@
 import { Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { ClanInfo, TeamAverage } from 'src/app/generated/models';
+import { ClanInfo, Region, TeamAverage } from 'src/app/generated/models';
 import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
 import { Config } from 'src/config/config';
 import { BaseComponent } from '../../../base.component';
@@ -70,7 +70,7 @@ export class TeamComponent extends BaseComponent implements OnInit {
           }
         }
       },
-      {
+      this.clan.region === Region.EU ? {
         label: this.translateService.instant('monitor.teamPopup.wowsKarma'),
         command: () => {
           if (this.isBrowser) {
@@ -79,8 +79,7 @@ export class TeamComponent extends BaseComponent implements OnInit {
             this.electronService.shell.openExternal(this.wowsKarmaLink.nativeElement.href);
           }
         }
-      }
-    ];
+      } : null
+    ].filter(i => i !== null);
   }
-
 }

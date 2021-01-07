@@ -1,6 +1,5 @@
 <div class="info-wrapper"
-  [ngClass]="{ 'me': player.relation == 0, 'bot': player.bot, 'hidden': player.hidden, 'player': !player.bot && !player.hidden && player.shipStats, 'no-battles': !player.bot && !player.hidden && (!player.shipStats || player.shipStats.battles <= 0), 'force-white': !config.coloredValues, 'contrast-mode': config.highContrastMode, 'normal': config.layoutMode === 'normal', 'legacy': config.layoutMode === 'legacy', 'compact': config.layoutMode === 'compact' }"
-  (click)="openWowsNumbers(player)">
+  [ngClass]="{ 'me': player.relation == 0, 'bot': player.bot, 'hidden': player.hidden, 'player': !player.bot && !player.hidden && player.shipStats, 'no-battles': !player.bot && !player.hidden && (!player.shipStats || player.shipStats.battles <= 0), 'force-white': !config.coloredValues, 'contrast-mode': config.highContrastMode, 'normal': config.layoutMode === 'normal', 'legacy': config.layoutMode === 'legacy', 'compact': config.layoutMode === 'compact' }">
   <div id="name">
     <strong>
       <span *ngIf="player.clan"
@@ -85,3 +84,10 @@
     </ng-container>
   </div>
 </div>
+
+<a #wowsNumbersLink target="_blank" hidden="hidden" href="{{ player.region | wowsNumbers }}player/{{player.accountId}},{{player.name}}/">Link</a>
+<a *ngIf="playerIsRegionEU()" #wowsKarmaLink target="_blank" hidden="hidden" href="{{ player.region | wowsKarma }}player/{{player.accountId}},{{player.name}}/">Link</a>
+
+<p-contextMenu *ngIf="!player.hidden" styleClass="custom-contextmenu" [target]="el.nativeElement" appendTo="body"
+  [model]="items" triggerEvent="click">
+</p-contextMenu>

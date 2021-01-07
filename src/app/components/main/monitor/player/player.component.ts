@@ -1,7 +1,8 @@
-import { Component, HostBinding, Inject, Input, OnInit, SecurityContext } from '@angular/core';
+import { Component, HostBinding, Inject, Input, OnInit, SecurityContext, ElementRef, ViewChild } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 import { DomSanitizer } from '@angular/platform-browser';
 import { faExclamationCircle, faFire, faGavel, faHeart, faLightbulb, faSkull, faTrophy } from '@fortawesome/free-solid-svg-icons';
-import { PlayerInfo } from 'src/app/generated/models';
+import { PlayerInfo, Region } from 'src/app/generated/models';
 import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
 import { WowsNumbersPipe } from 'src/app/shared/pipes/wows-numbers.pipe';
 import { WowsKarmaPipe } from 'src/app/shared/pipes/wows-karma.pipe';
@@ -83,11 +84,33 @@ export class PlayerComponent extends BaseComponent implements OnInit {
   faBulb = faLightbulb;
   faGavel = faGavel;
 
-  constructor(private sanitizer: DomSanitizer, public config: Config, @Inject(ElectronServiceToken) private electronService: ElectronService, ) {
+  // Player Menu for Website links
+  items: MenuItem[];
+
+  @ViewChild('wowsNumbersLink', { static: false })
+  wowsNumbersLink: ElementRef<HTMLLinkElement>;
+  @ViewChild('wowsKarmaLink', { static: false })
+  wowsKarmaLink: ElementRef<HTMLLinkElement>;
+
+
+  constructor(public el: ElementRef,
+    private sanitizer: DomSanitizer,
+    public config: Config,
+    @Inject(ElectronServiceToken) private electronService: ElectronService) {
     super();
   }
 
   ngOnInit() {
+    this.items = [
+      {
+        label: this.translateService.instant('monitor.playerPopup.wowsNumbers'),
+        command: () => this.openWowsNumbers(this.player)
+      },
+      this.player.region === Region.EU ? {
+        label: this.translateService.instant('monitor.playerPopup.wowsKarma'),
+        command: () => this.openWowsKarma(this.player)
+      } : null
+    ].filter(i => i !== null);
   }
 
   openWowsNumbers(player) {
@@ -108,5 +131,9 @@ export class PlayerComponent extends BaseComponent implements OnInit {
     } else {
       this.electronService.shell.openExternal(url);
     }
+  }
+
+  playerIsRegionEU(): boolean {
+    return this.player.region === 0;
   }
 }

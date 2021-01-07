@@ -159,6 +159,10 @@
       "wowsNumbers": "Clan on WOWS Numbers",
       "wowsKarma": "Clan on WOWS Karma"
     },
+    "playerPopup": {
+      "wowsNumbers": "Stats on WOWS Numbers",
+      "wowsKarma": "Info on WOWS Karma"
+    },
     "testship": "Ship is in live testing"
   },
   "pathPicker": {
