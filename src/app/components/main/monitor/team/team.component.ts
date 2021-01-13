@@ -62,24 +62,28 @@ export class TeamComponent extends BaseComponent implements OnInit {
       },
       {
         label: this.translateService.instant('monitor.teamPopup.wowsNumbers'),
-        command: () => {
-          if (this.isBrowser) {
-            window.open(this.wowsNumbersLink.nativeElement.href, '_blank');
-          } else {
-            this.electronService.shell.openExternal(this.wowsNumbersLink.nativeElement.href);
-          }
-        }
-      },
-      this.clan.region === Region.EU ? {
+        command: this.openWowsNumbers
+      }/*,
+      {
         label: this.translateService.instant('monitor.teamPopup.wowsKarma'),
-        command: () => {
-          if (this.isBrowser) {
-            window.open(this.wowsKarmaLink.nativeElement.href, '_blank');
-          } else {
-            this.electronService.shell.openExternal(this.wowsKarmaLink.nativeElement.href);
-          }
-        }
-      } : null
-    ].filter(i => i !== null);
+        command: this.openWowsKarma
+      }*/
+    ]
+  }
+
+  openWowsNumbers() : void {
+    if (this.isBrowser) {
+      window.open(this.wowsNumbersLink.nativeElement.href, '_blank');
+    } else {
+      this.electronService.shell.openExternal(this.wowsNumbersLink.nativeElement.href);
+    }
+  }
+
+  openWowsKarma() : void {
+    if (this.isBrowser) {
+      window.open(this.wowsKarmaLink.nativeElement.href, '_blank');
+    } else {
+      this.electronService.shell.openExternal(this.wowsKarmaLink.nativeElement.href);
+    }
   }
 }

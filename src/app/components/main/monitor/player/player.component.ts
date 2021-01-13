@@ -106,11 +106,11 @@ export class PlayerComponent extends BaseComponent implements OnInit {
         label: this.translateService.instant('monitor.playerPopup.wowsNumbers'),
         command: () => this.openWowsNumbers(this.player)
       },
-      this.player.region === Region.EU ? {
+      {
         label: this.translateService.instant('monitor.playerPopup.wowsKarma'),
         command: () => this.openWowsKarma(this.player)
-      } : null
-    ].filter(i => i !== null);
+      }
+    ]
   }
 
   openWowsNumbers(player) {
@@ -131,9 +131,5 @@ export class PlayerComponent extends BaseComponent implements OnInit {
     } else {
       this.electronService.shell.openExternal(url);
     }
-  }
-
-  playerIsRegionEU(): boolean {
-    return this.player.region === 0;
   }
 }
