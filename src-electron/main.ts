@@ -57,7 +57,8 @@ function appReady() {
     frame: isWindows ? false : true,
     icon: iconPath,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      webSecurity: false
     }
   });
 

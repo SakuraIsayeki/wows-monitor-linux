@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { parse as parseXml2Json } from 'fast-xml-parser';
 import * as fs from 'fs';
@@ -13,6 +14,13 @@ import { promisify } from 'util';
 
 @Injectable()
 export class FsDirectoryService implements DirectoryService {
+
+  private checkUrls: { [key: number]: string } = {
+    0: 'https://csis.worldoftanks.eu/csis/wowseu/',
+    1: 'https://csis.worldoftanks.com/csis/wowsus/',
+    2: 'https://csis.worldoftanks.ru/csis/wowsru/',
+    3: 'https://csis.worldoftanks.asia/csis/wowssg/'
+  };
 
   private _$status = new BehaviorSubject<DirectoryStatus>(null);
   private _$changeDetected = new BehaviorSubject<string>(null);
@@ -46,7 +54,8 @@ export class FsDirectoryService implements DirectoryService {
   constructor(
     @Inject(ElectronServiceToken) private electronService: ElectronService,
     @Inject(LoggerServiceToken) private loggerService: LoggerService,
-    private config: Config
+    private config: Config,
+    private httpClient: HttpClient
   ) {
     this._fs = electronService.fs;
     // tslint:disable-next-line: deprecation
@@ -137,25 +146,22 @@ export class FsDirectoryService implements DirectoryService {
   }
 
   async getResFolderPath(basePath: string, status?: DirectoryStatus) {
+    const versionRegex = new RegExp(/<version>release\.([\.0-9]*)<\/version>/g);
     if (status == null) {
       status = this._$status.value;
     }
-    const binFilesString = (await this.readDirAsync(pathJoin(basePath, 'bin'), 'utf8')) as string[];
+
     try {
-      for (const binPath of binFilesString) {
-        const res = this.electronService.ipcRenderer.sendSync('get-file-verion', pathJoin(basePath, 'bin', binPath, 'bin32', 'WorldOfWarships32.exe'));
-        if (res && res.FileVersion) {
-          const version = res.FileVersion.replace(/,/g, '.').replace(/\s/g, '').trim();
-          if (version === status.clientVersion) {
-            status.folderVersion = binPath;
-            break;
-          }
-        }
-      }
+      const res = await this.httpClient.get(this.checkUrls[status.region], { observe: 'body', responseType: 'text' }).toPromise();
+      const versionResult = versionRegex.exec(res);
+      const lastDotIndex = versionResult[1].lastIndexOf('.');
+      status.clientVersion = '0.' + versionResult[1].substring(0, lastDotIndex);
+      status.folderVersion = versionResult[1].substring(lastDotIndex + 1, versionResult[1].length);
       if (!status.folderVersion) {
         throw new Error('Couldn\'t determine folderVersion');
       }
     } catch {
+      const binFilesString = (await this.readDirAsync(pathJoin(basePath, 'bin'), 'utf8')) as string[];
       const binFilesSorted = binFilesString
         .filter(s => s.toLowerCase() !== 'clientrunner')
         .map(s => {
@@ -216,16 +222,16 @@ export class FsDirectoryService implements DirectoryService {
   }
 
   private async readPreferences(basePath: string, status: DirectoryStatus) {
-    const versionRegex = new RegExp(/<clientVersion>([\s,0-9]*)<\/clientVersion>/g);
+    //const versionRegex = new RegExp(/<clientVersion>([\s,0-9]*)<\/clientVersion>/g);
     const regionRegex = new RegExp(/<active_server>([\sA-Z]*)<\/active_server>/g);
     try {
       const content = await this.readFileAsync(pathJoin(basePath, 'preferences.xml'), 'utf8');
 
-      const versionResult = versionRegex.exec(content);
+      //const versionResult = versionRegex.exec(content);
       const regionResult = regionRegex.exec(content);
 
       status.region = Region[regionResult[1].replace('WOWS', '').replace('CIS', 'RU').trim()];
-      status.clientVersion = versionResult[1].replace(/,/g, '.').replace(/\s/g, '').trim();
+      //status.clientVersion = versionResult[1].replace(/,/g, '.').replace(/\s/g, '').trim();
     } catch (error) {
       this.loggerService.error('Error while reading preferences.xml in ' + basePath, error);
     }

@@ -1,0 +1,182 @@
+{
+  "matchGroup": "pvp",
+  "gameMode": 11,
+  "clientVersionFromExe": "0,10,0,3343484",
+  "scenarioUiCategoryId": 0,
+  "mapDisplayName": "04_Archipelago",
+  "mapId": 2,
+  "clientVersionFromXml": "0,10,0,3343484",
+  "weatherParams": {
+    "0": [
+      "PCOW001_Sunny"
+    ],
+    "1": [
+      "PCOW003_Cloudy"
+    ],
+    "2": [
+      "PCOW002_Storm",
+      "PCOW001_Sunny"
+    ]
+  },
+  "mapBorder": null,
+  "duration": 1200,
+  "gameLogic": "Domination",
+  "name": "12x12",
+  "scenario": "Domination_2point",
+  "playerID": 0,
+  "vehicles": [
+    {
+      "shipId": 4184815440,
+      "relation": 2,
+      "id": 108549,
+      "name": "riverkongo"
+    },
+    {
+      "shipId": 4184782640,
+      "relation": 2,
+      "id": 134275596,
+      "name": "Antisilvestr"
+    },
+    {
+      "shipId": 3765352400,
+      "relation": 1,
+      "id": 134347537,
+      "name": "Grey173"
+    },
+    {
+      "shipId": 4184782672,
+      "relation": 2,
+      "id": 108563,
+      "name": "kontra73_"
+    },
+    {
+      "shipId": 4069438928,
+      "relation": 2,
+      "id": 134494111,
+      "name": "Varmonds"
+    },
+    {
+      "shipId": 4184749264,
+      "relation": 2,
+      "id": 204197,
+      "name": "Ksu_kamikadze"
+    },
+    {
+      "shipId": 4290655952,
+      "relation": 2,
+      "id": 199601,
+      "name": "vov4ik13"
+    },
+    {
+      "shipId": 4184815408,
+      "relation": 2,
+      "id": 187445,
+      "name": "viktor19901"
+    },
+    {
+      "shipId": 4184782640,
+      "relation": 1,
+      "id": 134361913,
+      "name": "ETO_NE_YA_VNATURE"
+    },
+    {
+      "shipId": 4184815056,
+      "relation": 2,
+      "id": 304827,
+      "name": "bocila72"
+    },
+    {
+      "shipId": 4184815568,
+      "relation": 0,
+      "id": 173002,
+      "name": "Jaberwak"
+    },
+    {
+      "shipId": 4184749872,
+      "relation": 1,
+      "id": 268440667,
+      "name": ":Tirpitz:"
+    },
+    {
+      "shipId": 4184815056,
+      "relation": 1,
+      "id": 268440668,
+      "name": ":Lee:"
+    },
+    {
+      "shipId": 4184782640,
+      "relation": 1,
+      "id": 268440669,
+      "name": ":Koester:"
+    },
+    {
+      "shipId": 4184749872,
+      "relation": 2,
+      "id": 268440670,
+      "name": ":Wright:"
+    },
+    {
+      "shipId": 4184815440,
+      "relation": 2,
+      "id": 268440671,
+      "name": ":Zenker:"
+    },
+    {
+      "shipId": 4184782576,
+      "relation": 2,
+      "id": 268440672,
+      "name": ":Tourville:"
+    },
+    {
+      "shipId": 3744380368,
+      "relation": 1,
+      "id": 134511201,
+      "name": "alexoda"
+    },
+    {
+      "shipId": 3744380368,
+      "relation": 1,
+      "id": 134431462,
+      "name": "Skvortsov_14"
+    },
+    {
+      "shipId": 4184749264,
+      "relation": 1,
+      "id": 134472555,
+      "name": "Bischepp"
+    },
+    {
+      "shipId": 3765385200,
+      "relation": 1,
+      "id": 290669,
+      "name": "nnn607"
+    },
+    {
+      "shipId": 4184782576,
+      "relation": 2,
+      "id": 134419448,
+      "name": "PINOCCCIO"
+    },
+    {
+      "shipId": 4290655952,
+      "relation": 1,
+      "id": 117883,
+      "name": "zdfter"
+    },
+    {
+      "shipId": 4184815408,
+      "relation": 1,
+      "id": 171006,
+      "name": "C_T_A_P_bI_Y_21"
+    }
+  ],
+  "playersPerTeam": 12,
+  "dateTime": "20.01.2021 10:56:44",
+  "mapName": "spaces/04_Archipelago",
+  "playerName": "Jaberwak",
+  "scenarioConfigId": 13,
+  "teamsCount": 2,
+  "logic": "Domination",
+  "playerVehicle": "PBSB105-Iron-Duke",
+  "battleDuration": 1200
+}
