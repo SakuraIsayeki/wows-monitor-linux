@@ -102,18 +102,18 @@ export class PlayerComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.items = [
-      {
+      this.player.hidden || this.player.bot ? null : {
         label: this.translateService.instant('monitor.playerPopup.wowsNumbers'),
         command: () => this.openWowsNumbers(this.player)
       },
-      {
+      this.player.hidden || this.player.bot ? null : {
         label: this.translateService.instant('monitor.playerPopup.wowsKarma'),
         command: () => this.openWowsKarma(this.player)
       }
-    ]
+    ].filter(x => x === null);
   }
 
-  openWowsNumbers(player) {
+  openWowsNumbers(player: PlayerInfo) {
     const baseUrl = WowsNumbersPipe.staticTransform(player.region);
     const url = `${baseUrl}player/${player.accountId},${player.name}/`;
     if (this.isBrowser) {
@@ -123,7 +123,7 @@ export class PlayerComponent extends BaseComponent implements OnInit {
     }
   }
 
-  openWowsKarma(player) {
+  openWowsKarma(player: PlayerInfo) {
     const baseUrl = WowsKarmaPipe.staticTransform(player.region);
     const url = `${baseUrl}player/${player.accountId},${player.name}/`;
     if (this.isBrowser) {

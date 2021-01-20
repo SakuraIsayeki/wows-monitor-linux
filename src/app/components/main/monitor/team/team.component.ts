@@ -68,10 +68,10 @@ export class TeamComponent extends BaseComponent implements OnInit {
         label: this.translateService.instant('monitor.teamPopup.wowsKarma'),
         command: this.openWowsKarma
       }*/
-    ]
+    ];
   }
 
-  openWowsNumbers() : void {
+  openWowsNumbers(): void {
     if (this.isBrowser) {
       window.open(this.wowsNumbersLink.nativeElement.href, '_blank');
     } else {
@@ -79,7 +79,7 @@ export class TeamComponent extends BaseComponent implements OnInit {
     }
   }
 
-  openWowsKarma() : void {
+  openWowsKarma(): void {
     if (this.isBrowser) {
       window.open(this.wowsKarmaLink.nativeElement.href, '_blank');
     } else {

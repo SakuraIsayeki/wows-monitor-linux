@@ -85,8 +85,8 @@
   </div>
 </div>
 
-<a #wowsNumbersLink target="_blank" hidden="hidden" href="{{ player.region | wowsNumbers }}player/{{player.accountId}},{{player.name}}/">Link</a>
-<a #wowsKarmaLink target="_blank" hidden="hidden" href="{{ player.region | wowsKarma }}player/{{player.accountId}},{{player.name}}/">Link</a>
+<a #wowsNumbersLink *ngIf="!player.bot || player.hidden" target="_blank" hidden="hidden" href="{{ player.region | wowsNumbers }}player/{{player.accountId}},{{player.name}}/">Link</a>
+<a #wowsKarmaLink *ngIf="!player.bot || player.hidden" target="_blank" hidden="hidden" href="{{ player.region | wowsKarma }}player/{{player.accountId}},{{player.name}}/">Link</a>
 
 <p-contextMenu *ngIf="!player.hidden" styleClass="custom-contextmenu" [target]="el.nativeElement" appendTo="body"
   [model]="items" triggerEvent="click">
