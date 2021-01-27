@@ -31,7 +31,7 @@ export class Primetime2RegionPipe implements PipeTransform {
   constructor() { }
 
   transform(primetimeId: number, seasonId: number): Region {
-    const season = map.find(s => s.seasons.includes(seasonId));
+    const season = map[0];
     if (season) {
       const primetime = season.primetimes.find(p => p.primetime.includes(primetimeId));
       if (primetime) {
