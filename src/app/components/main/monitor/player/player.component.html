@@ -20,7 +20,10 @@
   </div>
   <div id="karma">
     <app-value-label label="Karma" [icon]="faHeart">
-      <strong>{{player.karma}}</strong>
+      <span [pTooltip]="(('monitor.karma.game' | translate) + player.karma + '\n' + ('monitor.karma.wowsKarma' | translate) + (player.wowsKarma != null ? player.wowsKarma : 'N/A'))" 
+        tooltipPosition="bottom" [style.color]="mixedKarmaColor | sanitizeCss">
+          <strong>{{mixedKarma}}</strong>
+      </span>
     </app-value-label>
   </div>
   <div id="ship">

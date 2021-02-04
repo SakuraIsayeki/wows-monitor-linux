@@ -13,6 +13,24 @@ import { MonitorComponent } from '../monitor.component';
 export class PlayerComponent extends BaseComponent implements OnInit {
 
   @Input()
+  @HostBinding('class.mixedKarma')
+  get mixedKarma() {
+    return this.player.karma + this.player.wowsKarma;
+  }
+
+  @Input()
+  @HostBinding('class.mixedKarmaColor')
+  get mixedKarmaColor(): string {
+    if (this.mixedKarma === 0) {
+      return 'rgb(255, 199, 31)';
+    } else if (this.mixedKarma > 0) {
+      return 'rgb(68, 179, 0)';
+    } else if (this.mixedKarma < 0) {
+      return 'rgb(254, 14, 0)';
+    }
+  }
+
+  @Input()
   player: PlayerInfo;
 
   @Input()

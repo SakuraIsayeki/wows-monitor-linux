@@ -141,6 +141,10 @@
     "empty": "waiting for a match",
     "forcePVP": "Show random stats",
     "hidden": "Player has a hidden profile",
+    "karma": {
+      "game": "Game Karma : ",
+      "wowsKarma": "wows-karma.com : "
+    },
     "map": "Map",
     "matchGroup": {
       "CLAN": "Clan War",

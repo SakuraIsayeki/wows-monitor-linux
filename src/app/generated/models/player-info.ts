@@ -10,6 +10,7 @@ export interface PlayerInfo {
   clan?: null | Clan;
   hidden?: boolean;
   karma?: null | number;
+  wowsKarma?: null | number;
   name?: null | string;
   overallStats?: null | Stats;
   region?: Region;
