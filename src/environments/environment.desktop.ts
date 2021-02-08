@@ -4,7 +4,7 @@ export const environment: Environment = {
   production: false,
   browser: false,
   desktop: true,
-  apiUrl: 'https://api.wows-monitor.com',
+  apiUrl: 'http://localhost:5000',
   gaCode: 'UA-151253199-8',
-  appUrl: 'https://app.wows-monitor.com'
+  appUrl: 'http://localhost:4201'
 };
