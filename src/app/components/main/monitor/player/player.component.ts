@@ -1,17 +1,34 @@
-import { Component, HostBinding, Inject, Input, OnInit, SecurityContext } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnInit, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { faExclamationCircle, faFire, faGavel, faHeart, faLightbulb, faSkull, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { PlayerInfo } from 'src/app/generated/models';
-import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
-import { WowsNumbersPipe } from 'src/app/shared/pipes/wows-numbers.pipe';
 import { Config } from 'src/config/config';
 import { BaseComponent } from '../../../base.component';
+import { MonitorComponent } from '../monitor.component';
 
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html'
 })
 export class PlayerComponent extends BaseComponent implements OnInit {
+
+  @Input()
+  @HostBinding('class.mixedKarma')
+  get mixedKarma() {
+    return this.player.karma + this.player.wowsKarma;
+  }
+
+  @Input()
+  @HostBinding('class.mixedKarmaColor')
+  get mixedKarmaColor(): string {
+    if (this.mixedKarma === 0) {
+      return 'rgb(255, 199, 31)';
+    } else if (this.mixedKarma > 0) {
+      return 'rgb(68, 179, 0)';
+    } else if (this.mixedKarma < 0) {
+      return 'rgb(254, 14, 0)';
+    }
+  }
 
   @Input()
   player: PlayerInfo;
@@ -82,20 +99,14 @@ export class PlayerComponent extends BaseComponent implements OnInit {
   faBulb = faLightbulb;
   faGavel = faGavel;
 
-  constructor(private sanitizer: DomSanitizer, public config: Config, @Inject(ElectronServiceToken) private electronService: ElectronService, ) {
+  constructor(public el: ElementRef,
+              private sanitizer: DomSanitizer,
+              public config: Config,
+              public monitorComp: MonitorComponent) {
     super();
   }
 
   ngOnInit() {
-  }
 
-  openWowsNumbers(player) {
-    const baseUrl = WowsNumbersPipe.staticTransform(player.region);
-    const url = `${baseUrl}player/${player.accountId},${player.name}/`;
-    if (this.isBrowser) {
-      window.open(url, '_blank');
-    } else {
-      this.electronService.shell.openExternal(url);
-    }
   }
 }

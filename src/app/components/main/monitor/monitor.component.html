@@ -4,7 +4,7 @@
   </a>
 </div>
 
-<div class="container {{$fontSizeClass | async}}" *ngIf="signalrService.$info | async;let matchInfo">
+<div class="container {{$fontSizeClass | async}}" *ngIf="signalrService.$info | async;let matchInfo" #container (click)="$event.preventDefault();$event.stopPropagation()">
   <p-card id="monitor-friendly-clan" class="no-padding">
     <app-team [clan]="matchInfo.friendlyClan" [team]="matchInfo.friendlyTeam" [cw]="matchInfo.matchGroup == 'CLAN'">
     </app-team>
@@ -28,13 +28,18 @@
       </app-player>
       <hr class="player-seperator" *ngIf="!l" />
     </ng-container>
-
-
   </p-card>
+
+  <p-contextMenu #contextMenu styleClass="custom-contextmenu" appendTo="body" triggerEvent="ignore" [global]="true"
+                 [model]="items">
+  </p-contextMenu>
 </div>
+
+
 
 <div *ngIf="!(signalrService.$info | async)" class="empty-monitor">
   <span>
     <fa-icon [icon]="faWifi" [fixedWidth]="true"></fa-icon>&nbsp;{{'monitor.empty' | translate}}
   </span>
 </div>
+

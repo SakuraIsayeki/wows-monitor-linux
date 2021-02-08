@@ -20,8 +20,8 @@
   </span>
 </span>
 
-<a *ngIf="cw && clan" #weblink target="_blank" hidden="hidden"
-  href="{{ clan.region | wowsNumbers }}clan/{{clan.id}},{{clan.tag + ' ' + clan.name | replaceWhitespace}}/">Link</a>
+<a *ngIf="cw && clan" #wowsNumbersLink target="_blank" hidden="hidden" href="{{ clan.region | wowsNumbers }}clan/{{clan.id}},{{clan.tag + ' ' + clan.name | replaceWhitespace}}/">Link</a>
+<a *ngIf="false" #wowsKarmaLink target="_blank" hidden="hidden" href="{{ clan.region | wowsKarma }}clan/{{clan.id}},{{clan.tag + ' ' + clan.name | replaceWhitespace}}/">Link</a>
 
 <p-contextMenu *ngIf="cw && clan" styleClass="custom-contextmenu" [target]="el.nativeElement" appendTo="body"
   [model]="items" triggerEvent="click">

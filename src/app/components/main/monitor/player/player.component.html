@@ -1,17 +1,16 @@
-<div class="info-wrapper"
-  [ngClass]="{ 'me': player.relation == 0, 'bot': player.bot, 'hidden': player.hidden, 'player': !player.bot && !player.hidden && player.shipStats, 'no-battles': !player.bot && !player.hidden && (!player.shipStats || player.shipStats.battles <= 0), 'force-white': !config.coloredValues, 'contrast-mode': config.highContrastMode, 'normal': config.layoutMode === 'normal', 'legacy': config.layoutMode === 'legacy', 'compact': config.layoutMode === 'compact' }"
-  (click)="openWowsNumbers(player)">
+<div class="info-wrapper" (click)="monitorComp.clickPlayer($event, player)"
+     [ngClass]="{ 'me': player.relation == 0, 'bot': player.bot, 'hidden': player.hidden, 'player': !player.bot && !player.hidden && player.shipStats, 'no-battles': !player.bot && !player.hidden && (!player.shipStats || player.shipStats.battles <= 0), 'force-white': !config.coloredValues, 'contrast-mode': config.highContrastMode, 'normal': config.layoutMode === 'normal', 'legacy': config.layoutMode === 'legacy', 'compact': config.layoutMode === 'compact' }">
   <div id="name">
     <strong>
-      <span *ngIf="player.clan && !cw"
-        [style.color]="player.clan.color | sanitizeCss">[{{player.clan.tag}}]&nbsp;</span>
+      <span *ngIf="player.clan"
+            [style.color]="player.clan.color | sanitizeCss">[{{player.clan.tag}}]&nbsp;</span>
       <span>{{player.name}}</span>
     </strong>
   </div>
   <div id="ovr-winrate">
     <app-value-label label="Account Winrate" [icon]="faTrophy">
       <strong
-        [style.color]="player.overallStats?.winrateColor | sanitizeCss">{{player.overallStats?.winrate | number:'0.0-2'}}%</strong>
+              [style.color]="player.overallStats?.winrateColor | sanitizeCss">{{player.overallStats?.winrate | number:'0.0-2'}}%</strong>
     </app-value-label>
   </div>
   <div id="ovr-battles">
@@ -21,7 +20,10 @@
   </div>
   <div id="karma">
     <app-value-label label="Karma" [icon]="faHeart">
-      <strong>{{player.karma}}</strong>
+      <span [pTooltip]="(('monitor.karma.game' | translate) + player.karma + '\n' + ('monitor.karma.wowsKarma' | translate) + (player.wowsKarma != null ? player.wowsKarma : 'N/A'))" 
+        tooltipPosition="bottom" [style.color]="mixedKarmaColor | sanitizeCss">
+          <strong>{{mixedKarma}}</strong>
+      </span>
     </app-value-label>
   </div>
   <div id="ship">
@@ -30,7 +32,7 @@
   <div id="winrate">
     <app-value-label label="Winrate" [icon]="faTrophy">
       <strong
-        [style.color]="player.shipStats?.winrateColor | sanitizeCss">{{player.shipStats?.winrate | number:'0.0-2'}}%</strong>
+              [style.color]="player.shipStats?.winrateColor | sanitizeCss">{{player.shipStats?.winrate | number:'0.0-2'}}%</strong>
     </app-value-label>
   </div>
   <div id="battles">
@@ -46,19 +48,19 @@
   <div id="pr">
     <app-value-label label="PR" [icon]="faExclamation">
       <span [pTooltip]="'monitor.pr.poweredBy' | translate" tooltipPosition="bottom"
-        [style.color]="player.shipStats?.personalRatingColor | sanitizeCss"><strong>{{player.shipStats?.personalRating}}</strong></span>
+            [style.color]="player.shipStats?.personalRatingColor | sanitizeCss"><strong>{{player.shipStats?.personalRating}}</strong></span>
     </app-value-label>
   </div>
   <div id="avg-damage">
     <app-value-label label="Avg Damage" [icon]="faFire">
       <strong
-        [style.color]="player.shipStats?.averageDamageColor | sanitizeCss">{{player.shipStats?.averageDamage | number:'0.0-0'}}</strong>
+              [style.color]="player.shipStats?.averageDamageColor | sanitizeCss">{{player.shipStats?.averageDamage | number:'0.0-0'}}</strong>
     </app-value-label>
   </div>
   <div id="avg-frags">
     <app-value-label label="Avg Frags" [icon]="faSkull">
       <strong
-        [style.color]="player.shipStats?.averageFragsColor | sanitizeCss">{{player.shipStats?.averageFrags | number:'0.0-1'}}</strong>
+              [style.color]="player.shipStats?.averageFragsColor | sanitizeCss">{{player.shipStats?.averageFrags | number:'0.0-1'}}</strong>
     </app-value-label>
   </div>
   <div id="avg-xp">

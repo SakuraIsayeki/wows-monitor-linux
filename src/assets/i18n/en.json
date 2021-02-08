@@ -141,6 +141,10 @@
     "empty": "waiting for a match",
     "forcePVP": "Show random stats",
     "hidden": "Player has a hidden profile",
+    "karma": {
+      "game": "Game Karma : ",
+      "wowsKarma": "wows-karma.com : "
+    },
     "map": "Map",
     "matchGroup": {
       "CLAN": "Clan War",
@@ -156,7 +160,12 @@
     "season": "Season",
     "teamPopup": {
       "info": "more Information",
-      "wowsNumbers": "Clan on Wows-Numbers"
+      "wowsNumbers": "Clan on WOWS Numbers",
+      "wowsKarma": "Clan on WOWS Karma"
+    },
+    "playerPopup": {
+      "wowsNumbers": "Stats on WOWS Numbers",
+      "wowsKarma": "Info on WOWS Karma"
     },
     "testship": "Ship is in live testing"
   },

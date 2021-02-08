@@ -1,6 +1,6 @@
 import { Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { ClanInfo, TeamAverage } from 'src/app/generated/models';
+import { ClanInfo, Region, TeamAverage } from 'src/app/generated/models';
 import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
 import { Config } from 'src/config/config';
 import { BaseComponent } from '../../../base.component';
@@ -22,8 +22,11 @@ export class TeamComponent extends BaseComponent implements OnInit {
 
   showDialog = false;
 
-  @ViewChild('weblink', { static: false })
-  weblink: ElementRef<HTMLLinkElement>;
+  @ViewChild('wowsNumbersLink', { static: false })
+  wowsNumbersLink: ElementRef<HTMLLinkElement>;
+  @ViewChild('wowsKarmaLink', { static: false })
+  wowsKarmaLink: ElementRef<HTMLLinkElement>;
+
 
   items: MenuItem[];
 
@@ -59,15 +62,28 @@ export class TeamComponent extends BaseComponent implements OnInit {
       },
       {
         label: this.translateService.instant('monitor.teamPopup.wowsNumbers'),
-        command: () => {
-          if (this.isBrowser) {
-            window.open(this.weblink.nativeElement.href, '_blank');
-          } else {
-            this.electronService.shell.openExternal(this.weblink.nativeElement.href);
-          }
-        }
-      }
+        command: this.openWowsNumbers
+      }/*,
+      {
+        label: this.translateService.instant('monitor.teamPopup.wowsKarma'),
+        command: this.openWowsKarma
+      }*/
     ];
   }
 
+  openWowsNumbers(): void {
+    if (this.isBrowser) {
+      window.open(this.wowsNumbersLink.nativeElement.href, '_blank');
+    } else {
+      this.electronService.shell.openExternal(this.wowsNumbersLink.nativeElement.href);
+    }
+  }
+
+  openWowsKarma(): void {
+    if (this.isBrowser) {
+      window.open(this.wowsKarmaLink.nativeElement.href, '_blank');
+    } else {
+      this.electronService.shell.openExternal(this.wowsKarmaLink.nativeElement.href);
+    }
+  }
 }

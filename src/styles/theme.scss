@@ -3776,6 +3776,7 @@ body .ui-menubar .ui-menuitem.ui-menuitem-active>.ui-menuitem-link .ui-submenu-i
 }
 
 body .ui-contextmenu {
+  min-width: max-content;
   padding: 0;
   background-color: $formsInputBackground;
   -webkit-box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.16);
