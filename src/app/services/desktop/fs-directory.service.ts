@@ -16,10 +16,10 @@ import { promisify } from 'util';
 export class FsDirectoryService implements DirectoryService {
 
   private checkUrls: { [key: number]: string } = {
-    0: 'https://csis.worldoftanks.eu/csis/wowseu/',
-    1: 'https://csis.worldoftanks.com/csis/wowsus/',
-    2: 'https://csis.worldoftanks.ru/csis/wowsru/',
-    3: 'https://csis.worldoftanks.asia/csis/wowssg/'
+    0: 'http://csis.worldoftanks.eu/csis/wowseu/',
+    1: 'http://csis.worldoftanks.com/csis/wowsus/',
+    2: 'http://csis.worldoftanks.ru/csis/wowsru/',
+    3: 'http://csis.worldoftanks.asia/csis/wowssg/'
   };
 
   private _$status = new BehaviorSubject<DirectoryStatus>(null);
