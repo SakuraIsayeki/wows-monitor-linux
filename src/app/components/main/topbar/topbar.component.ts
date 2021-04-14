@@ -1,12 +1,11 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { faBars, faCompress, faExpand } from '@fortawesome/free-solid-svg-icons';
-import { SignalrService, SignalrServiceToken } from 'src/app/interfaces/signalr.service';
-import { BaseComponent } from '../../base.component';
-import { MenuComponent } from './menu/menu.component';
 import { SelectItem } from 'primeng/api';
-import { TranslateService } from '@ngx-translate/core';
+import { SignalrService, SignalrServiceToken, Status } from 'src/app/interfaces/signalr.service';
 import { ApiService } from 'src/app/services/api.service';
 import { Config } from 'src/config/config';
+import { BaseComponent } from '../../base.component';
+import { MenuComponent } from './menu/menu.component';
 
 @Component({
   selector: 'app-topbar',
@@ -21,6 +20,7 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   expandIcon = faExpand;
   compressIcon = faCompress;
   sidebarVisible = false;
+  switchDisabled = false;
 
   modes: SelectItem[] = [
     {
@@ -46,8 +46,9 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   ];
 
   constructor(@Inject(SignalrServiceToken) public signalrService: SignalrService,
-    public apiService: ApiService,
-    public config: Config
+              public apiService: ApiService,
+              public config: Config,
+              private cd: ChangeDetectorRef
   ) {
     super();
   }
@@ -55,7 +56,12 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     document.documentElement.onfullscreenchange = event => {
       this.isFullscreen = document.fullscreenElement != null;
-    }
+    };
+
+    this.signalrService.$status.pipe(this.untilDestroy()).subscribe(status => {
+      this.switchDisabled = status === Status.Fetching;
+      this.cd.detectChanges();
+    });
   }
 
   isFullscreen = false;
@@ -64,19 +70,21 @@ export class TopbarComponent extends BaseComponent implements OnInit {
     if (this.isFullscreen) {
       try {
         document.exitFullscreen();
-      } catch { }
+      } catch {
+      }
     } else {
       await document.documentElement.requestFullscreen();
       this.isFullscreen = true;
       try {
         await screen.orientation.lock('landscape');
-      } catch { }
+      } catch {
+      }
     }
   }
 
   toggleSidebar = () => {
     this.sidebarVisible = !this.sidebarVisible;
-  }
+  };
 
   async changeForcePVP() {
     await this.config.save();

@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { parse as parseXml2Json } from 'fast-xml-parser';
 import * as fs from 'fs';
 import { join as pathJoin, normalize as pathNormalize } from 'path';
-import { BehaviorSubject, combineLatest, interval, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, interval, Subject, Subscription } from 'rxjs';
 import { debounceTime, filter, startWith, switchMap } from 'rxjs/operators';
 import { Region } from 'src/app/generated/models';
 import { DirectoryService, DirectoryStatus } from 'src/app/interfaces/directory.service';
@@ -16,10 +16,10 @@ import { promisify } from 'util';
 export class FsDirectoryService implements DirectoryService {
 
   private checkUrls: { [key: number]: string } = {
-    0: 'https://csis.worldoftanks.eu/csis/wowseu/',
-    1: 'https://csis.worldoftanks.com/csis/wowsus/',
-    2: 'https://csis.worldoftanks.ru/csis/wowsru/',
-    3: 'https://csis.worldoftanks.asia/csis/wowssg/'
+    0: 'http://csis.worldoftanks.eu/csis/wowseu/',
+    1: 'http://csis.worldoftanks.com/csis/wowsus/',
+    2: 'http://csis.worldoftanks.ru/csis/wowsru/',
+    3: 'http://csis.worldoftanks.asia/csis/wowssg/'
   };
 
   private _$status = new BehaviorSubject<DirectoryStatus>(null);
@@ -34,6 +34,8 @@ export class FsDirectoryService implements DirectoryService {
   private existsAsync: (path: fs.PathLike) => Promise<fs.Stats>;
   private readDirAsync: (path: fs.PathLike, encoding: BufferEncoding) => Promise<string[]>;
   private readFileAsync: (path: fs.PathLike, encoding: BufferEncoding) => Promise<string>;
+
+  private checkPath$ = new Subject();
 
   get currentStatus() {
     return this._$status.value;
@@ -73,6 +75,8 @@ export class FsDirectoryService implements DirectoryService {
         this.checkPath();
         this.startWatcher();
       });
+
+    this.checkPath$.pipe(debounceTime(1000)).subscribe(() => this._checkPath());
   }
 
   refresh() {
@@ -104,21 +108,25 @@ export class FsDirectoryService implements DirectoryService {
     if (this._$preferencesSubscription) {
       this._$preferencesSubscription.unsubscribe();
     }
-    this._$preferencesSubscription = interval(2000).subscribe(async () => {
+    this._$preferencesSubscription = interval(500).subscribe(async () => {
       const basePath = this.config.selectedDirectory;
       const changeDate = this._fs.statSync(pathJoin(basePath, 'preferences.xml')).mtime;
       if (!this._lastPreferenceChange || changeDate > this._lastPreferenceChange) {
         this._lastPreferenceChange = changeDate;
         const tempStatus = {} as DirectoryStatus;
         await this.readPreferences(basePath, tempStatus);
-        if (tempStatus.region !== this.currentStatus.region || tempStatus.clientVersion !== this.currentStatus.clientVersion) {
+        if (this.currentStatus && (tempStatus.region !== this.currentStatus.region || tempStatus.clientVersion !== this.currentStatus.clientVersion)) {
           this.checkPath();
         }
       }
     });
   }
 
-  private async checkPath() {
+  private checkPath() {
+    this.checkPath$.next();
+  }
+
+  private async _checkPath() {
     const path = this.config.selectedDirectory;
     const status = {} as DirectoryStatus;
 
