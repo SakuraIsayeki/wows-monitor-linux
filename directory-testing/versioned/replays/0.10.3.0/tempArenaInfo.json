@@ -8,7 +8,7 @@
   "clientVersionFromXml": "0,10,0,3343484",
   "weatherParams": {
     "0": [
-      "PCOW001_Sunny"
+      "PCOW001_Sunnys"
     ],
     "1": [
       "PCOW003_Cloudy"
@@ -29,7 +29,7 @@
       "shipId": 4184815440,
       "relation": 2,
       "id": 108549,
-      "name": "riverkongo"
+      "name": "riverkongo1"
     },
     {
       "shipId": 4184782640,
