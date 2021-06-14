@@ -17,8 +17,7 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
   constructor(
     private changelogsService: ChangelogService,
     private config: Config,
-    private dialogService: DialogService,
-    private router: Router) {
+    private dialogService: DialogService) {
     super();
   }
 

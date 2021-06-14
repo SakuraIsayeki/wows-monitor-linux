@@ -3,16 +3,7 @@ import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@shared/shared.module';
 import { ChangelogComponent } from './changelog.component';
-import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { ButtonModule } from 'primeng/button';
-
-export function markedOptionsFactory(): MarkedOptions {
-  return {
-    gfm: true,
-    smartLists: true,
-    tables: true
-  };
-}
 
 @NgModule({
   declarations: [
@@ -25,13 +16,7 @@ export function markedOptionsFactory(): MarkedOptions {
     CommonModule,
     SharedModule,
     TranslateModule,
-    ButtonModule,
-    MarkdownModule.forRoot({
-      markedOptions: {
-        provide: MarkedOptions,
-        useFactory: markedOptionsFactory
-      }
-    })
+    ButtonModule
   ],
   providers: [
   ],

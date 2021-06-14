@@ -21,8 +21,7 @@ export class HistoryClanComponent extends BaseComponent implements OnInit, OnDes
 
   constructor(
     public service: ClanWarsHistoryService,
-    public route: ActivatedRoute,
-    private router: Router
+    public route: ActivatedRoute
   ) {
     super();
   }

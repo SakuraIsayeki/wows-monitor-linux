@@ -18,11 +18,11 @@
   </p-scrollPanel>
 </main>
 
-<p-toast position="bottom-right">
+<p-toast position="bottom-right" [styleClass]="'p-toast-custom'">
   <ng-template let-message pTemplate="message">
-    <div class="ui-toast-custom-content {{message.severity}}">
-      <strong>{{message.summary | translate}}</strong>
-      <p>{{message.detail | translate}}</p>
+    <div class="p-toast-message-text">
+      <div class="p-toast-summary">{{message.summary | translate}}</div>
+      <div class="p-toast-title">{{message.detail | translate}}</div>
     </div>
   </ng-template>
 </p-toast>

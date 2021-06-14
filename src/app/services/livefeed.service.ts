@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Config } from '@config/config';
-import { BaseInjection } from '@components/base.component';
+import { BaseInjection } from '@stewie/framework';
 import { LivefeedItem } from '../generated/models';
 import { LivefeedForm } from '@interfaces/livefeed-config';
 import { SignalrService, SignalrServiceToken } from '@interfaces/signalr.service';

@@ -1,7 +1,11 @@
 @import '_variables.scss';
 
-p-card.no-padding .ui-card-body {
+p-card.no-padding .p-card-body {
   padding: 0;
+
+  .p-card-content {
+    padding: 0;
+  }
 }
 
 app-match-item {
@@ -54,7 +58,7 @@ app-match-item {
   flex-direction: row;
   align-items: center;
 
-  >* {
+  > * {
     margin-right: .5em;
   }
 
@@ -196,13 +200,13 @@ app-match-item-team {
   margin: 0 0.3em;
 }
 
-.ui-chips {
-  .ui-inputtext {
+.p-chips {
+  .p-inputtext {
     cursor: default !important;
     width: 100%;
   }
 
-  .ui-chips-input-token {
+  .p-chips-input-token {
     input {
       visibility: hidden;
     }
@@ -265,10 +269,10 @@ app-favorite-input {
       margin-right: 0;
     }
 
-    .ui-multiselect,
-    .ui-dropdown,
-    .ui-autocomplete,
-    .ui-autocomplete input {
+    .p-multiselect,
+    .p-dropdown,
+    .p-autocomplete,
+    .p-autocomplete input {
       width: 100%;
     }
   }
@@ -301,7 +305,7 @@ app-favorite-input {
 .claninfo {
   margin-bottom: 1em;
 
-  .info-row{
+  .info-row {
     margin-bottom: .5em;
   }
 
@@ -309,7 +313,7 @@ app-favorite-input {
     display: flex;
     direction: row;
 
-    >.info-row {
+    > .info-row {
       margin-right: 1em;
 
       &:last-child {
@@ -322,8 +326,14 @@ app-favorite-input {
     display: flex;
     direction: row;
 
-    >:first-child {
+    > :first-child {
       margin-right: 2em;
     }
   }
+}
+
+.p-paginator .p-dropdown {
+  background: none;
+  outline:none;
+  border:none;
 }

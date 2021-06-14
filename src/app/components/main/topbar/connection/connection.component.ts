@@ -52,6 +52,7 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit,
     this.signalrService.$error.pipe(this.untilDestroy()).subscribe(error => {
       if (error.startsWith('apiError')) {
         this.uiError(error);
+        // console.warn('kekw');
       } else {
         this.uiError('apiError.unknown');
       }

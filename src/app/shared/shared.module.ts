@@ -1,4 +1,7 @@
 import { NgModule } from '@angular/core';
+import { ShowdownComponent } from '@shared/components/showdown/showdown.component';
+
+import { PipesModule } from '@stewie/framework';
 import { ExternalLinkDirective } from './directives/external-link.directive';
 import { IsBrowserDirective } from './directives/is-browser.directive';
 import { IsDesktopDirective } from './directives/is-desktop.directive';
@@ -16,8 +19,8 @@ import { ResolveClansPipe } from './pipes/resolve-clans.pipe';
 import { RomanPipe } from './pipes/roman.pipe';
 import { SanitizeCssPipe } from './pipes/sanitize-css.pipe';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
-import { WowsNumbersPipe } from './pipes/wows-numbers.pipe';
 import { WowsKarmaPipe } from './pipes/wows-karma.pipe';
+import { WowsNumbersPipe } from './pipes/wows-numbers.pipe';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { WowsKarmaPipe } from './pipes/wows-karma.pipe';
     WowsKarmaPipe,
     AddPlusPipe,
     ResolveClansPipe,
-    Primetime2RegionPipe
+    Primetime2RegionPipe,
+    ShowdownComponent
   ],
   exports: [
     IsDesktopDirective,
@@ -60,9 +64,13 @@ import { WowsKarmaPipe } from './pipes/wows-karma.pipe';
     WowsKarmaPipe,
     AddPlusPipe,
     ResolveClansPipe,
-    Primetime2RegionPipe
+    Primetime2RegionPipe,
+    ShowdownComponent
   ],
-  imports: [],
+  imports: [
+    PipesModule
+  ],
   providers: []
 })
-export class SharedModule { }
+export class SharedModule {
+}

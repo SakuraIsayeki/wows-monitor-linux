@@ -72,7 +72,7 @@ export class TeamComponent extends BaseComponent implements OnInit {
   }
 
   openWowsNumbers(): void {
-    if (this.isBrowser) {
+    if (this.isBrowserApp) {
       window.open(this.wowsNumbersLink.nativeElement.href, '_blank');
     } else {
       this.electronService.shell.openExternal(this.wowsNumbersLink.nativeElement.href);
@@ -80,7 +80,7 @@ export class TeamComponent extends BaseComponent implements OnInit {
   }
 
   openWowsKarma(): void {
-    if (this.isBrowser) {
+    if (this.isBrowserApp) {
       window.open(this.wowsKarmaLink.nativeElement.href, '_blank');
     } else {
       this.electronService.shell.openExternal(this.wowsKarmaLink.nativeElement.href);

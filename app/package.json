@@ -1,9 +1,18 @@
 {
   "name": "@wows-monitor/app",
   "version": "1.0.4",
+  "description": "WoWs Monitor",
+  "homepage": "https://wows-monitor.com",
+  "author": {
+    "name": "stewie",
+    "email": "siegerx3-games@yahoo.de"
+  },
   "main": "main.js",
   "private": true,
   "dependencies": {
-    "@electron/remote": "1.0.4"
+    "@electron/remote": "1.0.4",
+    "electron-log": "4.3.5",
+    "electron-updater": "4.3.9",
+    "electron-window-state": "5.0.3"
   }
 }

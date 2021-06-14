@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "outputPath": "dist/app-desktop",
+            "outputPath": "dist/desktop",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -42,7 +42,6 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/marked/lib/marked.js"
             ],
             "customWebpackConfig": {
               "path": "./angular.webpack.js"
@@ -58,7 +57,7 @@
               ]
             },
             "dev-web": {
-              "outputPath": "dist/app-browser",
+              "outputPath": "dist/browser",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -118,7 +117,7 @@
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "app:build-browser:build",
-            "port": 4200
+            "port": 4201
           },
           "configurations": {
             "dev": {

@@ -2,12 +2,12 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "module": "es2020",
     "baseUrl": "",
     "types": []
   },
   "include": [
     "main.ts",
+    "main.browser.ts",
     "polyfills.ts",
     "app/**/*.ts",
     "environments/**/*.ts"

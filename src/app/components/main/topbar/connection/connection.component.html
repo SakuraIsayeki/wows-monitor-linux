@@ -22,7 +22,7 @@ tooltipPosition="bottom">
 
 <div class="iconWrapper" *ngIf="(signalrService.$socketStatus | async) == 0 || (signalrService.$socketStatus | async) == 4">
   <p-button *ngIf="!(showOnTablet | async)" (click)="reconnect()" icon="pi pi-replay"
-    [label]="'service.reconnect' | translate" styleClass="ui-button-success"></p-button>
-  <p-button *ngIf="showOnTablet | async" (click)="reconnect()" icon="pi pi-replay" styleClass="ui-button-success">
+    [label]="'service.reconnect' | translate" styleClass="p-button-success"></p-button>
+  <p-button *ngIf="showOnTablet | async" (click)="reconnect()" icon="pi pi-replay" styleClass="p-button-success">
   </p-button>
 </div>

@@ -1,3 +1,25 @@
+@import '_variables.scss';
+
+:root {
+  --surface-a: #262626;
+  --surface-b: #353535;
+  --surface-c: #272727;
+  --surface-d: #383838;
+  --surface-e: #262626;
+  --surface-f: #262626;
+  --text-color: $textColor;
+  --text-color-secondary: $textSecondaryColor;
+  --primary-color: $primaryColor;
+  --primary-color-text: $primaryTextColor;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
+}
+
+html{
+  font-family: $fontFamily;
+  color: $textColor;
+  font-size: $fontSize;
+}
+
 html,
 body {
   overflow: hidden;
@@ -13,9 +35,6 @@ h4 {
 }
 
 body {
-  font-family: $fontFamily;
-  color: $textColor;
-  font-size: $fontSize;
   background-color: $secondaryColor;
   padding: 0;
   margin: 0;
@@ -30,8 +49,20 @@ p {
 }
 
 a {
+  color: $primaryColor;
+  text-decoration: none;
   cursor: pointer;
+  &:hover {
+    color: $primaryDarkColor;
+  }
+
+  &:active {
+    color: $primaryDarkerColor;
+  }
+
 }
+
+
 
 .u-full-width{
   > input{
@@ -94,54 +125,72 @@ a {
 
 
 
-.custom .ui-scrollpanel-wrapper {
+.custom .p-scrollpanel-wrapper {
   border-right: 9px solid fade-out($secondaryDarkColor, $amount: 0.5);
 }
 
-.custom .ui-scrollpanel-bar {
+.custom .p-scrollpanel-bar {
   background-color: $primaryColor;
   opacity: .2 !important;
   transition: opacity .3s ease-in-out;
 }
 
-.custom .ui-scrollpanel-bar:hover,
-.custom .ui-scrollpanel-bar:active {
+.custom .p-scrollpanel-bar:hover,
+.custom .p-scrollpanel-bar:active {
   background-color: $primaryColor;
   opacity: .6 !important;
 }
 
-.ui-button {
+.p-button {
   &.showLabel-0 {
-    .ui-button-text {
+    .p-button-text {
       display: none;
     }
   }
 
   &.showLabel-1 {
-    .ui-button-text {
+    .p-button-text {
       display: block;
     }
   }
 }
 
-.ui-card {
+.p-card {
   margin-bottom: 1em;
 }
 
-.ui-toast {
+
+.p-toast-custom .p-toast-message {
+
+  background: $secondaryLightColor!important;
+  box-shadow: inset 2px 0px 2px -1px transparentize($secondaryDarkColor, 0.4);
+  color: $textColor!important;
+
+  &.p-toast-message-success{
+    border-left: 4px solid $successColor;
+  }
+  &.p-toast-message-warn{
+    border-left: 4px solid $warningColor;
+  }
+  &.p-toast-message-error{
+    border-left: 4px solid $dangerColor;
+  }
+}
+
+.p-toast {
   border-radius: $borderRadius;
   overflow: hidden;
 
-  .ui-toast-message-content {
+  .p-toast-message-content {
     padding: 0;
   }
 
-  .ui-toast-custom-content {
+  .p-toast-custom-content {
     padding: .5em 1em;
     background: $secondaryLightColor;
     box-shadow: inset 2px 0px 2px -1px transparentize($secondaryDarkColor, 0.4);
 
-    &.c-success {
+    &.success {
       border-left: 4px solid $successColor;
     }
 
@@ -160,7 +209,7 @@ a {
   width: calc(100vw - 20px);
   min-width: 80vw;
 
-  &.ui-dialog .ui-dialog-content {
+  &.p-dialog .p-dialog-content {
     background: $secondaryColor;
     max-height: 80vh;
     overflow-y: auto;

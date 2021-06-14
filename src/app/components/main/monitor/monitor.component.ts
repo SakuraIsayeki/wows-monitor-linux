@@ -68,7 +68,7 @@ export class MonitorComponent extends BaseComponent implements OnInit, AfterView
   openWowsNumbers(player: PlayerInfo) {
     const baseUrl = WowsNumbersPipe.staticTransform(player.region);
     const url = `${baseUrl}player/${player.accountId},${player.name}/`;
-    if (this.isBrowser) {
+    if (this.isBrowserApp) {
       window.open(url, '_blank');
     } else {
       this.electronService.shell.openExternal(url);
@@ -79,7 +79,7 @@ export class MonitorComponent extends BaseComponent implements OnInit, AfterView
   openWowsKarma(player: PlayerInfo) {
     const baseUrl = WowsKarmaPipe.staticTransform(player.region);
     const url = `${baseUrl}player/${player.accountId},${player.name}/`;
-    if (this.isBrowser) {
+    if (this.isBrowserApp) {
       window.open(url, '_blank');
     } else {
       this.electronService.shell.openExternal(url);

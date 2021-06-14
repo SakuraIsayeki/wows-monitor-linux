@@ -33,7 +33,7 @@ app-monitor {
       'enemy-clan'
       'enemy';
 
-    >p-card .ui-card {
+    >p-card .p-card {
       margin-bottom: 0;
     }
 
@@ -75,7 +75,7 @@ app-monitor {
     grid-area: enemy;
   }
 
-  p-card.no-padding .ui-card-body {
+  p-card.no-padding .p-card-body {
     padding: 0;
   }
 }
@@ -97,7 +97,7 @@ app-monitor {
 // }
 
 .high-contrast-mode {
-  .ui-card {
+  .p-card {
     background: #FFF;
   }
 

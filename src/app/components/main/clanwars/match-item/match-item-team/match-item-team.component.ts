@@ -35,7 +35,7 @@ export class MatchItemTeamComponent extends BaseComponent implements OnInit {
   globalRankIcon: IconDefinition;
   regionRankIcon: IconDefinition;
 
-  constructor(private router: Router) {
+  constructor() {
     super();
   }
 

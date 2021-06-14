@@ -1,7 +1,7 @@
 {
   "productName": "wows-monitor",
   "directories": {
-    "output": "dist/release"
+    "output": "release"
   },
   "files": [
     "**/*",
@@ -11,6 +11,13 @@
     "!package-lock.json"
   ],
   "extraResources": [
+    {
+      "from": "dist/desktop",
+      "to": "dist/desktop",
+      "filter": [
+        "**/*"
+      ]
+    },
     {
       "from": "favicon-tray.ico",
       "to": ""
@@ -25,7 +32,7 @@
     "publisherName": [
       "Benjamin Heilmann"
     ],
-    "icon": "dist/app-desktop/assets/icons",
+    "icon": "dist/desktop/assets/icons",
     "target": [
       {
         "target": "nsis-web",
@@ -47,7 +54,7 @@
     "executableName": "wows-monitor",
     "artifactName": "wows-monitor-setup-${version}.${ext}",
     "category": "Utility.Monitor",
-    "icon": "dist/app-desktop/assets/icons",
+    "icon": "dist/desktop/assets/icons",
     "target": [
       "deb",
       "snap"

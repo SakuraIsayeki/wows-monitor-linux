@@ -13,8 +13,7 @@ export class HistoryComponent extends BaseComponent implements OnInit {
 
   faRedo = faRedo;
 
-  constructor(public service: ClanWarsHistoryService,
-    private router: Router) {
+  constructor(public service: ClanWarsHistoryService) {
     super();
   }
 

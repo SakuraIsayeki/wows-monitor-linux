@@ -1,7 +1,7 @@
 <p [innerHTML]="'pathPicker.description' | translate | sanitizeHtml"></p>
 
-<div class="input-wrap ui-fluid space-bottom">
-  <div class="ui-inputgroup">
+<div class="input-wrap p-fluid space-bottom">
+  <div class="p-inputgroup">
     <input pInputText [title]="config.mainClient" type="text" pInputText [disabled]="true"
       [ngModel]="config.mainClient">
     <button pButton type="button" icon="pi pi-folder" (click)="pickPath()"></button>
@@ -9,7 +9,7 @@
 </div>
 <ng-container *ngIf="paths.length > 0">
   <h3>{{ 'pathPicker.multiClientSelect' | translate  }}</h3>
-  <div class="input-wrap ui-fluid space-bottom">
+  <div class="input-wrap p-fluid space-bottom">
     <p-dropdown [options]="options" [(ngModel)]="config.selectedDirectory"></p-dropdown>
   </div>
 </ng-container>

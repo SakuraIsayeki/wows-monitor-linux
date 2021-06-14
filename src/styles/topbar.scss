@@ -79,7 +79,7 @@ app-connection {
   }
 }
 
-body .ui-sidebar {
+body .p-sidebar {
   padding: 0;
   border: 0;
 }
@@ -130,6 +130,7 @@ body .ui-sidebar {
         box-sizing: border-box;
         padding: 1em;
         color: $textColor;
+        text-decoration: none;
 
         .badge {
           margin-left: .25em;

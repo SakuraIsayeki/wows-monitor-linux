@@ -14,9 +14,9 @@ export class ScrollService {
 
   constructor() {
     interval(200)
-      .pipe(skipWhile(() => document.querySelectorAll('main .ui-scrollpanel-content') == null), first())
+      .pipe(skipWhile(() => document.querySelectorAll('main .p-scrollpanel-content') == null), first())
       .subscribe(() => {
-        this._el = document.querySelectorAll('main .ui-scrollpanel-content')[0];
+        this._el = document.querySelectorAll('main .p-scrollpanel-content')[0];
         this._el.addEventListener('scroll', this.callback);
       });
   }

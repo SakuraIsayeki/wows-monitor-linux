@@ -1,11 +1,10 @@
 import { Inject } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
-import { BehaviorSubject } from 'rxjs';
-import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 import { environment } from '@environments/environment';
+import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 import { UpdateService } from '@interfaces/update.service';
-import { MessageService } from 'primeng/api';
-import { BaseInjection } from '@components/base.component';
+import { BaseInjection } from '@stewie/framework';
+import { BehaviorSubject } from 'rxjs';
 
 export class ServiceWorkerUpdateService extends BaseInjection implements UpdateService {
 
@@ -25,7 +24,7 @@ export class ServiceWorkerUpdateService extends BaseInjection implements UpdateS
   constructor(
     private swUpdate: SwUpdate,
     @Inject(LoggerServiceToken) private logger: LoggerService) {
-    super()
+    super();
     this.swUpdate.available.subscribe(event => {
       if (environment.browser) {
         this.uiWarn('restartForUpdate');

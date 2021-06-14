@@ -293,34 +293,88 @@
       "title": "Miscellaneous"
     }
   },
-  "uiMessages": {
-    "messages": {
-      "apiError": {
-        "unknown": "Unknown error in the api service",
-        "wrongRegion": "Couldn't find accounts. Wrong region?",
-        "contentEmpty": "Could not send match info. Contact me on discord please"
-      },
-      "clientConnected": "Web app client connected.",
-      "clientDisconnected": "Web app client disconnected.",
-      "fetchingError": "Error in stats fetcher api. Please contact me.",
-      "hostConnected": "Desktop client connected",
-      "hostDisconnected": "Desktop client disconnected",
-      "hostLost": "Desktop client disconnected",
-      "http0": "HTTP Unknown Error",
-      "http404": "HTTP Not found",
-      "http500": "HTTP Server Error",
-      "matchUpdated": "Match updated.",
-      "noHostPaired": "No desktop client paired",
-      "noServiceConnection": "Service could not be connected.",
-      "restartForUpdate": "App updating..",
-      "serviceConnected": "Service successfully connected.",
-      "serviceDisconnected": "Service has been disconnected.",
-      "settingsSaved": "Settings saved"
+  "uimessages": {
+    "clienterror": {
+      "summary": "Unknown Error",
+      "detail": "An unknown error occurred in the app"
     },
-    "summaries": {
-      "error": "Error",
-      "success": "Success",
-      "warn": "Warning"
+    "clientConnected": {
+      "summary": "Success",
+      "detail": "Web app client connected."
+    },
+    "clientDisconnected": {
+      "summary": "Error",
+      "detail": "Web app client disconnected"
+    },
+    "fetchingError": {
+      "summary": "Error",
+      "detail": "Error in stats fetcher api. Please contact me"
+    },
+    "hostConnected": {
+      "summary": "Success",
+      "detail": "Desktop client connected"
+    },
+    "hostDisconnected": {
+      "summary": "Error",
+      "detail": "Desktop client disconnected"
+    },
+    "hostLost": {
+      "summary": "Error",
+      "detail": "Desktop client disconnected"
+    },
+    "matchUpdated": {
+      "summary": "Success",
+      "detail": "Match updated"
+    },
+    "noHostPaired": {
+      "summary": "Warning",
+      "detail": "No desktop client paired"
+    },
+    "noServiceConnection": {
+      "summary": "Error",
+      "detail": "Service could not be connected"
+    },
+    "restartForUpdate": {
+      "summary": "Warning",
+      "detail": "App updating..."
+    },
+    "serviceDisconnected": {
+      "summary": "Error",
+      "detail": "Service has been disconnected"
+    },
+    "serviceConnected": {
+      "summary": "Success",
+      "detail": "Service successfully connected"
+    },
+    "settingsSaved": {
+      "summary": "Success",
+      "detail": "Settings saved"
+    },
+    "0": {
+      "summary": "Error",
+      "detail": "HTTP Unknown Error"
+    },
+    "404": {
+      "summary": "Error",
+      "detail": "HTTP Not found"
+    },
+    "500": {
+      "summary": "Error",
+      "detail": "HTTP Server Error"
+    },
+    "apiError": {
+      "unknown": {
+        "summary": "API Error",
+        "detail": "Unknown error in the api service"
+      },
+      "wrongRegion": {
+        "summary": "API Error",
+        "detail": "Couldn't find accounts. Wrong region?"
+      },
+      "contentEmpty": {
+        "summary": "API Error",
+        "detail": "Could not send match info. Contact me on discord please"
+      }
     }
   },
   "webConnect": {

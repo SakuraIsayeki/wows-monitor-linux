@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { of, Subject } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
 import { Config } from '@config/config';
-import { BaseInjection } from '@components/base.component';
+import { BaseInjection } from '@stewie/framework';
 import { ClansService } from '../generated/services';
 import { HistoryListRequestForm } from '@interfaces/history-list-request';
 

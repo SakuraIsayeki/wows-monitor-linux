@@ -6,7 +6,7 @@ import { SignalrService, SignalrSettings, SignalrStatus, Status } from '@interfa
 import { appConfig } from '@config/app.config';
 import { Config } from '@config/config';
 import { environment } from '@environments/environment';
-import { BaseInjection } from '@components/base.component';
+import { BaseInjection } from '@stewie/framework';
 import { LivefeedItem, MatchInfo } from '../generated/models';
 import { QrService } from '../generated/services';
 import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';

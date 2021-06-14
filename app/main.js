@@ -26,7 +26,7 @@ if (isDebug) {
 electron_updater_1.autoUpdater.logger = logger;
 function appReady() {
     var isQuitting = false;
-    logger.debug('[Electron]', '(appReady)', __dirname);
+    logger.debug('[Electron]', '(appReady)', __dirname, isDebug);
     electron_1.app.setAppUserModelId('com.wowsmonitor.app');
     var size = electron_1.screen.getPrimaryDisplay().workAreaSize;
     var mainWindowState = WindowStateKeeper({
@@ -36,10 +36,10 @@ function appReady() {
     var iconExt = isWindows ? 'ico' : 'png';
     var iconPath = isDebug
         ? path.join(__dirname, "../src/assets/icons/favicon-light." + iconExt)
-        : path.join(__dirname, "dist/app-desktop/assets/icons/favicon-light." + iconExt);
+        : path.join(__dirname, "../dist/desktop/assets/icons/favicon-light." + iconExt);
     var trayIconPath = isDebug
         ? path.join(__dirname, "../src/assets/icons/favicon-light." + iconExt)
-        : path.join(__dirname, "../../favicon-tray." + iconExt);
+        : path.join(__dirname, "../favicon-tray." + iconExt);
     win = new electron_1.BrowserWindow({
         x: mainWindowState.x,
         y: mainWindowState.y,
@@ -53,7 +53,7 @@ function appReady() {
             webSecurity: false,
             contextIsolation: false,
             enableRemoteModule: true,
-            allowRunningInsecureContent: (isDebug) ? true : false
+            allowRunningInsecureContent: isDebug ? true : false
         }
     });
     win.setMenu(null);
@@ -104,20 +104,22 @@ function appReady() {
             win.reload();
         });
         electron_1.globalShortcut.register('f6', function () {
-            win.loadURL('http://localhost:4200');
+            win.loadURL('http://localhost:4201');
         });
         require('electron-reload')(__dirname, {
             electron: require(__dirname + "/../node_modules/electron")
         });
-        win.loadURL('http://localhost:4200');
+        win.loadURL('http://localhost:4201');
         win.webContents.openDevTools();
     }
     else {
+        logger.error(path.join(__dirname, '../dist/desktop/index.html'));
         win.loadURL(url.format({
-            pathname: path.join(__dirname, '../dist/app-desktop/index.html'),
+            pathname: path.join(__dirname, '../dist/desktop/index.html'),
             protocol: 'file:',
             slashes: true
         }));
+        win.webContents.openDevTools();
     }
     win.on('closed', function () {
         tray.destroy();

@@ -15,10 +15,10 @@ import { ClientVersionHttpInterceptor } from '@services/client-version.http-inte
 import { CommonErrorHandler } from '@services/common-error.handler';
 import { CustomMissingTranslationHandler } from '@services/custom-missing-translation.handler';
 import { LivefeedService } from '@services/livefeed.service';
-import { LocatorService } from '@services/locator.service';
 import { RegionRequestInterceptor } from '@services/region-request.interceptor';
 import { ResizeService } from '@services/resize.service';
 import { ScrollService } from '@services/scroll.service';
+import { CoreModule, ErrorModule, LocatorService, MessageWrapperService } from '@stewie/framework';
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@stewie/meta';
 import { MessageService } from 'primeng/api';
 import { ProgressBarModule } from 'primeng/progressbar';
@@ -74,13 +74,13 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     ConnectComponent
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
+    CoreModule.forRoot(environment.production),
     HttpClientModule,
     LoadingBarRouterModule,
     LoadingBarHttpClientModule,
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
     AppRoutingModule,
+    ErrorModule.withConfig({customErrorCodes: []}),
     TranslateModule.forRoot({
       useDefaultLang: true,
       loader: {

@@ -2,10 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LoadingBarModule,LOADING_BAR_CONFIG } from '@ngx-loading-bar/core';
-import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
-import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { LOADING_BAR_CONFIG, LoadingBarModule } from '@ngx-loading-bar/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '@shared/shared.module';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -18,7 +17,6 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
-import { SharedModule } from '@shared/shared.module';
 import { AnalyticsInfoComponent } from './analytics-info/analytics-info.component';
 import { ChangelogModule } from './changelogs/changelog/changelog.module';
 import { MainRoutingModule } from './main-routing.module';
@@ -81,4 +79,5 @@ import { TopbarComponent } from './topbar/topbar.component';
     AnalyticsInfoComponent
   ]
 })
-export class MainModule { }
+export class MainModule {
+}

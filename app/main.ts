@@ -31,7 +31,7 @@ autoUpdater.logger = logger;
 function appReady() {
   let isQuitting = false;
 
-  logger.debug('[Electron]', '(appReady)', __dirname);
+  logger.debug('[Electron]', '(appReady)', __dirname, isDebug);
 
   app.setAppUserModelId('com.wowsmonitor.app');
 
@@ -45,11 +45,11 @@ function appReady() {
 
   const iconPath = isDebug
     ? path.join(__dirname, `../src/assets/icons/favicon-light.${iconExt}`)
-    : path.join(__dirname, `dist/app-desktop/assets/icons/favicon-light.${iconExt}`);
+    : path.join(__dirname, `../dist/desktop/assets/icons/favicon-light.${iconExt}`);
 
   const trayIconPath = isDebug
     ? path.join(__dirname, `../src/assets/icons/favicon-light.${iconExt}`)
-    : path.join(__dirname, `../../favicon-tray.${iconExt}`);
+    : path.join(__dirname, `../favicon-tray.${iconExt}`);
 
   win = new BrowserWindow({
     x: mainWindowState.x,
@@ -64,7 +64,7 @@ function appReady() {
       webSecurity: false,
       contextIsolation: false,
       enableRemoteModule: true,
-      allowRunningInsecureContent: (isDebug) ? true : false
+      allowRunningInsecureContent: isDebug ? true : false
     }
   });
 
@@ -125,19 +125,20 @@ function appReady() {
     });
 
     globalShortcut.register('f6', () => {
-      win.loadURL('http://localhost:4200');
+      win.loadURL('http://localhost:4201');
     });
 
     require('electron-reload')(__dirname, {
       electron: require(`${__dirname}/../node_modules/electron`)
     });
-    win.loadURL('http://localhost:4200');
+    win.loadURL('http://localhost:4201');
 
     win.webContents.openDevTools();
 
   } else {
+    logger.error(path.join(__dirname, '../dist/desktop/index.html'));
     win.loadURL(url.format({
-      pathname: path.join(__dirname, '../dist/app-desktop/index.html'),
+      pathname: path.join(__dirname, '../dist/desktop/index.html'),
       protocol: 'file:',
       slashes: true
     }));

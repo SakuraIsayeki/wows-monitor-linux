@@ -16,7 +16,7 @@ export class DefaultComponent extends BaseComponent implements OnInit, OnDestroy
   updating = false;
 
   get updateProgress() {
-    if (this.isBrowser) {
+    if (this.isBrowserApp) {
       return of(100);
     } else {
       return this.updateService.$updateProgress;
@@ -24,7 +24,6 @@ export class DefaultComponent extends BaseComponent implements OnInit, OnDestroy
   }
 
   constructor(
-    private router: Router,
     @Inject(UpdateServiceToken) private updateService: UpdateService
   ) {
     super();

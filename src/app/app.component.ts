@@ -13,7 +13,6 @@ export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
   static backButtonFired = false;
 
   constructor(
-    private router: Router,
     private location: LocationStrategy
   ) {
     super();

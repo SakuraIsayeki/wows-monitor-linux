@@ -8,7 +8,7 @@ import { BaseComponent } from '../base.component';
 })
 export class ConnectComponent extends BaseComponent implements OnInit {
 
-  constructor(private config: Config, private route: ActivatedRoute, private router: Router) {
+  constructor(private config: Config, private route: ActivatedRoute) {
     super();
   }
 
