@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PathPickerComponent } from './path-picker.component';
 
@@ -6,7 +6,7 @@ describe('PathPickerComponent', () => {
   let component: PathPickerComponent;
   let fixture: ComponentFixture<PathPickerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PathPickerComponent ]
     })

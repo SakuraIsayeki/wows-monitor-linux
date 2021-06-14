@@ -51,6 +51,7 @@ export class BaseInjection {
   }
 }
 
+// TODO: Add Angular decorator.
 export class BaseComponent extends BaseInjection implements OnDestroy {
 
   private appRef: ApplicationRef;
