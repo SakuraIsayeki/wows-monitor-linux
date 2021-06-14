@@ -1,8 +1,8 @@
 import { Component, ElementRef, HostBinding, Input, OnInit, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { faExclamationCircle, faFire, faGavel, faHeart, faLightbulb, faSkull, faTrophy } from '@fortawesome/free-solid-svg-icons';
-import { PlayerInfo } from 'src/app/generated/models';
-import { Config } from 'src/config/config';
+import { PlayerInfo } from '@generated/models';
+import { Config } from '@config/config';
 import { BaseComponent } from '../../../base.component';
 import { MonitorComponent } from '../monitor.component';
 

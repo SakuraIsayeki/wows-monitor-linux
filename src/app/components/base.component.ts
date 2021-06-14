@@ -1,12 +1,12 @@
-import { ApplicationRef, NgZone, OnDestroy } from '@angular/core';
+import { ApplicationRef, Component, NgZone, OnDestroy } from '@angular/core';
+import { environment } from '@environments/environment';
+import { AnalyticsService, AnalyticsServiceToken } from '@interfaces/analytics.service';
+import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 import { TranslateService } from '@ngx-translate/core';
+import { LocatorService } from '@services/locator.service';
 import { Message, MessageService } from 'primeng/api';
 import { Observable, Subject } from 'rxjs';
 import { filter, take, takeUntil } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { AnalyticsService, AnalyticsServiceToken } from '../interfaces/analytics.service';
-import { LoggerService, LoggerServiceToken } from '../interfaces/logger.service';
-import { LocatorService } from '../services/locator.service';
 
 export class BaseInjection {
 
@@ -22,7 +22,7 @@ export class BaseInjection {
       life: 3000,
       severity: 'c-success',
       summary: 'uiMessages.summaries.success',
-      detail: `uiMessages.messages.${messageKey}`,
+      detail: `uiMessages.messages.${messageKey}`
     });
   }
 
@@ -51,7 +51,9 @@ export class BaseInjection {
   }
 }
 
-// TODO: Add Angular decorator.
+@Component({
+  template: ''
+})
 export class BaseComponent extends BaseInjection implements OnDestroy {
 
   private appRef: ApplicationRef;

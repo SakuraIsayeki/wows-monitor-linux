@@ -1,7 +1,7 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { BaseComponent } from '../../base.component';
-import { Config } from 'src/config/config';
+import { Config } from '@config/config';
 
 @Component({
   selector: 'app-analytics-info',

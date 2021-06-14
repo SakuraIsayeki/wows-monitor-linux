@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ChangelogResponse } from 'src/app/generated/models';
-import { Config } from 'src/config/config';
-import { BaseComponent } from '../../base.component';
+import { ChangelogResponse } from '@generated/models';
+import { Config } from '@config/config';
+import { BaseComponent } from '@components/base.component';
 
 @Component({
   selector: 'app-changelogs',

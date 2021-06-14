@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Region } from 'src/app/generated/models';
+import { Region } from '@generated/models';
 
 const map = [{
   seasons: [6, 7, 8, 9, 10, 11, 12, 13],

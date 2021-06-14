@@ -1,8 +1,8 @@
 import { Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { ClanInfo, Region, TeamAverage } from 'src/app/generated/models';
-import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
-import { Config } from 'src/config/config';
+import { ClanInfo, Region, TeamAverage } from '@generated/models';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { Config } from '@config/config';
 import { BaseComponent } from '../../../base.component';
 
 @Component({

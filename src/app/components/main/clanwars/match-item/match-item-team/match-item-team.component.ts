@@ -2,8 +2,8 @@ import { Component, HostBinding, HostListener, Input, OnInit } from '@angular/co
 import { Router } from '@angular/router';
 import { faStar as faStar } from '@fortawesome/free-regular-svg-icons';
 import { faCaretDown, faCaretUp, faSort, faStar as faStarSolid, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { BaseComponent } from 'src/app/components/base.component';
-import { CwClan, CwHistoryEntry } from 'src/app/generated/models';
+import { BaseComponent } from '@components/base.component';
+import { CwClan, CwHistoryEntry } from '@generated/models';
 
 @Component({
   selector: 'app-match-item-team',

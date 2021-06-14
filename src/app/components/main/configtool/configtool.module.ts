@@ -8,7 +8,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { ConfigtoolRoutingModule } from './configtool-routing.module';
 import { ConfigtoolComponent } from './configtool.component';
 

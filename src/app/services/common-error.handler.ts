@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { AnalyticsService, AnalyticsServiceToken } from '../interfaces/analytics.service';
-import { LoggerService, LoggerServiceToken } from '../interfaces/logger.service';
+import { AnalyticsService, AnalyticsServiceToken } from '@interfaces/analytics.service';
+import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 import { LocatorService } from './locator.service';
 
 export class CommonErrorHandler implements ErrorHandler {

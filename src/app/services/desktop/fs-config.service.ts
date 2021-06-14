@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
-import { ConfigService } from 'src/app/interfaces/config.service';
-import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
-import { LoggerService, LoggerServiceToken } from 'src/app/interfaces/logger.service';
-import { ConfigOptions, defaultConfig } from 'src/config/config';
-import { environment } from 'src/environments/environment';
+import { ConfigService } from '@interfaces/config.service';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
+import { ConfigOptions, defaultConfig } from '@config/config';
+import { environment } from '@environments/environment';
 
 @Injectable()
 export class FsConfigService implements ConfigService {
@@ -40,7 +40,7 @@ export class FsConfigService implements ConfigService {
         if (error) {
           reject(error);
         }
-        resolve();
+        resolve(null);
       });
     });
 

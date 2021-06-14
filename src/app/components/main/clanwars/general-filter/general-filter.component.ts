@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, HostBinding, OnDestroy } from '@angular/core';
-import { BaseComponent } from 'src/app/components/base.component';
-import { ClanWarsHistoryService } from 'src/app/services/clanwars-history.service';
+import { BaseComponent } from '@components/base.component';
+import { ClanWarsHistoryService } from '@services/clanwars-history.service';
 import { ClanwarsComponent } from '../clanwars.component';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '@services/api.service';
 
 @Component({
   selector: 'app-general-filter',

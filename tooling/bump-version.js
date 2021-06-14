@@ -19,7 +19,7 @@ function packageJson(level) {
 }
 
 function appConfig() {
-  let path = 'src/config/app.config.ts';
+  let path = '@config/app.config.ts';
   let content = read(path);
   content = content.replace(/version:\s'([\d\.])+'/, `version: '${version}'`);
   write(path, content);

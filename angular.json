@@ -14,14 +14,22 @@
         }
       },
       "architect": {
-        "build-desktop": {
-          "builder": "@angular-devkit/build-angular:browser",
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist/app-desktop",
             "index": "src/index.html",
-            "main": "src/main.desktop.ts",
+            "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.desktop.json",
+            "tsConfig": "src/tsconfig.app.json",
+            "optimization": false,
+            "outputHashing": "none",
+            "sourceMap": true,
+            "namedChunks": false,
+            "aot": false,
+            "extractLicenses": true,
+            "vendorChunk": false,
+            "buildOptimizer": false,
             "assets": [
               "src/assets",
               "src/manifest.json"
@@ -36,13 +44,9 @@
             "scripts": [
               "node_modules/marked/lib/marked.js"
             ],
-            "aot": false,
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "customWebpackConfig": {
+              "path": "./angular.webpack.js"
+            }
           },
           "configurations": {
             "dev": {
@@ -50,6 +54,32 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.desktop.ts"
+                }
+              ]
+            },
+            "dev-web": {
+              "outputPath": "dist/app-browser",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.browser.ts"
+                },
+                {
+                  "replace": "src/main.ts",
+                  "with": "src/main.browser.ts"
+                }
+              ]
+            },
+            "web": {
+              "outputPath": "dist/app-browser",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.browser.prod.ts"
+                },
+                {
+                  "replace": "src/main.ts",
+                  "with": "src/main.browser.ts"
                 }
               ]
             },
@@ -68,74 +98,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "baseHref": "./"
-            }
-          },
-          "defaultConfiguration": ""
-        },
-        "build-browser": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/app-browser",
-            "index": "src/index.html",
-            "main": "src/main.browser.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.browser.json",
-            "assets": [
-              "src/assets",
-              "src/manifest.json"
-            ],
-            "styles": [
-              "node_modules/skeleton-css/css/normalize.css",
-              "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/primeng.min.css",
-              "src/styles/theme.scss",
-              "src/styles.scss"
-            ],
-            "scripts": [
-              "node_modules/marked/lib/marked.js"
-            ],
-            "aot": false,
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
-          },
-          "configurations": {
-            "dev": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.browser.ts"
-                }
-              ],
-              "serviceWorker": true
-            },
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.browser.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ],
-              "serviceWorker": true
+              "baseHref": "./",
             }
           },
           "defaultConfiguration": ""
@@ -151,73 +114,25 @@
             }
           }
         },
-        "serve-browser": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "app:build-browser:dev",
-            "port": 4201
+            "browserTarget": "app:build-browser:build",
+            "port": 4200
           },
           "configurations": {
+            "dev": {
+              "browserTarget": "app:build:dev"
+            },
+            "dev-web": {
+              "browserTarget": "app:build:dev-web"
+            },
+            "web": {
+              "browserTarget": "app:build:web"
+            },
             "production": {
-              "browserTarget": "app:build-browser:production"
+              "browserTarget": "app:build:production"
             }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": [],
-            "assets": [
-              "src/assets",
-              "src/manifest.json"
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "app-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "prefix": "",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "monitor-app:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "app:serve-browser:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }

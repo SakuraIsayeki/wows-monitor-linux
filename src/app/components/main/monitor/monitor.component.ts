@@ -1,14 +1,14 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
+import { Config } from '@config/config';
 import { faPaintBrush, faWifi } from '@fortawesome/free-solid-svg-icons';
+import { PlayerInfo } from '@generated/models/player-info';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { SignalrService, SignalrServiceToken } from '@interfaces/signalr.service';
+import { WowsKarmaPipe } from '@shared/pipes/wows-karma.pipe';
+import { WowsNumbersPipe } from '@shared/pipes/wows-numbers.pipe';
 import { MenuItem } from 'primeng/api';
 import { ContextMenu } from 'primeng/contextmenu';
 import { filter, map } from 'rxjs/operators';
-import { SignalrService, SignalrServiceToken } from 'src/app/interfaces/signalr.service';
-import { Config } from 'src/config/config';
-import { PlayerInfo } from '../../../generated/models/player-info';
-import { ElectronService, ElectronServiceToken } from '../../../interfaces/electron.service';
-import { WowsKarmaPipe } from '../../../shared/pipes/wows-karma.pipe';
-import { WowsNumbersPipe } from '../../../shared/pipes/wows-numbers.pipe';
 import { BaseComponent } from '../../base.component';
 
 @Component({

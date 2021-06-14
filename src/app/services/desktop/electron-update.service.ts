@@ -1,9 +1,9 @@
 import { Inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
-import { Config } from 'src/config/config';
-import { LoggerService, LoggerServiceToken } from '../../interfaces/logger.service';
-import { UpdateService } from '../../interfaces/update.service';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { Config } from '@config/config';
+import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
+import { UpdateService } from '@interfaces/update.service';
 
 export class ElectronUpdateService implements UpdateService {
 

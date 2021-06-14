@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { BaseComponent } from 'src/app/components/base.component';
+import { BaseComponent } from '@components/base.component';
 
 @Component({
   selector: 'app-favorite-input',

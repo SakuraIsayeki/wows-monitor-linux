@@ -1,8 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
-import { BaseComponent } from 'src/app/components/base.component';
-import { LivefeedService } from 'src/app/services/livefeed.service';
+import { BaseComponent } from '@components/base.component';
+import { LivefeedService } from '@services/livefeed.service';
 
 @Component({
   selector: 'app-livefeed',

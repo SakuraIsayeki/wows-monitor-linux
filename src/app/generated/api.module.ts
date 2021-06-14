@@ -26,7 +26,7 @@ import { StatsService } from './services/stats.service';
   ],
 })
 export class ApiModule {
-  static forRoot(params: ApiConfigurationParams): ModuleWithProviders {
+  static forRoot(params: ApiConfigurationParams): ModuleWithProviders<ApiModule> {
     return {
       ngModule: ApiModule,
       providers: [

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ConfigService } from 'src/app/interfaces/config.service';
-import { ConfigOptions, defaultConfig } from 'src/config/config';
+import { ConfigService } from '@interfaces/config.service';
+import { ConfigOptions, defaultConfig } from '@config/config';
 
 @Injectable()
 export class LocalStorageConfigService implements ConfigService {
@@ -15,7 +15,7 @@ export class LocalStorageConfigService implements ConfigService {
     return new Promise((resolve, reject) => {
       if (localStorage) {
         localStorage.setItem('config', JSON.stringify(config));
-        resolve();
+        resolve(null);
       } else {
         reject('localStorage is not available');
       }

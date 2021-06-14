@@ -1,26 +1,53 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "module": "es2020",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2020",
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2015",
-    "importHelpers": true,
+    "allowJs": true,
+    "target": "es5",
     "typeRoots": [
       "node_modules/@types"
     ],
+    "baseUrl": "src",
+    "paths": {
+      "@generated/*": [
+        "app/generated/*"
+      ],
+      "@shared/*": [
+        "app/shared/*"
+      ],
+      "@services/*": [
+        "app/services/*"
+      ],
+      "@interfaces/*": [
+        "app/interfaces/*"
+      ],
+      "@environments/*": [
+        "environments/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ],
+      "@components/*": [
+        "app/components/*"
+      ]
+    },
     "lib": [
-      "es2018",
+      "es2017",
+      "es2016",
+      "es2015",
       "dom"
     ]
   },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true,
-    "enableIvy": true
-  }
+  "include": [
+    "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

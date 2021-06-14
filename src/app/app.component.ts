@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { BaseComponent } from './components/base.component';
-import { environment } from 'src/environments/environment';
+import { environment } from '@environments/environment';
+import { BaseComponent } from '@components/base.component';
 import { LocationStrategy } from '@angular/common';
 
 @Component({

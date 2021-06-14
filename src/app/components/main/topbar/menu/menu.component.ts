@@ -2,10 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { faCog, faDesktop, faFileAlt, faQuestionCircle, faShieldAlt, faWrench } from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BaseComponent } from 'src/app/components/base.component';
-import { ChangelogService } from 'src/app/generated/services';
-import { MenuEntry } from 'src/app/interfaces/menu-entry';
-import { Config } from 'src/config/config';
+import { BaseComponent } from '@components/base.component';
+import { ChangelogService } from '@generated/services';
+import { MenuEntry } from '@interfaces/menu-entry';
+import { Config } from '@config/config';
 
 @Component({
   selector: 'app-menu',

@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { faWindowClose, faWindowMaximize, faWindowMinimize, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
-import { MetaService } from '@ngx-meta/core';
-import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
-import { appConfig } from 'src/config/app.config';
+import { MetaService } from '@stewie/meta';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { appConfig } from '@config/app.config';
 import { BaseComponent } from '../../base.component';
 
 @Component({

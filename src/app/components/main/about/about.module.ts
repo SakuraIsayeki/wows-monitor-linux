@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { SharedModule } from '@shared/shared.module';
 import { CardModule } from 'primeng/card';
 import { AboutRoutingModule } from './about-routing.module';
 import { AboutComponent } from './about.component';
-import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({

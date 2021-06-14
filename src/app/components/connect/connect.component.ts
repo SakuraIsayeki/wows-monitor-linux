@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from '@angular/router';
-import { Config } from 'src/config/config';
+import { Config } from '@config/config';
 import { BaseComponent } from '../base.component';
 
 @Component({

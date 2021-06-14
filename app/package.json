@@ -1,0 +1,9 @@
+{
+  "name": "@wows-monitor/app",
+  "version": "1.0.4",
+  "main": "main.js",
+  "private": true,
+  "dependencies": {
+    "@electron/remote": "1.0.4"
+  }
+}

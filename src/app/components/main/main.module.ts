@@ -18,7 +18,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { AnalyticsInfoComponent } from './analytics-info/analytics-info.component';
 import { ChangelogModule } from './changelogs/changelog/changelog.module';
 import { MainRoutingModule } from './main-routing.module';

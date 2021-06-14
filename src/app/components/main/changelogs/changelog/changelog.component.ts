@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges, OnDestroy, Optional, SimpleChanges } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
-import { BaseComponent } from 'src/app/components/base.component';
-import { ChangelogResponse } from 'src/app/generated/models';
-import { ChangelogService } from 'src/app/generated/services';
+import { ChangelogResponse } from '@generated/models';
+import { ChangelogService } from '@generated/services';
+import { BaseComponent } from '../../../base.component';
 
 @Component({
   selector: 'app-changelog',

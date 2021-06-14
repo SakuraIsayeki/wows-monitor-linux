@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
+import { BaseComponent } from '@components/base.component';
 import { faQrcode, faWifi } from '@fortawesome/free-solid-svg-icons';
 import { DialogService } from 'primeng/dynamicdialog';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { map, take, pairwise, distinctUntilChanged } from 'rxjs/operators';
-import { BaseComponent } from 'src/app/components/base.component';
-import { SignalrService, SignalrServiceToken, SignalrStatus } from 'src/app/interfaces/signalr.service';
-import { ResizeService } from 'src/app/services/resize.service';
-import { ShowOnDirective } from 'src/app/shared/directives/show-on.directive';
+import { SignalrService, SignalrServiceToken, SignalrStatus } from '@interfaces/signalr.service';
+import { ResizeService } from '@services/resize.service';
+import { ShowOnDirective } from '@shared/directives/show-on.directive';
 import { QrScanComponent } from './qr-scan/qr-scan.component';
 import { QrComponent } from './qr/qr.component';
 

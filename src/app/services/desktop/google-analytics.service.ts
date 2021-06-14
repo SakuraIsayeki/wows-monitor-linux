@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
-import { appConfig } from 'src/config/app.config';
-import { Config } from 'src/config/config';
-import { environment } from 'src/environments/environment';
+import { appConfig } from '@config/app.config';
+import { Config } from '@config/config';
+import { environment } from '@environments/environment';
 import ua from 'universal-analytics';
-import { AnalyticsService } from '../../interfaces/analytics.service';
-import { ElectronService, ElectronServiceToken } from '../../interfaces/electron.service';
+import { AnalyticsService } from '@interfaces/analytics.service';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
 
 @Injectable()
 export class DesktopGoogleAnalyticsService implements AnalyticsService {

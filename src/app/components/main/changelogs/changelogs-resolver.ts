@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { ChangelogResponse } from 'src/app/generated/models';
-import { ChangelogService } from 'src/app/generated/services';
-import { Config } from 'src/config/config';
+import { ChangelogResponse } from '@generated/models';
+import { ChangelogService } from '@generated/services';
+import { Config } from '@config/config';
 
 @Injectable()
 export class ChangelogsResolver implements Resolve<ChangelogResponse[]> {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BackButtonGuard } from 'src/app/services/back-button.guard';
-import { environment } from 'src/environments/environment';
+import { BackButtonGuard } from '@services/back-button.guard';
+import { environment } from '@environments/environment';
 import { MainComponent } from './main.component';
 
 const routes: Routes = [

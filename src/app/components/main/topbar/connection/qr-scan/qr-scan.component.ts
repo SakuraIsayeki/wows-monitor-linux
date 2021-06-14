@@ -3,9 +3,9 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { SelectItem } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { BaseComponent } from 'src/app/components/base.component';
-import { SignalrService, SignalrServiceToken } from 'src/app/interfaces/signalr.service';
-import { Config } from 'src/config/config';
+import { BaseComponent } from '@components/base.component';
+import { SignalrService, SignalrServiceToken } from '@interfaces/signalr.service';
+import { Config } from '@config/config';
 
 @Component({
   selector: 'app-qr-scan',

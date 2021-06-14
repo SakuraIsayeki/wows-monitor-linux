@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { interval } from 'rxjs';
 import { skipWhile, take } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { AnalyticsService } from '../../interfaces/analytics.service';
-import { Config } from 'src/config/config';
+import { environment } from '@environments/environment';
+import { AnalyticsService } from '@interfaces/analytics.service';
+import { Config } from '@config/config';
 
 declare var gtag: any;
 

@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { ChangelogModule } from './changelog/changelog.module';
 import { ChangelogsResolver } from './changelogs-resolver';
 import { ChangelogsRoutingModule } from './changelogs-routing.module';

@@ -13,7 +13,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { PaginatorModule } from 'primeng/paginator';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { ClanSearchComponent } from './clan-search/clan-search.component';
 import { ClanwarsRoutingModule } from './clanwars-routing.module';
 import { ClanwarsComponent } from './clanwars.component';

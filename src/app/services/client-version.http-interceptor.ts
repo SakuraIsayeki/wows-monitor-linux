@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
-import { appConfig } from 'src/config/app.config';
+import { appConfig } from '@config/app.config';
 
 @Injectable()
 export class ClientVersionHttpInterceptor implements HttpInterceptor {

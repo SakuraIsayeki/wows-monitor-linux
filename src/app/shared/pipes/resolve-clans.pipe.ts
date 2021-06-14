@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { ClansService } from 'src/app/generated/services';
+import { ClansService } from '@generated/services';
 
 @Pipe({
   name: 'resolveClans'

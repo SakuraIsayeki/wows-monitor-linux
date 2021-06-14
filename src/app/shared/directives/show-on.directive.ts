@@ -1,5 +1,5 @@
 import { AfterViewInit, Directive, Input, TemplateRef, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
-import { ResizeService } from '../../services/resize.service';
+import { ResizeService } from '@services/resize.service';
 
 declare type DeviceType = 'mobile' | 'phablet' | 'tablet' | 'desktop' | 'desktopHd';
 

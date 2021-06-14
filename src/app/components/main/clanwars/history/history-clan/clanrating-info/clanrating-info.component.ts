@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ClanRating } from 'src/app/generated/models';
+import { ClanRating } from '@generated/models';
 
 @Component({
   selector: 'app-clanrating-info',

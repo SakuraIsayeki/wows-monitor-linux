@@ -1,5 +1,5 @@
 import { Directive, OnInit, TemplateRef, ViewContainerRef, Inject } from '@angular/core';
-import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
 
 @Directive({
   selector: '[isWindows]'

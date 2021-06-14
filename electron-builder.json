@@ -4,8 +4,11 @@
     "output": "dist/release"
   },
   "files": [
-    "dist/app-desktop/**/*",
-    "src-electron/*.js"
+    "**/*",
+    "!**/*.ts",
+    "!*.map",
+    "!package.json",
+    "!package-lock.json"
   ],
   "extraResources": [
     {

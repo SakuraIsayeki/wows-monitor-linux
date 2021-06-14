@@ -1,11 +1,11 @@
 import { Inject } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { BehaviorSubject } from 'rxjs';
-import { LoggerService, LoggerServiceToken } from 'src/app/interfaces/logger.service';
-import { environment } from 'src/environments/environment';
-import { UpdateService } from '../../interfaces/update.service';
+import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
+import { environment } from '@environments/environment';
+import { UpdateService } from '@interfaces/update.service';
 import { MessageService } from 'primeng/api';
-import { BaseInjection } from 'src/app/components/base.component';
+import { BaseInjection } from '@components/base.component';
 
 export class ServiceWorkerUpdateService extends BaseInjection implements UpdateService {
 

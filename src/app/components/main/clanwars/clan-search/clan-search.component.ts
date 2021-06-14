@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
-import { BaseComponent } from 'src/app/components/base.component';
-import { ClanWarsHistoryService } from 'src/app/services/clanwars-history.service';
-import { ApiService } from 'src/app/services/api.service';
-import { ClansService } from 'src/app/generated/services';
+import { ClanWarsHistoryService } from '@services/clanwars-history.service';
+import { ClansService } from '@generated/services';
+import { BaseComponent } from '../../../base.component';
 
 @Component({
   selector: 'app-clan-search',

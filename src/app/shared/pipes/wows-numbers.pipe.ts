@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Region } from 'src/app/generated/models';
+import { Region } from '@generated/models/region';
 
 @Pipe({
   name: 'wowsNumbers'

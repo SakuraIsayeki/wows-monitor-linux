@@ -1,5 +1,5 @@
 import { Directive, OnInit, TemplateRef, ViewContainerRef, Input } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { environment } from '@environments/environment';
 
 @Directive({
   selector: '[isBrowser]'

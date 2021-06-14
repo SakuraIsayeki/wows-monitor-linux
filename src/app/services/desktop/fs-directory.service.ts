@@ -5,11 +5,11 @@ import * as fs from 'fs';
 import { join as pathJoin, normalize as pathNormalize } from 'path';
 import { BehaviorSubject, combineLatest, interval, Subject, Subscription } from 'rxjs';
 import { debounceTime, filter, startWith, switchMap } from 'rxjs/operators';
-import { Region } from 'src/app/generated/models';
-import { DirectoryService, DirectoryStatus } from 'src/app/interfaces/directory.service';
-import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
-import { LoggerService, LoggerServiceToken } from 'src/app/interfaces/logger.service';
-import { Config } from 'src/config/config';
+import { Region } from '@generated/models';
+import { DirectoryService, DirectoryStatus } from '@interfaces/directory.service';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
+import { Config } from '@config/config';
 import { promisify } from 'util';
 
 @Injectable()

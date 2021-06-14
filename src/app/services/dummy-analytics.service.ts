@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AnalyticsService } from '../interfaces/analytics.service';
+import { AnalyticsService } from '@interfaces/analytics.service';
 
 
 @Injectable()

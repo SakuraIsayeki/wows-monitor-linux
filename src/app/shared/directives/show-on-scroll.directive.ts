@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ScrollService } from 'src/app/services/scroll.service';
+import { ScrollService } from '@services/scroll.service';
 
 @Directive({
   selector: '[showOnScroll]'

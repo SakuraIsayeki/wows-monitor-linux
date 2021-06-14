@@ -1,11 +1,11 @@
 import { Component, Inject, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { UpdateService, UpdateServiceToken } from 'src/app/interfaces/update.service';
+import { UpdateService, UpdateServiceToken } from '@interfaces/update.service';
 import { BaseComponent } from '../base.component';
 import { of, interval } from 'rxjs';
 import { skip } from 'rxjs/operators';
-import { LoggerServiceToken, LoggerService } from 'src/app/interfaces/logger.service';
-import { environment } from 'src/environments/environment';
+import { LoggerServiceToken, LoggerService } from '@interfaces/logger.service';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-default',

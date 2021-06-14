@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { BaseComponent } from 'src/app/components/base.component';
-import { CwClanMatch } from 'src/app/generated/models';
+import { BaseComponent } from '@components/base.component';
+import { CwClanMatch } from '@generated/models';
 
 @Component({
   selector: 'app-match-item',

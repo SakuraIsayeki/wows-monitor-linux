@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
-import { BaseComponent } from 'src/app/components/base.component';
-import { DirectoryService, DirectoryServiceToken } from 'src/app/interfaces/directory.service';
-import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
-import { Config } from 'src/config/config';
+import { BaseComponent } from '@components/base.component';
+import { DirectoryService, DirectoryServiceToken } from '@interfaces/directory.service';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { Config } from '@config/config';
 
 @Component({
   selector: 'app-path-picker-dialog',

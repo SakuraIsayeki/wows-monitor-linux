@@ -4,9 +4,9 @@ import { faDesktop } from '@fortawesome/free-solid-svg-icons';
 import { SelectItem } from 'primeng/api';
 import { from } from 'rxjs';
 import { skip, switchMap } from 'rxjs/operators';
-import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
-import { ScrollService } from 'src/app/services/scroll.service';
-import { Config } from 'src/config/config';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { ScrollService } from '@services/scroll.service';
+import { Config } from '@config/config';
 import { BaseComponent } from '../../base.component';
 
 @Component({

@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faRedo, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { BaseComponent } from 'src/app/components/base.component';
-import { ClanInfo } from 'src/app/generated/models';
-import { ClansService } from 'src/app/generated/services';
-import { ClanWarsHistoryService } from 'src/app/services/clanwars-history.service';
+import { BaseComponent } from '@components/base.component';
+import { ClanInfo } from '@generated/models';
+import { ClansService } from '@generated/services';
+import { ClanWarsHistoryService } from '@services/clanwars-history.service';
 import { map, skip } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 

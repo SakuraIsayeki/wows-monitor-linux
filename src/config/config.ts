@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, from, interval, Observable } from 'rxjs';
 import { share, skipWhile, take } from 'rxjs/operators';
-import { ClanWarsConfig, defaultClanWarsConfig } from 'src/app/interfaces/clanwars-config';
-import { ConfigService, ConfigServiceToken } from 'src/app/interfaces/config.service';
-import { ConfigtoolConfig, defaultConfigtoolConfig } from 'src/app/interfaces/configtool-config';
-import { defaultLivefeedConfig, LivefeedConfig } from 'src/app/interfaces/livefeed-config';
-import { environment } from 'src/environments/environment';
+import { ClanWarsConfig, defaultClanWarsConfig } from '@interfaces/clanwars-config';
+import { ConfigService, ConfigServiceToken } from '@interfaces/config.service';
+import { ConfigtoolConfig, defaultConfigtoolConfig } from '@interfaces/configtool-config';
+import { defaultLivefeedConfig, LivefeedConfig } from '@interfaces/livefeed-config';
+import { environment } from '@environments/environment';
 const uuidv4 = require('uuid/v4');
 
 type PlayerBackgrounds = 'pr' | 'wr' | 'accwr' | 'avgDmg';

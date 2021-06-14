@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BaseComponent } from 'src/app/components/base.component';
-import { ClanWarsHistoryService } from 'src/app/services/clanwars-history.service';
-import { LivefeedService } from 'src/app/services/livefeed.service';
+import { BaseComponent } from '@components/base.component';
+import { ClanWarsHistoryService } from '@services/clanwars-history.service';
+import { LivefeedService } from '@services/livefeed.service';
 import { ClanwarsComponent } from '../clanwars.component';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Directive, OnInit, TemplateRef, ViewContainerRef, Input } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { MenuEntry } from 'src/app/interfaces/menu-entry';
+import { environment } from '@environments/environment';
+import { MenuEntry } from '@interfaces/menu-entry';
 
 @Directive({
   selector: '[showMenuEntry]'

@@ -1,15 +1,15 @@
 import { Inject, Injectable } from '@angular/core';
-import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
-import { SignalrService, SignalrSettings, SignalrStatus, Status } from 'src/app/interfaces/signalr.service';
-import { appConfig } from 'src/config/app.config';
-import { Config } from 'src/config/config';
-import { environment } from 'src/environments/environment';
-import { BaseInjection } from '../components/base.component';
+import { SignalrService, SignalrSettings, SignalrStatus, Status } from '@interfaces/signalr.service';
+import { appConfig } from '@config/app.config';
+import { Config } from '@config/config';
+import { environment } from '@environments/environment';
+import { BaseInjection } from '@components/base.component';
 import { LivefeedItem, MatchInfo } from '../generated/models';
 import { QrService } from '../generated/services';
-import { LoggerService, LoggerServiceToken } from '../interfaces/logger.service';
+import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 
 @Injectable()
 export class CommonSignalrService extends BaseInjection implements SignalrService {

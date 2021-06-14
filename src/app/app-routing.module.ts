@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { MetaGuard } from '@ngx-meta/core';
-import { ConnectComponent } from './components/connect/connect.component';
-import { DefaultComponent } from './components/default/default.component';
-import { BackButtonGuard } from './services/back-button.guard';
+import { RouterModule } from '@angular/router';
+import { StRoutes } from '@stewie/framework';
+import { MetaGuard } from '@stewie/meta';
+import { ConnectComponent } from '@components/connect/connect.component';
+import { DefaultComponent } from '@components/default/default.component';
+import { BackButtonGuard } from '@services/back-button.guard';
 
-const routes: Routes = [
+const routes: StRoutes = [
   {
     path: '',
     canActivateChild: [MetaGuard],
@@ -27,9 +28,9 @@ const routes: Routes = [
       {
         path: 'connect/:token',
         component: ConnectComponent
-      },
+      }
     ]
-  },
+  }
 
 ];
 
@@ -37,4 +38,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
-import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
-import { environment } from 'src/environments/environment';
-import { LoggerService } from '../../interfaces/logger.service';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { environment } from '@environments/environment';
+import { LoggerService } from '@interfaces/logger.service';
 
 @Injectable()
 export class ElectronLoggerService implements LoggerService {

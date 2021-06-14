@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { SelectItem } from 'primeng/api';
-import { ClanSeason, Region } from 'src/app/generated/models';
-import { ClansService } from 'src/app/generated/services';
-import { ScrollService } from 'src/app/services/scroll.service';
+import { ClanSeason, Region } from '@generated/models';
+import { ClansService } from '@generated/services';
+import { ScrollService } from '@services/scroll.service';
 import { BaseComponent } from '../../base.component';
 
 @Component({

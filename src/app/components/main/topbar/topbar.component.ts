@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { faBars, faCompress, faExpand } from '@fortawesome/free-solid-svg-icons';
 import { SelectItem } from 'primeng/api';
-import { SignalrService, SignalrServiceToken, Status } from 'src/app/interfaces/signalr.service';
-import { ApiService } from 'src/app/services/api.service';
-import { Config } from 'src/config/config';
+import { SignalrService, SignalrServiceToken, Status } from '@interfaces/signalr.service';
+import { ApiService } from '@services/api.service';
+import { Config } from '@config/config';
 import { BaseComponent } from '../../base.component';
 import { MenuComponent } from './menu/menu.component';
 

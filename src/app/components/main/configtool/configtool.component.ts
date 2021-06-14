@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { j2xParser, parse as parseXml2Json } from 'fast-xml-parser';
 import { join as pathJoin } from 'path';
 import { Subject } from 'rxjs';
-import { ConfigtoolConfig } from 'src/app/interfaces/configtool-config';
-import { Config } from 'src/config/config';
+import { ConfigtoolConfig } from '@interfaces/configtool-config';
+import { Config } from '@config/config';
 import { BaseComponent } from '../../base.component';
 import { debounceTime } from 'rxjs/operators';
-import { DirectoryService, DirectoryServiceToken } from 'src/app/interfaces/directory.service';
-import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
+import { DirectoryService, DirectoryServiceToken } from '@interfaces/directory.service';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
 
 @Component({
   selector: 'app-configtool',

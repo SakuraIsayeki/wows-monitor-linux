@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
-import { Config } from 'src/config/config';
+import { Config } from '@config/config';
 import { AppComponent } from './app.component';
 import { AppSharedModule } from './app.module.shared';
-import { AnalyticsServiceToken } from './interfaces/analytics.service';
-import { ConfigServiceToken } from './interfaces/config.service';
-import { DirectoryServiceToken } from './interfaces/directory.service';
-import { ElectronService, ElectronServiceToken } from './interfaces/electron.service';
-import { LoggerServiceToken } from './interfaces/logger.service';
-import { SignalrServiceToken } from './interfaces/signalr.service';
-import { UpdateServiceToken } from './interfaces/update.service';
-import { CommonSignalrService } from './services/common-signalr.service';
-import { ElectronLoggerService } from './services/desktop/electron-logger.service';
-import { ElectronUpdateService } from './services/desktop/electron-update.service';
-import { DesktopElectronService } from './services/desktop/electron.service';
-import { FsConfigService } from './services/desktop/fs-config.service';
-import { FsDirectoryService } from './services/desktop/fs-directory.service';
-import { DesktopGoogleAnalyticsService } from './services/desktop/google-analytics.service';
+import { AnalyticsServiceToken } from '@interfaces/analytics.service';
+import { ConfigServiceToken } from '@interfaces/config.service';
+import { DirectoryServiceToken } from '@interfaces/directory.service';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { LoggerServiceToken } from '@interfaces/logger.service';
+import { SignalrServiceToken } from '@interfaces/signalr.service';
+import { UpdateServiceToken } from '@interfaces/update.service';
+import { CommonSignalrService } from '@services/common-signalr.service';
+import { ElectronLoggerService } from '@services/desktop/electron-logger.service';
+import { ElectronUpdateService } from '@services/desktop/electron-update.service';
+import { DesktopElectronService } from '@services/desktop/electron.service';
+import { FsConfigService } from '@services/desktop/fs-config.service';
+import { FsDirectoryService } from '@services/desktop/fs-directory.service';
+import { DesktopGoogleAnalyticsService } from '@services/desktop/google-analytics.service';
 
 const analyticsServiceFactory = (config: Config, electronService: ElectronService) => {
   return new DesktopGoogleAnalyticsService(config, electronService);
@@ -35,7 +35,8 @@ const analyticsServiceFactory = (config: Config, electronService: ElectronServic
     ElectronService
   ]
 })
-export class AppProvidersModule { }
+export class AppProvidersModule {
+}
 
 @NgModule({
   declarations: [],
@@ -45,4 +46,5 @@ export class AppProvidersModule { }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

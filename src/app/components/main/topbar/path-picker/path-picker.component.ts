@@ -3,11 +3,11 @@ import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { DialogService } from 'primeng/dynamicdialog';
 import { combineLatest, Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
-import { BaseComponent } from 'src/app/components/base.component';
-import { DirectoryService, DirectoryServiceToken } from 'src/app/interfaces/directory.service';
-import { SignalrService, SignalrServiceToken, SignalrStatus } from 'src/app/interfaces/signalr.service';
-import { ApiService } from 'src/app/services/api.service';
-import { Config } from 'src/config/config';
+import { BaseComponent } from '@components/base.component';
+import { DirectoryService, DirectoryServiceToken } from '@interfaces/directory.service';
+import { SignalrService, SignalrServiceToken, SignalrStatus } from '@interfaces/signalr.service';
+import { ApiService } from '@services/api.service';
+import { Config } from '@config/config';
 import { PathPickerDialogComponent } from './path-picker-dialog/path-picker-dialog.component';
 
 @Component({

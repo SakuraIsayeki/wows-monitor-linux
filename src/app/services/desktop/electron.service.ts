@@ -3,7 +3,7 @@ import * as childProcess from 'child_process';
 import { dialog, IpcMain, ipcRenderer, remote, shell, webFrame } from 'electron';
 import * as fs from 'fs';
 import * as os from 'os';
-import { ElectronService } from 'src/app/interfaces/electron.service';
+import { ElectronService } from '@interfaces/electron.service';
 
 declare global {
   interface Window {

@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { Config } from 'src/config/config';
-import { BaseInjection } from '../components/base.component';
+import { Config } from '@config/config';
+import { BaseInjection } from '@components/base.component';
 import { LivefeedItem } from '../generated/models';
-import { LivefeedForm } from '../interfaces/livefeed-config';
-import { SignalrService, SignalrServiceToken } from '../interfaces/signalr.service';
+import { LivefeedForm } from '@interfaces/livefeed-config';
+import { SignalrService, SignalrServiceToken } from '@interfaces/signalr.service';
 
 @Injectable()
 export class LivefeedService extends BaseInjection {

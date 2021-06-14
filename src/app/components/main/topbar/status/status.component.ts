@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { BaseComponent } from 'src/app/components/base.component';
-import { SignalrService, SignalrServiceToken, Status } from 'src/app/interfaces/signalr.service';
+import { BaseComponent } from '@components/base.component';
+import { SignalrService, SignalrServiceToken, Status } from '@interfaces/signalr.service';
 import { faSync, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import { map } from 'rxjs/operators';

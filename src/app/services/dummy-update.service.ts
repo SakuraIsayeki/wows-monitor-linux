@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { UpdateService } from '../interfaces/update.service';
+import { UpdateService } from '@interfaces/update.service';
 
 export class DummyUpdateService implements UpdateService {
 

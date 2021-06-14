@@ -1,8 +1,8 @@
 
 
 import { Directive, ElementRef, Inject, OnInit, Renderer2 } from '@angular/core';
-import { ElectronService, ElectronServiceToken } from 'src/app/interfaces/electron.service';
-import { environment } from 'src/environments/environment';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { environment } from '@environments/environment';
 
 @Directive({
   selector: '[externalLink]'

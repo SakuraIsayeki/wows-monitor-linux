@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ClanInfo } from 'src/app/generated/models';
-import { ClansService } from 'src/app/generated/services';
-import { ClanWarsHistoryService } from 'src/app/services/clanwars-history.service';
+import { ClanInfo } from '@generated/models';
+import { ClansService } from '@generated/services';
+import { ClanWarsHistoryService } from '@services/clanwars-history.service';
 
 @Injectable()
 export class HistoryClanResolver implements Resolve<ClanInfo> {

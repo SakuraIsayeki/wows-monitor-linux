@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { Config } from 'src/config/config';
+import { Config } from '@config/config';
 import { MatchGroup, Region, Relation, TempArenaInfo } from '../generated/models';
 import { StatsService } from '../generated/services';
-import { LoggerService, LoggerServiceToken } from '../interfaces/logger.service';
+import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 
 @Injectable()
 export class ApiService {

@@ -8,7 +8,7 @@ import { DialogModule } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { TooltipModule } from 'primeng/tooltip';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { MonitorRoutingModule } from './monitor-routing.module';
 import { MonitorComponent } from './monitor.component';
 import { PlayerComponent } from './player/player.component';
