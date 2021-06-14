@@ -1,0 +1,97 @@
+{
+  "matchGroup": "clan",
+  "gameMode": 7,
+  "clientVersionFromExe": "0,10,4,3912232",
+  "scenarioUiCategoryId": 0,
+  "mapDisplayName": "41_Conquest",
+  "mapId": 24,
+  "clientVersionFromXml": "0,10,4,3912232",
+  "weatherParams": {
+    "0": [
+      "PCOW005_Evening",
+      "PCOW001_Sunny"
+    ],
+    "1": [
+      "PCOW005_Evening",
+      "PCOW001_Sunny"
+    ]
+  },
+  "playersPerTeam": 5,
+  "duration": 1200,
+  "gameLogic": "Domination",
+  "name": "5x5",
+  "scenario": "CvC_Domination",
+  "playerID": 0,
+  "vehicles": [
+    {
+      "shipId": 4276041424,
+      "relation": 1,
+      "id": 268471620,
+      "name": "JUGG808"
+    },
+    {
+      "shipId": 3655317296,
+      "relation": 1,
+      "id": 268534597,
+      "name": "sergeantpsycho84"
+    },
+    {
+      "shipId": 4179572528,
+      "relation": 2,
+      "id": 268542288,
+      "name": "Bennie_89"
+    },
+    {
+      "shipId": 4074649296,
+      "relation": 2,
+      "id": 268495827,
+      "name": "StgBovin"
+    },
+    {
+      "shipId": 4179539696,
+      "relation": 1,
+      "id": 268436564,
+      "name": "PrometheS"
+    },
+    {
+      "shipId": 4179539696,
+      "relation": 2,
+      "id": 402737785,
+      "name": "Cruz9904"
+    },
+    {
+      "shipId": 3969824208,
+      "relation": 2,
+      "id": 402687354,
+      "name": "NotCrackle"
+    },
+    {
+      "shipId": 4276041424,
+      "relation": 2,
+      "id": 402759292,
+      "name": "PugLife_Destroyer"
+    },
+    {
+      "shipId": 4074649424,
+      "relation": 0,
+      "id": 402744989,
+      "name": "13579bc_bc"
+    },
+    {
+      "shipId": 4282267344,
+      "relation": 1,
+      "id": 268455167,
+      "name": "ReaperUchiha"
+    }
+  ],
+  "gameType": "BrawlBattle",
+  "dateTime": "07.06.2021 15:59:19",
+  "mapName": "spaces/41_Conquest",
+  "playerName": "13579bc_bc",
+  "scenarioConfigId": 171,
+  "teamsCount": 2,
+  "logic": "Domination",
+  "playerVehicle": "PFSD210-Marceau",
+  "battleDuration": 1200,
+  "mapBorder": null
+}
