@@ -16,7 +16,7 @@
     "electron:local": "npm run build:prod && npx electron .",
     "electron:build": "npm run build:prod && npm run electron:build:e",
     "electron:build:e": "electron-builder build --windows",
-    "bump": "node tooling/bump-version.js",
+
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "translate-extract": "ngx-translate-extract --i ./src --output ./src/assets/i18n/en.json -f namespaced-json --sort --null-as-default-value true",
     "generate-client": "ng-openapi-gen"
