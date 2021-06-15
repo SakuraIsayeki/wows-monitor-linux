@@ -1,9 +1,17 @@
 import { Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { marker } from '@biesbjerg/ngx-translate-extract-marker';
+import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { ClanInfo, Region, TeamAverage } from '@generated/models';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
 import { Config } from '@config/config';
-import { BaseComponent } from '../../../base.component';
+import { BaseComponent } from '@components/base.component';
+
+marker('monitor.cw.leagues.0');
+marker('monitor.cw.leagues.1');
+marker('monitor.cw.leagues.2');
+marker('monitor.cw.leagues.3');
+marker('monitor.cw.leagues.4');
 
 @Component({
   selector: 'app-team',
@@ -48,7 +56,9 @@ export class TeamComponent extends BaseComponent implements OnInit {
     return this.team.overallWinrate;
   }
 
-  constructor(public el: ElementRef,
+  constructor(
+    private translateService: TranslateService,
+    public el: ElementRef,
     private config: Config,
     @Inject(ElectronServiceToken) private electronService: ElectronService) {
     super();
@@ -63,11 +73,7 @@ export class TeamComponent extends BaseComponent implements OnInit {
       {
         label: this.translateService.instant('monitor.teamPopup.wowsNumbers'),
         command: this.openWowsNumbers
-      }/*,
-      {
-        label: this.translateService.instant('monitor.teamPopup.wowsKarma'),
-        command: this.openWowsKarma
-      }*/
+      }
     ];
   }
 

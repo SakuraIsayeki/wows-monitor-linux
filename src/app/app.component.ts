@@ -1,34 +1,42 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { environment } from '@environments/environment';
+import { Component, Inject, Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, NavigationEnd, RouterStateSnapshot } from '@angular/router';
 import { BaseComponent } from '@components/base.component';
-import { LocationStrategy } from '@angular/common';
+import { Config } from '@config/config';
+import { environment } from '@environments/environment';
+import { UpdateService, UpdateServiceToken } from '@interfaces/update.service';
+import { TranslateService } from '@ngx-translate/core';
+import { AppInitService } from '@services/app-init.service';
+import { PrimeNGConfig } from 'primeng/api';
+import { forkJoin, Observable, of } from 'rxjs';
+import { fromPromise } from 'rxjs/internal-compatibility';
+import { first, map, skip, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app-wrapper.component.html'
 })
-export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
+export class AppWrapperComponent extends BaseComponent {
 
-  static backButtonFired = false;
+  public isUpdating = false;
 
-  constructor(
-    private location: LocationStrategy
-  ) {
-    super();
-
-    if (environment.desktop) {
-      this.location.onPopState(() => {
-        AppComponent.backButtonFired = true;
-        return false;
-      });
+  get updateProgress() {
+    if (environment.browser) {
+      return of(100);
+    } else {
+      return this.updateService.$updateProgress;
     }
   }
 
+  constructor(public appInit: AppInitService,
+              private translate: TranslateService,
+              @Inject(UpdateServiceToken) private updateService: UpdateService) {
+    super();
+  }
+
   ngOnInit() {
-    this.translateService.addLangs(['en']);
-    this.translateService.setDefaultLang('en');
-    this.translateService.use(this.translateService.getBrowserLang());
+    this.translate.addLangs(['en']);
+    this.translate.setDefaultLang('en');
+    this.translate.use(this.translate.getBrowserLang());
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -36,11 +44,71 @@ export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
       }
     });
 
-    console.warn(window.location.pathname);
-
-    if (environment.desktop || !location.href.startsWith('/connect')) {
-      this.router.navigateByUrl('/', { state: { redirUrl: window.location.pathname } });
+    if (environment.desktop) {
+      this.updateService.$updateAvailable.pipe(this.untilDestroy(), skip(1)).subscribe(available => this.handleUpdate(available));
+      this.updateService.checkForUpdate();
+    } else {
+      this.appInit.initialized();
     }
   }
 
+  private handleUpdate(available) {
+    if (available) {
+      this.ngZone.run(() => {
+        this.isUpdating = true;
+      });
+      setTimeout(() => this.updateService.quitAndInstall(), 2000);
+    } else {
+      this.ngZone.run(() => {
+        this.appInit.initialized();
+      });
+    }
+  }
+}
+
+@Component({
+  templateUrl: './app.component.html'
+})
+export class AppComponent {
+
+  constructor(public wrapper: AppWrapperComponent) {
+
+  }
+
+  ngOnInit() {
+
+  }
+}
+
+@Injectable()
+export class AppActivator implements CanActivate, CanActivateChild {
+
+  constructor(private primeNgConfig: PrimeNGConfig,
+              private translate: TranslateService,
+              private appInit: AppInitService,
+              private config: Config
+              // @Inject(AUTHSERVICETOKEN) private authService: AuthService
+  ) {
+
+  }
+
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    return this.activate();
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+
+    return this.activate();
+  }
+
+  private activate() {
+    return forkJoin([
+      this.appInit.isInitialized$.pipe(first(x => x)),
+      this.translate.use(this.translate.getBrowserLang()),
+      fromPromise(this.config.waitTillLoaded())
+      /*, this.authService.isLoaded$.pipe(first(v => v))*/])
+      .pipe(map(v => true), tap(() => {
+        this.translate.get('primeng').subscribe(res => this.primeNgConfig.setTranslation(res));
+      }));
+  }
 }

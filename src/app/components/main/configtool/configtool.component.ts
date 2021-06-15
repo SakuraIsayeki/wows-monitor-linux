@@ -4,7 +4,7 @@ import { join as pathJoin } from 'path';
 import { Subject } from 'rxjs';
 import { ConfigtoolConfig } from '@interfaces/configtool-config';
 import { Config } from '@config/config';
-import { BaseComponent } from '../../base.component';
+import { BaseComponent } from '@components/base.component';
 import { debounceTime } from 'rxjs/operators';
 import { DirectoryService, DirectoryServiceToken } from '@interfaces/directory.service';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';

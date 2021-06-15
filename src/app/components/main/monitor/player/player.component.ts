@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { faExclamationCircle, faFire, faGavel, faHeart, faLightbulb, faSkull, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { PlayerInfo } from '@generated/models';
 import { Config } from '@config/config';
-import { BaseComponent } from '../../../base.component';
+import { BaseComponent } from '@components/base.component';
 import { MonitorComponent } from '../monitor.component';
 
 @Component({

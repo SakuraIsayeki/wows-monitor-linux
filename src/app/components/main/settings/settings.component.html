@@ -80,7 +80,7 @@
         <div class="input-wrap">
           <p-selectButton [options]="fontSizeOptions" [(ngModel)]="config.fontsize">
             <ng-template let-item>
-              <span class="p-button-text p-clickable ng-star-inserted">{{item.label | translate}}</span>
+              <span class="p-button-text p-clickable ng-star-inserted">{{item.label$ | async}}</span>
             </ng-template>
           </p-selectButton>
         </div>
@@ -95,7 +95,7 @@
         <div class="input-wrap">
           <p-selectButton [options]="layoutModeOptions" [(ngModel)]="config.layoutMode">
             <ng-template let-item>
-              <span class="p-button-text p-clickable ng-star-inserted">{{item.label | translate}}</span>
+              <span class="p-button-text p-clickable ng-star-inserted">{{item.label$ | async}}</span>
             </ng-template>
           </p-selectButton>
         </div>
@@ -121,7 +121,7 @@
         <div class="input-wrap">
           <p-selectButton [options]="playerBackgroundsModeOptions" [(ngModel)]="config.playerBackgroundsMode">
             <ng-template let-item>
-              <span class="p-button-text p-clickable ng-star-inserted">{{item.label | translate}}</span>
+              <span class="p-button-text p-clickable ng-star-inserted">{{item.label$ | async}}</span>
             </ng-template>
           </p-selectButton>
         </div>
@@ -136,7 +136,7 @@
         <div class="input-wrap">
           <p-selectButton [options]="playerBackgroundsOptions" [(ngModel)]="config.playerBackgrounds">
             <ng-template let-item>
-              <span class="p-button-text p-clickable ng-star-inserted">{{item.label | translate}}</span>
+              <span class="p-button-text p-clickable ng-star-inserted">{{item.label$ | async}}</span>
             </ng-template>
           </p-selectButton>
           <!-- <p-dropdown appendTo="body" [options]="playerBackgroundsOptions" [(ngModel)]="config.playerBackgrounds">
@@ -197,7 +197,7 @@ weighted_WR = total_wins/total_battles
         <div class="input-wrap">
           <p-selectButton [options]="teamWinrateOptions" [(ngModel)]="config.teamWinrate">
             <ng-template let-item>
-              <span class="p-button-text p-clickable ng-star-inserted">{{item.label | translate}}</span>
+              <span class="p-button-text p-clickable ng-star-inserted">{{item.label$ | async}}</span>
             </ng-template>
           </p-selectButton>
         </div>

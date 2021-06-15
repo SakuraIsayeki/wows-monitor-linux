@@ -3,7 +3,7 @@ import { faWindowClose, faWindowMaximize, faWindowMinimize, faWindowRestore } fr
 import { MetaService } from '@stewie/meta';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
 import { appConfig } from '@config/app.config';
-import { BaseComponent } from '../../base.component';
+import { BaseComponent } from '@components/base.component';
 
 @Component({
   selector: 'app-titlebar',

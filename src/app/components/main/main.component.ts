@@ -1,5 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ChangelogService } from '@generated/services';
 import { Config } from '@config/config';
@@ -15,6 +16,7 @@ import { first } from 'rxjs/operators';
 export class MainComponent extends BaseComponent implements AfterViewInit {
 
   constructor(
+    private translateService: TranslateService,
     private changelogsService: ChangelogService,
     private config: Config,
     private dialogService: DialogService) {

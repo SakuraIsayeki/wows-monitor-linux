@@ -1,7 +1,3 @@
-<!-- <div class="iconWrapper clickable" (click)="showPathInfo = true" *ngIf="config.$selectedDirectory | async"
-  [pTooltip]="'pathPicker.info' | translate" tooltipPosition="bottom">
-  {{config.$selectedDirectory | async}}
-</div> -->
 <div (click)="openDialog()"
   class="iconWrapper state-{{((directoryService.$status | async)?.replaysFoldersFound) ? 1 : 0}}"
   [pTooltip]="'pathPicker.pickFolder' | translate" tooltipPosition="bottom">

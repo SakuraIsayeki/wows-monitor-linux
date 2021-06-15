@@ -1,45 +1,38 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { BackButtonGuard } from '@services/back-button.guard';
+import { RouterModule } from '@angular/router';
 import { environment } from '@environments/environment';
+import { StRoutes } from '@stewie/framework';
 import { MainComponent } from './main.component';
 
-const routes: Routes = [
+const routes: StRoutes = [
   {
     path: '',
     component: MainComponent,
-    data: {
-    },
+    data: {},
     children: [
       {
         path: '',
-        loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule),
-        canDeactivate: [BackButtonGuard]
+        loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule)
       },
       {
         path: 'changelogs',
-        loadChildren: () => import('./changelogs/changelogs.module').then(m => m.ChangelogsModule),
-        canDeactivate: [BackButtonGuard]
+        loadChildren: () => import('./changelogs/changelogs.module').then(m => m.ChangelogsModule)
       },
       {
         path: 'settings',
-        loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
-        canDeactivate: [BackButtonGuard]
+        loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
       },
       {
         path: 'about',
-        loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
-        canDeactivate: [BackButtonGuard]
+        loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
       },
       {
         path: 'configtool',
-        loadChildren: () => import('./configtool/configtool.module').then(m => m.ConfigtoolModule),
-        canDeactivate: [BackButtonGuard]
+        loadChildren: () => import('./configtool/configtool.module').then(m => m.ConfigtoolModule)
       },
       {
         path: 'clanwars',
-        loadChildren: () => import('./clanwars/clanwars.module').then(m => m.ClanwarsModule),
-        canDeactivate: [BackButtonGuard]
+        loadChildren: () => import('./clanwars/clanwars.module').then(m => m.ClanwarsModule)
       }
     ]
   }
@@ -53,4 +46,5 @@ if (environment.browser) {
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MainRoutingModule { }
+export class MainRoutingModule {
+}

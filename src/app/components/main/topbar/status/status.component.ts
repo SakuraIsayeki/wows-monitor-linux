@@ -1,9 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import { BaseComponent } from '@components/base.component';
-import { SignalrService, SignalrServiceToken, Status } from '@interfaces/signalr.service';
-import { faSync, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
+import { faCheckCircle, faSync } from '@fortawesome/free-solid-svg-icons';
+import { SignalrService, SignalrServiceToken, Status } from '@interfaces/signalr.service';
 import { map } from 'rxjs/operators';
+
+marker('service.status.idle');
+marker('service.status.fetching');
+marker('service.status.fetched');
 
 @Component({
   selector: 'app-status',

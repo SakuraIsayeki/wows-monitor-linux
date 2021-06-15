@@ -1,14 +1,17 @@
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, forwardRef, Inject, Injectable, Injector, NgModule, Provider } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConnectComponent } from '@components/connect/connect.component';
+import { DefaultComponent } from '@components/default/default.component';
+import { appConfig } from '@config/app.config';
+import { environment } from '@environments/environment';
 import { ApiModule } from '@generated/api.module';
+import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
-import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateParser, TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@services/api.service';
-import { BackButtonGuard } from '@services/back-button.guard';
+import { AppInitService } from '@services/app-init.service';
 import { ClanWarsHistoryService } from '@services/clanwars-history.service';
 import { ClientIdHttpInterceptor } from '@services/client-id.http-interceptor';
 import { ClientVersionHttpInterceptor } from '@services/client-version.http-interceptor';
@@ -18,20 +21,16 @@ import { LivefeedService } from '@services/livefeed.service';
 import { RegionRequestInterceptor } from '@services/region-request.interceptor';
 import { ResizeService } from '@services/resize.service';
 import { ScrollService } from '@services/scroll.service';
-import { CoreModule, ErrorModule, LocatorService, MessageWrapperService } from '@stewie/framework';
+import { CoreModule, CustomDefaultTranslateHttpLoader, CustomTranslateParser, ErrorModule, LocatorService } from '@stewie/framework';
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@stewie/meta';
 import { MessageService } from 'primeng/api';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { appConfig } from '@config/app.config';
-import { environment } from '@environments/environment';
+import { of } from 'rxjs';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ConnectComponent } from '@components/connect/connect.component';
-import { DefaultComponent } from '@components/default/default.component';
-import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
+import { AppActivator, AppComponent, AppWrapperComponent } from './app.component';
 
 const translateHttpLoader = (http: HttpClient) => {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new CustomDefaultTranslateHttpLoader(http, './assets/i18n/', '.json');
 };
 
 const missingTranslationHandler = (loggerServiceDepHolder: LoggerServiceDepHolder) => {
@@ -46,10 +45,15 @@ export class LoggerServiceDepHolder {
 
 const metaFactory = (translate: TranslateService) => {
   return new MetaStaticLoader({
-    callback: (key: string) => translate.get(key),
+    callback: (key: string) => {
+      if (key.startsWith('/')) {
+        return of(key);
+      }
+      return translate.get(key);
+    },
     pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
     pageTitleSeparator: ' - ',
-    applicationName: appConfig.applicationName,
+    applicationName: appConfig.defautTitle,
     defaults: {
       title: appConfig.defautTitle
     }
@@ -64,6 +68,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
 
 @NgModule({
   declarations: [
+    AppWrapperComponent,
     AppComponent,
     DefaultComponent,
     ConnectComponent
@@ -74,13 +79,14 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     ConnectComponent
   ],
   imports: [
+    BrowserModule,
     CoreModule.forRoot(environment.production),
     HttpClientModule,
     LoadingBarRouterModule,
     LoadingBarHttpClientModule,
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
     AppRoutingModule,
-    ErrorModule.withConfig({customErrorCodes: []}),
+    ErrorModule.withConfig({ customErrorCodes: [] }),
     TranslateModule.forRoot({
       useDefaultLang: true,
       loader: {
@@ -92,6 +98,10 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
         provide: MissingTranslationHandler,
         useFactory: (missingTranslationHandler),
         deps: [LoggerServiceDepHolder]
+      },
+      parser: {
+        provide: TranslateParser,
+        useClass: CustomTranslateParser
       }
     }),
     MetaModule.forRoot({
@@ -102,6 +112,8 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     ProgressBarModule
   ],
   providers: [
+    AppInitService,
+    AppActivator,
     { provide: ErrorHandler, useClass: CommonErrorHandler },
     RegionRequestInterceptor,
     API_INTERCEPTOR_PROVIDER,
@@ -113,8 +125,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     ClientVersionHttpInterceptor,
     LivefeedService,
     ClanWarsHistoryService,
-    ScrollService,
-    BackButtonGuard
+    ScrollService
   ]
 })
 export class AppSharedModule {

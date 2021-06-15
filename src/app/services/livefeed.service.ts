@@ -68,13 +68,7 @@ export class LivefeedService extends BaseInjection {
         count = items.filter(item => clanwarsConfig.favClanIds.includes(item.winnerClanId) || clanwarsConfig.favClanIds.includes(item.looserClanId)).length;
       }
       if (count > 0) {
-        this.uiCustom({
-          severity: 'c-success',
-          summary: 'Clanwars',
-          detail: `Feed updated`,
-          closable: false,
-          life: 1500
-        });
+        this.uiSuccess('cwFeedUpdated', 1500);
       }
     }
 

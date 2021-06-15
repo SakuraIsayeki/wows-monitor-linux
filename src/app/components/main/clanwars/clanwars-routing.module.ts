@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { StRoutes } from '@stewie/framework';
 import { ClanwarsComponent } from './clanwars.component';
 import { HistoryClanComponent } from './history/history-clan/history-clan.component';
+import { HistoryClanResolver } from './history/history-clan/history-clan.resolver';
 import { HistoryComponent } from './history/history.component';
 import { LivefeedComponent } from './livefeed/livefeed.component';
-import { HistoryClanResolver } from './history/history-clan/history-clan.resolver';
 
-const routes: Routes = [
+const routes: StRoutes = [
   {
     path: '',
     component: ClanwarsComponent,
@@ -61,4 +62,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ClanwarsRoutingModule { }
+export class ClanwarsRoutingModule {
+}

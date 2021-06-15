@@ -1,0 +1,16 @@
+<div class="centered-logo-wrapper" *ngIf="!(appInit.isInitialized$ | async)">
+  <div class="centered-logo">
+    <video src="assets/loader.webm" autoplay loop></video>
+    <span>WoWs Monitor</span>
+    <ng-container *ngIf="isUpdating">
+      <div class="updating-progress">
+        <p-progressBar mode="indeterminate"></p-progressBar>
+      </div>
+      <span>Updating...</span>
+    </ng-container>
+  </div>
+</div>
+
+
+
+<router-outlet></router-outlet>

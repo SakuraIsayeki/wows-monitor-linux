@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { ServiceWorkerModule, SwUpdate } from '@angular/service-worker';
 import { Config } from '@config/config';
 import { environment } from '@environments/environment';
-import { AppComponent } from './app.component';
-import { AppSharedModule } from './app.module.shared';
 import { AnalyticsServiceToken } from '@interfaces/analytics.service';
 import { ConfigServiceToken } from '@interfaces/config.service';
 import { ElectronServiceToken } from '@interfaces/electron.service';
@@ -18,6 +16,8 @@ import { ServiceWorkerUpdateService } from '@services/browser/service-worker-upd
 import { CommonSignalrService } from '@services/common-signalr.service';
 import { DummyAnalyticsService } from '@services/dummy-analytics.service';
 import { DummyUpdateService } from '@services/dummy-update.service';
+import { AppWrapperComponent } from './app.component';
+import { AppSharedModule } from './app.module.shared';
 
 const updateServiceFactory = (swUpdate?: SwUpdate, logger?: LoggerService) => {
   return environment.production
@@ -27,7 +27,7 @@ const updateServiceFactory = (swUpdate?: SwUpdate, logger?: LoggerService) => {
 
 const analyticsServiceFactory = (config: Config) => {
   return environment.production ? new BrowserGoogleAnalyticsService(config) : new DummyAnalyticsService();
-}
+};
 
 
 @NgModule({
@@ -45,6 +45,7 @@ const analyticsServiceFactory = (config: Config) => {
     { provide: ElectronServiceToken, useClass: BrowserElectronService },
     Config
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppWrapperComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -4,7 +4,7 @@ import { SelectItem } from 'primeng/api';
 import { ClanSeason, Region } from '@generated/models';
 import { ClansService } from '@generated/services';
 import { ScrollService } from '@services/scroll.service';
-import { BaseComponent } from '../../base.component';
+import { BaseComponent } from '@components/base.component';
 
 @Component({
   selector: 'app-clanwars',

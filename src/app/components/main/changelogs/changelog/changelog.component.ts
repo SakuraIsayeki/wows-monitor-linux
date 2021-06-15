@@ -3,7 +3,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { ChangelogResponse } from '@generated/models';
 import { ChangelogService } from '@generated/services';
-import { BaseComponent } from '../../../base.component';
+import { BaseComponent } from '@components/base.component';
 
 @Component({
   selector: 'app-changelog',

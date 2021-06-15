@@ -22,41 +22,41 @@ export class MenuComponent extends BaseComponent implements OnInit {
   menu: MenuEntry[] = [
     {
       key: 'meta.monitor.title',
-      routerLink: '/home',
+      routerLink: '/',
       icon: faDesktop
     },
     {
       key: 'meta.configtool.title',
-      routerLink: '/home/configtool',
+      routerLink: '/configtool',
       icon: faWrench,
       browser: false,
       desktop: true,
     },
     {
       key: 'meta.livefeed.title',
-      routerLink: '/home/clanwars/livefeed',
+      routerLink: '/clanwars/livefeed',
       icon: faShieldAlt,
     },
     {
       key: 'meta.clanwars.title',
-      routerLink: '/home/clanwars',
+      routerLink: '/clanwars',
       icon: faShieldAlt,
     },
     {
       key: 'meta.changelogs.title',
-      routerLink: '/home/changelogs',
+      routerLink: '/changelogs',
       icon: faFileAlt,
       badge: this.$changelogsBadgeSubject,
       badgeCount: this.$changelogsBadgeCountSubject
     },
     {
       key: 'meta.settings.title',
-      routerLink: '/home/settings',
+      routerLink: '/settings',
       icon: faCog
     },
     {
       key: 'meta.about.title',
-      routerLink: '/home/about',
+      routerLink: '/about',
       icon: faQuestionCircle
     }
   ];

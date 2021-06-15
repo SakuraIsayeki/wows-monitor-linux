@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { StRoutes } from '@stewie/framework';
 import { MonitorComponent } from './monitor.component';
 
-const routes: Routes = [
+const routes: StRoutes = [
   {
     path: '',
     component: MonitorComponent,
@@ -18,4 +19,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MonitorRoutingModule { }
+export class MonitorRoutingModule {
+}

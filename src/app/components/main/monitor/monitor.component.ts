@@ -1,15 +1,16 @@
 import { AfterViewInit, Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
+import { BaseComponent } from '@components/base.component';
 import { Config } from '@config/config';
 import { faPaintBrush, faWifi } from '@fortawesome/free-solid-svg-icons';
 import { PlayerInfo } from '@generated/models/player-info';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
 import { SignalrService, SignalrServiceToken } from '@interfaces/signalr.service';
+import { TranslateService } from '@ngx-translate/core';
 import { WowsKarmaPipe } from '@shared/pipes/wows-karma.pipe';
 import { WowsNumbersPipe } from '@shared/pipes/wows-numbers.pipe';
 import { MenuItem } from 'primeng/api';
 import { ContextMenu } from 'primeng/contextmenu';
 import { filter, map } from 'rxjs/operators';
-import { BaseComponent } from '../../base.component';
 
 @Component({
   selector: 'app-monitor',
@@ -31,6 +32,7 @@ export class MonitorComponent extends BaseComponent implements OnInit, AfterView
   }
 
   constructor(
+    private translateService: TranslateService,
     @Inject(SignalrServiceToken) public signalrService: SignalrService,
     @Optional() @Inject(ElectronServiceToken) private electronService: ElectronService,
     public config: Config

@@ -14,14 +14,12 @@ export class BaseComponent extends StBaseComponent implements OnDestroy {
   private loggerService: LoggerService;
 
   ngZone: NgZone;
-  translateService: TranslateService;
   analyticsService: AnalyticsService;
 
   constructor() {
     super();
     this.ngZone = LocatorService.Injector.get(NgZone);
     this.loggerService = LocatorService.Injector.get(LoggerServiceToken) as LoggerService;
-    this.translateService = LocatorService.Injector.get(TranslateService) as TranslateService;
     this.analyticsService = LocatorService.Injector.get(AnalyticsServiceToken) as AnalyticsService;
   }
 

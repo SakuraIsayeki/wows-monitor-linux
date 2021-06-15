@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { faBars, faCompress, faExpand } from '@fortawesome/free-solid-svg-icons';
-import { SelectItem } from 'primeng/api';
-import { SignalrService, SignalrServiceToken, Status } from '@interfaces/signalr.service';
-import { ApiService } from '@services/api.service';
 import { Config } from '@config/config';
-import { BaseComponent } from '../../base.component';
+import { faBars, faCompress, faExpand } from '@fortawesome/free-solid-svg-icons';
+import { SignalrService, SignalrServiceToken, Status } from '@interfaces/signalr.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ApiService } from '@services/api.service';
+import { SelectItem } from 'primeng/api';
+import { BaseComponent } from '@components/base.component';
 import { MenuComponent } from './menu/menu.component';
 
 @Component({
@@ -45,10 +46,12 @@ export class TopbarComponent extends BaseComponent implements OnInit {
     }
   ];
 
-  constructor(@Inject(SignalrServiceToken) public signalrService: SignalrService,
-              public apiService: ApiService,
-              public config: Config,
-              private cd: ChangeDetectorRef
+  constructor(
+    private translateService: TranslateService,
+    @Inject(SignalrServiceToken) public signalrService: SignalrService,
+    public apiService: ApiService,
+    public config: Config,
+    private cd: ChangeDetectorRef
   ) {
     super();
   }

@@ -1,5 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
+import { TranslateService } from '@ngx-translate/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { combineLatest, Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
@@ -20,6 +21,7 @@ export class PathPickerComponent extends BaseComponent implements OnInit, OnDest
   showPathInfo = false;
 
   constructor(
+    private translateService: TranslateService,
     private dialogService: DialogService,
     private apiService: ApiService,
     @Inject(SignalrServiceToken) private signalRService: SignalrService,

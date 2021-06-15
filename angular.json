@@ -32,7 +32,12 @@
             "buildOptimizer": false,
             "assets": [
               "src/assets",
-              "src/manifest.json"
+              "src/manifest.json",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@stewie/framework/assets",
+                "output": "./assets/"
+              }
             ],
             "styles": [
               "node_modules/skeleton-css/css/normalize.css",
@@ -97,7 +102,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "baseHref": "./",
+              "baseHref": "./"
             }
           },
           "defaultConfiguration": ""

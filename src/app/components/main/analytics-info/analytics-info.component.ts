@@ -1,6 +1,6 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { BaseComponent } from '../../base.component';
+import { BaseComponent } from '@components/base.component';
 import { Config } from '@config/config';
 
 @Component({

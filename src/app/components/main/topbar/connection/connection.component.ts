@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
+import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import { BaseComponent } from '@components/base.component';
 import { faQrcode, faWifi } from '@fortawesome/free-solid-svg-icons';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -9,6 +10,12 @@ import { ResizeService } from '@services/resize.service';
 import { ShowOnDirective } from '@shared/directives/show-on.directive';
 import { QrScanComponent } from './qr-scan/qr-scan.component';
 import { QrComponent } from './qr/qr.component';
+
+marker('service.connected');
+marker('service.issues.browser.noToken');
+marker('service.hostConnected');
+marker('service.issues.browser.hostDisconnected');
+marker('service.issues.connection');
 
 @Component({
   selector: 'app-connection',
@@ -44,6 +51,8 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit,
     private resizeService: ResizeService
   ) {
     super();
+
+    this.uiSuccess('clientConnected');
   }
 
   ngAfterViewInit() {

@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Config } from '@config/config';
-import { AppComponent } from './app.component';
-import { AppSharedModule } from './app.module.shared';
 import { AnalyticsServiceToken } from '@interfaces/analytics.service';
 import { ConfigServiceToken } from '@interfaces/config.service';
 import { DirectoryServiceToken } from '@interfaces/directory.service';
@@ -16,6 +14,8 @@ import { DesktopElectronService } from '@services/desktop/electron.service';
 import { FsConfigService } from '@services/desktop/fs-config.service';
 import { FsDirectoryService } from '@services/desktop/fs-directory.service';
 import { DesktopGoogleAnalyticsService } from '@services/desktop/google-analytics.service';
+import { AppWrapperComponent } from './app.component';
+import { AppSharedModule } from './app.module.shared';
 
 const analyticsServiceFactory = (config: Config, electronService: ElectronService) => {
   return new DesktopGoogleAnalyticsService(config, electronService);
@@ -44,7 +44,7 @@ export class AppProvidersModule {
     AppSharedModule,
     AppProvidersModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppWrapperComponent]
 })
 export class AppModule {
 }
