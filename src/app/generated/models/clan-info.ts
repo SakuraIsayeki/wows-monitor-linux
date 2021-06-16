@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 import { ClanRating } from './clan-rating';
 import { Region } from './region';
 export interface ClanInfo {
@@ -12,3 +13,4 @@ export interface ClanInfo {
   region?: Region;
   tag?: null | string;
 }
+

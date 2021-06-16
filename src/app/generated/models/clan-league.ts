@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 export enum ClanLeague {
   Hurricane = 0,
   Typhoon = 1,

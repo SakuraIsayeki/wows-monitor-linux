@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 import { CwClan } from './cw-clan';
 import { CwHistoryEntry } from './cw-history-entry';
 import { Region } from './region';
@@ -16,3 +17,4 @@ export interface CwClanMatch {
   winnerEntry?: null | CwHistoryEntry;
   winnerId?: null | number;
 }
+

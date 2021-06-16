@@ -1,5 +1,6 @@
 /* tslint:disable */
-export enum WgShipType {
+/* eslint-disable */
+export enum ShipType {
   AirCarrier = 'AirCarrier',
   Battleship = 'Battleship',
   Cruiser = 'Cruiser',

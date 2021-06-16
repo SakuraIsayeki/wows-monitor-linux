@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 import { Clan } from './clan';
 import { Region } from './region';
 import { Relation } from './relation';
@@ -10,11 +11,14 @@ export interface PlayerInfo {
   clan?: null | Clan;
   hidden?: boolean;
   karma?: null | number;
-  wowsKarma?: null | number;
   name?: null | string;
   overallStats?: null | Stats;
   region?: Region;
   relation?: Relation;
   shipInfo?: null | ShipInfo;
   shipStats?: null | Stats;
+  soloOverallStats?: null | Stats;
+  soloShipStats?: null | Stats;
+  wowsKarma?: null | number;
 }
+

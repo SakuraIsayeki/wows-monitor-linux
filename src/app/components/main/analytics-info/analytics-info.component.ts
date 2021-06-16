@@ -1,7 +1,7 @@
 import { Component, OnInit, Optional } from '@angular/core';
-import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { BaseComponent } from '@components/base.component';
-import { Config } from '@config/config';
+import { SettingsService } from '@services/settings.service';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-analytics-info',
@@ -10,8 +10,8 @@ import { Config } from '@config/config';
 export class AnalyticsInfoComponent extends BaseComponent implements OnInit {
 
   constructor(@Optional() public ref: DynamicDialogRef,
-    @Optional() private dialogConfig: DynamicDialogConfig,
-    private config: Config) {
+              @Optional() private dialogConfig: DynamicDialogConfig,
+              private settingsService: SettingsService) {
     super();
   }
 
@@ -21,16 +21,15 @@ export class AnalyticsInfoComponent extends BaseComponent implements OnInit {
 
   click(status: number) {
     if (status === 1) {
-      this.config.enableAnalytics = false;
+      this.settingsService.form.monitorConfig.enableAnalytics.setValue(false);
     } else if (status === 2) {
-      this.config.enableAnalytics = true;
-      this.config.anonymIp = true;
+      this.settingsService.form.monitorConfig.enableAnalytics.setValue(true);
+      this.settingsService.form.monitorConfig.anonymIp.setValue(true);
     } else if (status === 3) {
-      this.config.enableAnalytics = true;
-      this.config.anonymIp = false;
+      this.settingsService.form.monitorConfig.enableAnalytics.setValue(true);
+      this.settingsService.form.monitorConfig.anonymIp.setValue(false);
     }
-    this.config.analyticsInfoSeen = true;
-    this.config.save();
+    this.settingsService.form.analyticsInfoSeen.setValue(true);
     this.ref.close();
   }
 

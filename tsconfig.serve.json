@@ -19,7 +19,8 @@
   "files": [
     "app/main.ts",
     "app/electron-log.ts",
-    "app/update-tasks.ts"
+    "app/update-tasks.ts",
+    "app/load-config.ts"
   ],
   "exclude": [
     "node_modules",

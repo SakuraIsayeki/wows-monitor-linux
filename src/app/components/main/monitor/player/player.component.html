@@ -1,5 +1,16 @@
 <div class="info-wrapper" (click)="monitorComp.clickPlayer($event, player)"
-     [ngClass]="{ 'me': player.relation == 0, 'bot': player.bot, 'hidden': player.hidden, 'player': !player.bot && !player.hidden && player.shipStats, 'no-battles': !player.bot && !player.hidden && (!player.shipStats || player.shipStats.battles <= 0), 'force-white': !config.coloredValues, 'contrast-mode': config.highContrastMode, 'normal': config.layoutMode === 'normal', 'legacy': config.layoutMode === 'legacy', 'compact': config.layoutMode === 'compact' }">
+     [ngClass]="{
+     'me': player.relation == 0,
+     'bot': player.bot,
+     'hidden': player.hidden,
+     'player': !player.bot && !player.hidden && player.shipStats,
+     'no-battles': !player.bot && !player.hidden && (!player.shipStats || player.shipStats.battles <= 0),
+     'force-white': !config.coloredValues,
+     'contrast-mode': config.highContrastMode,
+     'normal': config.layoutMode === 1,
+     'legacy': config.layoutMode === 3,
+     'compact': config.layoutMode === 2
+      }">
   <div id="name">
     <strong>
       <span *ngIf="player.clan"
@@ -20,8 +31,8 @@
   </div>
   <div id="karma">
     <app-value-label label="Karma" [icon]="faHeart">
-      <span [pTooltip]="(('monitor.karma.game' | translate) + player.karma + '\n' + ('monitor.karma.wowsKarma' | translate) + (player.wowsKarma != null ? player.wowsKarma : 'N/A'))" 
-        tooltipPosition="bottom" [style.color]="mixedKarmaColor | sanitizeCss">
+      <span [pTooltip]="(('monitor.karma.game' | translate) + player.karma + '\n' + ('monitor.karma.wowsKarma' | translate) + (player.wowsKarma != null ? player.wowsKarma : 'N/A'))"
+            tooltipPosition="bottom" [style.color]="mixedKarmaColor | sanitizeCss">
           <strong>{{mixedKarma}}</strong>
       </span>
     </app-value-label>

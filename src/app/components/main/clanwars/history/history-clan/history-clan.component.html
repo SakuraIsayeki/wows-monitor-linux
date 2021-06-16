@@ -25,19 +25,19 @@
       <app-clanrating-info [rating]="clan.bravoRating"></app-clanrating-info>
     </div>
 
-    <p-paginator [rows]="service.form.pageSize.value" [first]="service.first" [totalRecords]="service.totalCount"
-      [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.onPage($event)">
+    <p-paginator [rows]="service.form.pageSize.value" [first]="service.primeNgFirst" [totalRecords]="service.result?.totalCount"
+      [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.primeNgLazyLoad($event)">
     </p-paginator>
-    <a class="round-icon-button reload-list" (click)="service.load()">
+    <a class="round-icon-button reload-list" (click)="service.reload()">
       <fa-icon [icon]="faRedo"></fa-icon>
     </a>
   </div>
 </p-card>
-<div *ngFor="let item of service.items">
+<div *ngFor="let item of service.result?.items">
   <p-card class="no-padding">
     <app-match-item [match]="item" [clanId]="service.form.clanId.value"></app-match-item>
   </p-card>
 </div>
-<p-paginator *ngIf="service.items.length > 0" [first]="service.first" [rows]="service.form.pageSize.value"
-  [totalRecords]="service.totalCount" [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.onPage($event)">
+<p-paginator [rows]="service.form.pageSize.value" [first]="service.primeNgFirst" [totalRecords]="service.result?.totalCount"
+             [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.primeNgLazyLoad($event)">
 </p-paginator>

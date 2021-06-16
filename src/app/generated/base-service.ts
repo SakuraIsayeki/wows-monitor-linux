@@ -1,10 +1,13 @@
 /* tslint:disable */
-import { ApiConfiguration } from './api-configuration';
+/* eslint-disable */
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ApiConfiguration } from './api-configuration';
 
 /**
  * Base class for services
  */
+@Injectable()
 export class BaseService {
   constructor(
     protected config: ApiConfiguration,

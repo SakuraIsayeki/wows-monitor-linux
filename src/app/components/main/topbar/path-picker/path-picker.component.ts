@@ -1,14 +1,14 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { faFolder } from '@fortawesome/free-solid-svg-icons';
-import { TranslateService } from '@ngx-translate/core';
-import { DialogService } from 'primeng/dynamicdialog';
-import { combineLatest, Subscription } from 'rxjs';
-import { debounceTime, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base.component';
+import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { DirectoryService, DirectoryServiceToken } from '@interfaces/directory.service';
 import { SignalrService, SignalrServiceToken, SignalrStatus } from '@interfaces/signalr.service';
+import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@services/api.service';
-import { Config } from '@config/config';
+import { SettingsService } from '@services/settings.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { combineLatest, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { PathPickerDialogComponent } from './path-picker-dialog/path-picker-dialog.component';
 
 @Component({
@@ -26,7 +26,7 @@ export class PathPickerComponent extends BaseComponent implements OnInit, OnDest
     private apiService: ApiService,
     @Inject(SignalrServiceToken) private signalRService: SignalrService,
     @Inject(DirectoryServiceToken) public directoryService: DirectoryService,
-    public config: Config
+    public settingsService: SettingsService
   ) {
     super();
   }

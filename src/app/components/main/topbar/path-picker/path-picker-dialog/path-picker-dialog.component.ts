@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
 import { BaseComponent } from '@components/base.component';
 import { DirectoryService, DirectoryServiceToken } from '@interfaces/directory.service';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
-import { Config } from '@config/config';
+import { SettingsService } from '@services/settings.service';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-path-picker-dialog',
@@ -11,13 +11,13 @@ import { Config } from '@config/config';
 })
 export class PathPickerDialogComponent extends BaseComponent implements OnInit {
 
-  paths = this.config.configtoolConfig.clientPaths.filter(p => p);
+  paths = this.settingsService.form.configtoolConfig.clientPaths.model.filter(p => p);
   options: SelectItem[] = [];
 
   constructor(
     @Inject(ElectronServiceToken) private electronService: ElectronService,
     @Inject(DirectoryServiceToken) public directoryService: DirectoryService,
-    public config: Config,
+    public settingsService: SettingsService
   ) {
     super();
   }
@@ -28,23 +28,22 @@ export class PathPickerDialogComponent extends BaseComponent implements OnInit {
 
   async pickPath() {
     const odr = await this.electronService.dialog.showOpenDialog(this.electronService.remote.BrowserWindow.getFocusedWindow(), {
-      defaultPath: this.config.selectedDirectory,
+      defaultPath: this.settingsService.form.selectedDirectory.model,
       properties: ['openDirectory']
     });
     if (odr && odr.filePaths && odr.filePaths.length > 0) {
       this.ngZone.run(() => {
         const path = odr.filePaths[0];
         this.logDebug('Directory selected', path);
-        this.config.mainClient = path;
-        this.config.selectedDirectory = path;
-        this.config.save();
+        this.settingsService.form.mainClient.setValue(path);
+        this.settingsService.form.selectedDirectory.setValue(path);
         this.setOptions();
       });
     }
   }
 
   private setOptions() {
-    this.options = [{ label: this.config.mainClient, value: this.config.mainClient },
-    ...this.config.configtoolConfig.clientPaths.map(p => <SelectItem>{ label: p, value: p })];
+    this.options = [{ label: this.settingsService.form.mainClient.model, value: this.settingsService.form.mainClient.model },
+      ...this.settingsService.form.configtoolConfig.clientPaths.model.map(p => <SelectItem> { label: p, value: p })];
   }
 }

@@ -1,7 +1,7 @@
 import { Inject } from '@angular/core';
+import { SettingsService } from '@services/settings.service';
 import { BehaviorSubject } from 'rxjs';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
-import { Config } from '@config/config';
 import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 import { UpdateService } from '@interfaces/update.service';
 
@@ -22,7 +22,7 @@ export class ElectronUpdateService implements UpdateService {
 
   constructor(
     @Inject(ElectronServiceToken) private electronService: ElectronService,
-    private config: Config,
+    private settingsService: SettingsService,
     @Inject(LoggerServiceToken) private loggerService: LoggerService
   ) {
     electronService.ipcRenderer.on('checking-for-update', () => { });
@@ -54,8 +54,8 @@ export class ElectronUpdateService implements UpdateService {
 
 
   async checkForUpdate() {
-    await this.config.waitTillLoaded();
-    if (this.config.autoUpdate && this.electronService.isWindows()) {
+    await this.settingsService.waitForInitialized();
+    if (this.settingsService.form.monitorConfig.autoUpdate.model && this.electronService.isWindows()) {
       this.electronService.ipcRenderer.send('checkForUpdate');
     } else {
       this._$updateAvailable.next(false);

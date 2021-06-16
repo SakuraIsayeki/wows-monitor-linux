@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 import { Relation } from './relation';
 export interface Vehicle {
   id?: number;
@@ -6,3 +7,4 @@ export interface Vehicle {
   relation?: Relation;
   shipId?: number;
 }
+

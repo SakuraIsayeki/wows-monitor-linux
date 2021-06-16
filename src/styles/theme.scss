@@ -1876,14 +1876,14 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-button.p-button-success, .p-buttonset.p-button-success > .p-button, .p-splitbutton.p-button-success > .p-button {
-  color: $textColor;
+  color: #fff;
   background: #34a835;
   border: 1px solid #34a835
 }
 
 .p-button.p-button-success:enabled:hover, .p-buttonset.p-button-success > .p-button:enabled:hover, .p-splitbutton.p-button-success > .p-button:enabled:hover {
   background: #2f9730;
-  color: $textColor;
+  color: #fff;
   border-color: #2f9730
 }
 
@@ -1893,7 +1893,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 
 .p-button.p-button-success:enabled:active, .p-buttonset.p-button-success > .p-button:enabled:active, .p-splitbutton.p-button-success > .p-button:enabled:active {
   background: #2a862a;
-  color: $textColor;
+  color: #fff;
   border-color: #2a862a
 }
 

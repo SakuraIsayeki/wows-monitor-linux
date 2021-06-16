@@ -1,11 +1,11 @@
 import { Component, Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, NavigationEnd, RouterStateSnapshot } from '@angular/router';
 import { BaseComponent } from '@components/base.component';
-import { Config } from '@config/config';
 import { environment } from '@environments/environment';
 import { UpdateService, UpdateServiceToken } from '@interfaces/update.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AppInitService } from '@services/app-init.service';
+import { SettingsService } from '@services/settings.service';
 import { PrimeNGConfig } from 'primeng/api';
 import { forkJoin, Observable, of } from 'rxjs';
 import { fromPromise } from 'rxjs/internal-compatibility';
@@ -86,7 +86,7 @@ export class AppActivator implements CanActivate, CanActivateChild {
   constructor(private primeNgConfig: PrimeNGConfig,
               private translate: TranslateService,
               private appInit: AppInitService,
-              private config: Config
+              private settingsService: SettingsService
               // @Inject(AUTHSERVICETOKEN) private authService: AuthService
   ) {
 
@@ -105,7 +105,7 @@ export class AppActivator implements CanActivate, CanActivateChild {
     return forkJoin([
       this.appInit.isInitialized$.pipe(first(x => x)),
       this.translate.use(this.translate.getBrowserLang()),
-      fromPromise(this.config.waitTillLoaded())
+      this.settingsService.initialize(),
       /*, this.authService.isLoaded$.pipe(first(v => v))*/])
       .pipe(map(v => true), tap(() => {
         this.translate.get('primeng').subscribe(res => this.primeNgConfig.setTranslation(res));

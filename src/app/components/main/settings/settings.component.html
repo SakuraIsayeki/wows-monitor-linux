@@ -1,5 +1,5 @@
 <div class="floating-buttons">
-  <a routerLink="/home" class="round-icon-button">
+  <a routerLink="/" class="round-icon-button">
     <fa-icon [icon]="faDesktop" [fixedWidth]="true"></fa-icon>
   </a>
 </div>
@@ -18,7 +18,7 @@
             {{ 'settings.general.autoUpdate.summary' | translate }}
           </summary>
           <div class="input-wrap">
-            <p-inputSwitch [(ngModel)]="config.autoUpdate"></p-inputSwitch>
+            <p-inputSwitch [formControl]="monitorConfig.autoUpdate"></p-inputSwitch>
           </div>
         </article>
         <article *isDesktop>
@@ -29,7 +29,7 @@
             {{ 'settings.general.allowBeta.summary' | translate }}
           </summary>
           <div class="input-wrap">
-            <p-inputSwitch [(ngModel)]="config.allowBeta"></p-inputSwitch>
+            <p-inputSwitch [formControl]="monitorConfig.allowBeta"></p-inputSwitch>
           </div>
         </article>
       </ng-container>
@@ -41,10 +41,10 @@
           {{ 'settings.general.enableAnalytics.summary' | translate }}
         </summary>
         <div class="input-wrap">
-          <p-inputSwitch [(ngModel)]="config.enableAnalytics"></p-inputSwitch>
+          <p-inputSwitch [formControl]="monitorConfig.enableAnalytics"></p-inputSwitch>
         </div>
       </article>
-      <article [class.disabled]="!config.enableAnalytics">
+      <article [class.disabled]="!monitorConfig.enableAnalytics">
         <caption>
           {{ 'settings.general.anonymIp.caption' | translate }}
         </caption>
@@ -52,7 +52,7 @@
           {{ 'settings.general.anonymIp.summary' | translate }}
         </summary>
         <div class="input-wrap">
-          <p-inputSwitch [(ngModel)]="config.anonymIp"></p-inputSwitch>
+          <p-inputSwitch [formControl]="monitorConfig.anonymIp"></p-inputSwitch>
         </div>
       </article>
       <article *isDesktop>
@@ -63,7 +63,7 @@
           {{ 'settings.general.closeToTray.summary' | translate }}
         </summary>
         <div class="input-wrap">
-          <p-inputSwitch [(ngModel)]="config.closeToTray"></p-inputSwitch>
+          <p-inputSwitch [formControl]="monitorConfig.closeToTray"></p-inputSwitch>
         </div>
       </article>
     </section>
@@ -78,7 +78,7 @@
           {{ 'settings.appearance.fontsize.summary' | translate }}
         </summary>
         <div class="input-wrap">
-          <p-selectButton [options]="fontSizeOptions" [(ngModel)]="config.fontsize">
+          <p-selectButton [options]="fontSizeOptions" [formControl]="monitorConfig.fontSize">
             <ng-template let-item>
               <span class="p-button-text p-clickable ng-star-inserted">{{item.label$ | async}}</span>
             </ng-template>
@@ -93,7 +93,7 @@
           {{ 'settings.appearance.layoutMode.summary' | translate }}
         </summary>
         <div class="input-wrap">
-          <p-selectButton [options]="layoutModeOptions" [(ngModel)]="config.layoutMode">
+          <p-selectButton [options]="layoutModeOptions" [formControl]="monitorConfig.layoutMode">
             <ng-template let-item>
               <span class="p-button-text p-clickable ng-star-inserted">{{item.label$ | async}}</span>
             </ng-template>
@@ -108,7 +108,7 @@
           {{ 'settings.appearance.highContrastMode.summary' | translate }}
         </summary>
         <div class="input-wrap">
-          <p-inputSwitch [(ngModel)]="config.highContrastMode"></p-inputSwitch>
+          <p-inputSwitch [formControl]="monitorConfig.highContrastMode"></p-inputSwitch>
         </div>
       </article>
       <article>
@@ -119,14 +119,14 @@
           {{ 'settings.appearance.playerBackgroundsMode.summary' | translate }}
         </summary>
         <div class="input-wrap">
-          <p-selectButton [options]="playerBackgroundsModeOptions" [(ngModel)]="config.playerBackgroundsMode">
+          <p-selectButton [options]="playerBackgroundsModeOptions" [formControl]="monitorConfig.playerBackgroundsMode">
             <ng-template let-item>
               <span class="p-button-text p-clickable ng-star-inserted">{{item.label$ | async}}</span>
             </ng-template>
           </p-selectButton>
         </div>
       </article>
-      <article [class.disabled]="config.playerBackgroundsMode == 'disabled'">
+      <article [class.disabled]="monitorConfig.playerBackgroundsMode == 'disabled'">
         <caption>
           {{ 'settings.appearance.playerBackgrounds.caption' | translate }}
         </caption>
@@ -134,12 +134,12 @@
           {{ 'settings.appearance.playerBackgrounds.summary' | translate }}
         </summary>
         <div class="input-wrap">
-          <p-selectButton [options]="playerBackgroundsOptions" [(ngModel)]="config.playerBackgrounds">
+          <p-selectButton [options]="playerBackgroundsOptions" [formControl]="monitorConfig.playerBackgrounds">
             <ng-template let-item>
               <span class="p-button-text p-clickable ng-star-inserted">{{item.label$ | async}}</span>
             </ng-template>
           </p-selectButton>
-          <!-- <p-dropdown appendTo="body" [options]="playerBackgroundsOptions" [(ngModel)]="config.playerBackgrounds">
+          <!-- <p-dropdown appendTo="body" [options]="playerBackgroundsOptions" [formControl]="config.playerBackgrounds">
             <ng-template let-item pTemplate="selectedItem">
               {{item.label | translate}}
             </ng-template>
@@ -157,7 +157,7 @@
           {{ 'settings.appearance.coloredValues.summary' | translate }}
         </summary>
         <div class="input-wrap">
-          <p-inputSwitch [(ngModel)]="config.coloredValues"></p-inputSwitch>
+          <p-inputSwitch [formControl]="monitorConfig.coloredValues"></p-inputSwitch>
         </div>
       </article>
       <article>
@@ -169,14 +169,14 @@
           <a (click)="showExaplanationDialog = true">{{'settings.appearance.teamWinrate.explanation' | translate}}</a>
         </summary>
         <p-dialog [header]="'settings.appearance.teamWinrate.explanation' | translate"
-          [(visible)]="showExaplanationDialog" [style]="{'max-width': '600px'}" [modal]="true">
+                  [(visible)]="showExaplanationDialog" [style]="{'max-width': '600px'}" [modal]="true">
           <p externalLink>
-            <strong>Average (Mean) and Median</strong> <br />
+            <strong>Average (Mean) and Median</strong> <br/>
             <a
-              href="https://www.purplemath.com/modules/meanmode.htm">https://www.purplemath.com/modules/meanmode.htm</a>
+                    href="https://www.purplemath.com/modules/meanmode.htm">https://www.purplemath.com/modules/meanmode.htm</a>
           </p>
           <p>
-            <strong>Weighted</strong> <br />
+            <strong>Weighted</strong> <br/>
             Weighted calculates the average by taking all wins divided by all battles, so that players with less battles
             have less impact on the end result. However, it caps the battles at 40. Meaning all players with more than
             40 battles are weighted equally.
@@ -195,7 +195,7 @@ weighted_WR = total_wins/total_battles
         </pre>
         </p-dialog>
         <div class="input-wrap">
-          <p-selectButton [options]="teamWinrateOptions" [(ngModel)]="config.teamWinrate">
+          <p-selectButton [options]="teamWinrateOptions" [formControl]="monitorConfig.teamWinrate">
             <ng-template let-item>
               <span class="p-button-text p-clickable ng-star-inserted">{{item.label$ | async}}</span>
             </ng-template>
@@ -214,10 +214,11 @@ weighted_WR = total_wins/total_battles
         </summary>
         <div class="input-wrap">
           <div class="p-inputgroup">
-            <input pInputText [title]="config.overwriteReplaysDirectory" type="text" [disabled]="true"
-              [(ngModel)]="config.overwriteReplaysDirectory">
-            <button *ngIf="config.overwriteReplaysDirectory" (click)="config.overwriteReplaysDirectory = ''" pButton
-              type="button" icon="pi pi-times"></button>
+            <input pInputText [title]="monitorConfig.overwriteReplaysDirectory.value" type="text" [disabled]="true"
+                   [formControl]="monitorConfig.overwriteReplaysDirectory">
+            <button *ngIf="monitorConfig.overwriteReplaysDirectory.value" (click)="monitorConfig.overwriteReplaysDirectory.setValue(null)"
+                    pButton
+                    type="button" icon="pi pi-times"></button>
             <button pButton type="button" icon="pi pi-folder" (click)="selectReplaysPath()"></button>
           </div>
         </div>

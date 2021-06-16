@@ -1,11 +1,12 @@
 import { AfterViewInit, Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
-import { Config } from '@config/config';
 import { faPaintBrush, faWifi } from '@fortawesome/free-solid-svg-icons';
+import { FontSize } from '@generated/models';
 import { PlayerInfo } from '@generated/models/player-info';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
 import { SignalrService, SignalrServiceToken } from '@interfaces/signalr.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SettingsService } from '@services/settings.service';
 import { WowsKarmaPipe } from '@shared/pipes/wows-karma.pipe';
 import { WowsNumbersPipe } from '@shared/pipes/wows-numbers.pipe';
 import { MenuItem } from 'primeng/api';
@@ -28,14 +29,14 @@ export class MonitorComponent extends BaseComponent implements OnInit, AfterView
   contextMenu: ContextMenu;
 
   get $fontSizeClass() {
-    return this.config.$fontsize.pipe(map(fz => 'fz-' + fz));
+    return this.settingsService.form.monitorConfig.fontSize.valueChanges.pipe(map(fz => 'fz-' + FontSize[fz]));
   }
 
   constructor(
     private translateService: TranslateService,
     @Inject(SignalrServiceToken) public signalrService: SignalrService,
     @Optional() @Inject(ElectronServiceToken) private electronService: ElectronService,
-    public config: Config
+    public settingsService: SettingsService
   ) {
     super();
   }

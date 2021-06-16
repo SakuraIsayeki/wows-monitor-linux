@@ -2,11 +2,11 @@ import { app, BrowserWindow, globalShortcut, Menu, screen, Tray } from 'electron
 import * as logger from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 import * as WindowStateKeeper from 'electron-window-state';
-import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import * as url from 'url';
 import { initElectronLogger } from './electron-log';
+import { loadConfig } from './load-config';
 import { initUpdater } from './update-tasks';
 
 // Initialize remote module
@@ -28,7 +28,7 @@ if (isDebug) {
 
 autoUpdater.logger = logger;
 
-function appReady() {
+async function appReady() {
   let isQuitting = false;
 
   logger.debug('[Electron]', '(appReady)', __dirname, isDebug);
@@ -57,14 +57,14 @@ function appReady() {
     width: mainWindowState.width,
     height: mainWindowState.height,
     minWidth: 650,
-    frame: isWindows ? false : true,
+    frame: !isWindows,
     icon: iconPath,
     webPreferences: {
       nodeIntegration: true,
       webSecurity: false,
       contextIsolation: false,
       enableRemoteModule: true,
-      allowRunningInsecureContent: isDebug ? true : false
+      allowRunningInsecureContent: isDebug
     }
   });
 
@@ -72,14 +72,8 @@ function appReady() {
 
   mainWindowState.manage(win);
 
-  const configBasePath = isWindows
-    ? path.join(process.env.APPDATA, '@wows-monitor')
-    : path.join(process.env.HOME, '.config', '@wows-monitor');
-
-  const configPath = !isDebug ? path.join(configBasePath, 'config.json') : 'config.json';
-
-  win.on('close', (event) => {
-    const config = fs.readFileSync(configPath, { encoding: 'utf-8' });
+  win.on('close', async (event) => {
+    const config = await loadConfig(win);
     try {
       if (JSON.parse(config).closeToTray && !isQuitting) {
         event.preventDefault();
@@ -114,7 +108,7 @@ function appReady() {
   tray.setContextMenu(contextMenu);
 
   if (isWindows) {
-    initUpdater(logger, win, isDebug, configPath);
+    await initUpdater(logger, win, isDebug);
   }
 
   initElectronLogger(logger);
@@ -149,7 +143,6 @@ function appReady() {
     win = null;
   });
 }
-
 
 try {
 

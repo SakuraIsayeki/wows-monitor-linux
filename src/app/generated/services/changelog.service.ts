@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { BaseService } from '../base-service';
@@ -33,16 +34,14 @@ export class ChangelogService extends BaseService {
    * This method doesn't expect any request body.
    */
   changelogLatest$Response(params?: {
-    channel?: null | string;
-
+    channel?: string;
   }): Observable<StrictHttpResponse<ChangelogResponse>> {
 
     const rb = new RequestBuilder(this.rootUrl, ChangelogService.ChangelogLatestPath, 'get');
     if (params) {
-
-      rb.query('channel', params.channel);
-
+      rb.query('channel', params.channel, {});
     }
+
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json'
@@ -61,8 +60,7 @@ export class ChangelogService extends BaseService {
    * This method doesn't expect any request body.
    */
   changelogLatest(params?: {
-    channel?: null | string;
-
+    channel?: string;
   }): Observable<ChangelogResponse> {
 
     return this.changelogLatest$Response(params).pipe(
@@ -82,16 +80,14 @@ export class ChangelogService extends BaseService {
    * This method doesn't expect any request body.
    */
   changelogIds$Response(params?: {
-    channel?: null | string;
-
+    channel?: string;
   }): Observable<StrictHttpResponse<Array<number>>> {
 
     const rb = new RequestBuilder(this.rootUrl, ChangelogService.ChangelogIdsPath, 'get');
     if (params) {
-
-      rb.query('channel', params.channel);
-
+      rb.query('channel', params.channel, {});
     }
+
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json'
@@ -110,8 +106,7 @@ export class ChangelogService extends BaseService {
    * This method doesn't expect any request body.
    */
   changelogIds(params?: {
-    channel?: null | string;
-
+    channel?: string;
   }): Observable<Array<number>> {
 
     return this.changelogIds$Response(params).pipe(
@@ -131,16 +126,14 @@ export class ChangelogService extends BaseService {
    * This method doesn't expect any request body.
    */
   changelogList$Response(params?: {
-    channel?: null | string;
-
+    channel?: string;
   }): Observable<StrictHttpResponse<Array<ChangelogResponse>>> {
 
     const rb = new RequestBuilder(this.rootUrl, ChangelogService.ChangelogListPath, 'get');
     if (params) {
-
-      rb.query('channel', params.channel);
-
+      rb.query('channel', params.channel, {});
     }
+
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json'
@@ -159,8 +152,7 @@ export class ChangelogService extends BaseService {
    * This method doesn't expect any request body.
    */
   changelogList(params?: {
-    channel?: null | string;
-
+    channel?: string;
   }): Observable<Array<ChangelogResponse>> {
 
     return this.changelogList$Response(params).pipe(
@@ -181,15 +173,13 @@ export class ChangelogService extends BaseService {
    */
   changelogDetail$Response(params?: {
     id?: number;
-
   }): Observable<StrictHttpResponse<ChangelogResponse>> {
 
     const rb = new RequestBuilder(this.rootUrl, ChangelogService.ChangelogDetailPath, 'post');
     if (params) {
-
-      rb.query('id', params.id);
-
+      rb.query('id', params.id, {});
     }
+
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json'
@@ -209,7 +199,6 @@ export class ChangelogService extends BaseService {
    */
   changelogDetail(params?: {
     id?: number;
-
   }): Observable<ChangelogResponse> {
 
     return this.changelogDetail$Response(params).pipe(

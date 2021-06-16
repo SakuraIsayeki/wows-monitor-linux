@@ -2,9 +2,8 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { ErrorHandler, forwardRef, Inject, Injectable, Injector, NgModule, Provider } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ConnectComponent } from '@components/connect/connect.component';
-import { DefaultComponent } from '@components/default/default.component';
-import { appConfig } from '@config/app.config';
 import { environment } from '@environments/environment';
+import { staticValues } from '@environments/static-values';
 import { ApiModule } from '@generated/api.module';
 import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
@@ -12,15 +11,16 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateParser, TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@services/api.service';
 import { AppInitService } from '@services/app-init.service';
-import { ClanWarsHistoryService } from '@services/clanwars-history.service';
 import { ClientIdHttpInterceptor } from '@services/client-id.http-interceptor';
 import { ClientVersionHttpInterceptor } from '@services/client-version.http-interceptor';
 import { CommonErrorHandler } from '@services/common-error.handler';
 import { CustomMissingTranslationHandler } from '@services/custom-missing-translation.handler';
+import { CwHistoryListService } from '@services/cw-history-list.service';
 import { LivefeedService } from '@services/livefeed.service';
 import { RegionRequestInterceptor } from '@services/region-request.interceptor';
 import { ResizeService } from '@services/resize.service';
 import { ScrollService } from '@services/scroll.service';
+import { SettingsService } from '@services/settings.service';
 import { CoreModule, CustomDefaultTranslateHttpLoader, CustomTranslateParser, ErrorModule, LocatorService } from '@stewie/framework';
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@stewie/meta';
 import { MessageService } from 'primeng/api';
@@ -53,9 +53,9 @@ const metaFactory = (translate: TranslateService) => {
     },
     pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
     pageTitleSeparator: ' - ',
-    applicationName: appConfig.defautTitle,
+    applicationName: staticValues.defautTitle,
     defaults: {
-      title: appConfig.defautTitle
+      title: staticValues.defautTitle
     }
   });
 };
@@ -70,12 +70,10 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
   declarations: [
     AppWrapperComponent,
     AppComponent,
-    DefaultComponent,
     ConnectComponent
   ],
   exports: [
     AppComponent,
-    DefaultComponent,
     ConnectComponent
   ],
   imports: [
@@ -121,11 +119,12 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     ResizeService,
     LoggerServiceDepHolder,
     MessageService,
+    SettingsService,
     ClientIdHttpInterceptor,
     ClientVersionHttpInterceptor,
     LivefeedService,
-    ClanWarsHistoryService,
-    ScrollService
+    ScrollService,
+    CwHistoryListService
   ]
 })
 export class AppSharedModule {

@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 import { ClanInfo } from './clan-info';
 import { MapInfo } from './map-info';
 import { MatchGroup } from './match-group';
@@ -9,11 +10,14 @@ export interface MatchInfo {
   enemy?: null | Array<PlayerInfo>;
   enemyClan?: null | ClanInfo;
   enemyTeam?: null | TeamAverage;
+  enemyTeamSolo?: null | TeamAverage;
   friendly?: null | Array<PlayerInfo>;
   friendlyClan?: null | ClanInfo;
   friendlyTeam?: null | TeamAverage;
+  friendlyTeamSolo?: null | TeamAverage;
   map?: null | MapInfo;
   matchGroup?: MatchGroup;
   rankedSeason?: null | number;
   rankedSeasonName?: null | string;
 }
+

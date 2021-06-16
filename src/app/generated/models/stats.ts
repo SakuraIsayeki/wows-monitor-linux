@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 export interface Stats {
   averageDamage?: number;
   averageDamageColor?: null | string;
@@ -13,3 +14,4 @@ export interface Stats {
   winrateColor?: null | string;
   wins?: number;
 }
+

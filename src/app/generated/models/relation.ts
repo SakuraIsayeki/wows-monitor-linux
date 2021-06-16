@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 export enum Relation {
   Self = 0,
   Friendly = 1,

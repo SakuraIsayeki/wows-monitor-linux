@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { staticValues } from '@environments/static-values';
 import { faWindowClose, faWindowMaximize, faWindowMinimize, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 import { MetaService } from '@stewie/meta';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
-import { appConfig } from '@config/app.config';
 import { BaseComponent } from '@components/base.component';
 
 @Component({
@@ -21,7 +21,7 @@ export class TitlebarComponent extends BaseComponent implements OnInit, AfterVie
   }
 
   get title() {
-    return appConfig.applicationName;
+    return staticValues.applicationName;
   }
 
   constructor(@Inject(ElectronServiceToken) private electronService: ElectronService, private metaService: MetaService) {

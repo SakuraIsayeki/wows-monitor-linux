@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { BaseService } from '../base-service';
@@ -38,14 +39,12 @@ export class ClansService extends BaseService {
    * This method doesn't expect any request body.
    */
   clansDummyRequest$Response(params?: {
-
   }): Observable<StrictHttpResponse<LivefeedItem>> {
 
     const rb = new RequestBuilder(this.rootUrl, ClansService.ClansDummyRequestPath, 'get');
     if (params) {
-
-
     }
+
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json'
@@ -64,7 +63,6 @@ export class ClansService extends BaseService {
    * This method doesn't expect any request body.
    */
   clansDummyRequest(params?: {
-
   }): Observable<LivefeedItem> {
 
     return this.clansDummyRequest$Response(params).pipe(
@@ -84,16 +82,14 @@ export class ClansService extends BaseService {
    * This method doesn't expect any request body.
    */
   clansAutocomplete$Response(params?: {
-    query?: null | string;
-
+    query?: string;
   }): Observable<StrictHttpResponse<Array<ClanSearchResult>>> {
 
     const rb = new RequestBuilder(this.rootUrl, ClansService.ClansAutocompletePath, 'post');
     if (params) {
-
-      rb.query('query', params.query);
-
+      rb.query('query', params.query, {});
     }
+
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json'
@@ -112,8 +108,7 @@ export class ClansService extends BaseService {
    * This method doesn't expect any request body.
    */
   clansAutocomplete(params?: {
-    query?: null | string;
-
+    query?: string;
   }): Observable<Array<ClanSearchResult>> {
 
     return this.clansAutocomplete$Response(params).pipe(
@@ -133,16 +128,14 @@ export class ClansService extends BaseService {
    * This method doesn't expect any request body.
    */
   clansResolveIds$Response(params?: {
-    ids?: null | string;
-
+    ids?: string;
   }): Observable<StrictHttpResponse<Array<ClanSearchResult>>> {
 
     const rb = new RequestBuilder(this.rootUrl, ClansService.ClansResolveIdsPath, 'post');
     if (params) {
-
-      rb.query('ids', params.ids);
-
+      rb.query('ids', params.ids, {});
     }
+
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json'
@@ -161,8 +154,7 @@ export class ClansService extends BaseService {
    * This method doesn't expect any request body.
    */
   clansResolveIds(params?: {
-    ids?: null | string;
-
+    ids?: string;
   }): Observable<Array<ClanSearchResult>> {
 
     return this.clansResolveIds$Response(params).pipe(
@@ -182,14 +174,12 @@ export class ClansService extends BaseService {
    * This method doesn't expect any request body.
    */
   clansSeasons$Response(params?: {
-
   }): Observable<StrictHttpResponse<Array<ClanSeason>>> {
 
     const rb = new RequestBuilder(this.rootUrl, ClansService.ClansSeasonsPath, 'get');
     if (params) {
-
-
     }
+
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json'
@@ -208,7 +198,6 @@ export class ClansService extends BaseService {
    * This method doesn't expect any request body.
    */
   clansSeasons(params?: {
-
   }): Observable<Array<ClanSeason>> {
 
     return this.clansSeasons$Response(params).pipe(
@@ -229,17 +218,15 @@ export class ClansService extends BaseService {
    */
   clansDetail$Response(params: {
     id: number;
-    seasonId?: null | number;
-
+    seasonId?: number;
   }): Observable<StrictHttpResponse<ClanInfo>> {
 
     const rb = new RequestBuilder(this.rootUrl, ClansService.ClansDetailPath, 'post');
     if (params) {
-
-      rb.path('id', params.id);
-      rb.query('seasonId', params.seasonId);
-
+      rb.path('id', params.id, {});
+      rb.query('seasonId', params.seasonId, {});
     }
+
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json'
@@ -259,8 +246,7 @@ export class ClansService extends BaseService {
    */
   clansDetail(params: {
     id: number;
-    seasonId?: null | number;
-
+    seasonId?: number;
   }): Observable<ClanInfo> {
 
     return this.clansDetail$Response(params).pipe(
@@ -280,16 +266,14 @@ export class ClansService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   clansHistory$Response(params: {
-
     body: HistoryListRequest
   }): Observable<StrictHttpResponse<PagedResultOfCwClanMatch>> {
 
     const rb = new RequestBuilder(this.rootUrl, ClansService.ClansHistoryPath, 'post');
     if (params) {
-
-
       rb.body(params.body, 'application/json');
     }
+
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json'
@@ -308,7 +292,6 @@ export class ClansService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   clansHistory(params: {
-
     body: HistoryListRequest
   }): Observable<PagedResultOfCwClanMatch> {
 

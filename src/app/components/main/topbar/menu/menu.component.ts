@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { faCog, faDesktop, faFileAlt, faQuestionCircle, faShieldAlt, faWrench } from '@fortawesome/free-solid-svg-icons';
-import { BehaviorSubject, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base.component';
+import { faCog, faDesktop, faFileAlt, faQuestionCircle, faShieldAlt, faWrench } from '@fortawesome/free-solid-svg-icons';
 import { ChangelogService } from '@generated/services';
 import { MenuEntry } from '@interfaces/menu-entry';
-import { Config } from '@config/config';
+import { SettingsService } from '@services/settings.service';
+import { BehaviorSubject, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
@@ -30,17 +30,17 @@ export class MenuComponent extends BaseComponent implements OnInit {
       routerLink: '/configtool',
       icon: faWrench,
       browser: false,
-      desktop: true,
+      desktop: true
     },
     {
       key: 'meta.livefeed.title',
       routerLink: '/clanwars/livefeed',
-      icon: faShieldAlt,
+      icon: faShieldAlt
     },
     {
       key: 'meta.clanwars.title',
       routerLink: '/clanwars',
-      icon: faShieldAlt,
+      icon: faShieldAlt
     },
     {
       key: 'meta.changelogs.title',
@@ -63,7 +63,7 @@ export class MenuComponent extends BaseComponent implements OnInit {
 
   badge = combineLatest([...this.menu.filter(e => e.badge).map(e => e.badge)])
     .pipe(map(arr => {
-      return arr.some(b => b)
+      return arr.some(b => b);
     }));
 
 
@@ -72,11 +72,11 @@ export class MenuComponent extends BaseComponent implements OnInit {
       return arr.reduce((a, b) => a + b);
     }));
 
-  constructor(private changelogService: ChangelogService, private config: Config) {
+  constructor(private changelogService: ChangelogService, private settingsService: SettingsService) {
     super();
     combineLatest([
-      this.changelogService.changelogIds(this.config.allowBeta ? { channel: 'beta' } : null),
-      this.config.$seenChangelogs
+      this.changelogService.changelogIds(this.settingsService.form.monitorConfig.allowBeta.model ? { channel: 'beta' } : null),
+      this.settingsService.form.seenChangelogs.valueChanges
     ])
       .pipe(this.untilDestroy())
       .subscribe(arr => {

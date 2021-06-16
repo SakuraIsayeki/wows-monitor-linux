@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardModule } from 'primeng/card';
 import { InputSwitchModule } from 'primeng/inputswitch';
@@ -34,7 +34,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     ButtonModule,
     FontAwesomeModule,
     DialogModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    ReactiveFormsModule
   ],
   providers: [
   ]

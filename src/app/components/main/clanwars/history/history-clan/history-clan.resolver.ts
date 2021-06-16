@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
 import { ClanInfo } from '@generated/models';
 import { ClansService } from '@generated/services';
-import { ClanWarsHistoryService } from '@services/clanwars-history.service';
+import { CwHistoryListService } from '@services/cw-history-list.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class HistoryClanResolver implements Resolve<ClanInfo> {
-  constructor(private clansService: ClansService, private cwService: ClanWarsHistoryService) {
+  constructor(private clansService: ClansService, private cwService: CwHistoryListService) {
 
   }
 

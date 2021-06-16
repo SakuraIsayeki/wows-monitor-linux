@@ -1,23 +1,24 @@
 import { BrowserWindow, ipcMain } from 'electron';
 import * as electronLogger from 'electron-log';
 import { autoUpdater } from 'electron-updater';
-import * as fs from 'fs';
+import { loadConfig } from './load-config';
 
-export function initUpdater(logger: electronLogger.ElectronLog, win: BrowserWindow, isDebug: boolean, configPath: string) {
+export async function initUpdater(logger: electronLogger.ElectronLog, win: BrowserWindow, isDebug: boolean) {
   let allowBeta = false;
-  if (fs.existsSync(configPath)) {
-    const config = fs.readFileSync(configPath, { encoding: 'utf-8' });
-    try {
-      allowBeta = JSON.parse(config).allowBeta;
-    } catch (error) {
-      logger.error('[Electron]', '(initUpdater)', 'Error reading config json', error);
-    }
-  } else {
+
+  const config = await loadConfig(win);
+
+  try {
+    allowBeta = JSON.parse(config).monitorConfig.allowBeta;
+  } catch (error) {
+    logger.error('[Electron]', '(initUpdater)', 'Error reading config json', error);
   }
+  autoUpdater.channel = allowBeta ? 'beta' : 'latest';
+
 
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
-  autoUpdater.channel = allowBeta ? 'beta' : 'latest';
+
 
   ipcMain.on('checkForUpdate', (event, args) => {
     logger.debug('[Electron]', '(checkForUpdate)');

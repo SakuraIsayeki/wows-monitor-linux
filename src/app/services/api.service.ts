@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
+import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
+import { SettingsService } from '@services/settings.service';
 import { of } from 'rxjs';
-import { Config } from '@config/config';
 import { MatchGroup, Region, Relation, TempArenaInfo } from '../generated/models';
 import { StatsService } from '../generated/services';
-import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 
 @Injectable()
 export class ApiService {
@@ -12,7 +12,7 @@ export class ApiService {
   lastHash: string;
   static lastRegion: Region;
 
-  constructor(private statsService: StatsService, private config: Config, @Inject(LoggerServiceToken) private logger: LoggerService) {
+  constructor(private statsService: StatsService, private settingsService: SettingsService, @Inject(LoggerServiceToken) private logger: LoggerService) {
   }
 
   resendState() {
@@ -29,14 +29,14 @@ export class ApiService {
     }
 
     this.lastHash = hash;
-    if (this.config.forcePVP) {
+    if (this.settingsService.form.forcePVP.value) {
       tempArenaInfo.useMatchGroup = MatchGroup.PVP;
     }
     if (tempArenaInfo == null) {
       this.logger.error('StatsService', 'Error when reading tempArenaInfo. It\'s empty');
       return of(null);
     }
-    return this.statsService.statsSendStats({ token: this.config.signalRToken, body: tempArenaInfo });
+    return this.statsService.statsSendStats({ token: this.settingsService.form.signalRToken.value, body: tempArenaInfo });
   }
 
   private createHash(info: TempArenaInfo): string {

@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 export enum Region {
   EU = 0,
   NA = 1,

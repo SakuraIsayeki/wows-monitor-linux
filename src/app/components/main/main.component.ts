@@ -1,13 +1,12 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { DialogService } from 'primeng/dynamicdialog';
 import { ChangelogService } from '@generated/services';
-import { Config } from '@config/config';
+import { TranslateService } from '@ngx-translate/core';
+import { SettingsService } from '@services/settings.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { first } from 'rxjs/operators';
 import { BaseComponent } from '../base.component';
 import { AnalyticsInfoComponent } from './analytics-info/analytics-info.component';
 import { ChangelogComponent } from './changelogs/changelog/changelog.component';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main',
@@ -18,14 +17,14 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
   constructor(
     private translateService: TranslateService,
     private changelogsService: ChangelogService,
-    private config: Config,
+    private settingsService: SettingsService,
     private dialogService: DialogService) {
     super();
   }
 
   async ngAfterViewInit() {
-    await this.config.waitTillLoaded();
-    if (!this.config.analyticsInfoSeen) {
+    await this.settingsService.waitForInitialized();
+    if (!this.settingsService.form.analyticsInfoSeen.model) {
       this.showAnalyticsInfo();
     } else {
       this.showChangelogs();
@@ -36,7 +35,7 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
     const ref = this.dialogService.open(AnalyticsInfoComponent, {
       styleClass: 'custom-popup ' + (this.isDesktop ? 'desktop' : 'browser'),
       closable: false,
-      header: this.translateService.instant('analytics.dialogHeader'),
+      header: this.translateService.instant('analytics.dialogHeader')
     });
     ref.onClose.pipe(this.untilDestroy(), first()).subscribe(() => {
       this.showChangelogs();
@@ -44,10 +43,10 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
   }
 
   showChangelogs() {
-    this.changelogsService.changelogLatest(this.config.allowBeta ? { channel: 'beta' } : null)
+    this.changelogsService.changelogLatest(this.settingsService.form.monitorConfig.allowBeta.model ? { channel: 'beta' } : null)
       .pipe(this.untilDestroy())
       .subscribe(changelog => {
-        if (!this.config.seenChangelogs || !this.config.seenChangelogs.some(id => id == changelog.id)) {
+        if (!this.settingsService.form.seenChangelogs.model || !this.settingsService.form.seenChangelogs.model.some(id => id == changelog.id)) {
           const ref = this.dialogService.open(ChangelogComponent, {
             styleClass: 'custom-popup ' + (this.isDesktop ? 'desktop' : 'browser'),
             header: this.translateService.instant('changelogs.dialogHeader', { version: changelog.version }),
@@ -56,8 +55,7 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
             }
           });
           ref.onClose.pipe(this.untilDestroy()).subscribe(() => {
-            this.config.pushSeenChangelogs(changelog.id);
-            this.config.save();
+            this.settingsService.form.seenChangelogs.model.push(changelog.id);
           });
         }
       });

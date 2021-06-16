@@ -1,15 +1,15 @@
 import { Inject, Injectable } from '@angular/core';
+import { environment } from '@environments/environment';
+import { staticValues } from '@environments/static-values';
+import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
+import { SignalrService, SignalrSettings, SignalrStatus, Status } from '@interfaces/signalr.service';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import { SettingsService } from '@services/settings.service';
+import { BaseInjection } from '@stewie/framework';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
-import { SignalrService, SignalrSettings, SignalrStatus, Status } from '@interfaces/signalr.service';
-import { appConfig } from '@config/app.config';
-import { Config } from '@config/config';
-import { environment } from '@environments/environment';
-import { BaseInjection } from '@stewie/framework';
 import { LivefeedItem, MatchInfo } from '../generated/models';
 import { QrService } from '../generated/services';
-import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 
 @Injectable()
 export class CommonSignalrService extends BaseInjection implements SignalrService {
@@ -52,7 +52,7 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
   }
 
   constructor(
-    private config: Config,
+    private settingsService: SettingsService,
     @Inject(LoggerServiceToken) private loggerService: LoggerService,
     private qrService: QrService
   ) {
@@ -62,20 +62,19 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
   async init() {
 
     // Url Param Testing
-    const url = environment.apiUrl + appConfig.hub + '?host=' + (environment.desktop ? 'true' : 'false');
-    await this.config.waitTillLoaded();
-    let token = this.config.signalRToken;
+    const url = environment.apiUrl + staticValues.hub + '?host=' + (environment.desktop ? 'true' : 'false');
+    await this.settingsService.waitForInitialized();
+    let token = this.settingsService.form.signalRToken.model;
     if (!token) {
       if (environment.desktop) {
         token = await this.qrService.qrToken().toPromise();
-        this.config.signalRToken = token;
-        this.config.save();
+        this.settingsService.form.signalRToken.setValue(token);
       }
     }
 
     this._settings = {
-      token: this.config.signalRToken,
-      liveUpdate: this.config.livefeedConfig.liveUpdate
+      token: this.settingsService.form.signalRToken.model,
+      liveUpdate: this.settingsService.form.livefeedConfig.liveUpdate.model
     };
 
     this.connection = new HubConnectionBuilder()
@@ -106,7 +105,7 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
       if (environment.desktop) {
         this._$socketStatus.next(SignalrStatus.Connected);
       } else {
-        this._$socketStatus.next(this.config.signalRToken ? SignalrStatus.HostDisconnected : SignalrStatus.NoToken);
+        this._$socketStatus.next(this.settingsService.form.signalRToken.model ? SignalrStatus.HostDisconnected : SignalrStatus.NoToken);
       }
     });
 

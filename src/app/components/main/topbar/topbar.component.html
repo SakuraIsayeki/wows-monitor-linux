@@ -27,7 +27,7 @@
   <ng-container *isDesktop>
     <span class="forcepvp">
       <span>{{ 'monitor.forcePVP' | translate }}</span>
-      <p-inputSwitch [disabled]="switchDisabled" [(ngModel)]="config.forcePVP" (onChange)="changeForcePVP()"></p-inputSwitch>
+      <p-inputSwitch [disabled]="switchDisabled" [formControl]="settingsService.form.forcePVP"></p-inputSwitch>
     </span>
   </ng-container>
   <app-path-picker *isDesktop></app-path-picker>

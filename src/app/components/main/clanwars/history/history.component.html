@@ -5,31 +5,31 @@
     <div class="filters-wrap history-second">
       <div class="filter-wrap">
         <app-clan-search id="clansearch" [placeholder]="'clanwars.clansearch.placeholder' | translate"
-          (clanSelected)="clanSelected($event)">
+                         (clanSelected)="clanSelected($event)">
         </app-clan-search>
       </div>
       <div id="favsOnly" class="filter-wrap input-switch">
-        <p-inputSwitch [formControl]="service.form.onlyShowFavs"></p-inputSwitch>
+        <p-inputSwitch [formControl]="service.form.filterClanIds"></p-inputSwitch>
         <label>
           {{ 'clanwars.filters.favsOnly.labelHistory' | translate }}
         </label>
       </div>
       <div id="favorites" class="filter-wrap">
-        <app-favorite-input [control]="service.form.favClanIds"></app-favorite-input>
+        <app-favorite-input [control]="service.form.clanIds"></app-favorite-input>
       </div>
     </div>
-    <p-paginator [rows]="service.form.pageSize.value" [first]="service.first" [totalRecords]="service.totalCount"
-      [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.onPage($event)"></p-paginator>
-    <a class="round-icon-button reload-list" (click)="service.load()">
+    <p-paginator [rows]="service.form.pageSize.value" [first]="service.primeNgFirst" [totalRecords]="service.result?.totalCount"
+                 [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.primeNgLazyLoad($event)"></p-paginator>
+    <a class="round-icon-button reload-list" (click)="service.reload()">
       <fa-icon [icon]="faRedo"></fa-icon>
     </a>
   </div>
 </p-card>
-<div *ngFor="let item of service.items">
+<div *ngFor="let item of service.result?.items">
   <p-card class="no-padding">
     <app-match-item [match]="item"></app-match-item>
   </p-card>
 </div>
-<p-paginator *ngIf="service.items.length > 0" [first]="service.first" [rows]="service.form.pageSize.value"
-  [totalRecords]="service.totalCount" [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.onPage($event)">
+<p-paginator *ngIf="service.result?.items.length > 0" [first]="service.primeNgFirst" [rows]="service.form.pageSize.value"
+             [totalRecords]="service.result?.totalCount" [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.primeNgLazyLoad($event)">
 </p-paginator>

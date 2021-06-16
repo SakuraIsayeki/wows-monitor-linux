@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 export interface TeamAverage {
   medianOverallWinrate?: number;
   medianShipWinrate?: number;
@@ -13,3 +14,4 @@ export interface TeamAverage {
   weightedOverallWinrate?: number;
   weightedShipWinrate?: number;
 }
+

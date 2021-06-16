@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { SettingsService } from '@services/settings.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BaseComponent } from '@components/base.component';
-import { Config } from '@config/config';
 import { environment } from '@environments/environment';
 
 @Component({
@@ -15,13 +15,13 @@ export class QrComponent extends BaseComponent implements OnInit {
   closeIcon = faTimes;
 
   get tokenPath() {
-    return this.config.signalRToken ? environment.apiUrl + '/qr/image/' + this.config.signalRToken + '.png' : null;
+    return this.settingsService.form.signalRToken.model ? environment.apiUrl + '/qr/image/' + this.settingsService.form.signalRToken.model + '.png' : null;
   }
 
   tokenCopyUrl: string;
 
   constructor(
-    private config: Config,
+    private settingsService: SettingsService,
     private ref: DynamicDialogRef
   ) {
     super();
@@ -29,7 +29,7 @@ export class QrComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tokenCopyUrl = `${environment.appUrl}/connect/${this.config.signalRToken}`;
+    this.tokenCopyUrl = `${environment.appUrl}/connect/${this.settingsService.form.signalRToken.model}`;
   }
 
   copy(inputText: HTMLInputElement) {

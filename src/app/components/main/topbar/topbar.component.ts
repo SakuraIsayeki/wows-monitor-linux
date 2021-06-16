@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { Config } from '@config/config';
+import { BaseComponent } from '@components/base.component';
 import { faBars, faCompress, faExpand } from '@fortawesome/free-solid-svg-icons';
 import { SignalrService, SignalrServiceToken, Status } from '@interfaces/signalr.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@services/api.service';
+import { SettingsService } from '@services/settings.service';
 import { SelectItem } from 'primeng/api';
-import { BaseComponent } from '@components/base.component';
 import { MenuComponent } from './menu/menu.component';
 
 @Component({
@@ -50,7 +50,7 @@ export class TopbarComponent extends BaseComponent implements OnInit {
     private translateService: TranslateService,
     @Inject(SignalrServiceToken) public signalrService: SignalrService,
     public apiService: ApiService,
-    public config: Config,
+    public settingsService: SettingsService,
     private cd: ChangeDetectorRef
   ) {
     super();
@@ -90,7 +90,6 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   };
 
   async changeForcePVP() {
-    await this.config.save();
-    this.apiService.resendState();
+    this.settingsService.form.forcePVP.valueChanges.pipe(this.untilDestroy()).subscribe(() => this.apiService.resendState());
   }
 }

@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ChangelogResponse } from '@generated/models';
-import { Config } from '@config/config';
 import { BaseComponent } from '@components/base.component';
+import { ChangelogResponse } from '@generated/models';
+import { SettingsService } from '@services/settings.service';
 
 @Component({
   selector: 'app-changelogs',
@@ -12,7 +12,7 @@ export class ChangelogsComponent extends BaseComponent implements OnInit, OnDest
 
   selectedId: number;
 
-  constructor(public route: ActivatedRoute, private config: Config) {
+  constructor(public route: ActivatedRoute, private settingsService: SettingsService) {
     super();
   }
 
@@ -23,18 +23,16 @@ export class ChangelogsComponent extends BaseComponent implements OnInit, OnDest
   }
 
   isSeen(changelog: ChangelogResponse) {
-    return this.config.seenChangelogs && this.config.seenChangelogs.some(id => changelog.id == id)
+    return this.settingsService.form.seenChangelogs.value?.some(id => changelog.id == id);
   }
 
   selectChangelog(changelog: ChangelogResponse) {
     this.selectedId = changelog.id;
-    this.config.pushSeenChangelogs(changelog.id);
-    this.config.save();
+    this.settingsService.form.seenChangelogs.model?.push(changelog.id);
   }
 
   markAllAsSeen() {
-    this.config.pushSeenChangelogs(...this.route.snapshot.data.changelogs.map(c => c.id));
-    this.config.save();
+    this.settingsService.form.seenChangelogs.model?.push(...this.route.snapshot.data.changelogs.map(c => c.id));
   }
 
   ngOnDestroy() {

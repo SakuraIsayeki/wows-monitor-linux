@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
-import { ClanWarsHistoryService } from '@services/clanwars-history.service';
-import { ClansService } from '@generated/services';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
+import { ClansService } from '@generated/services';
+import { CwHistoryListService } from '@services/cw-history-list.service';
 
 @Component({
   selector: 'app-clan-search',
@@ -20,7 +20,7 @@ export class ClanSearchComponent extends BaseComponent implements OnInit, OnDest
   clanSelected = new EventEmitter<number>();
 
   constructor(
-    public cwService: ClanWarsHistoryService,
+    public cwService: CwHistoryListService,
     private clansService: ClansService
   ) {
     super();

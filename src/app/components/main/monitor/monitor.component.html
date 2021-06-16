@@ -1,5 +1,5 @@
 <div class="floating-buttons">
-  <a routerLink="/home/settings/appearance" class="round-icon-button">
+  <a routerLink="/settings/appearance" class="round-icon-button">
     <fa-icon [icon]="faPaintBrush" [fixedWidth]="true"></fa-icon>
   </a>
 </div>
@@ -14,15 +14,14 @@
     <app-team [clan]="matchInfo.enemyClan" [team]="matchInfo.enemyTeam" [cw]="matchInfo.matchGroup == 'CLAN'">
     </app-team>
   </p-card>
-  <div id="monitor-enemy-clan" *ngIf="matchInfo.matchGroup === 'COOPERATIVE' || matchInfo.matchGroup === 'PVE'"></div>
-  <p-card id="monitor-friendly" class="no-padding" [class.high-contrast-mode]="config.highContrastMode">
+  <p-card id="monitor-friendly" class="no-padding" [class.high-contrast-mode]="settingsService.form.monitorConfig.highContrastMode.model">
     <ng-container *ngFor="let player of matchInfo.friendly; let l = last; let f = first;">
       <app-player [player]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f">
       </app-player>
       <hr class="player-seperator" *ngIf="!l" />
     </ng-container>
   </p-card>
-  <p-card id="monitor-enemy" class="no-padding" [class.high-contrast-mode]="config.highContrastMode">
+  <p-card id="monitor-enemy" class="no-padding" [class.high-contrast-mode]="settingsService.form.monitorConfig.highContrastMode.model">
     <ng-container *ngFor="let player of matchInfo.enemy; let l = last; let f = first;">
       <app-player [player]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f">
       </app-player>

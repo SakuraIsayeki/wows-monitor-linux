@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, HostBinding, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
-import { ClanWarsHistoryService } from '@services/clanwars-history.service';
+import { CwHistoryListService } from '@services/cw-history-list.service';
 import { ClanwarsComponent } from '../clanwars.component';
-import { ApiService } from '@services/api.service';
 
 @Component({
   selector: 'app-general-filter',
@@ -18,7 +17,7 @@ export class GeneralFilterComponent extends BaseComponent implements OnInit, OnD
 
   constructor(
     public clanwars: ClanwarsComponent,
-    public service: ClanWarsHistoryService) {
+    public service: CwHistoryListService) {
     super();
   }
 

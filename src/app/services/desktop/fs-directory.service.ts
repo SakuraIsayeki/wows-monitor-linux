@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { Region } from '@generated/models';
+import { DirectoryService, DirectoryStatus } from '@interfaces/directory.service';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
+import { SettingsService } from '@services/settings.service';
 import { parse as parseXml2Json } from 'fast-xml-parser';
 import * as fs from 'fs';
 import { join as pathJoin, normalize as pathNormalize } from 'path';
 import { BehaviorSubject, combineLatest, interval, Subject, Subscription } from 'rxjs';
 import { debounceTime, filter, startWith, switchMap } from 'rxjs/operators';
-import { Region } from '@generated/models';
-import { DirectoryService, DirectoryStatus } from '@interfaces/directory.service';
-import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
-import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
-import { Config } from '@config/config';
 import { promisify } from 'util';
 
 @Injectable()
@@ -56,7 +56,7 @@ export class FsDirectoryService implements DirectoryService {
   constructor(
     @Inject(ElectronServiceToken) private electronService: ElectronService,
     @Inject(LoggerServiceToken) private loggerService: LoggerService,
-    private config: Config,
+    private settingsService: SettingsService,
     private httpClient: HttpClient
   ) {
     this._fs = electronService.fs;
@@ -65,8 +65,8 @@ export class FsDirectoryService implements DirectoryService {
     this.readDirAsync = promisify(this._fs.readdir);
     this.readFileAsync = promisify(this._fs.readFile);
     combineLatest([
-      this.config.$selectedDirectory.pipe(filter(p => p != null)),
-      this.config.$overwriteReplaysDirectory
+      this.settingsService.form.selectedDirectory.valueChanges.pipe(filter(p => p != null)),
+      this.settingsService.form.monitorConfig.overwriteReplaysDirectory.valueChanges
     ]).pipe(debounceTime(100))
       .subscribe(c => {
         if (c[1] != null) {
@@ -109,7 +109,7 @@ export class FsDirectoryService implements DirectoryService {
       this._$preferencesSubscription.unsubscribe();
     }
     this._$preferencesSubscription = interval(500).subscribe(async () => {
-      const basePath = this.config.selectedDirectory;
+      const basePath = this.settingsService.form.selectedDirectory.model;
       const changeDate = this._fs.statSync(pathJoin(basePath, 'preferences.xml')).mtime;
       if (!this._lastPreferenceChange || changeDate > this._lastPreferenceChange) {
         this._lastPreferenceChange = changeDate;
@@ -127,7 +127,7 @@ export class FsDirectoryService implements DirectoryService {
   }
 
   private async _checkPath() {
-    const path = this.config.selectedDirectory;
+    const path = this.settingsService.form.selectedDirectory.model;
     const status = {} as DirectoryStatus;
 
     this.loggerService.debug('CheckPath', 'started', path);
@@ -246,8 +246,8 @@ export class FsDirectoryService implements DirectoryService {
   }
 
   private setReplaysFolder(basePath: string, status: DirectoryStatus) {
-    if (this.config.overwriteReplaysDirectory && this.config.overwriteReplaysDirectory.length > 0) {
-      status.replaysFolders = [this.config.overwriteReplaysDirectory];
+    if (this.settingsService.form.monitorConfig.overwriteReplaysDirectory.model?.length > 0) {
+      status.replaysFolders = [this.settingsService.form.monitorConfig.overwriteReplaysDirectory.model];
     } else {
       if (status.replaysPathBase === 'CWD') {
         status.replaysFolders = [pathJoin(basePath, status.replaysDirPath)];

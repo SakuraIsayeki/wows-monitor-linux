@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 import { Region } from './region';
 export interface CwClan {
   id?: number;
@@ -6,3 +7,4 @@ export interface CwClan {
   region?: Region;
   tag?: null | string;
 }
+

@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { BaseService } from '../base-service';
@@ -32,16 +33,16 @@ export class DownloadsService extends BaseService {
    * This method doesn't expect any request body.
    */
   downloadsLatest$Response(params?: {
-    mode?: null | string;
-
+    channel?: string;
+    platform?: string;
   }): Observable<StrictHttpResponse<Blob>> {
 
     const rb = new RequestBuilder(this.rootUrl, DownloadsService.DownloadsLatestPath, 'get');
     if (params) {
-
-      rb.query('mode', params.mode);
-
+      rb.query('channel', params.channel, {});
+      rb.query('platform', params.platform, {});
     }
+
     return this.http.request(rb.build({
       responseType: 'blob',
       accept: 'application/octet-stream'
@@ -60,8 +61,8 @@ export class DownloadsService extends BaseService {
    * This method doesn't expect any request body.
    */
   downloadsLatest(params?: {
-    mode?: null | string;
-
+    channel?: string;
+    platform?: string;
   }): Observable<Blob> {
 
     return this.downloadsLatest$Response(params).pipe(
@@ -81,14 +82,12 @@ export class DownloadsService extends BaseService {
    * This method doesn't expect any request body.
    */
   downloadsPortable$Response(params?: {
-
   }): Observable<StrictHttpResponse<Blob>> {
 
     const rb = new RequestBuilder(this.rootUrl, DownloadsService.DownloadsPortablePath, 'get');
     if (params) {
-
-
     }
+
     return this.http.request(rb.build({
       responseType: 'blob',
       accept: 'application/octet-stream'
@@ -107,7 +106,6 @@ export class DownloadsService extends BaseService {
    * This method doesn't expect any request body.
    */
   downloadsPortable(params?: {
-
   }): Observable<Blob> {
 
     return this.downloadsPortable$Response(params).pipe(

@@ -1,12 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { faRedo, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '@components/base.component';
+import { faArrowLeft, faRedo } from '@fortawesome/free-solid-svg-icons';
 import { ClanInfo } from '@generated/models';
-import { ClansService } from '@generated/services';
-import { ClanWarsHistoryService } from '@services/clanwars-history.service';
-import { map, skip } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { CwHistoryListService } from '@services/cw-history-list.service';
 
 @Component({
   selector: 'app-history-clan',
@@ -20,7 +17,7 @@ export class HistoryClanComponent extends BaseComponent implements OnInit, OnDes
   clan: ClanInfo;
 
   constructor(
-    public service: ClanWarsHistoryService,
+    public service: CwHistoryListService,
     public route: ActivatedRoute
   ) {
     super();
@@ -32,9 +29,9 @@ export class HistoryClanComponent extends BaseComponent implements OnInit, OnDes
       .pipe(this.untilDestroy())
       .subscribe(v => {
         if (v) {
-          this.router.navigateByUrl(`/home/clanwars/${this.clan.id}/${v}`);
+          this.router.navigateByUrl(`/clanwars/${this.clan.id}/${v}`);
         } else {
-          this.router.navigateByUrl(`/home/clanwars/${this.clan.id}`);
+          this.router.navigateByUrl(`/clanwars/${this.clan.id}`);
         }
       });
   }

@@ -1,9 +1,9 @@
 import { Component, ElementRef, HostBinding, Input, OnInit, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { faExclamationCircle, faFire, faGavel, faHeart, faLightbulb, faSkull, faTrophy } from '@fortawesome/free-solid-svg-icons';
-import { PlayerInfo } from '@generated/models';
-import { Config } from '@config/config';
 import { BaseComponent } from '@components/base.component';
+import { faExclamationCircle, faFire, faGavel, faHeart, faLightbulb, faSkull, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { PlayerBackgrounds, PlayerBackgroundsMode, PlayerInfo } from '@generated/models';
+import { SettingsService } from '@services/settings.service';
 import { MonitorComponent } from '../monitor.component';
 
 @Component({
@@ -52,17 +52,17 @@ export class PlayerComponent extends BaseComponent implements OnInit {
 
   @HostBinding('style.background-color')
   get backgroundColor() {
-    if (this.config.playerBackgroundsMode === 'background') {
-      if (this.config.playerBackgrounds === 'pr' && this.player.shipStats) {
+    if (this.config.playerBackgroundsMode === PlayerBackgroundsMode.Background) {
+      if (this.config.playerBackgrounds === PlayerBackgrounds.Pr && this.player.shipStats) {
         return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.personalRatingColor + '28');
       }
-      if (this.config.playerBackgrounds === 'wr' && this.player.shipStats?.battles > 0) {
+      if (this.config.playerBackgrounds === PlayerBackgrounds.Wr && this.player.shipStats?.battles > 0) {
         return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.winrateColor + '28');
       }
-      if (this.config.playerBackgrounds === 'accwr' || (this.config.playerBackgrounds === 'wr' && this.player.shipStats?.battles <= 0)) {
+      if (this.config.playerBackgrounds === PlayerBackgrounds.AccWr || (this.config.playerBackgrounds === PlayerBackgrounds.Wr && this.player.shipStats?.battles <= 0)) {
         return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.overallStats?.winrateColor + '28');
       }
-      if (this.config.playerBackgrounds === 'avgDmg' && this.player.shipStats) {
+      if (this.config.playerBackgrounds === PlayerBackgrounds.AvgDmg && this.player.shipStats) {
         return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.averageDamageColor + '28');
       }
     }
@@ -71,16 +71,16 @@ export class PlayerComponent extends BaseComponent implements OnInit {
 
   @HostBinding('style.border-color')
   get borderColor() {
-    if (this.config.playerBackgrounds === 'pr' && this.player.shipStats) {
+    if (this.config.playerBackgrounds === PlayerBackgrounds.Pr && this.player.shipStats) {
       return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.personalRatingColor + '99');
     }
-    if (this.config.playerBackgrounds === 'wr' && this.player.shipStats?.battles > 0) {
+    if (this.config.playerBackgrounds === PlayerBackgrounds.Wr && this.player.shipStats?.battles > 0) {
       return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.winrateColor + '99');
     }
-    if (this.config.playerBackgrounds === 'accwr' || (this.config.playerBackgrounds === 'wr' && this.player.shipStats?.battles <= 0)) {
+    if (this.config.playerBackgrounds === PlayerBackgrounds.AccWr || (this.config.playerBackgrounds === PlayerBackgrounds.Wr && this.player.shipStats?.battles <= 0)) {
       return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.overallStats?.winrateColor + '99');
     }
-    if (this.config.playerBackgrounds === 'avgDmg' && this.player.shipStats) {
+    if (this.config.playerBackgrounds === PlayerBackgrounds.AvgDmg && this.player.shipStats) {
       return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.averageDamageColor + '99');
     }
     return this.sanitizer.sanitize(SecurityContext.STYLE, '#FFF');
@@ -88,7 +88,7 @@ export class PlayerComponent extends BaseComponent implements OnInit {
 
   @HostBinding('class.border-mode')
   get borderModeClass() {
-    return this.config.playerBackgroundsMode === 'border';
+    return this.config.playerBackgroundsMode === PlayerBackgroundsMode.Border;
   }
 
   faHeart = faHeart;
@@ -99,9 +99,11 @@ export class PlayerComponent extends BaseComponent implements OnInit {
   faBulb = faLightbulb;
   faGavel = faGavel;
 
+  public config = this.settings.form.monitorConfig.model;
+
   constructor(public el: ElementRef,
               private sanitizer: DomSanitizer,
-              public config: Config,
+              public settings: SettingsService,
               public monitorComp: MonitorComponent) {
     super();
   }

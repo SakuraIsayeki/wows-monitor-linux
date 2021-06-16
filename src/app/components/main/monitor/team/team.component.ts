@@ -1,11 +1,11 @@
 import { Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
-import { TranslateService } from '@ngx-translate/core';
-import { MenuItem } from 'primeng/api';
-import { ClanInfo, Region, TeamAverage } from '@generated/models';
-import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
-import { Config } from '@config/config';
 import { BaseComponent } from '@components/base.component';
+import { ClanInfo, TeamAverage, TeamWinrate } from '@generated/models';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { TranslateService } from '@ngx-translate/core';
+import { SettingsService } from '@services/settings.service';
+import { MenuItem } from 'primeng/api';
 
 marker('monitor.cw.leagues.0');
 marker('monitor.cw.leagues.1');
@@ -39,27 +39,29 @@ export class TeamComponent extends BaseComponent implements OnInit {
   items: MenuItem[];
 
   get shipWinrate() {
-    if (this.config.teamWinrate === 'weighted') {
+    if (this.config.teamWinrate === TeamWinrate.Weighted) {
       return this.team.weightedShipWinrate;
-    } else if (this.config.teamWinrate === 'median') {
+    } else if (this.config.teamWinrate === TeamWinrate.Median) {
       return this.team.medianShipWinrate;
     }
     return this.team.shipWinrate;
   }
 
   get overallWinrate() {
-    if (this.config.teamWinrate === 'weighted') {
+    if (this.config.teamWinrate === TeamWinrate.Weighted) {
       return this.team.weightedOverallWinrate;
-    } else if (this.config.teamWinrate === 'median') {
+    } else if (this.config.teamWinrate === TeamWinrate.Median) {
       return this.team.medianOverallWinrate;
     }
     return this.team.overallWinrate;
   }
 
+  private config = this.settingsService.form.monitorConfig.model;
+
   constructor(
     private translateService: TranslateService,
     public el: ElementRef,
-    private config: Config,
+    private settingsService: SettingsService,
     @Inject(ElectronServiceToken) private electronService: ElectronService) {
     super();
   }

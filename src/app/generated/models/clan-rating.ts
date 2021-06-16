@@ -1,18 +1,20 @@
 /* tslint:disable */
+/* eslint-disable */
 import { ClanLeague } from './clan-league';
 import { ClanStage } from './clan-stage';
 export interface ClanRating {
-  battles?: number;
-  bestSeasonRating?: boolean;
+  battlesCount?: number;
   currentWinningStreak?: number;
   division?: number;
   globalRank?: number;
+  isBestSeasonRating?: boolean;
   league?: ClanLeague;
   longestWinningStreak?: number;
+  publicRating?: number;
   rank?: number;
-  rating?: number;
   seasonId?: number;
   stage?: null | ClanStage;
-  team?: number;
-  wins?: number;
+  teamNumber?: number;
+  winsCount?: number;
 }
+

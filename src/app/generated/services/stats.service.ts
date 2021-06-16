@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { BaseService } from '../base-service';
@@ -34,18 +35,16 @@ export class StatsService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   statsSendStats$Response(params: {
-    token?: null | string;
-
+    token?: string;
     body: TempArenaInfo
   }): Observable<StrictHttpResponse<MatchInfo>> {
 
     const rb = new RequestBuilder(this.rootUrl, StatsService.StatsSendStatsPath, 'post');
     if (params) {
-
-      rb.query('token', params.token);
-
+      rb.query('token', params.token, {});
       rb.body(params.body, 'application/json');
     }
+
     return this.http.request(rb.build({
       responseType: 'json',
       accept: 'application/json'
@@ -64,8 +63,7 @@ export class StatsService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   statsSendStats(params: {
-    token?: null | string;
-
+    token?: string;
     body: TempArenaInfo
   }): Observable<MatchInfo> {
 

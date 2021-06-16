@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 import { ClanLeague } from './clan-league';
 import { CwClanMatch } from './cw-clan-match';
 import { Region } from './region';
@@ -13,3 +14,4 @@ export interface LivefeedItem {
   winnerLeague?: null | ClanLeague;
   winnerRegion?: null | Region;
 }
+

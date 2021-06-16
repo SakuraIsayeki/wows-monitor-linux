@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 import { MatchGroup } from './match-group';
 import { Vehicle } from './vehicle';
 export interface TempArenaInfo {
@@ -21,6 +22,7 @@ export interface TempArenaInfo {
   scenario?: null | string;
   scenarioConfigId?: number;
   teamsCount?: number;
-  useMatchGroup?: MatchGroup;
+  useMatchGroup?: null | MatchGroup;
   vehicles?: null | Array<Vehicle>;
 }
+

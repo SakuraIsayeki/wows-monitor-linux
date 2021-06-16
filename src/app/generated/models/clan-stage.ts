@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 import { ClanLeague } from './clan-league';
 export interface ClanStage {
   progress?: null | Array<number>;
@@ -7,3 +8,4 @@ export interface ClanStage {
   targetLeague?: null | ClanLeague;
   type?: null | number;
 }
+

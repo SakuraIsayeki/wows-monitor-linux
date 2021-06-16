@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 import { ClanLeague } from './clan-league';
 import { Region } from './region';
 export interface CwHistoryEntry {
@@ -25,3 +26,4 @@ export interface CwHistoryEntry {
   stageType?: null | number;
   team?: number;
 }
+

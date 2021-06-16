@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LOADING_BAR_CONFIG, LoadingBarModule } from '@ngx-loading-bar/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -66,7 +66,8 @@ import { TopbarComponent } from './topbar/topbar.component';
     ScrollPanelModule,
     ToastModule,
     LoadingBarModule,
-    InputSwitchModule
+    InputSwitchModule,
+    ReactiveFormsModule
   ],
   providers: [
     DialogService,

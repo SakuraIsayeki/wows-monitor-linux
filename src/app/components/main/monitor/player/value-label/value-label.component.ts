@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { BaseComponent } from '@components/base.component';
-import { Config } from '@config/config';
-import { faAddressBook } from '@fortawesome/free-solid-svg-icons';
+import { SettingsService } from '@services/settings.service';
 
 @Component({
   selector: 'app-value-label',
@@ -16,7 +15,7 @@ export class ValueLabelComponent extends BaseComponent implements OnInit {
   @Input()
   icon: IconDefinition;
 
-  constructor(public config: Config) {
+  constructor(public settingsService: SettingsService) {
     super();
   }
 
