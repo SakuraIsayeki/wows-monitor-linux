@@ -3,17 +3,19 @@ import * as electronLogger from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 import { loadConfig } from './load-config';
 
-export async function initUpdater(logger: electronLogger.ElectronLog, win: BrowserWindow, isDebug: boolean) {
+export function initUpdater(logger: electronLogger.ElectronLog, win: BrowserWindow, isDebug: boolean) {
   let allowBeta = false;
 
-  const config = await loadConfig(win);
+  loadConfig(win).then(config => {
+    try {
+      allowBeta = JSON.parse(config).monitorConfig.allowBeta;
+    } catch (error) {
+      logger.error('[Electron]', '(initUpdater)', 'Error reading config json', error);
+    }
+    autoUpdater.channel = allowBeta ? 'beta' : 'latest';
+  });
 
-  try {
-    allowBeta = JSON.parse(config).monitorConfig.allowBeta;
-  } catch (error) {
-    logger.error('[Electron]', '(initUpdater)', 'Error reading config json', error);
-  }
-  autoUpdater.channel = allowBeta ? 'beta' : 'latest';
+
 
 
   autoUpdater.autoDownload = false;

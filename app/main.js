@@ -44,7 +44,6 @@ var os = require("os");
 var path = require("path");
 var url = require("url");
 var electron_log_1 = require("./electron-log");
-var load_config_1 = require("./load-config");
 var update_tasks_1 = require("./update-tasks");
 // Initialize remote module
 require('@electron/remote/main').initialize();
@@ -61,121 +60,103 @@ if (isDebug) {
 }
 electron_updater_1.autoUpdater.logger = logger;
 function appReady() {
-    return __awaiter(this, void 0, void 0, function () {
-        var isQuitting, size, mainWindowState, iconExt, iconPath, trayIconPath;
-        var _this = this;
+    var _this = this;
+    var isQuitting = false;
+    logger.debug('[Electron]', '(appReady)', __dirname, isDebug);
+    electron_1.app.setAppUserModelId('com.wowsmonitor.app');
+    var size = electron_1.screen.getPrimaryDisplay().workAreaSize;
+    var mainWindowState = WindowStateKeeper({
+        defaultWidth: size.width,
+        defaultHeight: size.height
+    });
+    var iconExt = isWindows ? 'ico' : 'png';
+    var iconPath = isDebug
+        ? path.join(__dirname, "../src/assets/icons/favicon-light." + iconExt)
+        : path.join(__dirname, "../dist/desktop/assets/icons/favicon-light." + iconExt);
+    var trayIconPath = isDebug
+        ? path.join(__dirname, "../src/assets/icons/favicon-light." + iconExt)
+        : path.join(__dirname, "../favicon-tray." + iconExt);
+    win = new electron_1.BrowserWindow({
+        x: mainWindowState.x,
+        y: mainWindowState.y,
+        width: mainWindowState.width,
+        height: mainWindowState.height,
+        minWidth: 650,
+        frame: !isWindows,
+        icon: iconPath,
+        webPreferences: {
+            nodeIntegration: true,
+            webSecurity: false,
+            contextIsolation: false,
+            enableRemoteModule: true,
+            allowRunningInsecureContent: isDebug
+        }
+    });
+    win.setMenu(null);
+    mainWindowState.manage(win);
+    win.on('close', function (event) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    isQuitting = false;
-                    logger.debug('[Electron]', '(appReady)', __dirname, isDebug);
-                    electron_1.app.setAppUserModelId('com.wowsmonitor.app');
-                    size = electron_1.screen.getPrimaryDisplay().workAreaSize;
-                    mainWindowState = WindowStateKeeper({
-                        defaultWidth: size.width,
-                        defaultHeight: size.height
-                    });
-                    iconExt = isWindows ? 'ico' : 'png';
-                    iconPath = isDebug
-                        ? path.join(__dirname, "../src/assets/icons/favicon-light." + iconExt)
-                        : path.join(__dirname, "../dist/desktop/assets/icons/favicon-light." + iconExt);
-                    trayIconPath = isDebug
-                        ? path.join(__dirname, "../src/assets/icons/favicon-light." + iconExt)
-                        : path.join(__dirname, "../favicon-tray." + iconExt);
-                    win = new electron_1.BrowserWindow({
-                        x: mainWindowState.x,
-                        y: mainWindowState.y,
-                        width: mainWindowState.width,
-                        height: mainWindowState.height,
-                        minWidth: 650,
-                        frame: !isWindows,
-                        icon: iconPath,
-                        webPreferences: {
-                            nodeIntegration: true,
-                            webSecurity: false,
-                            contextIsolation: false,
-                            enableRemoteModule: true,
-                            allowRunningInsecureContent: isDebug
-                        }
-                    });
-                    win.setMenu(null);
-                    mainWindowState.manage(win);
-                    win.on('close', function (event) { return __awaiter(_this, void 0, void 0, function () {
-                        var config;
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0: return [4 /*yield*/, load_config_1.loadConfig(win)];
-                                case 1:
-                                    config = _a.sent();
-                                    try {
-                                        if (JSON.parse(config).closeToTray && !isQuitting) {
-                                            event.preventDefault();
-                                            win.hide();
-                                        }
-                                    }
-                                    catch (error) {
-                                        logger.error('[Electron]', '(onWinClose)', 'Error when reading config', error);
-                                    }
-                                    return [2 /*return*/, false];
-                            }
-                        });
-                    }); });
-                    tray = new electron_1.Tray(trayIconPath);
-                    contextMenu = electron_1.Menu.buildFromTemplate([
-                        {
-                            label: 'Open',
-                            click: function () {
-                                win.show();
-                            }
-                        },
-                        {
-                            label: 'Close',
-                            click: function () {
-                                isQuitting = true;
-                                electron_1.app.quit();
-                            }
-                        }
-                    ]);
-                    tray.addListener('click', function () {
-                        win.show();
-                    });
-                    tray.setContextMenu(contextMenu);
-                    if (!isWindows) return [3 /*break*/, 2];
-                    return [4 /*yield*/, update_tasks_1.initUpdater(logger, win, isDebug)];
-                case 1:
-                    _a.sent();
-                    _a.label = 2;
-                case 2:
-                    electron_log_1.initElectronLogger(logger);
-                    if (isDebug) {
-                        electron_1.globalShortcut.register('f5', function () {
-                            win.reload();
-                        });
-                        electron_1.globalShortcut.register('f6', function () {
-                            win.loadURL('http://localhost:4201');
-                        });
-                        require('electron-reload')(__dirname, {
-                            electron: require(__dirname + "/../node_modules/electron")
-                        });
-                        win.loadURL('http://localhost:4201');
-                        win.webContents.openDevTools();
-                    }
-                    else {
-                        logger.error(path.join(__dirname, '../dist/desktop/index.html'));
-                        win.loadURL(url.format({
-                            pathname: path.join(__dirname, '../dist/desktop/index.html'),
-                            protocol: 'file:',
-                            slashes: true
-                        }));
-                    }
-                    win.on('closed', function () {
-                        tray.destroy();
-                        contextMenu = null;
-                        win = null;
-                    });
-                    return [2 /*return*/];
-            }
+            // const config = await loadConfig(win);
+            // try {
+            //   if (JSON.parse(config).closeToTray && !isQuitting) {
+            //     event.preventDefault();
+            //     win.hide();
+            //   }
+            // } catch (error) {
+            //   logger.error('[Electron]', '(onWinClose)', 'Error when reading config', error);
+            // }
+            return [2 /*return*/, false];
         });
+    }); });
+    tray = new electron_1.Tray(trayIconPath);
+    contextMenu = electron_1.Menu.buildFromTemplate([
+        {
+            label: 'Open',
+            click: function () {
+                win.show();
+            }
+        },
+        {
+            label: 'Close',
+            click: function () {
+                isQuitting = true;
+                electron_1.app.quit();
+            }
+        }
+    ]);
+    tray.addListener('click', function () {
+        win.show();
+    });
+    tray.setContextMenu(contextMenu);
+    if (isWindows) {
+        update_tasks_1.initUpdater(logger, win, isDebug);
+    }
+    electron_log_1.initElectronLogger(logger);
+    if (isDebug) {
+        electron_1.globalShortcut.register('f5', function () {
+            win.reload();
+        });
+        electron_1.globalShortcut.register('f6', function () {
+            win.loadURL('http://localhost:4201');
+        });
+        require('electron-reload')(__dirname, {
+            electron: require(__dirname + "/../node_modules/electron")
+        });
+        win.loadURL('http://localhost:4201');
+        win.webContents.openDevTools();
+    }
+    else {
+        logger.error(path.join(__dirname, '../dist/desktop/index.html'));
+        win.loadURL(url.format({
+            pathname: path.join(__dirname, '../dist/desktop/index.html'),
+            protocol: 'file:',
+            slashes: true
+        }));
+    }
+    win.on('closed', function () {
+        tray.destroy();
+        contextMenu = null;
+        win = null;
     });
 }
 try {

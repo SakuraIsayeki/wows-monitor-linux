@@ -28,7 +28,7 @@ export class PathPickerDialogComponent extends BaseComponent implements OnInit {
 
   async pickPath() {
     const odr = await this.electronService.dialog.showOpenDialog(this.electronService.remote.BrowserWindow.getFocusedWindow(), {
-      defaultPath: this.settingsService.form.selectedDirectory.model,
+      // defaultPath: this.settingsService.form.selectedDirectory.model,
       properties: ['openDirectory']
     });
     if (odr && odr.filePaths && odr.filePaths.length > 0) {

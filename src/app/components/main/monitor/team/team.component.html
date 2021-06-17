@@ -3,7 +3,7 @@
   <span>{{clan.name}} ({{clan.region | region}})</span>
 </h3>
 <span *ngIf="cw && clan && clan.rank > 0" translate="monitor.cw.text"
-  [translateParams]="{ rank: clan.rank, league: 'monitor.cw.leagues.' + clan.leadingRating.league | translate, division: clan.leadingRating.division | roman, winrate: (clan.leadingRating.wins/clan.leadingRating.battles * 100) | number:'0.0-2' }">
+  [translateParams]="{ rank: clan.rank, league: 'monitor.cw.leagues.' + clan.leadingRating.league | translate, division: clan.leadingRating.division | roman, winrate: (clan.leadingRating.winsCount/clan.leadingRating.battlesCount * 100) | number:'0.0-2' }">
 </span>
 <span *ngIf="!cw" class="team-overall-wrapper">
   <span class="inner">
@@ -40,9 +40,9 @@
     <pre>
 League:         {{ 'monitor.cw.leagues.' +clan.alphaRating.league | translate }}
 Division:       {{ clan.alphaRating.division | roman }}
-Points:         {{ clan.alphaRating.rating }}
-Battles:        {{ clan.alphaRating.battles }}
-Wins:           {{ clan.alphaRating.wins }}
+Points:         {{ clan.alphaRating.publicRating }}
+Battles:        {{ clan.alphaRating.battlesCount }}
+Wins:           {{ clan.alphaRating.winsCount }}
 Longest Streak: {{ clan.alphaRating.longestWinningStreak }}
 Current Streak: {{ clan.alphaRating.currentWinningStreak }}
       </pre>
@@ -55,9 +55,9 @@ Current Streak: {{ clan.alphaRating.currentWinningStreak }}
     <pre>
 League:         {{ 'monitor.cw.leagues.' +clan.bravoRating.league | translate }}
 Division:       {{ clan.bravoRating.division | roman }}
-Points:         {{ clan.bravoRating.rating }}
-Battles:        {{ clan.bravoRating.battles }}
-Wins:           {{ clan.bravoRating.wins }}
+Points:         {{ clan.bravoRating.publicRating }}
+Battles:        {{ clan.bravoRating.battlesCount }}
+Wins:           {{ clan.bravoRating.winsCount }}
 Longest Streak: {{ clan.bravoRating.longestWinningStreak }}
 Current Streak: {{ clan.bravoRating.currentWinningStreak }}
         </pre>

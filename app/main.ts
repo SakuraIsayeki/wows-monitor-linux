@@ -6,7 +6,6 @@ import * as os from 'os';
 import * as path from 'path';
 import * as url from 'url';
 import { initElectronLogger } from './electron-log';
-import { loadConfig } from './load-config';
 import { initUpdater } from './update-tasks';
 
 // Initialize remote module
@@ -28,7 +27,7 @@ if (isDebug) {
 
 autoUpdater.logger = logger;
 
-async function appReady() {
+function appReady() {
   let isQuitting = false;
 
   logger.debug('[Electron]', '(appReady)', __dirname, isDebug);
@@ -73,15 +72,15 @@ async function appReady() {
   mainWindowState.manage(win);
 
   win.on('close', async (event) => {
-    const config = await loadConfig(win);
-    try {
-      if (JSON.parse(config).closeToTray && !isQuitting) {
-        event.preventDefault();
-        win.hide();
-      }
-    } catch (error) {
-      logger.error('[Electron]', '(onWinClose)', 'Error when reading config', error);
-    }
+    // const config = await loadConfig(win);
+    // try {
+    //   if (JSON.parse(config).closeToTray && !isQuitting) {
+    //     event.preventDefault();
+    //     win.hide();
+    //   }
+    // } catch (error) {
+    //   logger.error('[Electron]', '(onWinClose)', 'Error when reading config', error);
+    // }
     return false;
   });
 
@@ -108,7 +107,7 @@ async function appReady() {
   tray.setContextMenu(contextMenu);
 
   if (isWindows) {
-    await initUpdater(logger, win, isDebug);
+    initUpdater(logger, win, isDebug);
   }
 
   initElectronLogger(logger);

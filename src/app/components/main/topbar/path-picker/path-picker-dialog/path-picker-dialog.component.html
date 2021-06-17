@@ -2,15 +2,15 @@
 
 <div class="input-wrap p-fluid space-bottom">
   <div class="p-inputgroup">
-    <input pInputText [title]="config.mainClient" type="text" pInputText [disabled]="true"
-      [ngModel]="config.mainClient">
+    <input pInputText [title]="settingsService.form.mainClient.model" type="text" pInputText [disabled]="true"
+           [value]="settingsService.form.mainClient.model">
     <button pButton type="button" icon="pi pi-folder" (click)="pickPath()"></button>
   </div>
 </div>
 <ng-container *ngIf="paths.length > 0">
   <h3>{{ 'pathPicker.multiClientSelect' | translate  }}</h3>
   <div class="input-wrap p-fluid space-bottom">
-    <p-dropdown [options]="options" [(ngModel)]="config.selectedDirectory"></p-dropdown>
+    <p-dropdown [options]="options" [formControl]="settingsService.form.selectedDirectory" appendTo="body"></p-dropdown>
   </div>
 </ng-container>
 <ng-container *ngIf="directoryService.$status | async;let info">

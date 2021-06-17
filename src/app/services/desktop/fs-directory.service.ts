@@ -65,8 +65,8 @@ export class FsDirectoryService implements DirectoryService {
     this.readDirAsync = promisify(this._fs.readdir);
     this.readFileAsync = promisify(this._fs.readFile);
     combineLatest([
-      this.settingsService.form.selectedDirectory.valueChanges.pipe(filter(p => p != null)),
-      this.settingsService.form.monitorConfig.overwriteReplaysDirectory.valueChanges
+      this.settingsService.form.selectedDirectory.valueChanges.pipe(startWith(this.settingsService.form.selectedDirectory.model), filter(p => p != null)),
+      this.settingsService.form.monitorConfig.overwriteReplaysDirectory.valueChanges.pipe(startWith(this.settingsService.form.monitorConfig.overwriteReplaysDirectory.model))
     ]).pipe(debounceTime(100))
       .subscribe(c => {
         if (c[1] != null) {

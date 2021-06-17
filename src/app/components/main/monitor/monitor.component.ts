@@ -11,7 +11,7 @@ import { WowsKarmaPipe } from '@shared/pipes/wows-karma.pipe';
 import { WowsNumbersPipe } from '@shared/pipes/wows-numbers.pipe';
 import { MenuItem } from 'primeng/api';
 import { ContextMenu } from 'primeng/contextmenu';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-monitor',
@@ -29,7 +29,7 @@ export class MonitorComponent extends BaseComponent implements OnInit, AfterView
   contextMenu: ContextMenu;
 
   get $fontSizeClass() {
-    return this.settingsService.form.monitorConfig.fontSize.valueChanges.pipe(map(fz => 'fz-' + FontSize[fz]));
+    return this.settingsService.form.monitorConfig.fontSize.valueChanges.pipe(startWith(this.settingsService.form.monitorConfig.fontSize.model), map(fz => 'fz-' + FontSize[fz]));
   }
 
   constructor(
