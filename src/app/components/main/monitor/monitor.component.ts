@@ -42,9 +42,6 @@ export class MonitorComponent extends BaseComponent implements OnInit, AfterView
   }
 
   ngOnInit() {
-    this.signalrService.$info.pipe(this.untilDestroy(), filter(i => i != null)).subscribe(() => {
-      this.uiSuccess('matchUpdated');
-    });
   }
 
   ngAfterViewInit() {

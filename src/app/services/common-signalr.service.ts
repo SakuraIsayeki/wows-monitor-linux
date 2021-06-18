@@ -87,6 +87,7 @@ export class CommonSignalrService extends BaseInjection implements SignalrServic
     });
 
     this.connection.on('UpdateInfo', (info) => {
+      this.uiSuccess('matchUpdated');
       this._$status.next(Status.Fetched);
       this._$info.next(info);
     });
