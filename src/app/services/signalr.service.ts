@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { staticValues } from '@environments/static-values';
 import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
-import { SignalrService, SignalrSettings, SignalrStatus, Status } from '@interfaces/signalr.service';
+import { SignalrSettings, SignalrStatus, Status } from '@interfaces/signalr';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import { SettingsService } from '@services/settings.service';
 import { BaseInjection } from '@stewie/framework';
@@ -12,7 +12,7 @@ import { LivefeedItem, MatchInfo } from '../generated/models';
 import { QrService } from '../generated/services';
 
 @Injectable()
-export class CommonSignalrService extends BaseInjection implements SignalrService {
+export class SignalrService extends BaseInjection {
 
   private connection: HubConnection;
   private _settings: SignalrSettings;

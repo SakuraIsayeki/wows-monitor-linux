@@ -17,13 +17,13 @@ app-titlebar {
 
   .app-title-wrapper {
     float: left;
-    margin-left: .2em;
+    margin-left: .2rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     height: 21px;
-    font-size: .8em;
+    font-size: .8rem;
   }
 
   .app-icon-wrapper {
@@ -73,7 +73,7 @@ app-titlebar {
 }
 
 #matchInfoWrapper {
-  padding-left: 1em;
+  padding-left: 1rem;
 }
 
 

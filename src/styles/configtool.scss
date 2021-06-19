@@ -1,16 +1,16 @@
 @import '_variables.scss';
 
-app-configtool {
+.configtool {
   .options-wrapper {
     display: grid;
-    grid-gap: 2em;
-    grid-template-columns: 1fr 1fr;
+    grid-gap: 2rem;
+    grid-template-columns: 1fr;
 
 
     .options-input-wrapper {
-      margin-bottom: 1em;
+      margin-bottom: 1rem;
       display: grid;
-      grid-gap: 1em;
+      grid-gap: 1rem;
       align-items: center;
       grid-template-columns: max-content 1fr;
 
@@ -20,7 +20,7 @@ app-configtool {
     }
 
     .settings {
-      margin-bottom: 1em;
+      margin-bottom: 1rem;
 
       section {
         border-bottom: 0;
@@ -47,19 +47,19 @@ app-configtool {
   .button-row {
     width: 100%;
     text-align: right;
-    margin-bottom: 1em;
+    margin-bottom: 1rem;
   }
 
   .console-output {
     border-radius: 3px;
     height: 300px;
     background: #000;
-    padding: 1em;
+    padding: 1rem;
 
     .line {
       display: block;
       font-family: monospace;
-      font-size: 1.2em;
+      font-size: 1.2rem;
 
       &.error {
         color: lighten($dangerColor, 10%);
@@ -78,5 +78,13 @@ app-configtool {
       'summary input';
     grid-template-columns: auto max-content;
     grid-template-rows: auto 1fr;
+  }
+}
+/* Larger than tablet */
+@media (min-width: 1000px) {
+  .configtool {
+    .options-wrapper {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 }

@@ -16,11 +16,8 @@
       "dom"
     ]
   },
-  "files": [
-    "app/main.ts",
-    "app/electron-log.ts",
-    "app/update-tasks.ts",
-    "app/load-config.ts"
+  "include": [
+    "app/*.ts"
   ],
   "exclude": [
     "node_modules",

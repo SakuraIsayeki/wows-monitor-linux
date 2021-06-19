@@ -10,7 +10,6 @@ import * as fs from 'fs';
 import { join as pathJoin, normalize as pathNormalize } from 'path';
 import { BehaviorSubject, combineLatest, interval, Subject, Subscription } from 'rxjs';
 import { debounceTime, filter, startWith, switchMap } from 'rxjs/operators';
-import { promisify } from 'util';
 
 @Injectable()
 export class FsDirectoryService implements DirectoryService {
@@ -26,14 +25,11 @@ export class FsDirectoryService implements DirectoryService {
   private _$changeDetected = new BehaviorSubject<string>(null);
   private _$watcherSubscription: Subscription;
   private _$preferencesSubscription: Subscription;
-  private _fs: typeof fs;
+  private _fs: typeof fs.promises;
   private _lastInfoFound: Date;
   private _lastPreferenceChange: Date;
 
   // promisified
-  private existsAsync: (path: fs.PathLike) => Promise<fs.Stats>;
-  private readDirAsync: (path: fs.PathLike, encoding: BufferEncoding) => Promise<string[]>;
-  private readFileAsync: (path: fs.PathLike, encoding: BufferEncoding) => Promise<string>;
 
   private checkPath$ = new Subject();
 
@@ -60,10 +56,6 @@ export class FsDirectoryService implements DirectoryService {
     private httpClient: HttpClient
   ) {
     this._fs = electronService.fs;
-    // tslint:disable-next-line: deprecation
-    this.existsAsync = promisify(this._fs.stat);
-    this.readDirAsync = promisify(this._fs.readdir);
-    this.readFileAsync = promisify(this._fs.readFile);
     combineLatest([
       this.settingsService.form.selectedDirectory.valueChanges.pipe(startWith(this.settingsService.form.selectedDirectory.model), filter(p => p != null)),
       this.settingsService.form.monitorConfig.overwriteReplaysDirectory.valueChanges.pipe(startWith(this.settingsService.form.monitorConfig.overwriteReplaysDirectory.model))
@@ -92,17 +84,19 @@ export class FsDirectoryService implements DirectoryService {
       startWith(0),
       switchMap(() => this.$status.pipe(filter(s => s != null))),
       filter(status => status.replaysFoldersFound)
-    ).subscribe(status => {
-      status.replaysFolders.forEach(replaysFolder => {
+    ).subscribe(async status => {
+      for (const replaysFolder of status.replaysFolders) {
         const infoFile = pathJoin(replaysFolder, 'tempArenaInfo.json');
-        if (this._fs.existsSync(infoFile)) {
-          const changeDate = this._fs.statSync(infoFile).mtime;
+        const fileStats = await this.existsStat(infoFile);
+        if (fileStats) {
+          const changeDate = fileStats.mtime;
           if (!this._lastInfoFound || changeDate > this._lastInfoFound) {
             this._lastInfoFound = changeDate;
-            this._$changeDetected.next(this._fs.readFileSync(infoFile, 'utf8'));
+            this._$changeDetected.next(await this._fs.readFile(infoFile, 'utf8'));
           }
         }
-      });
+      }
+      ;
     });
 
     if (this._$preferencesSubscription) {
@@ -110,7 +104,11 @@ export class FsDirectoryService implements DirectoryService {
     }
     this._$preferencesSubscription = interval(500).subscribe(async () => {
       const basePath = this.settingsService.form.selectedDirectory.model;
-      const changeDate = this._fs.statSync(pathJoin(basePath, 'preferences.xml')).mtime;
+      const preferencesStat = await this.existsStat(pathJoin(basePath, 'preferences.xml'));
+      if (!preferencesStat) {
+        return;
+      }
+      const changeDate = preferencesStat.mtime;
       if (!this._lastPreferenceChange || changeDate > this._lastPreferenceChange) {
         this._lastPreferenceChange = changeDate;
         const tempStatus = {} as DirectoryStatus;
@@ -133,7 +131,7 @@ export class FsDirectoryService implements DirectoryService {
     this.loggerService.debug('CheckPath', 'started', path);
 
     try {
-      if (path && await this.existsAsync(path)) {
+      if (path && await this.existsStat(path)) {
         this.loggerService.debug('CheckPath', 'exists', path);
         await this.readPreferences(path, status);
         const resFolder = await this.getResFolderPath(path, status);
@@ -143,7 +141,7 @@ export class FsDirectoryService implements DirectoryService {
           await this.readEngineConfig(pathJoin(resFolder + '_mods'), status);
           this.setReplaysFolder(path, status);
           this.loggerService.debug('CheckPath', 'replaysFolders', status.replaysFolders.join(','));
-          status.replaysFoldersFound = status.replaysFolders.some(p => this._fs.existsSync(p));
+          status.replaysFoldersFound = status.replaysFolders.some(p => this.existsStat(p));
         }
       }
     } catch (error) {
@@ -169,7 +167,7 @@ export class FsDirectoryService implements DirectoryService {
         throw new Error('Couldn\'t determine folderVersion');
       }
     } catch {
-      const binFilesString = (await this.readDirAsync(pathJoin(basePath, 'bin'), 'utf8')) as string[];
+      const binFilesString = (await this._fs.readdir(pathJoin(basePath, 'bin'), 'utf8')) as string[];
       const binFilesSorted = binFilesString
         .filter(s => s.toLowerCase() !== 'clientrunner')
         .map(s => {
@@ -189,8 +187,8 @@ export class FsDirectoryService implements DirectoryService {
 
   private async readEngineConfig(resPath: string, status: DirectoryStatus) {
     const path = pathJoin(resPath, 'engine_config.xml');
-    if (this._fs.existsSync(path)) {
-      const content = await this.readFileAsync(path, 'utf8');
+    if (await this.existsStat(path)) {
+      const content = await this._fs.readFile(path, 'utf8');
       const json = parseXml2Json(content);
 
       const engineConfig = json['engine_config.xml'];
@@ -224,7 +222,7 @@ export class FsDirectoryService implements DirectoryService {
 
       return true;
     } else {
-      this.loggerService.error('readEngineConfig', 'Could not find engineConfig at ' + resPath);
+      this.loggerService.warn('readEngineConfig', 'No modded engine_config found at ' + resPath);
       return false;
     }
   }
@@ -233,7 +231,7 @@ export class FsDirectoryService implements DirectoryService {
     //const versionRegex = new RegExp(/<clientVersion>([\s,0-9]*)<\/clientVersion>/g);
     const regionRegex = new RegExp(/<active_server>([\sA-Z]*)<\/active_server>/g);
     try {
-      const content = await this.readFileAsync(pathJoin(basePath, 'preferences.xml'), 'utf8');
+      const content = await this._fs.readFile(pathJoin(basePath, 'preferences.xml'), 'utf8');
 
       //const versionResult = versionRegex.exec(content);
       const regionResult = regionRegex.exec(content);
@@ -262,6 +260,14 @@ export class FsDirectoryService implements DirectoryService {
         status.replaysFolders = status.replaysFolders.map(path => pathJoin(path, status.clientVersion));
       }
       status.replaysFolders = status.replaysFolders.map(path => pathNormalize(path));
+    }
+  }
+
+  private async existsStat(path: string) {
+    try {
+      return await this._fs.stat(path);
+    } catch {
+      return null;
     }
   }
 }

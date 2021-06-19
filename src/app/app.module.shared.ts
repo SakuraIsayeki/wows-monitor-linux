@@ -21,6 +21,7 @@ import { RegionRequestInterceptor } from '@services/region-request.interceptor';
 import { ResizeService } from '@services/resize.service';
 import { ScrollService } from '@services/scroll.service';
 import { SettingsService } from '@services/settings.service';
+import { SignalrService } from '@services/signalr.service';
 import { CoreModule, CustomDefaultTranslateHttpLoader, CustomTranslateParser, ErrorModule, LocatorService } from '@stewie/framework';
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@stewie/meta';
 import { MessageService } from 'primeng/api';
@@ -113,6 +114,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     AppInitService,
     AppActivator,
     { provide: ErrorHandler, useClass: CommonErrorHandler },
+    SignalrService,
     RegionRequestInterceptor,
     API_INTERCEPTOR_PROVIDER,
     ApiService,

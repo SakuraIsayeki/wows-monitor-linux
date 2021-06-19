@@ -16,7 +16,7 @@
         <h3>{{'configtool.headerClients' | translate}}</h3>
         <div class="options-input-wrapper">
           <label>{{ 'configtool.paths.selectedDirectory' | translate }}</label>
-          <input pInputText [title]="settingsService.form.mainClient.model" type="text" [disabled]="true" [value]="settingsService.form.mainClient.model">
+          <input pInputText [title]="settingsService.form.mainClient.model" class="file-input" type="text" [readOnly]="true" [value]="settingsService.form.mainClient.model">
         </div>
         <h3>{{ 'configtool.paths.instances' | translate }}</h3>
         <div class="options-input-wrapper"

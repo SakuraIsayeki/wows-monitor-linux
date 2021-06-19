@@ -8,6 +8,7 @@ import { TeamWinrate } from './team-winrate';
 export interface MonitorConfig {
   allowBeta?: null | boolean;
   anonymIp?: null | boolean;
+  anonymScreenshot?: null | boolean;
   autoUpdate?: null | boolean;
   closeToTray?: null | boolean;
   coloredValues?: null | boolean;
@@ -18,6 +19,7 @@ export interface MonitorConfig {
   overwriteReplaysDirectory?: null | string;
   playerBackgrounds?: null | PlayerBackgrounds;
   playerBackgroundsMode?: null | PlayerBackgroundsMode;
+  screenshotPath?: null | string;
   teamWinrate?: null | TeamWinrate;
 }
 

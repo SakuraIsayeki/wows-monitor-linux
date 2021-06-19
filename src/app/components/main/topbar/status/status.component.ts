@@ -3,7 +3,8 @@ import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import { BaseComponent } from '@components/base.component';
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import { faCheckCircle, faSync } from '@fortawesome/free-solid-svg-icons';
-import { SignalrService, SignalrServiceToken, Status } from '@interfaces/signalr.service';
+import { Status } from '@interfaces/signalr';
+import { SignalrService } from '@services/signalr.service';
 import { map } from 'rxjs/operators';
 
 marker('service.status.idle');
@@ -21,7 +22,7 @@ export class StatusComponent extends BaseComponent implements OnInit {
   circleIcon = faCircle;
 
   get statusText() {
-    return this.signalRService.$status.pipe(map(status => {
+    return this.signalrService.$status.pipe(map(status => {
       if (status === Status.Idle) {
         return 'service.status.idle';
       } else if (status === Status.Fetching) {
@@ -33,7 +34,7 @@ export class StatusComponent extends BaseComponent implements OnInit {
   }
 
   constructor(
-    @Inject(SignalrServiceToken) public signalRService: SignalrService
+    public signalrService: SignalrService
   ) {
     super();
   }

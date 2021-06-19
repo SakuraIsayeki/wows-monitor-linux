@@ -3,36 +3,38 @@ import { ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '@components/base.component';
 import { ChangelogResponse } from '@generated/models';
 import { SettingsService } from '@services/settings.service';
+import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-changelogs',
   templateUrl: './changelogs.component.html'
 })
 export class ChangelogsComponent extends BaseComponent implements OnInit, OnDestroy {
 
   selectedId: number;
+  changelogs = this.route.data.pipe(this.untilDestroy(), map(d => d.changelogs));
 
   constructor(public route: ActivatedRoute, private settingsService: SettingsService) {
     super();
   }
 
   ngOnInit() {
-    if (this.route.snapshot.data.changelogs) {
-      this.selectedId = this.route.snapshot.data.changelogs[0].id;
-    }
+    this.changelogs.subscribe(changelogs => {
+      this.selectedId = changelogs[0].id;
+    });
   }
 
-  isSeen(changelog: ChangelogResponse) {
-    return this.settingsService.form.seenChangelogs.value?.some(id => changelog.id == id);
+  isSeen(changelogId: number) {
+    return this.settingsService.form.seenChangelogs.value?.some(id => changelogId == id);
   }
 
-  selectChangelog(changelog: ChangelogResponse) {
-    this.selectedId = changelog.id;
-    this.settingsService.form.seenChangelogs.model?.push(changelog.id);
+  selectChangelog(changelogId: number) {
+    this.selectedId = changelogId;
+    this.settingsService.form.seenChangelogs.model?.push(changelogId);
   }
 
-  markAllAsSeen() {
-    this.settingsService.form.seenChangelogs.model?.push(...this.route.snapshot.data.changelogs.map(c => c.id));
+  async markAllAsSeen() {
+    const changelogs = await this.changelogs.toPromise();
+    this.settingsService.form.seenChangelogs.model?.push(changelogs.map(c => c.id));
   }
 
   ngOnDestroy() {

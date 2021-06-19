@@ -1,10 +1,8 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { SettingsService } from '@services/settings.service';
-import { of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { SignalrService } from '@services/signalr.service';
 import { BaseInjection } from '@stewie/framework';
 import { LivefeedItem } from '../generated/models';
-import { SignalrService, SignalrServiceToken } from '@interfaces/signalr.service';
 
 @Injectable()
 export class LivefeedService extends BaseInjection {
@@ -23,7 +21,7 @@ export class LivefeedService extends BaseInjection {
 
   constructor(
     private settingsService: SettingsService,
-    @Inject(SignalrServiceToken) private signalrService: SignalrService) {
+    private signalrService: SignalrService) {
     super();
 
     this.form.liveUpdate.valueChanges.subscribe(value => this.signalrService.sendSettings({ liveUpdate: value }));

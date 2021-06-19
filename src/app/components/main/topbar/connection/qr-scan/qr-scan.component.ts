@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { BaseComponent } from '@components/base.component';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { SettingsService } from '@services/settings.service';
+import { SignalrService } from '@services/signalr.service';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { SelectItem } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { BaseComponent } from '@components/base.component';
-import { SignalrService, SignalrServiceToken } from '@interfaces/signalr.service';
 
 @Component({
   selector: 'app-qr-scan',
@@ -32,7 +32,7 @@ export class QrScanComponent extends BaseComponent implements AfterViewInit, OnD
   constructor(
     public ref: DynamicDialogRef,
     private settingsService: SettingsService,
-    @Inject(SignalrServiceToken) private signalrService: SignalrService
+    private signalrService: SignalrService
   ) {
     super();
 

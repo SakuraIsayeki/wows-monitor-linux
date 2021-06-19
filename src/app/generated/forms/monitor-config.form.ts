@@ -24,6 +24,8 @@ export class MonitorConfigForm extends StFormGroup<MonitorConfig> {
     this.addControl('teamWinrate', new StFormControl<TeamWinrate | null>(model?.teamWinrate, null, null));
     this.addControl('overwriteReplaysDirectory', new StFormControl<string | null>(model?.overwriteReplaysDirectory, null, null));
     this.addControl('closeToTray', new StFormControl<boolean | null>(model?.closeToTray, null, null));
+    this.addControl('anonymScreenshot', new StFormControl<boolean | null>(model?.anonymScreenshot, null, null));
+    this.addControl('screenshotPath', new StFormControl<string | null>(model?.screenshotPath, null, null));
 
     if(this.validatorGetter?.getCustomValidators){
       this.validatorGetter.getCustomValidators(this);
@@ -50,6 +52,8 @@ export class MonitorConfigForm extends StFormGroup<MonitorConfig> {
       this.teamWinrate?.reset(model ? model?.teamWinrate : null, options);    
       this.overwriteReplaysDirectory?.reset(model ? model?.overwriteReplaysDirectory : null, options);    
       this.closeToTray?.reset(model ? model?.closeToTray : null, options);    
+      this.anonymScreenshot?.reset(model ? model?.anonymScreenshot : null, options);    
+      this.screenshotPath?.reset(model ? model?.screenshotPath : null, options);    
     
   }
   
@@ -72,6 +76,8 @@ export class MonitorConfigForm extends StFormGroup<MonitorConfig> {
     this.teamWinrate?.setValue(model?.teamWinrate, options);
     this.overwriteReplaysDirectory?.setValue(model?.overwriteReplaysDirectory, options);
     this.closeToTray?.setValue(model?.closeToTray, options);
+    this.anonymScreenshot?.setValue(model?.anonymScreenshot, options);
+    this.screenshotPath?.setValue(model?.screenshotPath, options);
     
   }
 
@@ -115,6 +121,12 @@ export class MonitorConfigForm extends StFormGroup<MonitorConfig> {
   get closeToTray() {
     return this.controls.closeToTray as StFormControl<boolean | null>;
   }
+  get anonymScreenshot() {
+    return this.controls.anonymScreenshot as StFormControl<boolean | null>;
+  }
+  get screenshotPath() {
+    return this.controls.screenshotPath as StFormControl<string | null>;
+  }
 
 
   get model(): MonitorConfig | null {
@@ -136,6 +148,8 @@ export class MonitorConfigForm extends StFormGroup<MonitorConfig> {
       teamWinrate: this.teamWinrate?.model,
       overwriteReplaysDirectory: this.overwriteReplaysDirectory?.model,
       closeToTray: this.closeToTray?.model,
+      anonymScreenshot: this.anonymScreenshot?.model,
+      screenshotPath: this.screenshotPath?.model,
       
     } as MonitorConfig;
     

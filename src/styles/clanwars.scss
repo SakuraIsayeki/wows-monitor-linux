@@ -13,7 +13,7 @@ app-match-item {
   grid-template-rows: 1fr;
   grid-template-columns: 1fr auto 1fr;
   grid-template-areas: "left center right";
-  gap: .5em;
+  gap: .5rem;
 
   &.normal {
     border-left: .5em solid $successColor;
@@ -39,11 +39,11 @@ app-match-item {
     justify-content: center;
 
     .region {
-      height: 2em;
+      height: 2rem;
     }
 
     .vs {
-      font-size: 1.5em;
+      font-size: 1.5rem;
     }
   }
 
@@ -59,16 +59,16 @@ app-match-item {
   align-items: center;
 
   > * {
-    margin-right: .5em;
+    margin-right: .5rem;
   }
 
   img {
-    width: 1.5em;
+    width: 1.5rem;
   }
 }
 
 app-match-item-team {
-  padding: .5em;
+  padding: .5rem;
   cursor: default;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
@@ -164,7 +164,7 @@ app-match-item-team {
     position: absolute;
     right: 0;
     top: 0;
-    font-size: 1.2em;
+    font-size: 1.2rem;
     z-index: 999;
     transition: .3s all ease-in-out;
   }
@@ -176,15 +176,15 @@ app-match-item-team {
   .show-hide-filters {
     position: absolute;
     right: 0;
-    bottom: -2em;
-    font-size: 1.2em;
+    bottom: -2.5rem;
+    font-size: 1.2rem;
     z-index: 999;
     transition: .3s all ease-in-out;
   }
 
   &.hidden {
     .show-hide-filters {
-      bottom: -1em;
+      bottom: -1rem;
     }
   }
 }
@@ -195,9 +195,9 @@ app-match-item-team {
 
 .select-item {
   background: $primaryColor;
-  padding: .1em 0.3em;
+  padding: .1em 0.3rem;
   border-radius: 4px;
-  margin: 0 0.3em;
+  margin: 0 0.3rem;
 }
 
 .p-chips {
@@ -216,7 +216,7 @@ app-match-item-team {
 app-favorite-input {
   app-clan-search {
     display: block;
-    margin-bottom: .5em;
+    margin-bottom: .5rem;
   }
 }
 
@@ -224,8 +224,8 @@ app-favorite-input {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 1em;
-  margin-bottom: 1em;
+  gap: 1rem;
+  margin-bottom: 1rem;
 
   &.history {
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -253,7 +253,7 @@ app-favorite-input {
     }
 
     label {
-      margin-bottom: .3em;
+      margin-bottom: .3rem;
     }
 
     &.input-switch {
@@ -261,7 +261,7 @@ app-favorite-input {
       align-items: center;
 
       p-inputswitch {
-        margin-right: .5em;
+        margin-right: .5rem;
       }
     }
 
@@ -303,10 +303,10 @@ app-favorite-input {
 }
 
 .claninfo {
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
 
   .info-row {
-    margin-bottom: .5em;
+    margin-bottom: .5rem;
   }
 
   &.ranking-wrapper {
@@ -314,7 +314,7 @@ app-favorite-input {
     direction: row;
 
     > .info-row {
-      margin-right: 1em;
+      margin-right: 1rem;
 
       &:last-child {
         margin-right: 0;
@@ -327,7 +327,7 @@ app-favorite-input {
     direction: row;
 
     > :first-child {
-      margin-right: 2em;
+      margin-right: 2rem;
     }
   }
 }

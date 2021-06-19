@@ -6,6 +6,13 @@ import ua from 'universal-analytics';
 import { AnalyticsService } from '@interfaces/analytics.service';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
 
+declare type ScreenInfo = {
+  sizeX: number;
+  sizeY: number;
+  displayWidth: number;
+  displayHeight: number;
+};
+
 @Injectable()
 export class DesktopGoogleAnalyticsService implements AnalyticsService {
 
@@ -19,16 +26,13 @@ export class DesktopGoogleAnalyticsService implements AnalyticsService {
     });
   }
 
-  config(path: string, title?: string) {
+  async config(path: string, title?: string) {
     if (!this.visitor) { return; }
-    const window = this.electronService.remote.BrowserWindow.getAllWindows()[0];
-    const screen = this.electronService.remote.screen;
-    const windowSize = window.getSize();
-    const windowBounds = window.getBounds();
-    const display = screen.getDisplayNearestPoint({ x: windowBounds.x, y: windowBounds.y });
+
+    const screenInfo:ScreenInfo = await this.electronService.ipcRenderer.invoke('get-window-and-screen-info');
     const params = {
-      sr: `${windowSize[0]}x${windowSize[1]}`,
-      vp: `${display.size.width}x${display.size.height}`
+      sr: `${screenInfo.sizeX}x${screenInfo.sizeY}`,
+      vp: `${screenInfo.displayWidth}x${screenInfo.displayHeight}`
     } as any;
     if (this.settingsService.form.monitorConfig.anonymIp.value) {
       params.aip = 1;

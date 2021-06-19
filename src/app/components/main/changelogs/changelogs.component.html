@@ -1,32 +1,32 @@
 <div class="container small changelog-container">
   <p-card class="list">
     <h2>Changelogs</h2>
-    <div class="space-bottom" *showOn="'desktop'">
-      <p-dropdown [options]="route.snapshot.data.changelogs" optionLabel="version"
-        (onChange)="selectChangelog($event.value)">
+    <div *showOn="'desktop'" class="p-mb-2">
+      <p-dropdown [options]="changelogs | async" optionLabel="version" optionValue="id"
+                  (onChange)="selectChangelog($event.value)">
         <ng-template let-item pTemplate="selectedItem">
-          {{item.label}}
+          {{item.version}}
         </ng-template>
         <ng-template let-item pTemplate="item">
           <span class="circular-badge-wrapper">
-            {{item.label}}
-            <span *ngIf="!isSeen(item.value)" class="badge circular"></span>
+            {{item.version}}
+            <span *ngIf="!isSeen(item.id)" class="badge circular"></span>
           </span>
         </ng-template>
       </p-dropdown>
     </div>
-    <ul class="changelog-list" *showOn="'desktopHd';higher:true">
-      <li *ngFor="let changelog of route.snapshot.data.changelogs" (click)="selectChangelog(changelog)"
-        [class.active]="selectedId == changelog.id">
+    <ul class="changelog-list p-mb-2 no-list-ui" *showOn="'desktopHd';higher:true">
+      <li *ngFor="let changelog of changelogs | async" (click)="selectChangelog(changelog.id)"
+          [class.active]="selectedId == changelog.id">
         <span class="circular-badge-wrapper">
           {{changelog.version}}
-          <span *ngIf="!isSeen(changelog)" class="badge circular"></span>
+          <span *ngIf="!isSeen(changelog.id)" class="badge circular"></span>
         </span>
 
       </li>
     </ul>
     <button *ngIf="true" pButton type="button" icon="pi pi-check" [label]="'changelogs.markAllAsSeen' | translate" class="p-button-success"
-      (click)="markAllAsSeen()"></button>
+            (click)="markAllAsSeen()"></button>
   </p-card>
 
   <p-card class="detail">

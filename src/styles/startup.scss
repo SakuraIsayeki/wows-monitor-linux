@@ -1,8 +1,8 @@
 /* Mobile first queries */
 
 .centered-logo-wrapper {
-  height: 100vh;
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: center;
 
@@ -23,7 +23,7 @@
     }
 
     .p-progressbar {
-      height: .3em;
+      height: .3rem;
     }
   }
 }

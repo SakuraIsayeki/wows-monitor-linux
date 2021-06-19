@@ -1,0 +1,8 @@
+<div class="p-inputgroup">
+  <input pInputText [title]="control.value" type="text" class="file-input" [attr.readonly]="true"
+         [formControl]="control">
+  <button pButton type="button" icon="pi pi-folder" (click)="selectPath()"></button>
+  <button *ngIf="control.value" (click)="control.setValue(null)"
+          pButton
+          type="button" icon="pi pi-times"></button>
+</div>

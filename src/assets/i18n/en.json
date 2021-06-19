@@ -164,12 +164,22 @@
 		"testship": "Ship is in live testing"
 	},
 	"pathPicker": {
-		"additionalInfo": "Information about selected folder",
+		"additionalInfo": {
+			"clientVersion": "Client version",
+			"folderVersion": "Bin folder version",
+			"preferencesPathBase": "Preferences path base",
+			"region": "Region",
+			"replaysFolders": "Replays folders",
+			"replaysFoldersFound": "Replays folders found",
+			"replaysPathBase": "Replays path base",
+			"title": "Information about selected folder"
+		},
 		"description": "Select the main installation folder of World of Warships.<br />If you have the WGC installation the path should look similar to this:<br />    <strong>C:\\Games\\World of Warships</strong><br />If you have the Steam installation the path should look similar to this:<br />    <strong>C:\\Programs\\Steam\\common\\World of Warships</strong>",
 		"dialogHeader": "Select your game folder",
 		"multiClientSelect": "Select active client",
 		"pickFolder": "Select your game folder"
 	},
+	"screenshot": "Take a screenshot",
 	"service": {
 		"connected": "Service connected",
 		"hostConnected": "Service conntected and desktop client paired",
@@ -278,6 +288,17 @@
 				"summary": "If for some reason the automatic detection does not work for you, you can manually overwrite the replays directory here."
 			},
 			"title": "Miscellaneous"
+		},
+		"screenshots": {
+			"anonymScreenshot": {
+				"caption": "Anonymize Names",
+				"summary": "When enabled the screenshot function will anonymize the player names."
+			},
+			"screenshotPath": {
+				"caption": "Screenshot path",
+				"summary": "Additional to storing the screenshot in your clipboard, you can save them to a specified location"
+			},
+			"title": "Screenshots"
 		}
 	},
 	"uimessages": {
@@ -316,8 +337,8 @@
 			"summary": "Error"
 		},
 		"matchUpdated": {
-			"summary": "Success",
-			"detail": "Match updated"
+			"detail": "Match updated",
+			"summary": "Success"
 		},
 		"noHostPaired": {
 			"detail": "No desktop client paired",
@@ -330,6 +351,14 @@
 		"restartForUpdate": {
 			"detail": "App updating...",
 			"summary": "Warning"
+		},
+		"screenshotSaved": {
+			"detail": "Screenshot saved",
+			"summary": "Success"
+		},
+		"screenshotTaken": {
+			"detail": "Screenshot taken",
+			"summary": "Success"
 		},
 		"serviceConnected": {
 			"detail": "Service successfully connected",

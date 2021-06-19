@@ -1,4 +1,5 @@
 <div class="floating-buttons">
+
   <a routerLink="/settings/appearance" class="round-icon-button">
     <fa-icon [icon]="faPaintBrush" [fixedWidth]="true"></fa-icon>
   </a>
@@ -36,8 +37,8 @@
 
 
 
-<div *ngIf="!(signalrService.$info | async)" class="empty-monitor">
-  <span>
+<div *ngIf="!(signalrService.$info | async)" class="p-d-flex p-flex-grow p-ai-center p-jc-center">
+  <span style="font-size: 1.5rem">
     <fa-icon [icon]="faWifi" [fixedWidth]="true"></fa-icon>&nbsp;{{'monitor.empty' | translate}}
   </span>
 </div>

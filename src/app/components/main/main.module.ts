@@ -15,6 +15,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
+import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { AnalyticsInfoComponent } from './analytics-info/analytics-info.component';
@@ -67,7 +68,8 @@ import { TopbarComponent } from './topbar/topbar.component';
     ToastModule,
     LoadingBarModule,
     InputSwitchModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TableModule
   ],
   providers: [
     DialogService,

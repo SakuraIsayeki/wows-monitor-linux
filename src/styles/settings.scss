@@ -3,14 +3,14 @@
 .settings {
 
   section {
-    margin-bottom: 2.5em;
+    margin-bottom: 2.5rem;
   }
 
   article {
     padding: 1em 0;
     border-bottom: 1px solid $secondaryColor;
     display: grid;
-    gap: .5em;
+    gap: .5rem;
     grid-template-areas: 'caption'
       'summary'
       'input';
@@ -36,7 +36,7 @@
   }
 
   h3 {
-    margin-bottom: .5em;
+    margin-bottom: .5rem;
   }
 
   caption {
@@ -47,7 +47,7 @@
 
   summary {
     grid-area: summary;
-    font-size: .85em;
+    font-size: .85rem;
     opacity: 0.8;
   }
 
@@ -55,7 +55,7 @@
     grid-area: input;
     display: flex;
     align-items: center;
-    padding-top: 1em;
+    padding-top: 1rem;
     flex-direction: row-reverse;
 
     input[type="text"] {
@@ -73,7 +73,7 @@
 /* Larger than tablet */
 @media (min-width: 750px) {
   .settings article {
-    gap: 1em;
+    gap: 1rem;
     grid-template-areas: 'caption .'
       'summary input';
     grid-template-columns: auto max-content;

@@ -1,10 +1,12 @@
-import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Optional, ViewChild } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
-import { faBars, faCompress, faExpand } from '@fortawesome/free-solid-svg-icons';
-import { SignalrService, SignalrServiceToken, Status } from '@interfaces/signalr.service';
+import { faBars, faCamera, faCompress, faExpand } from '@fortawesome/free-solid-svg-icons';
+import { Status } from '@interfaces/signalr';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@services/api.service';
+import { ScreenshotService } from '@services/desktop/screenshot.service';
 import { SettingsService } from '@services/settings.service';
+import { SignalrService } from '@services/signalr.service';
 import { SelectItem } from 'primeng/api';
 import { MenuComponent } from './menu/menu.component';
 
@@ -20,8 +22,8 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   menuIcon = faBars;
   expandIcon = faExpand;
   compressIcon = faCompress;
+  cameraIcon = faCamera;
   sidebarVisible = false;
-  switchDisabled = false;
 
   modes: SelectItem[] = [
     {
@@ -48,10 +50,11 @@ export class TopbarComponent extends BaseComponent implements OnInit {
 
   constructor(
     private translateService: TranslateService,
-    @Inject(SignalrServiceToken) public signalrService: SignalrService,
+    public signalrService: SignalrService,
     public apiService: ApiService,
     public settingsService: SettingsService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    @Optional() public screenshotService: ScreenshotService
   ) {
     super();
   }
@@ -62,7 +65,11 @@ export class TopbarComponent extends BaseComponent implements OnInit {
     };
 
     this.signalrService.$status.pipe(this.untilDestroy()).subscribe(status => {
-      this.switchDisabled = status === Status.Fetching;
+      if(status === Status.Fetching){
+        this.settingsService.form.forcePVP.disable();
+      } else{
+        this.settingsService.form.forcePVP.enable();
+      }
       this.cd.detectChanges();
     });
   }
@@ -72,7 +79,7 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   async fullscreenSwitch() {
     if (this.isFullscreen) {
       try {
-        document.exitFullscreen();
+        await document.exitFullscreen();
       } catch {
       }
     } else {

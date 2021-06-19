@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+import { ElectronService } from '@interfaces/electron.service';
 import * as childProcess from 'child_process';
-import { dialog, IpcMain, ipcRenderer, remote, shell, webFrame } from 'electron';
+import { IpcMain, ipcRenderer, OpenDialogOptions, shell, webFrame } from 'electron';
 import * as fs from 'fs';
 import * as os from 'os';
-import { ElectronService } from '@interfaces/electron.service';
 
 declare global {
   interface Window {
@@ -18,11 +18,9 @@ export class DesktopElectronService implements ElectronService {
   ipcRenderer: typeof ipcRenderer;
   ipcMain: IpcMain;
   webFrame: typeof webFrame;
-  remote: typeof remote; // https://github.com/electron/electron/issues/21408
   childProcess: typeof childProcess;
   shell: typeof shell;
-  fs: typeof fs;
-  dialog: typeof dialog;
+  fs: typeof fs.promises;
   os: typeof os;
 
   constructor() {
@@ -30,11 +28,9 @@ export class DesktopElectronService implements ElectronService {
       this.ipcRenderer = window.require('electron').ipcRenderer;
       this.ipcMain = window.require('electron').ipcMain;
       this.webFrame = window.require('electron').webFrame;
-      this.remote = window.require('electron').remote;
       this.childProcess = window.require('child_process');
       this.shell = window.require('electron').shell;
-      this.fs = window.require('fs');
-      this.dialog = this.remote.dialog;
+      this.fs = window.require('fs').promises;
     }
   }
 
@@ -46,4 +42,7 @@ export class DesktopElectronService implements ElectronService {
     return os.platform() === 'win32';
   }
 
+  async showOpenDialog(options: OpenDialogOptions) {
+    return await this.ipcRenderer.invoke('open-file-dialog', options);
+  }
 }

@@ -128,7 +128,7 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
   }
 
   async selectReplaysPath() {
-    const odr = await this.electronService.dialog.showOpenDialog(this.electronService.remote.BrowserWindow.getFocusedWindow(), {
+    const odr = await this.electronService.showOpenDialog({
       defaultPath: this.settingsService.form.selectedDirectory.model,
       properties: ['openDirectory']
     });

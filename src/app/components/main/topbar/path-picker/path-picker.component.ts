@@ -2,10 +2,11 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { DirectoryService, DirectoryServiceToken } from '@interfaces/directory.service';
-import { SignalrService, SignalrServiceToken, SignalrStatus } from '@interfaces/signalr.service';
+import { SignalrStatus } from '@interfaces/signalr';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@services/api.service';
 import { SettingsService } from '@services/settings.service';
+import { SignalrService } from '@services/signalr.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { combineLatest, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -24,7 +25,7 @@ export class PathPickerComponent extends BaseComponent implements OnInit, OnDest
     private translateService: TranslateService,
     private dialogService: DialogService,
     private apiService: ApiService,
-    @Inject(SignalrServiceToken) private signalRService: SignalrService,
+    private signalrService: SignalrService,
     @Inject(DirectoryServiceToken) public directoryService: DirectoryService,
     public settingsService: SettingsService
   ) {
@@ -34,7 +35,7 @@ export class PathPickerComponent extends BaseComponent implements OnInit, OnDest
   ngOnInit() {
     let subscribtion: Subscription;
 
-    this.signalRService.$socketStatus.subscribe(s => {
+    this.signalrService.$socketStatus.subscribe(s => {
       if (s === SignalrStatus.Connected) {
         subscribtion = combineLatest([
           this.directoryService.$changeDetected,
@@ -45,7 +46,7 @@ export class PathPickerComponent extends BaseComponent implements OnInit, OnDest
               this.logError('Error during api call', err);
             });
           } else {
-            this.signalRService.resetInfo();
+            this.signalrService.resetInfo();
           }
         });
       } else {
@@ -61,7 +62,10 @@ export class PathPickerComponent extends BaseComponent implements OnInit, OnDest
       styleClass: 'dialogPopup desktop',
       header: this.translateService.instant('pathPicker.dialogHeader'),
       showHeader: true,
-      dismissableMask: true
+      dismissableMask: true,
+      style: {
+        maxWidth: '600px'
+      }
     });
   }
 

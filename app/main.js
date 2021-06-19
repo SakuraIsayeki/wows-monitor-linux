@@ -44,9 +44,8 @@ var os = require("os");
 var path = require("path");
 var url = require("url");
 var electron_log_1 = require("./electron-log");
+var ipc_module_1 = require("./ipc-module");
 var update_tasks_1 = require("./update-tasks");
-// Initialize remote module
-require('@electron/remote/main').initialize();
 var isWindows = os.platform() === 'win32';
 var win;
 var tray;
@@ -158,6 +157,7 @@ function appReady() {
         contextMenu = null;
         win = null;
     });
+    ipc_module_1.initIpcModule(win);
 }
 try {
     // This method will be called when Electron has finished

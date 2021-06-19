@@ -2,7 +2,7 @@
   <app-titlebar *isWindows></app-titlebar>
 </ng-container>
 
-<app-topbar></app-topbar>
+<app-topbar class="p-d-flex p-ai-center p-jc-between p-p-2"></app-topbar>
 <!-- <app-menu></app-menu> -->
 <ng-container *isDesktop>
   <ngx-loading-bar class="desktop" color="#eb4a0f" [includeSpinner]="false"></ngx-loading-bar>
@@ -11,11 +11,9 @@
   <ngx-loading-bar color="#eb4a0f" [includeSpinner]="false"></ngx-loading-bar>
 </ng-container>
 
-<main>
-  <p-scrollPanel [style]="{width: '100%', height: '100%'}">
-    <div class="main-top-spacer"></div>
+<main class="p-full-size p-d-flex p-flex-grow p-flex-column scroll-container custom-scrollbar custom-scrollbar-light scroll-auto-hide
+  p-p-2 p-pb-0">
     <router-outlet></router-outlet>
-  </p-scrollPanel>
 </main>
 
 <p-toast position="bottom-right" [styleClass]="'p-toast-custom'">

@@ -9,7 +9,6 @@ import { AnalyticsInfoComponent } from './analytics-info/analytics-info.componen
 import { ChangelogComponent } from './changelogs/changelog/changelog.component';
 
 @Component({
-  selector: 'app-main',
   templateUrl: './main.component.html'
 })
 export class MainComponent extends BaseComponent implements AfterViewInit {

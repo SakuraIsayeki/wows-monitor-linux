@@ -1,48 +1,14 @@
 @import '_variables.scss';
 
 app-topbar {
-  display: flex;
-  flex-direction: row;
-  position: sticky;
   box-sizing: border-box;
-  padding: .5em;
-  padding-right: 1em;
   background: $secondaryDarkColor;
   height: 55px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  align-items: center;
-}
-
-.left-top {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.states {
-  flex: none;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.forcepvp,
-app-connection {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  p-inputswitch{
-    margin-left: .5em;
-  }
 }
 
 .iconWrapper {
-  // height: 45px;
-  display: flex;
-  align-items: center;
-  // float: left;
   transition: color 0.3s ease-in-out;
 
   fa-icon {
@@ -71,14 +37,6 @@ app-connection {
   }
 }
 
-.states {
-  float: right;
-
-  .iconWrapper {
-    margin-left: .5em;
-  }
-}
-
 body .p-sidebar {
   padding: 0;
   border: 0;
@@ -95,24 +53,14 @@ body .p-sidebar {
 }
 
 .menu-topbar {
-  display: block;
   background: $secondaryDarkColor;
   height: 55px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
-  padding: .5em 1em;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
   border-bottom: 1px solid $secondaryColor;
   cursor: pointer;
 
   img {
-    height: 35px;
-    margin-right: 1em;
-  }
-
-  span {
-    font-size: 1.2em;
+    height: 100%;
   }
 }
 
@@ -128,24 +76,24 @@ body .p-sidebar {
       a {
         display: block;
         box-sizing: border-box;
-        padding: 1em;
+        padding: 1rem;
         color: $textColor;
         text-decoration: none;
 
         .badge {
-          margin-left: .25em;
+          margin-left: .25rem;
         }
       }
 
       &.active a {
-        border-left: .5em solid $primaryColor;
-        padding-left: .5em;
+        border-left: .5rem solid $primaryColor;
+        padding-left: .5rem;
         background: $secondaryColor;
       }
 
       &:not(.active) a:hover {
-        border-left: .25em solid $primaryColor;
-        padding-left: .75em;
+        border-left: .25rem solid $primaryColor;
+        padding-left: .75rem;
         background: $secondaryColor;
       }
 
@@ -155,46 +103,14 @@ body .p-sidebar {
   }
 }
 
-.statusOverlay-0,
-.statusOverlay-2 {
-  right: 1em;
-  left: 1em;
-}
-
-.qrPopup {
-
-  h2 {
-    text-align: center;
-  }
-
-  ol {
-    margin: 0;
-    margin-bottom: 1em;
-    padding-left: 2em;
-  }
-}
-
 app-qr {
   img {
     width: 100%;
-    margin-bottom: 1em;
   }
 }
 
 app-qr-scan {
   height: 100%;
-}
-
-app-qr,
-app-qr-scan {
-  display: block;
-
-  fa-icon {
-    position: absolute;
-    top: .5em;
-    right: 1em;
-    cursor: pointer;
-  }
 }
 
 .qr-scan-wrapper {

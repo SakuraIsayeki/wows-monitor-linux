@@ -1,15 +1,14 @@
-import { app, BrowserWindow, globalShortcut, Menu, screen, Tray } from 'electron';
+import { app, BrowserWindow, clipboard, globalShortcut, ipcMain, Menu, screen, Tray } from 'electron';
 import * as logger from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 import * as WindowStateKeeper from 'electron-window-state';
+import * as fs from 'fs/promises';
 import * as os from 'os';
 import * as path from 'path';
 import * as url from 'url';
 import { initElectronLogger } from './electron-log';
+import { initIpcModule } from './ipc-module';
 import { initUpdater } from './update-tasks';
-
-// Initialize remote module
-require('@electron/remote/main').initialize();
 
 const isWindows = os.platform() === 'win32';
 
@@ -141,7 +140,10 @@ function appReady() {
     contextMenu = null;
     win = null;
   });
+
+  initIpcModule(win);
 }
+
 
 try {
 

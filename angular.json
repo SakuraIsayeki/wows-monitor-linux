@@ -42,7 +42,10 @@
             "styles": [
               "node_modules/skeleton-css/css/normalize.css",
               "node_modules/primeicons/primeicons.css",
+              "node_modules/primeflex/primeflex.css",
               "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/@stewie/framework/styles/base.scss",
+              "node_modules/@stewie/framework/styles/base-full-page.scss",
               "src/styles/theme.scss",
               "src/styles.scss"
             ],

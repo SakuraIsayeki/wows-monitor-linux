@@ -5,10 +5,9 @@
       <app-general-filter></app-general-filter>
       <app-livefeed-filter></app-livefeed-filter>
     </div>
-    <a class="round-icon-button show-hide-filters"
-      (click)="service.form.showFilters.setValue(!service.form.showFilters.value)">
-      <fa-icon [icon]="faFilter"></fa-icon>
-    </a>
+    <button class="p-button-rounded show-hide-filters p-button-xl" pButton icon="pi pi-filter"
+            (click)="service.form.showFilters.setValue(!service.form.showFilters.value)"
+    ></button>
   </div>
 </p-card>
 <div @items *ngFor="let item of service.items">

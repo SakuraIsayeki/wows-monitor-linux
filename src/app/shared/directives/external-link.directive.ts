@@ -1,13 +1,16 @@
 
 
-import { Directive, ElementRef, Inject, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
 import { environment } from '@environments/environment';
 
 @Directive({
   selector: '[externalLink]'
 })
-export class ExternalLinkDirective implements OnInit {
+export class ExternalLinkDirective implements OnInit, OnDestroy {
+
+  private desktopListen: () => void;
+  private browserListen: () => void;
 
   constructor(
     @Inject(ElectronServiceToken) private electronService: ElectronService,
@@ -17,7 +20,10 @@ export class ExternalLinkDirective implements OnInit {
 
   ngOnInit() {
     if (environment.desktop) {
-      this.renderer.listen(this.el.nativeElement, 'click', (event: MouseEvent) => {
+      if(this.desktopListen){
+        this.desktopListen();
+      }
+      this.desktopListen = this.renderer.listen(this.el.nativeElement, 'click', (event: MouseEvent) => {
         event.preventDefault();
         const target = event.target as HTMLElement;
         if (target.tagName === 'A') {
@@ -28,10 +34,22 @@ export class ExternalLinkDirective implements OnInit {
         }
       });
     } else {
-      this.renderer.listen(this.el.nativeElement, 'click', (event: MouseEvent) => {
+      if(this.browserListen){
+        this.browserListen();
+      }
+      this.browserListen = this.renderer.listen(this.el.nativeElement, 'click', (event: MouseEvent) => {
         const target = event.target as HTMLElement;
         target.setAttribute('target', '_blank');
       });
+    }
+  }
+
+  ngOnDestroy() {
+    if(this.desktopListen){
+      this.desktopListen();
+    }
+    if(this.browserListen){
+      this.browserListen();
     }
   }
 }

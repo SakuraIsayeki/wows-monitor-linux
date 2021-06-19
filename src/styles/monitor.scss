@@ -4,28 +4,13 @@
 @import 'panelStyles/desktop.scss';
 @import 'panelStyles/desktopHD.scss';
 
-app-monitor {
-  display: block;
-  line-height: 1em;
-
-  .empty-monitor {
-    height: 95%;
-    width: 100%;
-    position: absolute;
-
-    span {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.5em;
-    }
-  }
+.monitor {
+  line-height: 1rem;
 
   .container {
     display: grid;
-    // margin-bottom: 2em; WHY WAS THIS HERE
-    grid-gap: 1em;
+    // margin-bottom: 2rem WHY WAS THIS HERE
+    grid-gap: 1rem;
     grid-template-areas:
       'title'
       'friendly-clan'
@@ -38,19 +23,19 @@ app-monitor {
     }
 
     &.fz-Small {
-      font-size: 0.7em;
+      font-size: 0.7rem;
     }
 
     &.fz-Normal {
-      font-size: 0.85em;
+      font-size: 0.85rem;
     }
 
     &.fz-Big {
-      font-size: 1em;
+      font-size: 1rem;
     }
 
     &.fz-Huge {
-      font-size: 1.2em;
+      font-size: 1.2rem;
     }
   }
 
@@ -114,7 +99,7 @@ app-monitor {
 hr.player-seperator {
   background: $secondaryColor;
   height: 1px;
-  margin: 0 1em;
+  margin: 0 1rem;
   padding: 0;
   border: 0;
 }
@@ -122,7 +107,7 @@ hr.player-seperator {
 app-player {
   box-sizing: border-box;
   display: block;
-  padding: 0 1em;
+  padding: 0 1rem;
   cursor: pointer;
   transition: all .3s ease-in-out;
   width: 100%;
@@ -135,8 +120,8 @@ app-player {
   }
 
   &.border-mode {
-    padding: 2px 1em 2px .3em;
-    border-width: 0 0 0 .7em;
+    padding: 2px 1em 2px .3rem;
+    border-width: 0 0 0 .7rem;
     border-style: solid;
   }
 
@@ -146,7 +131,7 @@ app-player {
 
   .info-wrapper {
     display: grid;
-    grid-gap: .5em;
+    grid-gap: .5rem;
     padding: calc(0.75em - 2px) 0;
     width: 100%;
     overflow: hidden;
@@ -289,7 +274,7 @@ app-player {
 app-team {
   display: block;
   cursor: pointer;
-  padding: 1em;
+  padding: 1rem;
 
   &:hover {
     background: transparentize($secondaryColor, 0.5);
@@ -304,10 +289,10 @@ app-team {
           display: block;
         }
 
-        margin-right: 1em;
+        margin-right: 1rem;
       }
 
-      margin-right: 2em;
+      margin-right: 2rem;
     }
   }
 }
@@ -326,7 +311,7 @@ app-team {
 
 /* Larger than tablet */
 @media (min-width: 750px) {
-  app-monitor {
+  .monitor {
     .container {
 
       grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -348,7 +333,7 @@ app-team {
 
 /* Larger than Desktop HD */
 @media (min-width: 1200px) {
-  app-monitor {
+  .monitor {
     .container {
       grid-template-rows: auto auto;
       grid-template-areas:

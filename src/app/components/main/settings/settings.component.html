@@ -4,7 +4,7 @@
   </a>
 </div>
 
-<div class="container small settings" externalLink>
+<div class="container small settings">
   <p-card>
     <h2>{{ 'settings.header' | translate}}</h2>
     <section>
@@ -204,6 +204,31 @@ weighted_WR = total_wins/total_battles
       </article>
     </section>
     <section *isDesktop>
+      <h3>{{ 'settings.screenshots.title' | translate }}</h3>
+      <article>
+        <caption>
+          {{ 'settings.screenshots.anonymScreenshot.caption' | translate }}
+        </caption>
+        <summary>
+          {{ 'settings.screenshots.anonymScreenshot.summary' | translate }}
+        </summary>
+        <div class="input-wrap">
+          <p-inputSwitch [formControl]="monitorConfig.anonymScreenshot"></p-inputSwitch>
+        </div>
+      </article>
+      <article>
+        <caption>
+          {{ 'settings.screenshots.screenshotPath.caption' | translate }}
+        </caption>
+        <summary>
+          {{ 'settings.screenshots.screenshotPath.summary' | translate }}
+        </summary>
+        <div class="input-wrap">
+          <app-file-picker [control]="monitorConfig.screenshotPath"></app-file-picker>
+        </div>
+      </article>
+    </section>
+    <section *isDesktop>
       <h3>{{ 'settings.miscellaneous.title' | translate }}</h3>
       <article>
         <caption>
@@ -213,14 +238,8 @@ weighted_WR = total_wins/total_battles
           {{ 'settings.miscellaneous.overwriteReplaysDirectory.summary' | translate }}
         </summary>
         <div class="input-wrap">
-          <div class="p-inputgroup">
-            <input pInputText [title]="monitorConfig.overwriteReplaysDirectory.value" type="text" [disabled]="true"
-                   [formControl]="monitorConfig.overwriteReplaysDirectory">
-            <button *ngIf="monitorConfig.overwriteReplaysDirectory.value" (click)="monitorConfig.overwriteReplaysDirectory.setValue(null)"
-                    pButton
-                    type="button" icon="pi pi-times"></button>
-            <button pButton type="button" icon="pi pi-folder" (click)="selectReplaysPath()"></button>
-          </div>
+          <app-file-picker [control]="monitorConfig.overwriteReplaysDirectory"
+                           [defaultPath]="settingsService.form.selectedDirectory.model"></app-file-picker>
         </div>
       </article>
     </section>

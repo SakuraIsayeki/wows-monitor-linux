@@ -4,7 +4,10 @@
  -->
 
 
-<div class="left-top">
+<div class="p-d-flex p-ai-center">
+  <p-sidebar [(visible)]="sidebarVisible" appendTo="body" [showCloseIcon]="false">
+    <app-menu [closeAction]="toggleSidebar"></app-menu>
+  </p-sidebar>
   <div id="menuIconWrapper" class="iconWrapper" (click)="toggleSidebar()">
     <span *ngIf="appMenu.badge | async" class="badge">{{appMenu.badgeCount | async}}</span>
     <fa-icon id="menuIcon" [icon]="menuIcon" size="2x" [fixedWidth]="true"></fa-icon>
@@ -23,22 +26,25 @@
   </ng-container>
 </div>
 
-<div class="states">
+<div class="p-d-flex p-ai-center p-jc-end states">
+  <div *ngIf="screenshotService" class="iconWrapper p-ml-2" (click)="screenshotService.screenshot()">
+    <fa-icon [icon]="cameraIcon" size="2x" [fixedWidth]="true"
+             [pTooltip]="'screenshot' | translate" tooltipPosition="bottom"></fa-icon>
+  </div>
+
   <ng-container *isDesktop>
-    <span class="forcepvp">
+    <span class="p-d-flex p-ai-center p-ml-2">
       <span>{{ 'monitor.forcePVP' | translate }}</span>
-      <p-inputSwitch [disabled]="switchDisabled" [formControl]="settingsService.form.forcePVP"></p-inputSwitch>
+      <p-inputSwitch class="p-ml-2" [formControl]="settingsService.form.forcePVP"></p-inputSwitch>
     </span>
   </ng-container>
-  <app-path-picker *isDesktop></app-path-picker>
-  <app-status></app-status>
-  <app-connection></app-connection>
-  <div class="iconWrapper" *isBrowser (click)="fullscreenSwitch()">
+  <app-path-picker class="p-ml-2" *isDesktop></app-path-picker>
+  <app-status class="p-ml-2"></app-status>
+  <app-connection class="p-d-flex p-ai-center"></app-connection>
+  <div class="iconWrapper p-ml-2" *isBrowser (click)="fullscreenSwitch()">
     <fa-icon *ngIf="!isFullscreen" [icon]="expandIcon" size="2x" [fixedWidth]="true"></fa-icon>
     <fa-icon *ngIf="isFullscreen" [icon]="compressIcon" size="2x" [fixedWidth]="true"></fa-icon>
   </div>
 </div>
 
-<p-sidebar [(visible)]="sidebarVisible" appendTo="body" [showCloseIcon]="false">
-  <app-menu [closeAction]="toggleSidebar"></app-menu>
-</p-sidebar>
+

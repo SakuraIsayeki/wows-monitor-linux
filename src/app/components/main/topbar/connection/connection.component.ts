@@ -1,13 +1,15 @@
-import { AfterViewInit, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import { BaseComponent } from '@components/base.component';
 import { faQrcode, faWifi } from '@fortawesome/free-solid-svg-icons';
+import { SignalrStatus } from '@interfaces/signalr';
+import { TranslateService } from '@ngx-translate/core';
+import { ResizeService } from '@services/resize.service';
+import { SignalrService } from '@services/signalr.service';
+import { ShowOnDirective } from '@shared/directives/show-on.directive';
 import { DialogService } from 'primeng/dynamicdialog';
 import { OverlayPanel } from 'primeng/overlaypanel';
-import { map, take, pairwise, distinctUntilChanged } from 'rxjs/operators';
-import { SignalrService, SignalrServiceToken, SignalrStatus } from '@interfaces/signalr.service';
-import { ResizeService } from '@services/resize.service';
-import { ShowOnDirective } from '@shared/directives/show-on.directive';
+import { distinctUntilChanged, map, pairwise, take } from 'rxjs/operators';
 import { QrScanComponent } from './qr-scan/qr-scan.component';
 import { QrComponent } from './qr/qr.component';
 
@@ -46,9 +48,10 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit,
   showOnTablet = this.resizeService.$resizeListener.pipe(map(() => ShowOnDirective.checkStatic('tablet', false)));
 
   constructor(
-    @Inject(SignalrServiceToken) public signalrService: SignalrService,
+    public signalrService: SignalrService,
     private dialogService: DialogService,
-    private resizeService: ResizeService
+    private resizeService: ResizeService,
+    private translateService: TranslateService
   ) {
     super();
 
@@ -99,7 +102,11 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit,
         return;
       }
       if (this.isDesktop) {
-        this.dialogService.open(QrComponent, { styleClass: 'qrPopup custom-popup desktop', showHeader: false, dismissableMask: true });
+        this.dialogService.open(QrComponent, {
+          styleClass: 'qrPopup custom-popup desktop',
+          header: this.translateService.instant('webConnect.desktop.title'),
+          dismissableMask: true
+        });
       } else {
         this.dialogService.open(QrScanComponent, { styleClass: 'qrPopup custom-popup browser', showHeader: false, dismissableMask: true });
       }

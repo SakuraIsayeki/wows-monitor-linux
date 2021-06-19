@@ -14,7 +14,11 @@
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
 }
 
-html{
+* {
+  box-sizing: border-box;
+}
+
+html {
   font-family: $fontFamily;
   color: $textColor;
   font-size: $fontSize;
@@ -44,14 +48,26 @@ body {
   }
 }
 
+.no-list-ui {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    padding: 0;
+    margin: 0;
+  }
+}
+
 p {
-  margin-bottom: 1em !important;
+  margin: 0;
 }
 
 a {
   color: $primaryColor;
   text-decoration: none;
   cursor: pointer;
+
   &:hover {
     color: $primaryDarkColor;
   }
@@ -62,22 +78,32 @@ a {
 
 }
 
+input[disabled].file-input,
+input[readonly].file-input {
+  color: #dedede !important;
 
+  &:focus,
+  &:active,
+  &:hover {
+    border-color: $secondaryColor;
+    outline: none !important;
 
-.u-full-width{
-  > input{
-    width: 100%;
   }
 }
 
-.space-bottom {
-  margin-bottom: 1em;
+.p-button-rounded.p-button-xl {
+  padding: 0.750rem 1.5rem;
+  height: 3.143rem;
+
+  span {
+    font-size: 1.5rem;
+  }
 }
 
 .floating-buttons {
   position: fixed;
-  bottom: 3em;
-  left: 3em;
+  bottom: 3rem;
+  left: 3rem;
   z-index: 99;
   opacity: 0;
   transition: .3s all ease-in-out;
@@ -92,7 +118,7 @@ a {
 
   &.right {
     left: auto;
-    right: 3em;
+    right: 3rem;
   }
 }
 
@@ -102,9 +128,9 @@ a {
   color: #FFF !important;
   display: block;
   border-radius: 50%;
-  height: 2.5em;
-  font-size: 1.5em;
-  width: 2.5em;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  width: 2.5rem;
   cursor: pointer;
   transition: .3s all ease-in-out;
 
@@ -122,7 +148,6 @@ a {
     transform: translate(-50%, -50%);
   }
 }
-
 
 
 .custom .p-scrollpanel-wrapper {
@@ -156,23 +181,25 @@ a {
 }
 
 .p-card {
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
 }
 
 
 .p-toast-custom .p-toast-message {
 
-  background: $secondaryLightColor!important;
+  background: $secondaryLightColor !important;
   box-shadow: inset 2px 0px 2px -1px transparentize($secondaryDarkColor, 0.4);
-  color: $textColor!important;
+  color: $textColor !important;
 
-  &.p-toast-message-success{
+  &.p-toast-message-success {
     border-left: 4px solid $successColor;
   }
-  &.p-toast-message-warn{
+
+  &.p-toast-message-warn {
     border-left: 4px solid $warningColor;
   }
-  &.p-toast-message-error{
+
+  &.p-toast-message-error {
     border-left: 4px solid $dangerColor;
   }
 }
@@ -186,7 +213,7 @@ a {
   }
 
   .p-toast-custom-content {
-    padding: .5em 1em;
+    padding: .5em 1rem;
     background: $secondaryLightColor;
     box-shadow: inset 2px 0px 2px -1px transparentize($secondaryDarkColor, 0.4);
 
@@ -210,14 +237,14 @@ a {
   min-width: 80vw;
 
   &.p-dialog .p-dialog-content {
-    background: $secondaryColor;
     max-height: 80vh;
     overflow-y: auto;
     overflow-x: hidden;
   }
 }
 
-.custom-contextmenu {}
+.custom-contextmenu {
+}
 
 ngx-loading-bar.desktop {
   #loading-bar .bar {
@@ -225,24 +252,15 @@ ngx-loading-bar.desktop {
   }
 }
 
-main {
-  height: calc(100% - 55px);
-  width: 100vw;
-  overflow: hidden;
-  box-sizing: border-box;
-  padding: .5em 1em;
-  padding-top: 0;
-}
-
 .main-top-spacer {
-  height: .5em;
+  height: .5rem;
 }
 
 .badge {
   display: inline-block;
   border-radius: 2px;
-  padding: 0 0.3em;
-  font-size: .8em;
+  padding: 0 0.3rem;
+  font-size: .8rem;
   text-align: center;
   text-align: center;
   background: $primaryColor;
@@ -250,11 +268,11 @@ main {
 
   &.circular {
     border-radius: 50%;
-    height: 0.7em;
-    width: 0.7em;
+    height: 0.7rem;
+    width: 0.7rem;
     position: absolute;
     top: 0;
-    right: -.7em;
+    right: -.7rem;
     padding: 0;
   }
 }
@@ -268,27 +286,27 @@ main {
   flex-direction: column;
   align-items: center;
 
-  >* {
-    margin-bottom: 1em;
+  > * {
+    margin-bottom: 1rem;
   }
 }
 
 /* Mobile first queries */
 
 /* Larger than mobile */
-@media (min-width: 400px){
+@media (min-width: 400px) {
   .align-right-wrapper {
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
-  
-    >* {
+
+    > * {
       margin-left: auto;
     }
-  
-    >p-button {
-      margin-left: 1em;
-  
+
+    > p-button {
+      margin-left: 1rem;
+
       &:first-child {
         margin-left: 0;
       }
@@ -313,13 +331,16 @@ main {
 }
 
 /* Larger than tablet */
-@media (min-width: 750px) {}
+@media (min-width: 750px) {
+}
 
 /* Larger than desktop */
-@media (min-width: 1000px) {}
+@media (min-width: 1000px) {
+}
 
 /* Larger than Desktop HD */
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+}
 
 @media (min-width: 1800px) {
   .floating-buttons {
