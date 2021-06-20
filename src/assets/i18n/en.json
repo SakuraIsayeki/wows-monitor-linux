@@ -146,6 +146,8 @@
 			"COOPERATIVE": "Coop",
 			"PVE": "PVE",
 			"PVP": "Random",
+			"EVENT": "Event",
+			"BRAWL": "Brawl",
 			"RANKED": "Ranked"
 		},
 		"noBattles": "Player has no battles on this ship yet",

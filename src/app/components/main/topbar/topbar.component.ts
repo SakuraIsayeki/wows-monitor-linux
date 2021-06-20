@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit, Optional, ViewChild } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
 import { faBars, faCamera, faCompress, faExpand } from '@fortawesome/free-solid-svg-icons';
+import { MatchGroup } from '@generated/models/match-group';
+import { MatchInfo } from '@generated/models/match-info';
 import { Status } from '@interfaces/signalr';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@services/api.service';
@@ -8,6 +10,7 @@ import { ScreenshotService } from '@services/desktop/screenshot.service';
 import { SettingsService } from '@services/settings.service';
 import { SignalrService } from '@services/signalr.service';
 import { SelectItem } from 'primeng/api';
+import { combineLatest } from 'rxjs';
 import { MenuComponent } from './menu/menu.component';
 
 @Component({
@@ -64,8 +67,14 @@ export class TopbarComponent extends BaseComponent implements OnInit {
       this.isFullscreen = document.fullscreenElement != null;
     };
 
-    this.signalrService.$status.pipe(this.untilDestroy()).subscribe(status => {
-      if(status === Status.Fetching){
+    combineLatest([
+      this.signalrService.$status,
+      this.signalrService.$info
+    ])
+    .pipe(this.untilDestroy()).subscribe(arr => {
+      const status = arr[0] as Status;
+      const info = arr[1] as MatchInfo;
+      if(status === Status.Fetching || info?.matchGroup != MatchGroup.RANKED){
         this.settingsService.form.forcePVP.disable();
       } else{
         this.settingsService.form.forcePVP.enable();

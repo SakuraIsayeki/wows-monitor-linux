@@ -1,8 +1,12 @@
 <div class="floating-buttons">
-  <a routerLink="/" class="round-icon-button">
-    <fa-icon [icon]="faDesktop" [fixedWidth]="true"></fa-icon>
-  </a>
+  <button class="p-button-rounded p-button-xl p-button p-component p-button-icon-only" routerLink="/">
+    <span class="p-button-icon">
+      <fa-icon [icon]="faDesktop" [fixedWidth]="true"></fa-icon>
+    </span>
+    <span aria-hidden="true" class="p-button-label">&nbsp;</span>
+  </button>
 </div>
+
 
 <div class="container small settings">
   <p-card>

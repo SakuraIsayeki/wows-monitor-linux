@@ -34,7 +34,7 @@
 
   <ng-container *isDesktop>
     <span class="p-d-flex p-ai-center p-ml-2">
-      <span>{{ 'monitor.forcePVP' | translate }}</span>
+      <span [class.p-disabled]="settingsService.form.forcePVP.disabled">{{ 'monitor.forcePVP' | translate }}</span>
       <p-inputSwitch class="p-ml-2" [formControl]="settingsService.form.forcePVP"></p-inputSwitch>
     </span>
   </ng-container>
