@@ -23,7 +23,7 @@ export class TeamComponent extends BaseComponent implements OnInit {
   clan: ClanInfo;
 
   @Input()
-  team: TeamAverage;
+  averages: TeamAverage[];
 
   @Input()
   cw: boolean;
@@ -37,24 +37,6 @@ export class TeamComponent extends BaseComponent implements OnInit {
 
 
   items: MenuItem[];
-
-  get shipWinrate() {
-    if (this.config.teamWinrate === TeamWinrate.Weighted) {
-      return this.team.weightedShipWinrate;
-    } else if (this.config.teamWinrate === TeamWinrate.Median) {
-      return this.team.medianShipWinrate;
-    }
-    return this.team.shipWinrate;
-  }
-
-  get overallWinrate() {
-    if (this.config.teamWinrate === TeamWinrate.Weighted) {
-      return this.team.weightedOverallWinrate;
-    } else if (this.config.teamWinrate === TeamWinrate.Median) {
-      return this.team.medianOverallWinrate;
-    }
-    return this.team.overallWinrate;
-  }
 
   private config = this.settingsService.form.monitorConfig.model;
 

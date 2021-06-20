@@ -166,6 +166,29 @@
       </article>
       <article>
         <caption>
+          {{ 'settings.appearance.soloStats.caption' | translate }}
+        </caption>
+        <summary>
+          {{ 'settings.appearance.soloStats.summary' | translate }}
+        </summary>
+        <div class="input-wrap p-inputgroup">
+          <p-multiSelect [style]="{ minWidth: '200px' }"
+                         [appendTo]="'body'"
+                  [options]="soloStatsOptions"
+                         [formControl]="monitorConfig.soloStats"
+                         [showToggleAll]="true"
+                         [placeholder]="'settings.appearance.soloStats.placeholder' | translate">
+            <ng-template let-types pTemplate="selectedItems">
+              <span>{{'settings.appearance.soloStats.itemsSelected' | translate:{count: types.length} }}</span>
+            </ng-template>
+            <ng-template let-type pTemplate="item">
+              {{type.label$ | async}}
+            </ng-template>
+          </p-multiSelect>
+        </div>
+      </article>
+      <article>
+        <caption>
           {{ 'settings.appearance.teamWinrate.caption' | translate }}
         </caption>
         <summary>

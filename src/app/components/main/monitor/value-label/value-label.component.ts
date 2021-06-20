@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { BaseComponent } from '@components/base.component';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 import { SettingsService } from '@services/settings.service';
 
 @Component({
@@ -14,6 +15,11 @@ export class ValueLabelComponent extends BaseComponent implements OnInit {
 
   @Input()
   icon: IconDefinition;
+
+  @Input()
+  solo: boolean;
+
+  faUser = faUser;
 
   constructor(public settingsService: SettingsService) {
     super();

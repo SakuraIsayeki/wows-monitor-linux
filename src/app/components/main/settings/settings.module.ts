@@ -6,6 +6,7 @@ import { CardModule } from 'primeng/card';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SharedModule } from '@shared/shared.module';
 import { SettingsRoutingModule } from './settings-routing.module';
@@ -35,7 +36,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     FontAwesomeModule,
     DialogModule,
     OverlayPanelModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MultiSelectModule
   ],
   providers: [
   ]

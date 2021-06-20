@@ -1,0 +1,3 @@
+<app-value-label [label]="'monitor.labels.accBattles' | translate" [icon]="icon" *ngIf="stats | async; let accStats;" [solo]="soloStats | async">
+  <strong [style.color]="accStats?.battlesColor | sanitizeCss">{{accStats?.battles | number:'0.0-0'}}</strong>
+</app-value-label>

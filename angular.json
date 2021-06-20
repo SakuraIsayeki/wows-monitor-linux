@@ -125,14 +125,15 @@
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "app:build-browser:build",
-            "port": 4201
+            "port": 4200
           },
           "configurations": {
             "dev": {
               "browserTarget": "app:build:dev"
             },
             "dev-web": {
-              "browserTarget": "app:build:dev-web"
+              "browserTarget": "app:build:dev-web",
+              "port": 4201
             },
             "web": {
               "browserTarget": "app:build:web"

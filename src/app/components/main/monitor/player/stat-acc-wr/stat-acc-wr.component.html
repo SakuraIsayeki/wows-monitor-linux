@@ -1,0 +1,4 @@
+<app-value-label [label]="'monitor.labels.accWinrate' | translate"  [icon]="icon" *ngIf="stats | async; let accStats;" [solo]="soloStats | async">
+  <strong
+          [style.color]="accStats?.winrateColor | sanitizeCss">{{accStats?.winrate | number:'0.0-2'}}%</strong>
+</app-value-label>

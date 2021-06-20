@@ -1,0 +1,6 @@
+<ng-container *ngIf="!cw">
+  <app-value-label [label]="'monitor.labels.xp' | translate"  [icon]="icon" *ngIf="stats | async; let accStats;" [solo]="soloStats | async">
+    <strong>{{accStats?.averageXp | number:'0.0-0'}}</strong>
+  </app-value-label>
+</ng-container>
+

@@ -136,12 +136,12 @@ function appReady() {
             win.reload();
         });
         electron_1.globalShortcut.register('f6', function () {
-            win.loadURL('http://localhost:4201');
+            win.loadURL('http://localhost:4200');
         });
         require('electron-reload')(__dirname, {
             electron: require(__dirname + "/../node_modules/electron")
         });
-        win.loadURL('http://localhost:4201');
+        win.loadURL('http://localhost:4200');
         win.webContents.openDevTools();
     }
     else {

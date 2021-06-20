@@ -1,0 +1,4 @@
+<app-value-label [label]="'monitor.labels.battles' | translate" [icon]="icon" *ngIf="stats | async; let teamStats;"
+                 [solo]="soloStats | async">
+  <strong>{{teamStats?.shipBattles | number:'0.0-0'}}</strong>
+</app-value-label>

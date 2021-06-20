@@ -2,14 +2,14 @@ import { Component, Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, NavigationEnd, RouterStateSnapshot } from '@angular/router';
 import { BaseComponent } from '@components/base.component';
 import { environment } from '@environments/environment';
+import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
 import { UpdateService, UpdateServiceToken } from '@interfaces/update.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AppInitService } from '@services/app-init.service';
 import { SettingsService } from '@services/settings.service';
 import { PrimeNGConfig } from 'primeng/api';
-import { forkJoin, Observable, of } from 'rxjs';
-import { fromPromise } from 'rxjs/internal-compatibility';
-import { first, map, skip, tap } from 'rxjs/operators';
+import { forkJoin, interval, Observable, of } from 'rxjs';
+import { first, map, skip, take, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +18,7 @@ import { first, map, skip, tap } from 'rxjs/operators';
 export class AppWrapperComponent extends BaseComponent {
 
   public isUpdating = false;
+  public showReset = false;
 
   get updateProgress() {
     if (environment.browser) {
@@ -29,6 +30,8 @@ export class AppWrapperComponent extends BaseComponent {
 
   constructor(public appInit: AppInitService,
               private translate: TranslateService,
+              public settingsService: SettingsService,
+              @Inject(ElectronServiceToken) private electronService: ElectronService,
               @Inject(UpdateServiceToken) private updateService: UpdateService) {
     super();
   }
@@ -50,6 +53,10 @@ export class AppWrapperComponent extends BaseComponent {
     } else {
       this.appInit.initialized();
     }
+
+    interval(10000).pipe(this.untilDestroy(),take(1)).subscribe(() => {
+      this.showReset = true;
+    });
   }
 
   private handleUpdate(available) {
@@ -63,6 +70,11 @@ export class AppWrapperComponent extends BaseComponent {
         this.appInit.initialized();
       });
     }
+  }
+
+  async resetAndRestart() {
+    await this.settingsService.reset();
+    await this.electronService.ipcRenderer.invoke('restart');
   }
 }
 
@@ -105,7 +117,7 @@ export class AppActivator implements CanActivate, CanActivateChild {
     return forkJoin([
       this.appInit.isInitialized$.pipe(first(x => x)),
       this.translate.use(this.translate.getBrowserLang()),
-      this.settingsService.initialize(),
+      this.settingsService.initialize()
       /*, this.authService.isLoaded$.pipe(first(v => v))*/])
       .pipe(map(v => true), tap(() => {
         this.translate.get('primeng').subscribe(res => this.primeNgConfig.setTranslation(res));

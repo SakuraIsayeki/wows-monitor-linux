@@ -8,15 +8,21 @@
 <span *ngIf="!cw" class="team-overall-wrapper">
   <span class="inner">
     <strong>Avg Ships</strong>
-    <span>Xp: {{team.shipXp | number:'0.0-0'}}</span>
-    <span>Winrate: {{shipWinrate | number:'0.0-2'}}%</span>
-    <span>Battles: {{team.shipBattles | number:'0.0-0'}} </span>
+    <team-stat-ship-xp [teamAverages]="averages"></team-stat-ship-xp>
+    <team-stat-ship-wr [teamAverages]="averages"></team-stat-ship-wr>
+    <team-stat-ship-battles [teamAverages]="averages"></team-stat-ship-battles>
+<!--    <span>Xp: {{team.shipXp | number:'0.0-0'}}</span>-->
+<!--    <span>Winrate: {{shipWinrate | number:'0.0-2'}}%</span>-->
+<!--    <span>Battles: {{team.shipBattles | number:'0.0-0'}} </span>-->
   </span>
   <span class="inner">
     <strong>Avg Accounts</strong>
-    <span>Xp: {{team.overallXp | number:'0.0-0'}}</span>
-    <span>Winrate: {{overallWinrate | number:'0.0-2'}}%</span>
-    <span>Battles: {{team.overallBattles | number:'0.0-0'}} </span>
+    <team-stat-acc-xp [teamAverages]="averages"></team-stat-acc-xp>
+    <team-stat-acc-wr [teamAverages]="averages"></team-stat-acc-wr>
+    <team-stat-acc-battles [teamAverages]="averages"></team-stat-acc-battles>
+<!--    <span>Xp: {{team.overallXp | number:'0.0-0'}}</span>-->
+<!--    <span>Winrate: {{overallWinrate | number:'0.0-2'}}%</span>-->
+<!--    <span>Battles: {{team.overallBattles | number:'0.0-0'}} </span>-->
   </span>
 </span>
 

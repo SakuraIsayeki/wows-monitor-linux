@@ -4,6 +4,7 @@ import { FontSize } from './font-size';
 import { LayoutMode } from './layout-mode';
 import { PlayerBackgrounds } from './player-backgrounds';
 import { PlayerBackgroundsMode } from './player-backgrounds-mode';
+import { StatType } from './stat-type';
 import { TeamWinrate } from './team-winrate';
 export interface MonitorConfig {
   allowBeta?: null | boolean;
@@ -20,6 +21,7 @@ export interface MonitorConfig {
   playerBackgrounds?: null | PlayerBackgrounds;
   playerBackgroundsMode?: null | PlayerBackgroundsMode;
   screenshotPath?: null | string;
+  soloStats?: null | Array<StatType>;
   teamWinrate?: null | TeamWinrate;
 }
 

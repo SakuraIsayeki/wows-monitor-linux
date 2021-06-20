@@ -48,6 +48,16 @@ export class TopbarComponent extends BaseComponent implements OnInit {
     {
       label: this.translateService.instant('monitor.matchGroup.PVE'),
       value: 'PVE'
+    },
+    ,
+    {
+      label: this.translateService.instant('monitor.matchGroup.BRAWL'),
+      value: 'BRAWL'
+    },
+    ,
+    {
+      label: this.translateService.instant('monitor.matchGroup.EVENT'),
+      value: 'EVENT'
     }
   ];
 

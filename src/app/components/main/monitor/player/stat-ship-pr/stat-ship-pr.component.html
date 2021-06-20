@@ -1,0 +1,4 @@
+<app-value-label [label]="'monitor.labels.pr' | translate"  [icon]="icon" *ngIf="stats | async; let shipStats;" [solo]="soloStats | async">
+      <span [pTooltip]="'monitor.pr.poweredBy' | translate" tooltipPosition="bottom"
+            [style.color]="shipStats?.personalRatingColor | sanitizeCss"><strong>{{shipStats?.personalRating}}</strong></span>
+</app-value-label>

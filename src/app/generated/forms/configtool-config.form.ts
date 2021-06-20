@@ -11,7 +11,7 @@ export class ConfigtoolConfigForm extends StFormGroup<ConfigtoolConfig> {
   }
   
   protected addControls(model: ConfigtoolConfig) {
-    this.addControl('clientPaths', new StFormControl<string[] | null>(model?.clientPaths, null, null));
+    this.addControl('clientPaths', new StFormControl<string[] | null>(model?.clientPaths ?? [], null, null));
     this.addControl('maxFrameRate', new StFormControl<number | null>(model?.maxFrameRate, null, null));
     this.addControl('cacheEffectsEnabled', new StFormControl<boolean | null>(model?.cacheEffectsEnabled, null, null));
     this.addControl('cacheEffects', new StFormControl<boolean | null>(model?.cacheEffects, null, null));
@@ -34,7 +34,7 @@ export class ConfigtoolConfigForm extends StFormGroup<ConfigtoolConfig> {
     onlySelf?: boolean;
     emitEvent?: boolean;
   }) {
-      this.clientPaths?.reset(model ? model?.clientPaths : null, options);    
+      this.clientPaths?.reset(model ? model?.clientPaths ?? [] : null, options);    
       this.maxFrameRate?.reset(model ? model?.maxFrameRate : null, options);    
       this.cacheEffectsEnabled?.reset(model ? model?.cacheEffectsEnabled : null, options);    
       this.cacheEffects?.reset(model ? model?.cacheEffects : null, options);    
@@ -53,7 +53,7 @@ export class ConfigtoolConfigForm extends StFormGroup<ConfigtoolConfig> {
     emitModelToViewChange?: boolean;
     emitViewToModelChange?: boolean;
   }) {
-    this.clientPaths?.setValue(model?.clientPaths, options);
+    this.clientPaths?.setValue(model?.clientPaths ?? [], options);
     this.maxFrameRate?.setValue(model?.maxFrameRate, options);
     this.cacheEffectsEnabled?.setValue(model?.cacheEffectsEnabled, options);
     this.cacheEffects?.setValue(model?.cacheEffects, options);

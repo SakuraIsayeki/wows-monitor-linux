@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/co
 import { ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '@components/base.component';
 import { faDesktop } from '@fortawesome/free-solid-svg-icons';
-import { FontSize, LayoutMode, PlayerBackgrounds, PlayerBackgroundsMode, TeamWinrate } from '@generated/models';
+import { FontSize, LayoutMode, PlayerBackgrounds, PlayerBackgroundsMode, StatType, TeamWinrate } from '@generated/models';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ScrollService } from '@services/scroll.service';
@@ -33,11 +33,11 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
     {
       label$: this.translate.get('settings.appearance.fontsize.items.big'),
       value: FontSize.Big
-    },
-    {
-      label$: this.translate.get('settings.appearance.fontsize.items.huge'),
-      value: FontSize.Huge
-    }
+    } //,
+    // {
+    //   label$: this.translate.get('settings.appearance.fontsize.items.huge'),
+    //   value: FontSize.Huge
+    // }
   ];
 
   layoutModeOptions: ExtSelectItem[] = [
@@ -102,6 +102,60 @@ export class SettingsComponent extends BaseComponent implements OnInit, OnDestro
       label$: this.translate.get('settings.appearance.teamWinrate.items.median'),
       value: TeamWinrate.Median
     }
+  ];
+
+  // AccWr = 1,
+  // AccBattles = 2,
+  // AccWins = 3,
+  // Wr = 8,
+  // Battles = 9,
+  // Wins = 10,
+  // AvgXp = 11,
+  // AvgDamage = 12,
+  // AvgFrags = 13,
+  // Pr = 14
+
+  soloStatsOptions: ExtSelectItem[] = [
+    {
+      label$: this.translate.get('settings.appearance.soloStats.items.accWr'),
+      value: StatType.AccWr
+    },
+    {
+      label$: this.translate.get('settings.appearance.soloStats.items.accBattles'),
+      value: StatType.AccBattles
+    },
+    // {
+    //   label$: this.translate.get('settings.appearance.soloStats.items.accWins'),
+    //   value: StatType.AccWins
+    // },
+    {
+      label$: this.translate.get('settings.appearance.soloStats.items.wr'),
+      value: StatType.Wr
+    },
+    {
+      label$: this.translate.get('settings.appearance.soloStats.items.battles'),
+      value: StatType.Battles
+    },
+    {
+      label$: this.translate.get('settings.appearance.soloStats.items.wins'),
+      value: StatType.Wins
+    },
+    {
+      label$: this.translate.get('settings.appearance.soloStats.items.avgXp'),
+      value: StatType.AvgXp
+    },
+    {
+      label$: this.translate.get('settings.appearance.soloStats.items.avgDamage'),
+      value: StatType.AvgDamage
+    },
+    {
+      label$: this.translate.get('settings.appearance.soloStats.items.avgFrags'),
+      value: StatType.AvgFrags
+    },
+    {
+      label$: this.translate.get('settings.appearance.soloStats.items.pr'),
+      value: StatType.Pr
+    },
   ];
 
   public monitorConfig = this.settingsService.form.monitorConfig;

@@ -1,8 +1,13 @@
-import { BrowserWindow, clipboard, dialog, ipcMain, screen } from 'electron';
+import { app, BrowserWindow, clipboard, dialog, ipcMain, screen } from 'electron';
 import * as logger from 'electron-log';
 import * as fs from 'fs/promises';
 
 export function initIpcModule(win: BrowserWindow) {
+  ipcMain.handle('restart', async (event, args) => {
+    app.relaunch();
+    app.exit();
+  });
+
   ipcMain.handle('take-screenshot', async (event, args) => {
     logger.debug('[Electron]', '(take-screenshot)');
 

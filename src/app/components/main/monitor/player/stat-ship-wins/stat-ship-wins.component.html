@@ -1,0 +1,3 @@
+<app-value-label [label]="'monitor.labels.wins' | translate"  [icon]="icon" *ngIf="stats | async; let shipStats;" [solo]="soloStats | async">
+  <strong>{{shipStats?.wins}}</strong>
+</app-value-label>

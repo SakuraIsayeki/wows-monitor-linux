@@ -21,6 +21,7 @@ export { PlayerBackgrounds } from './models/player-backgrounds';
 export { PlayerBackgroundsMode } from './models/player-backgrounds-mode';
 export { FontSize } from './models/font-size';
 export { TeamWinrate } from './models/team-winrate';
+export { StatType } from './models/stat-type';
 export { ConfigtoolConfig } from './models/configtool-config';
 export { LivefeedConfig } from './models/livefeed-config';
 export { ClanWarsConfig } from './models/clan-wars-config';

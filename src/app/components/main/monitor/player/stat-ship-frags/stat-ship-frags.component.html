@@ -1,0 +1,3 @@
+<app-value-label [label]="'monitor.labels.frags' | translate"  [icon]="icon" *ngIf="stats | async; let shipStats;" [solo]="soloStats | async">
+  <strong [style.color]="shipStats?.averageFragsColor | sanitizeCss">{{shipStats?.averageFrags | number:'0.0-2'}}</strong>
+</app-value-label>

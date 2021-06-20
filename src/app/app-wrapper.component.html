@@ -2,6 +2,7 @@
   <div class="centered-logo">
     <video src="assets/loader.webm" autoplay loop></video>
     <span>WoWs Monitor</span>
+    <span *ngIf="showReset" (click)="resetAndRestart()">TEst</span>
     <ng-container *ngIf="isUpdating">
       <div class="updating-progress">
         <p-progressBar mode="indeterminate"></p-progressBar>
@@ -10,7 +11,6 @@
     </ng-container>
   </div>
 </div>
-
 
 
 <router-outlet></router-outlet>

@@ -18,8 +18,9 @@
       'enemy-clan'
       'enemy';
 
-    >p-card .p-card {
+    > p-card .p-card {
       margin-bottom: 0;
+      overflow: hidden;
     }
 
     &.fz-Small {
@@ -65,7 +66,7 @@
   }
 }
 
-// app-player {
+// .monitor-player {
 //   // display: block;
 //   background: $secondaryDarkColor;
 
@@ -73,7 +74,7 @@
 //     background: #FFF;
 //     color: $primaryTextColor;
 
-//     app-player.me {
+//     .monitor-player.me {
 //       border-color: $primaryTextColor;
 //     }
 //   }
@@ -87,7 +88,7 @@
   }
 
 
-  app-player {
+  .monitor-player {
     color: $primaryTextColor;
 
     &:hover {
@@ -104,7 +105,7 @@ hr.player-seperator {
   border: 0;
 }
 
-app-player {
+.monitor-player {
   box-sizing: border-box;
   display: block;
   padding: 0 1rem;
@@ -136,27 +137,27 @@ app-player {
     width: 100%;
     overflow: hidden;
 
-    &.force-white:not(.contrast-mode)>div:not(#name)  strong {
+    &.force-white:not(.contrast-mode) > *:not(.player-name) strong {
       color: $textColor !important;
     }
 
-    &.force-white.contrast-mode>div:not(#name)  strong {
+    &.force-white.contrast-mode > *:not(.player-name) strong {
       color: $primaryTextColor !important;
     }
 
     &.hidden,
     &.bot {
 
-      #ovr-winrate,
-      #ovr-battles,
-      #karma,
-      #winrate,
-      #battles,
-      #wins,
-      #pr,
-      #avg-damage,
-      #avg-frags,
-      #avg-xp {
+      stat-acc-wr,
+      stat-acc-battles,
+      stat-karma,
+      stat-ship-wr,
+      stat-ship-battles,
+      stat-ship-wins,
+      stat-ship-pr,
+      stat-ship-damage,
+      stat-ship-frags,
+      stat-ship-xp {
         display: none !important;
       }
 
@@ -167,13 +168,13 @@ app-player {
 
     &.no-battles {
 
-      #winrate,
-      #battles,
-      #pr,
-      #wins,
-      #avg-damage,
-      #avg-frags,
-      #avg-xp {
+      stat-ship-wr,
+      stat-ship-battles,
+      stat-ship-pr,
+      stat-ship-wins,
+      stat-ship-damage,
+      stat-ship-frags,
+      stat-ship-xp {
         display: none !important;
       }
 
@@ -183,18 +184,18 @@ app-player {
     }
 
     &.legacy {
-      #ovr-winrate,
-      #ovr-battles,
-      #karma,
-      #pr {
+      stat-acc-wr,
+      stat-acc-battles,
+      stat-karma,
+      stat-ship-pr {
         display: none !important;
       }
     }
 
     &.compact {
-      #wins,
-      #avg-xp,
-      #avg-frags {
+      stat-ship-wins,
+      stat-ship-xp,
+      stat-ship-frags {
         display: none !important;
       }
     }
@@ -207,57 +208,57 @@ app-player {
       margin: auto;
     }
 
-    #name {
+    .player-name {
       grid-area: name;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    #ovr-winrate {
-      grid-area: ovr-winrate;
+    stat-acc-wr {
+      grid-area: acc-winrate;
     }
 
-    #ovr-battles {
-      grid-area: ovr-battles;
+    stat-acc-battles {
+      grid-area: acc-battles;
     }
 
-    #karma {
+    stat-karma {
       grid-area: karma;
     }
 
-    #ship {
+    .ship {
       grid-area: ship;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    #winrate {
+    stat-ship-wr {
       grid-area: winrate;
     }
 
-    #battles {
+    stat-ship-battles {
       grid-area: battles;
     }
 
-    #wins {
+    stat-ship-wins {
       grid-area: wins;
     }
 
-    #pr {
+    stat-ship-pr {
       grid-area: pr;
     }
 
-    #avg-damage {
+    stat-ship-damage {
       grid-area: avg-damage;
     }
 
-    #avg-frags {
+    stat-ship-frags {
       grid-area: avg-frags;
     }
 
-    #avg-xp {
+    stat-ship-xp {
       grid-area: avg-xp;
     }
   }
@@ -269,6 +270,22 @@ app-player {
   }
 
 
+}
+
+app-value-label {
+  position: relative;
+  display: inline-block;
+
+  .solo-icon {
+    margin-left: .2em;
+    i{
+      font-size: .7em;
+    }
+
+    //position: absolute;
+    right: -1em;
+    top: -.5em;
+  }
 }
 
 app-team {
@@ -284,7 +301,7 @@ app-team {
     .inner {
       display: inline-block;
 
-      >* {
+      > * {
         &:first-child {
           display: block;
         }
@@ -298,11 +315,12 @@ app-team {
 }
 
 /* Larger than mobile */
-@media (min-width: 400px) {}
+@media (min-width: 400px) {
+}
 
 /* Larger than phablet */
 @media (min-width: 550px) {
-  app-player {
+  .monitor-player {
     .info-wrapper {
       @include phablet;
     }
@@ -321,7 +339,7 @@ app-team {
     }
   }
 
-  app-player {
+  .monitor-player {
     .info-wrapper {
       @include mobile;
     }
@@ -329,7 +347,8 @@ app-team {
 }
 
 /* Larger than desktop */
-@media (min-width: 1000px) {}
+@media (min-width: 1000px) {
+}
 
 /* Larger than Desktop HD */
 @media (min-width: 1200px) {
@@ -342,7 +361,7 @@ app-team {
     }
   }
 
-  app-player {
+  .monitor-player {
     .info-wrapper {
       @include desktop;
     }
@@ -350,7 +369,7 @@ app-team {
 }
 
 @media (min-width: 1440px) {
-  app-player {
+  .monitor-player {
     .info-wrapper {
       @include desktopHD;
     }

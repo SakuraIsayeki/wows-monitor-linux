@@ -1,5 +1,15 @@
-<div class="info-wrapper" (click)="monitorComp.clickPlayer($event, player)"
-     [ngClass]="{
+<div class="monitor-player" [ngClass]="{
+  'cw': cw,
+  'last': last,
+  'first': first,
+  'me': player.relation == 0,
+  'border-mode': borderEnabled | async
+}" [ngStyle]="{
+  backgroundColor: backgroundColor | async,
+  borderColor: borderColor | async
+}" *ngIf="player$ | async; let player">
+  <div class="info-wrapper" (click)="monitorComp.clickPlayer($event, player)"
+       [ngClass]="{
      'me': player.relation == 0,
      'bot': player.bot,
      'hidden': player.hidden,
@@ -11,90 +21,45 @@
      'legacy': config.layoutMode === 3,
      'compact': config.layoutMode === 2
       }">
-  <div id="name">
-    <strong>
+    <div class="player-name">
+      <strong>
       <span *ngIf="player.clan"
             [style.color]="player.clan.color | sanitizeCss">[{{player.clan.tag}}]&nbsp;</span>
-      <span>{{player.name}}</span>
-    </strong>
-  </div>
-  <div id="ovr-winrate">
-    <app-value-label label="Account Winrate" [icon]="faTrophy">
-      <strong
-              [style.color]="player.overallStats?.winrateColor | sanitizeCss">{{player.overallStats?.winrate | number:'0.0-2'}}%</strong>
-    </app-value-label>
-  </div>
-  <div id="ovr-battles">
-    <app-value-label label="Account Battles" [icon]="faGavel">
-      <strong [style.color]="player.overallStats?.battlesColor | sanitizeCss">{{player.overallStats?.battles}}</strong>
-    </app-value-label>
-  </div>
-  <div id="karma">
-    <app-value-label label="Karma" [icon]="faHeart">
-      <span [pTooltip]="(('monitor.karma.game' | translate) + player.karma + '\n' + ('monitor.karma.wowsKarma' | translate) + (player.wowsKarma != null ? player.wowsKarma : 'N/A'))"
-            tooltipPosition="bottom" [style.color]="mixedKarmaColor | sanitizeCss">
-          <strong>{{mixedKarma}}</strong>
-      </span>
-    </app-value-label>
-  </div>
-  <div id="ship">
-    <strong>{{player.shipInfo.name}}</strong> (Tier {{player.shipInfo.tier | roman}})
-  </div>
-  <div id="winrate">
-    <app-value-label label="Winrate" [icon]="faTrophy">
-      <strong
-              [style.color]="player.shipStats?.winrateColor | sanitizeCss">{{player.shipStats?.winrate | number:'0.0-2'}}%</strong>
-    </app-value-label>
-  </div>
-  <div id="battles">
-    <app-value-label label="Battles" [icon]="faGavel">
-      <strong>{{player.shipStats?.battles}}</strong>
-    </app-value-label>
-  </div>
-  <div id="wins">
-    <app-value-label label="Wins" [icon]="faTrophy">
-      <strong>{{player.shipStats?.wins}}</strong>
-    </app-value-label>
-  </div>
-  <div id="pr">
-    <app-value-label label="PR" [icon]="faExclamation">
-      <span [pTooltip]="'monitor.pr.poweredBy' | translate" tooltipPosition="bottom"
-            [style.color]="player.shipStats?.personalRatingColor | sanitizeCss"><strong>{{player.shipStats?.personalRating}}</strong></span>
-    </app-value-label>
-  </div>
-  <div id="avg-damage">
-    <app-value-label label="Avg Damage" [icon]="faFire">
-      <strong
-              [style.color]="player.shipStats?.averageDamageColor | sanitizeCss">{{player.shipStats?.averageDamage | number:'0.0-0'}}</strong>
-    </app-value-label>
-  </div>
-  <div id="avg-frags">
-    <app-value-label label="Avg Frags" [icon]="faSkull">
-      <strong
-              [style.color]="player.shipStats?.averageFragsColor | sanitizeCss">{{player.shipStats?.averageFrags | number:'0.0-1'}}</strong>
-    </app-value-label>
-  </div>
-  <div id="avg-xp">
-    <ng-container *ngIf="!cw">
-      <app-value-label label="Avg Xp" [icon]="faBulb">
-        <strong>{{player.shipStats?.averageXp | number:'0.0-0'}}</strong>
-      </app-value-label>
-    </ng-container>
-  </div>
-  <div id="message">
-    <ng-container *ngIf="player.hidden">
-      {{ 'monitor.hidden' | translate }}
-    </ng-container>
-    <ng-container *ngIf="player.bot">
-      {{ 'monitor.bot' | translate }}
-    </ng-container>
-    <ng-container *ngIf="!player.bot && !player.hidden && (!player.shipStats || player.shipStats.battles <= 0)">
-      <ng-container *ngIf="player.shipInfo.testship">
-        {{ 'monitor.testship' | translate }}
+        <span>{{player.name}}</span>
+      </strong>
+    </div>
+    <stat-acc-wr [player]="player"></stat-acc-wr>
+    <stat-acc-battles [player]="player"></stat-acc-battles>
+    <stat-karma [player]="player"></stat-karma>
+
+    <div class="ship">
+      <strong>{{player.shipInfo.name}}</strong> (Tier {{player.shipInfo.tier | roman}})
+    </div>
+
+    <stat-ship-wr [player]="player"></stat-ship-wr>
+    <stat-ship-battles [player]="player"></stat-ship-battles>
+    <stat-ship-wins [player]="player"></stat-ship-wins>
+    <stat-ship-pr [player]="player"></stat-ship-pr>
+    <stat-ship-damage [player]="player"></stat-ship-damage>
+    <stat-ship-frags [player]="player"></stat-ship-frags>
+    <stat-ship-xp [player]="player" [cw]="cw"></stat-ship-xp>
+
+    <div id="message">
+      <ng-container *ngIf="player.hidden">
+        {{ 'monitor.hidden' | translate }}
       </ng-container>
-      <ng-container *ngIf="!player.shipInfo.testship">
-        {{ 'monitor.noBattles' | translate }}
+      <ng-container *ngIf="player.bot">
+        {{ 'monitor.bot' | translate }}
       </ng-container>
-    </ng-container>
+      <ng-container *ngIf="!player.bot && !player.hidden && (!player.shipStats || player.shipStats.battles <= 0)">
+        <ng-container *ngIf="player.shipInfo.testship">
+          {{ 'monitor.testship' | translate }}
+        </ng-container>
+        <ng-container *ngIf="!player.shipInfo.testship">
+          {{ 'monitor.noBattles' | translate }}
+        </ng-container>
+      </ng-container>
+    </div>
   </div>
 </div>
+

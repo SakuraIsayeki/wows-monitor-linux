@@ -11,24 +11,24 @@
 <div class="container {{$fontSizeClass | async}}" *ngIf="signalrService.$info | async;let matchInfo" #container
      (click)="$event.preventDefault();$event.stopPropagation()">
   <p-card id="monitor-friendly-clan" class="no-padding">
-    <app-team [clan]="matchInfo.friendlyClan" [team]="matchInfo.friendlyTeam" [cw]="matchInfo.matchGroup == 'CLAN'">
+    <app-team [clan]="matchInfo.friendlyClan" [averages]="[matchInfo.friendlyTeam, matchInfo.friendlyTeamSolo]" [cw]="matchInfo.matchGroup == 'CLAN'">
     </app-team>
   </p-card>
   <p-card id="monitor-enemy-clan" class="no-padding"
           *ngIf="matchInfo.matchGroup != 'COOPERATIVE' && matchInfo.matchGroup != 'PVE'">
-    <app-team [clan]="matchInfo.enemyClan" [team]="matchInfo.enemyTeam" [cw]="matchInfo.matchGroup == 'CLAN'">
+    <app-team [clan]="matchInfo.enemyClan" [averages]="[matchInfo.enemyTeam, matchInfo.enemyTeamSolo]" [cw]="matchInfo.matchGroup == 'CLAN'">
     </app-team>
   </p-card>
   <p-card id="monitor-friendly" class="no-padding" [class.high-contrast-mode]="settingsService.form.monitorConfig.highContrastMode.model">
     <ng-container *ngFor="let player of matchInfo.friendly; let l = last; let f = first;">
-      <app-player [player]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f">
+      <app-player [playerInput]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f">
       </app-player>
       <hr class="player-seperator" *ngIf="!l"/>
     </ng-container>
   </p-card>
   <p-card id="monitor-enemy" class="no-padding" [class.high-contrast-mode]="settingsService.form.monitorConfig.highContrastMode.model">
     <ng-container *ngFor="let player of matchInfo.enemy; let l = last; let f = first;">
-      <app-player [player]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f">
+      <app-player [playerInput]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f">
       </app-player>
       <hr class="player-seperator" *ngIf="!l"/>
     </ng-container>

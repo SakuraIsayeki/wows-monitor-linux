@@ -20,7 +20,7 @@ export class AppConfigForm extends StFormGroup<AppConfig> {
     this.addControl('signalRToken', new StFormControl<string | null>(model?.signalRToken, null, null));
     this.addControl('selectedDirectory', new StFormControl<string | null>(model?.selectedDirectory, null, null));
     this.addControl('mainClient', new StFormControl<string | null>(model?.mainClient, null, null));
-    this.addControl('seenChangelogs', new StFormControl<number[] | null>(model?.seenChangelogs, null, null));
+    this.addControl('seenChangelogs', new StFormControl<number[] | null>(model?.seenChangelogs ?? [], null, null));
     this.addControl('uuid', new StFormControl<string | null>(model?.uuid, null, null));
     this.addControl('configtoolConfig', new ConfigtoolConfigForm(model?.configtoolConfig, null, null, this.validatorGetter));
     this.addControl('livefeedConfig', new LivefeedConfigForm(model?.livefeedConfig, null, null, this.validatorGetter));
@@ -44,7 +44,7 @@ export class AppConfigForm extends StFormGroup<AppConfig> {
       this.signalRToken?.reset(model ? model?.signalRToken : null, options);    
       this.selectedDirectory?.reset(model ? model?.selectedDirectory : null, options);    
       this.mainClient?.reset(model ? model?.mainClient : null, options);    
-      this.seenChangelogs?.reset(model ? model?.seenChangelogs : null, options);    
+      this.seenChangelogs?.reset(model ? model?.seenChangelogs ?? [] : null, options);    
       this.uuid?.reset(model ? model?.uuid : null, options);    
       this.configtoolConfig?.reset(model ? model?.configtoolConfig : null, options);    
       this.livefeedConfig?.reset(model ? model?.livefeedConfig : null, options);    
@@ -64,7 +64,7 @@ export class AppConfigForm extends StFormGroup<AppConfig> {
     this.signalRToken?.setValue(model?.signalRToken, options);
     this.selectedDirectory?.setValue(model?.selectedDirectory, options);
     this.mainClient?.setValue(model?.mainClient, options);
-    this.seenChangelogs?.setValue(model?.seenChangelogs, options);
+    this.seenChangelogs?.setValue(model?.seenChangelogs ?? [], options);
     this.uuid?.setValue(model?.uuid, options);
     this.configtoolConfig?.setValue(model?.configtoolConfig, options);
     this.livefeedConfig?.setValue(model?.livefeedConfig, options);

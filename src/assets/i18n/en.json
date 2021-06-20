@@ -141,13 +141,26 @@
 			"game": "Game Karma : ",
 			"wowsKarma": "wows-karma.com : "
 		},
+		"labels": {
+			"accBattles": "Account Battles",
+			"accWinrate": "Account Winrate",
+			"battles": "Battles",
+			"damage": "Avg Damage",
+			"frags": "Avg Frags",
+			"karma": "Karma",
+			"pr": "PR",
+			"winrate": "Winrate",
+			"wins": "Wins",
+			"xp": "Avg Xp",
+			"teamXp": "Xp"
+		},
 		"matchGroup": {
+			"BRAWL": "Brawl",
 			"CLAN": "Clan War",
 			"COOPERATIVE": "Coop",
+			"EVENT": "Event",
 			"PVE": "PVE",
 			"PVP": "Random",
-			"EVENT": "Event",
-			"BRAWL": "Brawl",
 			"RANKED": "Ranked"
 		},
 		"noBattles": "Player has no battles on this ship yet",
@@ -204,7 +217,7 @@
 		"appearance": {
 			"coloredValues": {
 				"caption": "Colored Values",
-				"summary": "When enabled the values of damage, winrate, battles, frags and PR will be colored according to the wows-numbers color scheme"
+				"summary": "When enabled the values of damage, winrate, battles, frags and PR will be colored according to the wows-numbers color scheme."
 			},
 			"fontsize": {
 				"caption": "Fontsize",
@@ -248,6 +261,23 @@
 				},
 				"summary": "Choose wether you want the player panels to have the background color as the actual background, just on the left border or not at all."
 			},
+			"soloStats": {
+				"caption": "Solo Stats",
+				"items": {
+					"accBattles": "Account Battles",
+					"accWr": "Account Winrate",
+					"avgDamage": "Average Damage",
+					"avgFrags": "Average Frags",
+					"avgXp": "Average Xp",
+					"battles": "Battles",
+					"pr": "PR",
+					"wins": "Wins",
+					"wr": "Winrate"
+				},
+				"itemsSelected": "{{count}} selected",
+				"placeholder": "Select stat types",
+				"summary": "Select for which type of stat you'd like to see the solo values."
+			},
 			"teamWinrate": {
 				"caption": "Team Winrate",
 				"explanation": "Explanation of modes",
@@ -267,7 +297,7 @@
 			},
 			"anonymIp": {
 				"caption": "IP anonymization",
-				"summary": "Don't send my IP for analytics requests"
+				"summary": "Don't send my IP for analytics requests."
 			},
 			"autoUpdate": {
 				"caption": "Automatic Update",
@@ -298,7 +328,7 @@
 			},
 			"screenshotPath": {
 				"caption": "Screenshot path",
-				"summary": "Additional to storing the screenshot in your clipboard, you can save them to a specified location"
+				"summary": "Additional to storing the screenshot in your clipboard, you can save them to a specified location."
 			},
 			"title": "Screenshots"
 		}

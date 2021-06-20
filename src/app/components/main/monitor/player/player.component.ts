@@ -1,104 +1,35 @@
-import { Component, ElementRef, HostBinding, Input, OnInit, SecurityContext } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, SecurityContext, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BaseComponent } from '@components/base.component';
-import { faExclamationCircle, faFire, faGavel, faHeart, faLightbulb, faSkull, faTrophy } from '@fortawesome/free-solid-svg-icons';
-import { PlayerBackgrounds, PlayerBackgroundsMode, PlayerInfo } from '@generated/models';
+import { PlayerBackgrounds, PlayerBackgroundsMode, PlayerInfo, StatType } from '@generated/models';
 import { SettingsService } from '@services/settings.service';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { map, shareReplay, startWith } from 'rxjs/operators';
 import { MonitorComponent } from '../monitor.component';
 
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html'
 })
-export class PlayerComponent extends BaseComponent implements OnInit {
+export class PlayerComponent extends BaseComponent implements OnInit, OnChanges {
 
   @Input()
-  @HostBinding('class.mixedKarma')
-  get mixedKarma() {
-    return this.player.karma + this.player.wowsKarma;
-  }
+  playerInput: PlayerInfo;
 
   @Input()
-  @HostBinding('class.mixedKarmaColor')
-  get mixedKarmaColor(): string {
-    if (this.mixedKarma === 0) {
-      return 'rgb(255, 199, 31)';
-    } else if (this.mixedKarma > 0) {
-      return 'rgb(68, 179, 0)';
-    } else if (this.mixedKarma < 0) {
-      return 'rgb(254, 14, 0)';
-    }
-  }
-
-  @Input()
-  player: PlayerInfo;
-
-  @Input()
-  @HostBinding('class.cw')
   cw: boolean;
 
   @Input()
-  @HostBinding('class.last')
   last: boolean;
 
   @Input()
-  @HostBinding('class.first')
   first: boolean;
 
-  @HostBinding('class.me')
-  get me() {
-    return this.player.relation === 0;
-  }
+  backgroundColor: Observable<string>;
+  borderColor: Observable<string>;
+  borderEnabled: Observable<boolean>;
 
-  @HostBinding('style.background-color')
-  get backgroundColor() {
-    if (this.config.playerBackgroundsMode === PlayerBackgroundsMode.Background) {
-      if (this.config.playerBackgrounds === PlayerBackgrounds.Pr && this.player.shipStats) {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.personalRatingColor + '28');
-      }
-      if (this.config.playerBackgrounds === PlayerBackgrounds.Wr && this.player.shipStats?.battles > 0) {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.winrateColor + '28');
-      }
-      if (this.config.playerBackgrounds === PlayerBackgrounds.AccWr || (this.config.playerBackgrounds === PlayerBackgrounds.Wr && this.player.shipStats?.battles <= 0)) {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.overallStats?.winrateColor + '28');
-      }
-      if (this.config.playerBackgrounds === PlayerBackgrounds.AvgDmg && this.player.shipStats) {
-        return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.averageDamageColor + '28');
-      }
-    }
-    return '';
-  }
-
-  @HostBinding('style.border-color')
-  get borderColor() {
-    if (this.config.playerBackgrounds === PlayerBackgrounds.Pr && this.player.shipStats) {
-      return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.personalRatingColor + '99');
-    }
-    if (this.config.playerBackgrounds === PlayerBackgrounds.Wr && this.player.shipStats?.battles > 0) {
-      return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.winrateColor + '99');
-    }
-    if (this.config.playerBackgrounds === PlayerBackgrounds.AccWr || (this.config.playerBackgrounds === PlayerBackgrounds.Wr && this.player.shipStats?.battles <= 0)) {
-      return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.overallStats?.winrateColor + '99');
-    }
-    if (this.config.playerBackgrounds === PlayerBackgrounds.AvgDmg && this.player.shipStats) {
-      return this.sanitizer.sanitize(SecurityContext.STYLE, this.player.shipStats?.averageDamageColor + '99');
-    }
-    return this.sanitizer.sanitize(SecurityContext.STYLE, '#FFF');
-  }
-
-  @HostBinding('class.border-mode')
-  get borderModeClass() {
-    return this.config.playerBackgroundsMode === PlayerBackgroundsMode.Border;
-  }
-
-  faHeart = faHeart;
-  faSkull = faSkull;
-  faTrophy = faTrophy;
-  faFire = faFire;
-  faExclamation = faExclamationCircle;
-  faBulb = faLightbulb;
-  faGavel = faGavel;
-
+  public player$ = new BehaviorSubject<PlayerInfo>(null);
   public config = this.settings.form.monitorConfig.model;
 
   constructor(public el: ElementRef,
@@ -109,6 +40,69 @@ export class PlayerComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initColors();
+  }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['playerInput']) {
+      this.player$.next(changes['playerInput'].currentValue);
+    }
+  }
+
+  private initColors() {
+
+    const obs = combineLatest([
+      this.settings.form.monitorConfig.playerBackgrounds.valueChanges.pipe(startWith(this.settings.form.monitorConfig.playerBackgrounds.value)),
+      this.settings.form.monitorConfig.playerBackgroundsMode.valueChanges.pipe(startWith(this.settings.form.monitorConfig.playerBackgroundsMode.value)),
+      this.settings.form.monitorConfig.soloStats.valueChanges.pipe(startWith(this.settings.form.monitorConfig.soloStats.value)),
+      this.player$
+    ]).pipe(this.untilDestroy(), map(arr => {
+      const playerBackgrounds = arr[0];
+      const playerBackgroundsMode = arr[1];
+      const soloStats = arr[2];
+      const player = arr[3];
+
+      const color = this.getColor(playerBackgroundsMode, playerBackgrounds, player, soloStats);
+
+      return {
+        background: playerBackgroundsMode === PlayerBackgroundsMode.Background
+          ? this.sanitizer.sanitize(SecurityContext.STYLE, color + '28')
+          : '',
+        border: playerBackgroundsMode === PlayerBackgroundsMode.Border
+          ? this.sanitizer.sanitize(SecurityContext.STYLE, color + '99')
+          : '#FFF',
+        borderEnabled: playerBackgroundsMode === PlayerBackgroundsMode.Border
+      };
+    }), shareReplay(1));
+
+    this.backgroundColor = obs.pipe(map(d => d.background));
+    this.borderColor = obs.pipe(map(d => d.border));
+    this.borderEnabled = obs.pipe(map(d => d.borderEnabled));
+  }
+
+  private getColor(playerBackgroundsMode: PlayerBackgroundsMode, playerBackgrounds: PlayerBackgrounds, player: PlayerInfo, soloStats: StatType[]) {
+
+    if (playerBackgroundsMode !== PlayerBackgroundsMode.Disabled) {
+
+      const prStats = soloStats.includes(StatType.Pr) ? player.soloShipStats : player.shipStats;
+      if (playerBackgrounds === PlayerBackgrounds.Pr && prStats) {
+        return prStats?.personalRatingColor;
+      }
+
+      const wrStats = soloStats.includes(StatType.Wr) ? player.soloShipStats : player.shipStats;
+      if (playerBackgrounds === PlayerBackgrounds.Wr && wrStats?.battles > 0) {
+        return wrStats?.winrateColor;
+      }
+
+      const accWrStats = soloStats.includes(StatType.AccWr) ? player.soloOverallStats : player.overallStats;
+      if (playerBackgrounds === PlayerBackgrounds.AccWr || (playerBackgrounds === PlayerBackgrounds.Wr && wrStats?.battles <= 0)) {
+        return accWrStats?.winrateColor;
+      }
+      const dmgStats = soloStats.includes(StatType.AvgDamage) ? player.soloShipStats : player.shipStats;
+      if (playerBackgrounds === PlayerBackgrounds.AvgDmg && dmgStats) {
+        return dmgStats?.averageDamageColor;
+      }
+    }
+    return '';
   }
 }

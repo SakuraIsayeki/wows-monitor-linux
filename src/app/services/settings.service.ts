@@ -63,4 +63,11 @@ export class SettingsService extends BaseInjection {
       take(1)).toPromise();
     return true;
   }
+
+  reset(){
+    // TODO
+    console.log('RESET CONFIG');
+
+    return of().toPromise();
+  }
 }

@@ -36,7 +36,7 @@ export class MonitorComponent extends BaseComponent implements OnInit, AfterView
 
   constructor(
     private translateService: TranslateService,
-    private signalrService: SignalrService,
+    public signalrService: SignalrService,
     @Optional() @Inject(ElectronServiceToken) private electronService: ElectronService,
     public settingsService: SettingsService
   ) {

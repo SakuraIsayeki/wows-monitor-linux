@@ -6,4 +6,7 @@
     <fa-icon [icon]="icon" [fixedWidth]="true"></fa-icon>&nbsp;
   </ng-container>
   <ng-content></ng-content>
+  <span *ngIf="solo" class="solo-icon">
+    <i class="pi pi-user"></i>
+  </span>
 </span>

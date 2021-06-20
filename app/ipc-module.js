@@ -42,6 +42,13 @@ var logger = require("electron-log");
 var fs = require("fs/promises");
 function initIpcModule(win) {
     var _this = this;
+    electron_1.ipcMain.handle('restart', function (event, args) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            electron_1.app.relaunch();
+            electron_1.app.exit();
+            return [2 /*return*/];
+        });
+    }); });
     electron_1.ipcMain.handle('take-screenshot', function (event, args) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {

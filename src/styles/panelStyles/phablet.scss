@@ -6,7 +6,7 @@
 
     &.player {
       grid-template-areas: 'name karma pr'
-        '. ovr-winrate ovr-battles'
+        '. acc-winrate acc-battles'
         'ship winrate battles '
         '. wins avg-damage'
         '. avg-frags avg-xp';
@@ -23,7 +23,7 @@
 
     &.no-battles {
       grid-template-areas: 'name karma .'
-        '. ovr-winrate ovr-battles'
+        '. acc-winrate acc-battles'
         'ship message message '
         '. message message'
         '. message message';
@@ -59,7 +59,7 @@
 
     &.player {
       grid-template-areas:
-        'name karma ovr-battles ovr-winrate .'
+        'name karma acc-battles acc-winrate .'
         'ship pr battles winrate avg-damage';
     }
 
@@ -73,7 +73,7 @@
     &.no-battles {
 
       grid-template-areas:
-        'name karma ovr-battles ovr-winrate .'
+        'name karma acc-battles acc-winrate .'
         'ship message message message message';
     }
   }
