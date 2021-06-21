@@ -1,33 +1,33 @@
-<ng-container *ngIf="clan">
-  <div id="name" class="info-row">
+<div class="p-d-flex p-flex-column p-ai-center p-ai-md-start" *ngIf="clan" [class.p-ai-md-end]="right">
+  <div class="info-row p-ai-center p-mb-1">
     <strong [style.color]="entry.color | sanitizeCss">[{{ clan?.tag }}]</strong>
     <span>{{ clan?.name }}</span>
   </div>
-  <div id="ladder" class="info-row">
+  <div class="info-row p-ai-center p-mb-1" [class.p-flex-row-reverse]="right">
     <img class="team" src="assets/team-{{entry.team}}.svg" />
     <span>{{ 'monitor.cw.leagues.' + entry.league | translate }}&nbsp;{{ entry.division | roman }}</span>
     <ng-container *ngIf="!entry.stageType">
-      <span>|</span>
-      <span *ngIf="entry.publicRatingDiff ">
+      <span *ngIf="entry.publicRatingDiff">|</span>
+      <span *ngIf="entry.publicRatingDiff">
         <strong style="font-size: 1.1em">{{entry.publicRatingDiff | addPlus}}</strong>&nbsp;
         <span style="font-size: 1.1em">Points</span>
       </span>
     </ng-container>
 
   </div>
-  <div id="region" class="info-row" *ngIf="entry.regionRank > 0">
+  <div class="info-row p-ai-center p-mb-1" *ngIf="entry.regionRank > 0" [class.p-flex-row-reverse]="right">
     <img class="region" src="assets/region-{{clan.region}}.svg" />
     <span>#{{ entry.regionRank}}</span>
     <fa-icon style="font-size: 1.4em" [icon]="regionRankIcon"></fa-icon>
     <strong style="font-size: 1.1em">{{entry.regionRankDiff * -1 | addPlus}}</strong>
   </div>
-  <div id="global" class="info-row"  *ngIf="entry.globalRank > 0">
+  <div class="info-row p-ai-center p-mb-1"  *ngIf="entry.globalRank > 0" [class.p-flex-row-reverse]="right">
     <img class="globe" src="assets/globe.svg" />
     <span>#{{ entry.globalRank }}</span>
     <fa-icon style="font-size: 1.4em" [icon]="globalRankIcon"></fa-icon>
     <strong style="font-size: 1.1em">{{entry.globalRankDiff * -1 | addPlus}}</strong>
   </div>
-  <div id="stage" class="info-row" *ngIf="entry.stageProgress?.length > 0">
+  <div class="info-row p-ai-center" *ngIf="entry.stageProgress?.length > 0" [class.p-flex-row-reverse]="right">
     <div class="stage-progress">
       <ng-container *ngFor="let state of entry.stageProgress">
         <fa-icon *ngIf="state == 0  || state == 2" [class.fade]="state == 2" [icon]="faStar" [fixedWidth]="true">
@@ -38,9 +38,9 @@
     </div>
     <span> {{ entry.stageType === 1 ? 'Promotion' : 'Demotion' }}</span>
   </div>
-</ng-container>
+</div>
 <ng-container *ngIf="!clan">
-  <div id="empty">
+  <div class="p-d-flex p-flex-grow p-ai-center p-jc-center p-p-3 p-p-md-0">
     <span>Couldn't match opponent</span>
   </div>
 </ng-container>

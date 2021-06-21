@@ -92,6 +92,14 @@ input[readonly].file-input {
   }
 }
 
+
+.p-paginator .p-dropdown {
+  background: none;
+  outline:none;
+  border:none;
+}
+
+
 .p-button-rounded.p-button-xl {
   padding: 0.750rem 1.5rem!important;;
   height: 3.143rem!important;
@@ -123,64 +131,32 @@ input[readonly].file-input {
   }
 }
 
-.round-icon-button {
-  position: relative;
-  background: $primaryColor;
-  color: #FFF !important;
-  display: block;
-  border-radius: 50%;
-  height: 2.5rem;
-  font-size: 1.5rem;
-  width: 2.5rem;
-  cursor: pointer;
-  transition: .3s all ease-in-out;
-
-  &:hover,
-  &:active {
-
-    background: $primaryDarkColor;
-  }
-
-  fa-icon {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-
-
-.custom .p-scrollpanel-wrapper {
-  border-right: 9px solid fade-out($secondaryDarkColor, $amount: 0.5);
-}
-
-.custom .p-scrollpanel-bar {
-  background-color: $primaryColor;
-  opacity: .2 !important;
-  transition: opacity .3s ease-in-out;
-}
-
-.custom .p-scrollpanel-bar:hover,
-.custom .p-scrollpanel-bar:active {
-  background-color: $primaryColor;
-  opacity: .6 !important;
-}
-
-.p-button {
-  &.showLabel-0 {
-    .p-button-text {
-      display: none;
-    }
-  }
-
-  &.showLabel-1 {
-    .p-button-text {
-      display: block;
-    }
-  }
-}
-
+//.round-icon-button {
+//  position: relative;
+//  background: $primaryColor;
+//  color: #FFF !important;
+//  display: block;
+//  border-radius: 50%;
+//  height: 2.5rem;
+//  font-size: 1.5rem;
+//  width: 2.5rem;
+//  cursor: pointer;
+//  transition: .3s all ease-in-out;
+//
+//  &:hover,
+//  &:active {
+//
+//    background: $primaryDarkColor;
+//  }
+//
+//  fa-icon {
+//    display: block;
+//    position: absolute;
+//    top: 50%;
+//    left: 50%;
+//    transform: translate(-50%, -50%);
+//  }
+//}
 .p-card {
   margin-bottom: 1rem;
 }
@@ -205,33 +181,6 @@ input[readonly].file-input {
   }
 }
 
-.p-toast {
-  border-radius: $borderRadius;
-  overflow: hidden;
-
-  .p-toast-message-content {
-    padding: 0;
-  }
-
-  .p-toast-custom-content {
-    padding: .5em 1rem;
-    background: $secondaryLightColor;
-    box-shadow: inset 2px 0px 2px -1px transparentize($secondaryDarkColor, 0.4);
-
-    &.success {
-      border-left: 4px solid $successColor;
-    }
-
-    &.c-warn {
-      border-left: 4px solid $warningColor;
-    }
-
-    &.c-error {
-      border-left: 4px solid $dangerColor;
-    }
-  }
-}
-
 .custom-popup {
   // height: calc(100vh - 100px);
   width: calc(100vw - 20px);
@@ -251,10 +200,6 @@ ngx-loading-bar.desktop {
   #loading-bar .bar {
     top: 25px
   }
-}
-
-.main-top-spacer {
-  height: .5rem;
 }
 
 .badge {
@@ -296,27 +241,10 @@ ngx-loading-bar.desktop {
 
 /* Larger than mobile */
 @media (min-width: 400px) {
-  .align-right-wrapper {
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: row;
-
-    > * {
-      margin-left: auto;
-    }
-
-    > p-button {
-      margin-left: 1rem;
-
-      &:first-child {
-        margin-left: 0;
-      }
-    }
-  }
 }
 
 /* Larger than phablet */
-@media (min-width: 550px) {
+@media (min-width: 576px) {
   .custom-popup {
     max-width: 530px;
     min-width: auto;
@@ -332,11 +260,11 @@ ngx-loading-bar.desktop {
 }
 
 /* Larger than tablet */
-@media (min-width: 750px) {
+@media (min-width: 768px) {
 }
 
 /* Larger than desktop */
-@media (min-width: 1000px) {
+@media (min-width: 992px) {
 }
 
 /* Larger than Desktop HD */

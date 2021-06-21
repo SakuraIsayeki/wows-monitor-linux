@@ -4,6 +4,7 @@ import { CwClanMatch } from '@generated/models/cw-clan-match';
 import { ClansService } from '@generated/services';
 import { SettingsService } from '@services/settings.service';
 import { BaseListService } from '@stewie/framework';
+import { startWith } from 'rxjs/operators';
 
 @Injectable()
 export class CwHistoryListService extends BaseListService<CwClanMatch, HistoryListRequestForm> {
@@ -26,9 +27,16 @@ export class CwHistoryListService extends BaseListService<CwClanMatch, HistoryLi
       form.leagues.valueChanges.subscribe(v => settingsService.form.clanWarsConfig.leagues.setValue(v));
       form.season.valueChanges.subscribe(v => settingsService.form.clanWarsConfig.season.setValue(v));
       form.clanIds.valueChanges.subscribe(v => settingsService.form.clanWarsConfig.favClanIds.setValue(v));
-      form.filterClanIds.valueChanges.subscribe(v => settingsService.form.clanWarsConfig.onlyShowFavs.setValue(v));
+      form.filterClanIds.valueChanges.pipe(startWith(form.filterClanIds.value)).subscribe(v => {
+        if(v){
+          form.clanIds.enable({emitEvent: false});
+        } else{
+          form.clanIds.disable({emitEvent: false, returnNull: true});
+        }
+        settingsService.form.clanWarsConfig.onlyShowFavs.setValue(v)
+      });
 
       return form;
-    });
+    }, true);
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
 import { faRedo } from '@fortawesome/free-solid-svg-icons';
 import { CwHistoryListService } from '@services/cw-history-list.service';
+import { debounceTime, map, pairwise, startWith, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-history',
@@ -16,7 +17,6 @@ export class HistoryComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.form.clanId.setValue(null);
   }
 
   clanSelected(clanId: number) {

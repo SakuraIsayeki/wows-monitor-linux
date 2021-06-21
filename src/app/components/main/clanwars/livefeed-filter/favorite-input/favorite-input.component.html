@@ -1,6 +1,15 @@
-<app-clan-search (clanSelected)="clanSelected($event)"></app-clan-search>
-<p-chips [ngModel]="array | resolveClans | async" (onRemove)="clanRemoved($event)">
-  <ng-template let-item pTemplate="item">
-    {{item.tag}}
-  </ng-template>
-</p-chips>
+<div class="p-mb-2">
+  <app-clan-search (clanSelected)="clanSelected($event)" (onLoaded)="cd.markForCheck()"></app-clan-search>
+</div>
+
+<!--           -->
+<ng-container *ngIf="array | resolveClans | async; let clans">
+  <div class="favorite-list" [class.p-disabled]="clans.length <= 0">
+    <p-chip *ngFor="let clan of clans" [removable]="true"
+            (onRemove)="clanRemoved(clan.id)">
+      <span class="clan-search-item p-chip-text p-d-flex p-ai-center">
+        <img src="assets/region-{{clan.region}}.svg"/>{{clan.tag}}
+      </span>
+    </p-chip>
+  </div>
+</ng-container>

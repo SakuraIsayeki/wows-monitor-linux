@@ -72,7 +72,7 @@
   }
 }
 
-@media (min-width: 550px) {
+@media (min-width: 576px) {
   .options-right.settings article {
     grid-template-areas: 'caption checkbox'
       'summary input';
@@ -81,7 +81,7 @@
   }
 }
 /* Larger than tablet */
-@media (min-width: 1000px) {
+@media (min-width: 992px) {
   .configtool {
     .options-wrapper {
       grid-template-columns: 1fr 1fr;

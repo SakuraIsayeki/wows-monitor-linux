@@ -1,41 +1,44 @@
 <p-card>
-  <div class="history-filter-card">
-    <a (click)="back()">
-      <fa-icon [icon]="faLeft" [fixedWidth]="true"></fa-icon> {{ 'clanwars.back' | translate }}
-    </a>
-    <h2><span [style.color]="clan.color | sanitizeCss">[{{clan.tag}}]</span>&nbsp;{{clan.name}}</h2>
-
-
-
+  <div>
+    <div class="p-d-flex p-ai-start p-jc-between p-mb-2">
+      <div>
+        <a (click)="back()" class="p-mb-1">
+          <fa-icon [icon]="faLeft" [fixedWidth]="true"></fa-icon>
+          {{ 'clanwars.back' | translate }}
+        </a>
+        <h2 class="p-mb-0"><span [style.color]="clan.color | sanitizeCss">[{{clan.tag}}]</span>&nbsp;{{clan.name}}</h2>
+      </div>
+      <button pButton class="p-button-primary p-button-rounded p-button-xl" icon="pi pi-refresh" (click)="service.reload()"></button>
+    </div>
     <app-general-filter [isHistory]="true" [isClan]="true"></app-general-filter>
 
-    <div class="claninfo ranking-wrapper">
-      <div id="global" class="info-row" *ngIf="clan.leadingRating?.globalRank">
-        <img class="globe" src="assets/globe.svg" />
-        <span>#{{ clan.leadingRating?.globalRank }}</span>
+    <div class="p-grid">
+      <div class="p-col-12 p-mb-1 p-d-flex p-ai-center p-jc-start">
+        <div id="global" class="info-row p-ai-center p-mr-2" *ngIf="clan.leadingRating?.globalRank">
+          <img class="globe" src="assets/globe.svg"/>
+          <span>#{{ clan.leadingRating?.globalRank }}</span>
+        </div>
+        <div id="region" class="info-row p-ai-center" *ngIf="clan.leadingRating?.rank > 0 || clan.rank > 0">
+          <img class="region" src="assets/region-{{clan.region}}.svg"/>
+          <span>#{{ clan.leadingRating?.rank ? clan.leadingRating?.rank : clan.rank}}</span>
+        </div>
       </div>
-      <div id="region" class="info-row" *ngIf="clan.leadingRating?.rank > 0 || clan.rank > 0">
-        <img class="region" src="assets/region-{{clan.region}}.svg" />
-        <span>#{{ clan.leadingRating?.rank ? clan.leadingRating?.rank : clan.rank}}</span>
+      <div class="p-col-12 p-lg-6 p-mb-1 p-mb-lg-0">
+        <app-clanrating-info [rating]="clan.alphaRating"></app-clanrating-info>
       </div>
-    </div>
-
-    <div class="claninfo rating-wrapper">
-      <app-clanrating-info [rating]="clan.alphaRating"></app-clanrating-info>
-      <app-clanrating-info [rating]="clan.bravoRating"></app-clanrating-info>
+      <div class="p-col-12 p-lg-6 p-mb-1 p-mb-lg-0">
+        <app-clanrating-info [rating]="clan.bravoRating"></app-clanrating-info>
+      </div>
     </div>
 
     <p-paginator [rows]="service.form.pageSize.value" [first]="service.primeNgFirst" [totalRecords]="service.result?.totalCount"
-      [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.primeNgLazyLoad($event)">
+                 [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.primeNgLazyLoad($event)">
     </p-paginator>
-    <a class="round-icon-button reload-list" (click)="service.reload()">
-      <fa-icon [icon]="faRedo"></fa-icon>
-    </a>
   </div>
 </p-card>
 <div *ngFor="let item of service.result?.items">
   <p-card class="no-padding">
-    <app-match-item [match]="item" [clanId]="service.form.clanId.value"></app-match-item>
+    <app-match-item [match]="item" [clanId]="service.form.clanId.value" class="p-flex-grow"></app-match-item>
   </p-card>
 </div>
 <p-paginator [rows]="service.form.pageSize.value" [first]="service.primeNgFirst" [totalRecords]="service.result?.totalCount"

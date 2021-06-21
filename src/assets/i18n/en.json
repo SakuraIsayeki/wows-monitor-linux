@@ -58,6 +58,14 @@
 		"history": {
 			"title": "Clan Wars History"
 		},
+		"labels": {
+			"battles": "Battles",
+			"estimated": "Estimated",
+			"longestWinstreak": "Longest Winstreak",
+			"points": "Points",
+			"winrate": "Winrate",
+			"winstreak": "Winstreak"
+		},
 		"livefeed": {
 			"title": "Clan Wars Livefeed"
 		}
@@ -149,10 +157,10 @@
 			"frags": "Avg Frags",
 			"karma": "Karma",
 			"pr": "PR",
+			"teamXp": "Xp",
 			"winrate": "Winrate",
 			"wins": "Wins",
-			"xp": "Avg Xp",
-			"teamXp": "Xp"
+			"xp": "Avg Xp"
 		},
 		"matchGroup": {
 			"BRAWL": "Brawl",
@@ -223,7 +231,6 @@
 				"caption": "Fontsize",
 				"items": {
 					"big": "Big",
-					"huge": "Huge",
 					"normal": "Normal",
 					"small": "small"
 				},

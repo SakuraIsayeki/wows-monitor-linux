@@ -1,23 +1,23 @@
-<div class="claninfo-rating info-row" *ngIf="rating">
-  <img class="team" src="assets/team-{{rating.teamNumber}}.svg" />
+<div class="claninfo-rating info-row p-ai-center" *ngIf="rating">
+  <img class="team" src="assets/team-{{rating.teamNumber}}.svg"/>
   <span>{{ 'monitor.cw.leagues.' + rating.league | translate }}&nbsp;{{ rating.division | roman }}</span>
   <span>|</span>
   <span>
     <strong style="font-size: 1.1em">{{rating.publicRating}}</strong>&nbsp;
-    <span style="font-size: 1.1em">Points</span>
+    <span style="font-size: 1.1em">{{'clanwars.labels.points' | translate}}</span>
   </span>
 </div>
-<div class="info-row" *ngIf="rating?.battlesCount > 0">
-  <span>
-    <strong>Battles</strong>&nbsp;{{rating.battlesCount}}
+<div class="info-row p-flex-column p-flex-sm-row p-ai-start" *ngIf="rating?.battlesCount > 0">
+  <span class="p-mb-1 p-mb-sm-0">
+    <strong>{{'clanwars.labels.battles' | translate}}</strong>&nbsp;{{rating.battlesCount}}
+  </span>
+  <span class="p-mb-1 p-mb-sm-0">
+    <strong>{{'clanwars.labels.winrate' | translate}}</strong>&nbsp;{{rating.winsCount / rating.battlesCount * 100 | number:'0.0-2'}}%
+  </span>
+  <span class="p-mb-1 p-mb-sm-0">
+    <strong>{{'clanwars.labels.winstreak' | translate}}</strong>&nbsp;{{rating.currentWinningStreak}}
   </span>
   <span>
-    <strong>Winrate</strong>&nbsp;{{rating.winsCount / rating.battlesCount * 100 | number:'0.0-2'}}%
-  </span>
-  <span>
-    <strong>Winstreak</strong>&nbsp;{{rating.currentWinningStreak}}
-  </span>
-  <span>
-    <strong>Longest Winstreak</strong>&nbsp;{{rating.longestWinningStreak}}
+    <strong>{{'clanwars.labels.longestWinstreak' | translate}}</strong>&nbsp;{{rating.longestWinningStreak}}
   </span>
 </div>

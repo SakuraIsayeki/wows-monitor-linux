@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HistoryResolver } from '@components/main/clanwars/history/history.resolver';
 import { StRoutes } from '@stewie/framework';
 import { ClanwarsComponent } from './clanwars.component';
 import { HistoryClanComponent } from './history/history-clan/history-clan.component';
@@ -25,7 +26,8 @@ const routes: StRoutes = [
         path: ':clanId',
         component: HistoryClanComponent,
         resolve: {
-          clan: HistoryClanResolver
+          clan: HistoryClanResolver,
+          history: HistoryResolver
         },
         data: {
           meta: {
@@ -37,7 +39,8 @@ const routes: StRoutes = [
         path: ':clanId/:season',
         component: HistoryClanComponent,
         resolve: {
-          clan: HistoryClanResolver
+          clan: HistoryClanResolver,
+          history: HistoryResolver
         },
         data: {
           meta: {
@@ -48,6 +51,9 @@ const routes: StRoutes = [
       {
         path: '',
         component: HistoryComponent,
+        resolve: {
+          history: HistoryResolver
+        },
         data: {
           meta: {
             title: 'meta.clanwars.title'

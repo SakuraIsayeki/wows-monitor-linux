@@ -1,14 +1,15 @@
-<div class="filters-wrap" [class.history]="isHistory" [class.clan]="isClan">
-  <div class="filter-wrap" *ngIf="!isClan">
+<div [class.history]="isHistory" [class.clan]="isClan" class="p-grid p-fluid ">
+  <div class="p-field p-col-12 p-md-3" *ngIf="!isClan">
     <label>{{'clanwars.filters.region.label' | translate}}</label>
-    <p-multiSelect appendTo="body" [options]="clanwars.regionOptions" [formControl]="service.form.regions" [placeholder]="'clanwars.filters.region.empty' | translate"
-      [filter]="false" [maxSelectedLabels]="3">
+    <p-multiSelect appendTo="body" [options]="clanwars.regionOptions" [formControl]="service.form.regions"
+                   [placeholder]="'clanwars.filters.region.empty' | translate"
+                   [filter]="false" [maxSelectedLabels]="3">
       <ng-template let-items pTemplate="selectedItems">
         <ng-container *ngIf="items?.length <= 0">
           {{'clanwars.filters.region.empty' | translate}}
         </ng-container>
         <ng-container *ngIf="items?.length > 0">
-          <span class="select-item" *ngFor="let item of items">{{item | region}}</span>
+          <span *ngFor="let item of items; let l = last">{{item | region}}<ng-container *ngIf="!l">,&nbsp;</ng-container></span>
         </ng-container>
       </ng-template>
       <ng-template let-item pTemplate="item">
@@ -17,19 +18,19 @@
     </p-multiSelect>
   </div>
 
-  <div class="filter-wrap" *ngIf="!isClan">
+  <div class="p-field p-col-12 p-md-3" *ngIf="!isClan">
     <label>{{'clanwars.filters.league.label' | translate}}</label>
     <p-multiSelect appendTo="body" [options]="clanwars.leagueOptions" [formControl]="service.form.leagues"
-      [defaultLabel]="'clanwars.filters.league.empty' | translate">
+                   [defaultLabel]="'clanwars.filters.league.empty' | translate" [filter]="false">
       <ng-template let-items pTemplate="selectedItems">
         <ng-container *ngIf="items?.length <= 0">
           {{'clanwars.filters.league.empty' | translate}}
         </ng-container>
         <ng-container *ngIf="items?.length > 0 && items?.length < 5">
-          <span class="select-item" *ngFor="let item of items"> {{ 'monitor.cw.leagues.' + item | translate }}</span>
+          <span *ngFor="let item of items; let l = last">{{ 'monitor.cw.leagues.' + item | translate }}<ng-container *ngIf="!l">,&nbsp;</ng-container></span>
         </ng-container>
         <ng-container *ngIf="items?.length >= 5">
-          {{'clanwars.filters.multiSelected' | translate: { count: items?.length } }}
+          {{'clanwars.filters.multiSelected' | translate: {count: items?.length} }}
         </ng-container>
       </ng-template>
       <ng-template let-item pTemplate="item">
@@ -38,35 +39,35 @@
     </p-multiSelect>
   </div>
 
-  <div class="filter-wrap" *ngIf="!isClan">
+  <div class="p-field p-col-12 p-md-3" *ngIf="!isClan">
     <label>{{'clanwars.filters.division.label' | translate}}</label>
     <p-multiSelect appendTo="body" [options]="clanwars.divisionOptions" [formControl]="service.form.divisions"
-      [defaultLabel]="'clanwars.filters.division.empty' | translate">
+                   [defaultLabel]="'clanwars.filters.division.empty' | translate" [filter]="false">
       <ng-template let-items pTemplate="selectedItems">
         <ng-container *ngIf="items?.length <= 0">
           {{'clanwars.filters.division.empty' | translate}}
         </ng-container>
         <ng-container *ngIf="items?.length > 0">
-          <span class="select-item" *ngFor="let item of items">Division {{ item | roman }}</span>
+          <span *ngFor="let item of items; let l = last">Division {{ item | roman }}<ng-container *ngIf="!l">,&nbsp;</ng-container></span>
         </ng-container>
       </ng-template>
       <ng-template let-item pTemplate="item">
-        Division {{ item.value | roman }}
+        <span>Division {{ item.value | roman }}</span>
       </ng-template>
     </p-multiSelect>
   </div>
 
-  <div class="filter-wrap" *ngIf="isClan">
+  <div class="p-field p-col-12 p-md-3" *ngIf="isClan">
     <label>{{'clanwars.filters.team.label' | translate}}</label>
     <p-dropdown appendTo="body" [options]="clanwars.teamOptions" [formControl]="service.form.team"
-      [placeholder]="'clanwars.filters.team.empty' | translate" [showClear]="true">
+                [placeholder]="'clanwars.filters.team.empty' | translate" [showClear]="true">
     </p-dropdown>
   </div>
 
-  <div class="filter-wrap" *ngIf="isHistory">
+  <div class="p-field p-col-12 p-md-3" *ngIf="isHistory">
     <label>{{'clanwars.filters.season.label' | translate}}</label>
     <p-dropdown appendTo="body" [options]="clanwars.seasonOptions" [formControl]="service.form.season"
-      [placeholder]="'clanwars.filters.season.empty' | translate" [showClear]="true">
+                [placeholder]="'clanwars.filters.season.empty' | translate" [showClear]="true">
     </p-dropdown>
   </div>
 </div>

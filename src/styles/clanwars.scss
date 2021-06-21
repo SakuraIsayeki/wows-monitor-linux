@@ -1,62 +1,63 @@
 @import '_variables.scss';
 
-p-card.no-padding .p-card-body {
-  padding: 0;
+.favorite-list {
 
-  .p-card-content {
+  padding: .25rem;
+  background: $secondaryLightColor;
+  border-radius: 3px;
+  border: 1px solid $secondaryColor;
+  min-height: 3.1rem;
+
+  p-chip {
+    .p-chip {
+      margin: .25rem;
+      background: $primaryColor;
+    }
+  }
+}
+
+.clan-search-item {
+  img {
+    height: 1.2rem;
+    margin-right: .5rem;
+  }
+}
+
+p-card {
+  .p-card {
+    overflow: hidden;
+  }
+
+  &.no-padding .p-card-body {
     padding: 0;
+    overflow: hidden;
+
+    .p-card-content {
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex: 1;
+    }
   }
 }
 
 app-match-item {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr auto 1fr;
-  grid-template-areas: "left center right";
-  gap: .5rem;
-
   &.normal {
-    border-left: .5em solid $successColor;
-    border-right: .5em solid $dangerColor;
+    border-top: .5em solid $successColor;
+    border-bottom: .5em solid $dangerColor;
   }
 
   &.inverted {
-    border-right: .5em solid $successColor;
-    border-left: .5em solid $dangerColor;
+    border-bottom: .5em solid $successColor;
+    border-top: .5em solid $dangerColor;
   }
 
-  #left {
-    grid-area: left;
-    text-align: left;
-  }
-
-  #center {
-    grid-area: center;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    .region {
-      height: 2rem;
-    }
-
-    .vs {
-      font-size: 1.5rem;
-    }
-  }
-
-  #right {
-    grid-area: right;
-    text-align: right;
-  }
 }
+
 
 .info-row {
   display: flex;
   flex-direction: row;
-  align-items: center;
 
   > * {
     margin-right: .5rem;
@@ -67,239 +68,36 @@ app-match-item {
   }
 }
 
+@media (min-width: 768px) {
+  app-match-item {
+    &.normal {
+      border-top: none;
+      border-bottom: none;
+      border-left: .5em solid $successColor;
+      border-right: .5em solid $dangerColor;
+    }
+
+    &.inverted {
+      border-top: none;
+      border-bottom: none;
+      border-right: .5em solid $successColor;
+      border-left: .5em solid $dangerColor;
+    }
+  }
+}
+
+
 app-match-item-team {
-  padding: .5rem;
-  cursor: default;
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-columns: 60% auto;
-  grid-template-areas: "name name"
-    "ladder stage"
-    "region stage"
-    "global stage";
 
-  &.empty {
-    grid-template-areas: "empty empty"
-      "empty empty"
-      "empty empty"
-      "empty empty";
-  }
+  cursor: pointer;
 
-  &:not(.empty) {
-    &.right {
-      grid-template-columns: auto 60%;
-      grid-template-areas: "name name"
-        "stage ladder"
-        "stage region"
-        "stage global";
-    }
-
-    cursor: pointer;
-
-    &:hover {
-      background: transparentize($secondaryColor, 0.5) !important;
-    }
-  }
-
-  &.right {
-    .info-row {
-      display: flex;
-      flex-direction: row-reverse;
-      align-items: center;
-    }
-  }
-
-  #name {
-    grid-area: name;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  #ladder {
-    grid-area: ladder;
-  }
-
-  #region {
-    grid-area: region;
-  }
-
-  #global {
-    grid-area: global;
-  }
-
-  #stage {
-    grid-area: stage;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    .stage-progress {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-
-      .fade {
-        opacity: .3;
-      }
-    }
-  }
-
-  #empty {
-    grid-area: empty;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.history-filter-card {
-  position: relative;
-
-  .reload-list {
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 1.2rem;
-    z-index: 999;
-    transition: .3s all ease-in-out;
-  }
-}
-
-.livefeed-filter-card {
-  position: relative;
-
-  .show-hide-filters {
-    position: absolute;
-    right: 0;
-    bottom: -2.5rem;
-    font-size: 1.2rem;
-    z-index: 999;
-    transition: .3s all ease-in-out;
-  }
-
-  &.hidden {
-    .show-hide-filters {
-      bottom: -1rem;
-    }
+  &:hover {
+    background: transparentize($secondaryColor, 0.5) !important;
   }
 }
 
 .livefeed-filters {
   overflow: hidden;
-}
-
-.select-item {
-  background: $primaryColor;
-  padding: .1em 0.3rem;
-  border-radius: 4px;
-  margin: 0 0.3rem;
-}
-
-.p-chips {
-  .p-inputtext {
-    cursor: default !important;
-    width: 100%;
-  }
-
-  .p-chips-input-token {
-    input {
-      visibility: hidden;
-    }
-  }
-}
-
-app-favorite-input {
-  app-clan-search {
-    display: block;
-    margin-bottom: .5rem;
-  }
-}
-
-.filters-wrap {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 1rem;
-
-  &.history {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-
-  &.history-second {
-    grid-template-columns: auto auto 40%;
-    grid-template-areas: "clansearch favsOnly favorites"
-      ". . favorites";
-  }
-
-  &.livefeed {
-    grid-template-columns: auto auto 40%;
-    grid-template-areas: "liveUpdate notification favorites"
-      "favsOnly notificationFavsOnly favorites";
-  }
-
-  .filter-wrap {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-
-    &.disabled {
-      opacity: .5;
-    }
-
-    label {
-      margin-bottom: .3rem;
-    }
-
-    &.input-switch {
-      flex-direction: row;
-      align-items: center;
-
-      p-inputswitch {
-        margin-right: .5rem;
-      }
-    }
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    .p-multiselect,
-    .p-dropdown,
-    .p-autocomplete,
-    .p-autocomplete input {
-      width: 100%;
-    }
-  }
-}
-
-#clansearch {
-  grid-area: clansearch;
-}
-
-#liveUpdate {
-  grid-area: liveUpdate;
-}
-
-#favsOnly {
-  grid-area: favsOnly;
-}
-
-#notification {
-  grid-area: notification;
-}
-
-#notificationFavsOnly {
-  grid-area: notificationFavsOnly;
-}
-
-#favorites {
-  grid-area: favorites;
 }
 
 .claninfo {
@@ -311,7 +109,7 @@ app-favorite-input {
 
   &.ranking-wrapper {
     display: flex;
-    direction: row;
+    flex-direction: row;
 
     > .info-row {
       margin-right: 1rem;
@@ -330,10 +128,4 @@ app-favorite-input {
       margin-right: 2rem;
     }
   }
-}
-
-.p-paginator .p-dropdown {
-  background: none;
-  outline:none;
-  border:none;
 }

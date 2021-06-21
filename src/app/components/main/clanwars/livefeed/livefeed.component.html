@@ -1,17 +1,21 @@
 <p-card>
   <div class="livefeed-filter-card" [class.hidden]="!service.form.showFilters.value">
-    <h2>{{ 'clanwars.livefeed.title' | translate }}</h2>
+    <div class="p-d-flex p-ai-center p-jc-between p-mb-2">
+      <h2 class="p-mb-0">{{ 'clanwars.livefeed.title' | translate }}</h2>
+      <button class="p-button-rounded show-hide-filters p-button-xl" pButton icon="pi pi-filter"
+              (click)="service.form.showFilters.setValue(!service.form.showFilters.value)"
+      ></button>
+    </div>
+
     <div [@showHideAnimation] *ngIf="service.form.showFilters.value" class="livefeed-filters">
       <app-general-filter></app-general-filter>
       <app-livefeed-filter></app-livefeed-filter>
     </div>
-    <button class="p-button-rounded show-hide-filters p-button-xl" pButton icon="pi pi-filter"
-            (click)="service.form.showFilters.setValue(!service.form.showFilters.value)"
-    ></button>
+
   </div>
 </p-card>
 <div @items *ngFor="let item of service.items">
   <p-card class="no-padding">
-    <app-match-item [match]="item.clanMatch"></app-match-item>
+    <app-match-item [match]="item.clanMatch" class="p-flex-grow"></app-match-item>
   </p-card>
 </div>

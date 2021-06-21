@@ -1,35 +1,48 @@
 <p-card>
-  <div class="history-filter-card  p-fluid">
-    <h2>{{ 'clanwars.history.title' | translate }}</h2>
+  <div class="history-filter-card p-fluid">
+    <div class="p-d-flex p-ai-center p-jc-between p-mb-2">
+      <h2 class="p-mb-0">{{ 'clanwars.history.title' | translate }}</h2>
+      <button pButton class="p-button-primary p-button-rounded p-button-xl" icon="pi pi-refresh" (click)="service.reload()"></button>
+    </div>
     <app-general-filter [isHistory]="true"></app-general-filter>
-    <div class="filters-wrap history-second">
-      <div class="filter-wrap">
-        <app-clan-search id="clansearch" [placeholder]="'clanwars.clansearch.placeholder' | translate"
+    <div class="p-grid p-mb-2">
+      <div class="p-col-12 p-md-3">
+        <app-clan-search class="p-field" [placeholder]="'clanwars.clansearch.placeholder' | translate"
                          (clanSelected)="clanSelected($event)">
         </app-clan-search>
       </div>
-      <div id="favsOnly" class="filter-wrap input-switch">
-        <p-inputSwitch [formControl]="service.form.filterClanIds"></p-inputSwitch>
-        <label>
-          {{ 'clanwars.filters.favsOnly.labelHistory' | translate }}
-        </label>
+      <div class="p-col-12 p-md-3 p-d-flex p-ai-start p-jc-end">
+        <div class="p-field p-d-flex p-ai-center">
+          <label class="p-mr-2">
+            {{ 'clanwars.filters.favsOnly.labelHistory' | translate }}
+          </label>
+          <p-inputSwitch [formControl]="service.form.filterClanIds"></p-inputSwitch>
+        </div>
       </div>
-      <div id="favorites" class="filter-wrap">
+      <div class="p-col-12 p-md-6">
         <app-favorite-input [control]="service.form.clanIds"></app-favorite-input>
       </div>
     </div>
-    <p-paginator [rows]="service.form.pageSize.value" [first]="service.primeNgFirst" [totalRecords]="service.result?.totalCount"
-                 [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.primeNgLazyLoad($event)"></p-paginator>
-    <a class="round-icon-button reload-list" (click)="service.reload()">
-      <fa-icon [icon]="faRedo"></fa-icon>
-    </a>
+
+
+    <p-paginator [rows]="service.form.pageSize.value"
+                 [first]="service.primeNgFirst"
+                 [totalRecords]="service.result?.totalCount"
+                 [rowsPerPageOptions]="[25, 50,75 ,100]"
+                 (onPageChange)="service.primeNgLazyLoad($event)"></p-paginator>
   </div>
 </p-card>
+
+
 <div *ngFor="let item of service.result?.items">
   <p-card class="no-padding">
-    <app-match-item [match]="item"></app-match-item>
+    <app-match-item [match]="item" class="p-flex-grow"></app-match-item>
   </p-card>
 </div>
-<p-paginator *ngIf="service.result?.items.length > 0" [first]="service.primeNgFirst" [rows]="service.form.pageSize.value"
-             [totalRecords]="service.result?.totalCount" [rowsPerPageOptions]="[25, 50,75 ,100]" (onPageChange)="service.primeNgLazyLoad($event)">
+<p-paginator *ngIf="service.result?.items.length > 0"
+             [first]="service.primeNgFirst"
+             [rows]="service.form.pageSize.value"
+             [totalRecords]="service.result?.totalCount"
+             [rowsPerPageOptions]="[25, 50,75 ,100]"
+             (onPageChange)="service.primeNgLazyLoad($event)">
 </p-paginator>

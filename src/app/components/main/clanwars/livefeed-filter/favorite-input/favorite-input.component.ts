@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BaseComponent } from '@components/base.component';
+import { ClanSearchResult } from '@generated/models/clan-search-result';
 
 @Component({
   selector: 'app-favorite-input',
-  templateUrl: './favorite-input.component.html'
+  templateUrl: './favorite-input.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FavoriteInputComponent extends BaseComponent implements OnInit {
 
@@ -13,7 +15,7 @@ export class FavoriteInputComponent extends BaseComponent implements OnInit {
 
   array = [];
 
-  constructor() {
+  constructor(public cd: ChangeDetectorRef) {
     super();
   }
 
@@ -26,16 +28,17 @@ export class FavoriteInputComponent extends BaseComponent implements OnInit {
       this.array.push(id);
       this.control.setValue([...this.array], { emitEvent: true });
       this.array = [...this.array];
+      this.cd.markForCheck();
     }
   }
 
-  clanRemoved(event: any) {
-    let id = event.value.id;
+  clanRemoved(id: number) {
     if (this.array.includes(id)) {
       const index = this.array.indexOf(id);
       this.array.splice(index, 1);
       this.control.setValue([...this.array], { emitEvent: true });
       this.array = [...this.array];
+      this.cd.markForCheck();
     }
   }
 }

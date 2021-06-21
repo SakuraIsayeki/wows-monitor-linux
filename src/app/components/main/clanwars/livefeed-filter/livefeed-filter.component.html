@@ -1,35 +1,36 @@
-<div class="filters-wrap livefeed p-fluid">
+<div class="p-grid p-fluid">
 
-  <div id="liveUpdate" class="filter-wrap input-switch">
-    <p-inputSwitch [formControl]="service.form.liveUpdate"></p-inputSwitch>
-    <label>
-      {{ 'clanwars.filters.liveUpdate.label' | translate }}
-    </label>
+  <div class="p-md-6">
+    <div class="p-grid">
+      <div class="p-field p-d-flex p-ai-center p-jc-end p-col-12 p-sm-6">
+        <label class="p-mr-2">
+          {{ 'clanwars.filters.liveUpdate.label' | translate }}
+        </label>
+        <p-inputSwitch [formControl]="service.form.liveUpdate"></p-inputSwitch>
+      </div>
+      <div class="p-field p-d-flex p-ai-center p-jc-end p-col-12 p-sm-6" [class.p-disabled]="!service.form.liveUpdate.value">
+        <label class="p-mr-2">
+          {{ 'clanwars.filters.notification.label' | translate }}
+        </label>
+        <p-inputSwitch [formControl]="service.form.notification" [disabled]="!service.form.liveUpdate.value"></p-inputSwitch>
+      </div>
+      <div class="p-field p-d-flex p-ai-center p-jc-end p-col-12 p-sm-6" [class.p-disabled]="!service.form.notification.value || !service.form.liveUpdate.value">
+        <label class="p-mr-2">
+          {{ 'clanwars.filters.notificationFavsOnly.label' | translate }}
+        </label>
+        <p-inputSwitch [formControl]="service.form.notificationFavsOnly" [disabled]="!service.form.notification.value || !service.form.liveUpdate.value">
+        </p-inputSwitch>
+      </div>
+      <div class="p-field p-d-flex p-ai-center p-jc-end p-col-12 p-sm-6">
+        <label class="p-mr-2">
+          {{ 'clanwars.filters.favsOnly.label' | translate }}
+        </label>
+        <p-inputSwitch [formControl]="cwService.form.filterClanIds"></p-inputSwitch>
+      </div>
+    </div>
   </div>
 
-  <div id="notification" class="filter-wrap input-switch">
-    <p-inputSwitch [formControl]="service.form.notification"></p-inputSwitch>
-    <label>
-      {{ 'clanwars.filters.notification.label' | translate }}
-    </label>
-  </div>
-
-  <div id="favsOnly" class="filter-wrap input-switch">
-    <p-inputSwitch [formControl]="cwService.form.filterClanIds"></p-inputSwitch>
-    <label>
-      {{ 'clanwars.filters.favsOnly.label' | translate }}
-    </label>
-  </div>
-
-  <div id="notificationFavsOnly" class="filter-wrap input-switch" [class.disabled]="!service.form.notification.value">
-    <p-inputSwitch [formControl]="service.form.notificationFavsOnly" [disabled]="!service.form.notification.value">
-    </p-inputSwitch>
-    <label>
-      {{ 'clanwars.filters.notificationFavsOnly.label' | translate }}
-    </label>
-  </div>
-
-  <div id="favorites" class="filter-wrap">
+  <div class="p-col-12 p-md-6">
     <app-favorite-input [control]="cwService.form.clanIds"></app-favorite-input>
   </div>
 </div>
