@@ -4,6 +4,7 @@ import { ElectronService, ElectronServiceToken } from '@interfaces/electron.serv
 import { SettingsService } from '@services/settings.service';
 import { SignalrService } from '@services/signalr.service';
 import { BaseInjection } from '@stewie/framework';
+import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 @Injectable()
@@ -24,25 +25,32 @@ export class ScreenshotService extends BaseInjection {
 
     if (this.electron && !this.takingScreenshot) {
       this.takingScreenshot = true;
-      const main = document.getElementsByTagName('main')[0].getBoundingClientRect();
+      await interval(100).pipe(take(1)).toPromise();
+
 
       const matchInfo = await this.signalrService.$info.pipe(take(1)).toPromise();
 
       let filename = 'wows-monitor';
+      let rect = null;
       if (this.router.url === '/' && matchInfo) {
         filename = `${matchInfo.map.name.replace(this.spaceRegex, '-').toLowerCase()}-${MatchGroup[matchInfo.matchGroup].toLowerCase()}`;
+        const element = document.querySelectorAll('main > .monitor .container')[0].getBoundingClientRect();
+        rect = {
+          x: Math.floor(element.left),
+          y: Math.floor(element.top),
+          width: Math.floor(element.width),
+          height: Math.floor(element.height)
+        }
       }
+
       filename += '-' + this.getDateString() + '.png';
+
+
 
       await this.electron.ipcRenderer.invoke('take-screenshot', {
         path: this.settings.form.monitorConfig?.screenshotPath?.value,
         filename: filename,
-        rect: {
-          x: 0,
-          y: main.top,
-          width: main.width,
-          height: main.height
-        }
+        rect
       });
 
       if (this.settings.form.monitorConfig.screenshotPath) {

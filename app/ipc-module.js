@@ -91,28 +91,25 @@ function initIpcModule(win) {
 }
 exports.initIpcModule = initIpcModule;
 function takeScreenshot(win, args) {
+    var _a;
     return __awaiter(this, void 0, void 0, function () {
         var result, path;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, win.webContents.capturePage({
-                        x: 0,
-                        y: 84,
-                        width: 1920,
-                        height: 1006
-                    })];
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, win.webContents.capturePage((_a = args.rect) !== null && _a !== void 0 ? _a : null)];
                 case 1:
-                    result = _a.sent();
+                    result = _b.sent();
                     if (!args.path) return [3 /*break*/, 3];
                     path = args.path + '/' + args.filename;
                     return [4 /*yield*/, fs.writeFile(path, result.toPNG())];
                 case 2:
-                    _a.sent();
+                    _b.sent();
+                    electron_1.clipboard.writeImage(result, 'selection');
                     logger.debug('[Electron]', '(save-screenshot)', path);
                     return [3 /*break*/, 4];
                 case 3:
                     electron_1.clipboard.writeImage(result, 'selection');
-                    _a.label = 4;
+                    _b.label = 4;
                 case 4: return [2 /*return*/];
             }
         });

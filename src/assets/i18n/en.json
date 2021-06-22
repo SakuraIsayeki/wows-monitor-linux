@@ -152,6 +152,7 @@
 		"labels": {
 			"accBattles": "Account Battles",
 			"accWinrate": "Account Winrate",
+			"anonymName": "Player {{index}}",
 			"battles": "Battles",
 			"damage": "Avg Damage",
 			"frags": "Avg Frags",

@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnChanges, OnInit, SecurityContext, Simpl
 import { DomSanitizer } from '@angular/platform-browser';
 import { BaseComponent } from '@components/base.component';
 import { PlayerBackgrounds, PlayerBackgroundsMode, PlayerInfo, StatType } from '@generated/models';
+import { ScreenshotService } from '@services/desktop/screenshot.service';
 import { SettingsService } from '@services/settings.service';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map, shareReplay, startWith } from 'rxjs/operators';
@@ -25,6 +26,9 @@ export class PlayerComponent extends BaseComponent implements OnInit, OnChanges 
   @Input()
   first: boolean;
 
+  @Input()
+  index: number;
+
   backgroundColor: Observable<string>;
   borderColor: Observable<string>;
   borderEnabled: Observable<boolean>;
@@ -35,7 +39,8 @@ export class PlayerComponent extends BaseComponent implements OnInit, OnChanges 
   constructor(public el: ElementRef,
               private sanitizer: DomSanitizer,
               public settings: SettingsService,
-              public monitorComp: MonitorComponent) {
+              public monitorComp: MonitorComponent,
+              public screenshotService: ScreenshotService) {
     super();
   }
 

@@ -38,15 +38,11 @@ export function initIpcModule(win: BrowserWindow) {
 }
 
 async function takeScreenshot(win: BrowserWindow, args) {
-  const result = await win.webContents.capturePage({
-    x: 0,
-    y: 84,
-    width: 1920,
-    height: 1006
-  });
+  const result = await win.webContents.capturePage(args.rect ?? null);
   if (args.path) {
     const path = args.path + '/' + args.filename;
     await fs.writeFile(path, result.toPNG());
+    clipboard.writeImage(result, 'selection');
     logger.debug('[Electron]', '(save-screenshot)', path);
   } else {
     clipboard.writeImage(result, 'selection');
