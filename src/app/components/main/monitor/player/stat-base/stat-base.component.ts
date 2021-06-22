@@ -19,7 +19,7 @@ export class StatBaseComponent extends BaseComponent {
   @Input()
   public cw: boolean;
 
-  private settings: SettingsService;
+  protected settings: SettingsService;
 
   public stats: Observable<Stats>;
   public soloStats: Observable<boolean>;

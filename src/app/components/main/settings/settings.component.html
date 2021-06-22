@@ -229,6 +229,16 @@ weighted_WR = total_wins/total_battles
           </p-selectButton>
         </div>
       </article>
+      <article>
+        <caption>
+          {{ 'settings.screenshots.showWowsKarma.caption' | translate }}
+        </caption>
+        <summary externalLink [innerHTML]="'settings.screenshots.showWowsKarma.summary' | translate | sanitizeHtml">
+        </summary>
+        <div class="input-wrap">
+          <p-inputSwitch [formControl]="monitorConfig.showWowsKarma"></p-inputSwitch>
+        </div>
+      </article>
     </section>
     <section *isDesktop>
       <h3>{{ 'settings.screenshots.title' | translate }}</h3>

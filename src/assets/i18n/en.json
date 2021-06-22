@@ -338,6 +338,10 @@
 				"caption": "Screenshot path",
 				"summary": "Additional to storing the screenshot in your clipboard, you can save them to a specified location."
 			},
+			"showWowsKarma": {
+				"caption": "WoWs Karma integration",
+				"summary": "When enabled the karma will show a combined value of the WG karma value and the <a target=\"_blank\" href=\"https://wows-karma.com/\">wows-karma.com</a> value. This one can be negative."
+			},
 			"title": "Screenshots"
 		}
 	},

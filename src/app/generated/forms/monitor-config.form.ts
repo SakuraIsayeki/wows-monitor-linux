@@ -27,6 +27,7 @@ export class MonitorConfigForm extends StFormGroup<MonitorConfig> {
     this.addControl('anonymScreenshot', new StFormControl<boolean | null>(model?.anonymScreenshot, null, null));
     this.addControl('screenshotPath', new StFormControl<string | null>(model?.screenshotPath, null, null));
     this.addControl('soloStats', new StFormControl<StatType[] | null>(model?.soloStats ?? [], null, null));
+    this.addControl('showWowsKarma', new StFormControl<boolean | null>(model?.showWowsKarma, null, null));
 
     if(this.validatorGetter?.getCustomValidators){
       this.validatorGetter.getCustomValidators(this);
@@ -56,6 +57,7 @@ export class MonitorConfigForm extends StFormGroup<MonitorConfig> {
       this.anonymScreenshot?.reset(model ? model?.anonymScreenshot : null, options);    
       this.screenshotPath?.reset(model ? model?.screenshotPath : null, options);    
       this.soloStats?.reset(model ? model?.soloStats ?? [] : null, options);    
+      this.showWowsKarma?.reset(model ? model?.showWowsKarma : null, options);    
     
   }
   
@@ -81,6 +83,7 @@ export class MonitorConfigForm extends StFormGroup<MonitorConfig> {
     this.anonymScreenshot?.setValue(model?.anonymScreenshot, options);
     this.screenshotPath?.setValue(model?.screenshotPath, options);
     this.soloStats?.setValue(model?.soloStats ?? [], options);
+    this.showWowsKarma?.setValue(model?.showWowsKarma, options);
     
   }
 
@@ -133,6 +136,9 @@ export class MonitorConfigForm extends StFormGroup<MonitorConfig> {
   get soloStats() {
     return this.controls.soloStats as StFormControl<StatType[] | null>;
   }
+  get showWowsKarma() {
+    return this.controls.showWowsKarma as StFormControl<boolean | null>;
+  }
 
 
   get model(): MonitorConfig | null {
@@ -157,6 +163,7 @@ export class MonitorConfigForm extends StFormGroup<MonitorConfig> {
       anonymScreenshot: this.anonymScreenshot?.model,
       screenshotPath: this.screenshotPath?.model,
       soloStats: this.soloStats?.model,
+      showWowsKarma: this.showWowsKarma?.model,
       
     } as MonitorConfig;
     

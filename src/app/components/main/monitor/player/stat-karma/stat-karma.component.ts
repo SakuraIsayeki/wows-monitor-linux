@@ -1,7 +1,9 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StatBaseComponent } from '@components/main/monitor/player/stat-base/stat-base.component';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
-import { StatType } from '@generated/models/stat-type';
+import { SettingsService } from '@services/settings.service';
+import { combineLatest } from 'rxjs';
+import { map, shareReplay, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'stat-karma',
@@ -9,23 +11,32 @@ import { StatType } from '@generated/models/stat-type';
 })
 export class StatKarmaComponent extends StatBaseComponent implements OnInit {
 
-  @Input()
-  @HostBinding('class.mixedKarma')
-  get mixedKarma() {
-    return this.player.karma + this.player.wowsKarma;
-  }
+  private karmaSettingObs = this.settings.form.monitorConfig.showWowsKarma.valueChanges.pipe(
+    startWith(this.settings.form.monitorConfig.showWowsKarma.value), shareReplay(1));
 
-  @Input()
-  @HostBinding('class.mixedKarmaColor')
-  get mixedKarmaColor(): string {
-    if (this.mixedKarma === 0) {
-      return 'rgb(255, 199, 31)';
-    } else if (this.mixedKarma > 0) {
-      return 'rgb(68, 179, 0)';
-    } else if (this.mixedKarma < 0) {
-      return 'rgb(254, 14, 0)';
-    }
-  }
+  public karma$ = this.karmaSettingObs.pipe(
+    map(v => {
+      if (v) {
+        return this.player.karma + this.player.wowsKarma;
+      }
+      return this.player.karma;
+    })
+  );
+
+  public karmaColor$ = combineLatest([this.karmaSettingObs, this.karma$]).pipe(
+    map(([enabled, karma]) => {
+      if (enabled) {
+        if (karma === 0) {
+          return 'rgb(255, 199, 31)';
+        } else if (karma > 0) {
+          return 'rgb(68, 179, 0)';
+        } else if (karma < 0) {
+          return 'rgb(254, 14, 0)';
+        }
+      }
+      return null;
+    })
+  );
 
   public icon = faHeart;
 

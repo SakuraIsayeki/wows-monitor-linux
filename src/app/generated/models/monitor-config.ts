@@ -21,6 +21,7 @@ export interface MonitorConfig {
   playerBackgrounds?: null | PlayerBackgrounds;
   playerBackgroundsMode?: null | PlayerBackgroundsMode;
   screenshotPath?: null | string;
+  showWowsKarma?: null | boolean;
   soloStats?: null | Array<StatType>;
   teamWinrate?: null | TeamWinrate;
 }

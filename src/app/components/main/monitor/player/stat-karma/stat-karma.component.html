@@ -1,6 +1,6 @@
 <app-value-label [label]="'monitor.labels.karma' | translate"  [icon]="icon" [solo]="soloStats | async">
       <span [pTooltip]="(('monitor.karma.game' | translate) + player.karma + '\n' + ('monitor.karma.wowsKarma' | translate) + (player.wowsKarma != null ? player.wowsKarma : 'N/A'))"
-            tooltipPosition="bottom" [style.color]="mixedKarmaColor | sanitizeCss">
-          <strong>{{mixedKarma}}</strong>
+            tooltipPosition="bottom" [style.color]="karmaColor$ | async | sanitizeCss">
+          <strong>{{karma$ | async}}</strong>
       </span>
 </app-value-label>
