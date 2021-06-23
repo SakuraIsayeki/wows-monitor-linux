@@ -21,14 +21,14 @@
      'legacy': config.layoutMode === 3,
      'compact': config.layoutMode === 2
       }">
-    <div class="player-name" *ngIf="!(settings.form.monitorConfig.anonymScreenshot.value && screenshotService.takingScreenshot)">
+    <div class="player-name" *ngIf="!(settings.form.monitorConfig.anonymScreenshot.value && screenshotService?.takingScreenshot)">
       <strong>
       <span *ngIf="player.clan"
             [style.color]="player.clan.color | sanitizeCss">[{{player.clan.tag}}]&nbsp;</span>
         <span>{{player.name}}</span>
       </strong>
     </div>
-    <div class="player-name" *ngIf="settings.form.monitorConfig.anonymScreenshot.value && screenshotService.takingScreenshot">
+    <div class="player-name" *ngIf="settings.form.monitorConfig.anonymScreenshot.value && screenshotService?.takingScreenshot">
       <strong>
         <span>{{'monitor.labels.anonymName' | translate:{index: index + 1} }}</span>
       </strong>

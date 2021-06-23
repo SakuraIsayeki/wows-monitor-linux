@@ -1,5 +1,5 @@
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { ErrorHandler, forwardRef, Inject, Injectable, Injector, NgModule, Provider } from '@angular/core';
+import { ErrorHandler, forwardRef, Inject, Injectable, Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ConnectComponent } from '@components/connect/connect.component';
 import { environment } from '@environments/environment';
@@ -11,18 +11,18 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateParser, TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@services/api.service';
 import { AppInitService } from '@services/app-init.service';
-import { ClientIdHttpInterceptor } from '@services/client-id.http-interceptor';
-import { ClientVersionHttpInterceptor } from '@services/client-version.http-interceptor';
 import { CommonErrorHandler } from '@services/common-error.handler';
 import { CustomMissingTranslationHandler } from '@services/custom-missing-translation.handler';
 import { CwHistoryListService } from '@services/cw-history-list.service';
+import { JwtAuthService } from '@services/jwt-auth.service';
+import { JwtInterceptor } from '@services/jwt.interceptor';
 import { LivefeedService } from '@services/livefeed.service';
 import { RegionRequestInterceptor } from '@services/region-request.interceptor';
 import { ResizeService } from '@services/resize.service';
 import { ScrollService } from '@services/scroll.service';
 import { SettingsService } from '@services/settings.service';
 import { SignalrService } from '@services/signalr.service';
-import { CoreModule, CustomDefaultTranslateHttpLoader, CustomTranslateParser, ErrorModule, LocatorService } from '@stewie/framework';
+import { AuthModule, CoreModule, CustomDefaultTranslateHttpLoader, CustomTranslateParser, ErrorModule, LocatorService } from '@stewie/framework';
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@stewie/meta';
 import { MessageService } from 'primeng/api';
 import { ProgressBarModule } from 'primeng/progressbar';
@@ -61,12 +61,6 @@ const metaFactory = (translate: TranslateService) => {
   });
 };
 
-export const API_INTERCEPTOR_PROVIDER: Provider = {
-  provide: HTTP_INTERCEPTORS,
-  useExisting: forwardRef(() => RegionRequestInterceptor),
-  multi: true
-};
-
 @NgModule({
   declarations: [
     AppWrapperComponent,
@@ -84,6 +78,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     LoadingBarRouterModule,
     LoadingBarHttpClientModule,
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
+    AuthModule.forRoot(JwtAuthService, {}),
     AppRoutingModule,
     ErrorModule.withConfig({ customErrorCodes: [] }),
     TranslateModule.forRoot({
@@ -115,15 +110,15 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     AppActivator,
     { provide: ErrorHandler, useClass: CommonErrorHandler },
     SignalrService,
-    RegionRequestInterceptor,
-    API_INTERCEPTOR_PROVIDER,
+    { provide: HTTP_INTERCEPTORS, useClass: RegionRequestInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ClientIdHttpInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ClientVersionHttpInterceptor, multi: true },
     ApiService,
     ResizeService,
     LoggerServiceDepHolder,
     MessageService,
     SettingsService,
-    ClientIdHttpInterceptor,
-    ClientVersionHttpInterceptor,
     LivefeedService,
     ScrollService,
     CwHistoryListService

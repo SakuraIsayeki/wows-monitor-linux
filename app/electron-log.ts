@@ -1,6 +1,7 @@
-import { ipcMain } from 'electron';
+import { dialog, ipcMain,  } from 'electron';
+import * as logger from 'electron-log';
 
-export function initElectronLogger(logger: any) {
+export function initElectronLogger() {
   ipcMain.on('log-debug', (event, args) => {
     logger.debug('[Angular Debug]', ...args);
   });

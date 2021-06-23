@@ -40,6 +40,36 @@ app-topbar {
 body .p-sidebar {
   padding: 0;
   border: 0;
+
+  display: flex;
+
+  .p-sidebar-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  app-menu {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+}
+
+.p-blockui.p-component-overlay {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.region-select-close {
+  position: absolute !important;
+  top: 3rem;
+  right: 1rem;
+}
+
+.region-select-icon {
+  height: 7rem;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
 }
 
 #menuIconWrapper {
@@ -120,16 +150,21 @@ app-qr-scan {
 }
 
 /* Larger than mobile */
-@media (min-width: 400px) {}
+@media (min-width: 400px) {
+}
 
 /* Larger than phablet */
-@media (min-width: 576px) {}
+@media (min-width: 576px) {
+}
 
 /* Larger than tablet */
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+}
 
 /* Larger than desktop */
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+}
 
 /* Larger than Desktop HD */
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+}

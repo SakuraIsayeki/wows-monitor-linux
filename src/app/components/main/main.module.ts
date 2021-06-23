@@ -6,6 +6,7 @@ import { LOADING_BAR_CONFIG, LoadingBarModule } from '@ngx-loading-bar/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@shared/shared.module';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { BlockUIModule } from 'primeng/blockui';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
@@ -69,7 +70,8 @@ import { TopbarComponent } from './topbar/topbar.component';
     LoadingBarModule,
     InputSwitchModule,
     ReactiveFormsModule,
-    TableModule
+    TableModule,
+    BlockUIModule
   ],
   providers: [
     DialogService,

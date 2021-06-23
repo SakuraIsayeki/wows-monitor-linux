@@ -5,7 +5,7 @@
 
 
 <div class="p-d-flex p-ai-center">
-  <p-sidebar [(visible)]="sidebarVisible" appendTo="body" [showCloseIcon]="false">
+  <p-sidebar [(visible)]="sidebarVisible" appendTo="body" [showCloseIcon]="false" class="sidebar">
     <app-menu [closeAction]="toggleSidebar"></app-menu>
   </p-sidebar>
   <div id="menuIconWrapper" class="iconWrapper" (click)="toggleSidebar()">

@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit, Optional, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, Optional, Renderer2, ViewChild } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
 import { faBars, faCamera, faCompress, faExpand } from '@fortawesome/free-solid-svg-icons';
+import { Region } from '@generated/models';
 import { MatchGroup } from '@generated/models/match-group';
 import { MatchInfo } from '@generated/models/match-info';
 import { Status } from '@interfaces/signalr';
@@ -9,6 +10,8 @@ import { ApiService } from '@services/api.service';
 import { ScreenshotService } from '@services/desktop/screenshot.service';
 import { SettingsService } from '@services/settings.service';
 import { SignalrService } from '@services/signalr.service';
+import { AUTHSERVICETOKEN } from '@stewie/framework';
+import { AuthService } from '@stewie/framework/lib/auth/auth.service';
 import { SelectItem } from 'primeng/api';
 import { combineLatest } from 'rxjs';
 import { MenuComponent } from './menu/menu.component';
@@ -81,12 +84,12 @@ export class TopbarComponent extends BaseComponent implements OnInit {
       this.signalrService.$status,
       this.signalrService.$info
     ])
-    .pipe(this.untilDestroy()).subscribe(arr => {
+      .pipe(this.untilDestroy()).subscribe(arr => {
       const status = arr[0] as Status;
       const info = arr[1] as MatchInfo;
-      if(status === Status.Fetching || info?.matchGroup != MatchGroup.RANKED){
+      if (status === Status.Fetching || info?.matchGroup != MatchGroup.RANKED) {
         this.settingsService.form.forcePVP.disable();
-      } else{
+      } else {
         this.settingsService.form.forcePVP.enable();
       }
       this.cd.detectChanges();

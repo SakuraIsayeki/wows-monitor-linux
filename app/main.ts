@@ -1,13 +1,13 @@
-import { app, BrowserWindow, clipboard, globalShortcut, ipcMain, Menu, screen, Tray } from 'electron';
+import { app, BrowserWindow, globalShortcut, Menu, screen, Tray } from 'electron';
 import * as logger from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 import * as WindowStateKeeper from 'electron-window-state';
-import * as fs from 'fs/promises';
 import * as os from 'os';
 import * as path from 'path';
 import * as url from 'url';
 import { initElectronLogger } from './electron-log';
 import { initIpcModule } from './ipc-module';
+import { loadConfig } from './load-config';
 import { initUpdater } from './update-tasks';
 
 const isWindows = os.platform() === 'win32';
@@ -56,14 +56,47 @@ function appReady() {
     height: mainWindowState.height,
     minWidth: 650,
     frame: !isWindows,
+
     icon: iconPath,
     webPreferences: {
       nodeIntegration: true,
       webSecurity: false,
       contextIsolation: false,
-      enableRemoteModule: true,
-      allowRunningInsecureContent: isDebug
+      allowRunningInsecureContent: isDebug,
+      nativeWindowOpen: true
     }
+  });
+
+  win.webContents.setWindowOpenHandler((details) => {
+    let featuresObj: any = {};
+    const features = !details.features
+      ? []
+      : details.features.split(',').map(f => f.split('='));
+
+    for (const f of features) {
+      featuresObj[f[0]] = f[1];
+    }
+
+
+    return {
+      action: 'allow',
+      overrideBrowserWindowOptions: {
+        x: undefined,
+        y: undefined,
+        width: parseInt(featuresObj.width),
+        height: parseInt(featuresObj.height),
+        minWidth: parseInt(featuresObj.width),
+        center: true,
+        webPreferences: {
+          sandbox: true,
+          contextIsolation: false
+        }
+      }
+    };
+  });
+
+  win.webContents.on('did-create-window', (childWindow) => {
+    childWindow.removeMenu();
   });
 
   win.setMenu(null);
@@ -71,15 +104,22 @@ function appReady() {
   mainWindowState.manage(win);
 
   win.on('close', async (event) => {
-    // const config = await loadConfig(win);
-    // try {
-    //   if (JSON.parse(config).closeToTray && !isQuitting) {
-    //     event.preventDefault();
-    //     win.hide();
-    //   }
-    // } catch (error) {
-    //   logger.error('[Electron]', '(onWinClose)', 'Error when reading config', error);
-    // }
+    const config = await loadConfig(win);
+    try {
+      const closeToTray = JSON.parse(config).monitorConfig.closeToTray;
+      if (closeToTray.closeToTray && !isQuitting) {
+        event.preventDefault();
+        win.hide();
+      } else {
+        let children = win.getChildWindows();
+        for (let child of children) {
+          child.close();
+        }
+      }
+
+    } catch (error) {
+      logger.error('[Electron]', '(initUpdater)', 'Error reading config json', error);
+    }
     return false;
   });
 
@@ -109,7 +149,7 @@ function appReady() {
     initUpdater(logger, win, isDebug);
   }
 
-  initElectronLogger(logger);
+  initElectronLogger();
   if (isDebug) {
 
     globalShortcut.register('f5', () => {

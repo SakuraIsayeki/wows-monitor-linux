@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, SecurityContext, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, Optional, SecurityContext, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BaseComponent } from '@components/base.component';
 import { PlayerBackgrounds, PlayerBackgroundsMode, PlayerInfo, StatType } from '@generated/models';
@@ -40,7 +40,7 @@ export class PlayerComponent extends BaseComponent implements OnInit, OnChanges 
               private sanitizer: DomSanitizer,
               public settings: SettingsService,
               public monitorComp: MonitorComponent,
-              public screenshotService: ScreenshotService) {
+              @Optional() public screenshotService: ScreenshotService) {
     super();
   }
 

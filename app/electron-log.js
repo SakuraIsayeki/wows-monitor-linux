@@ -7,7 +7,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.initElectronLogger = void 0;
 var electron_1 = require("electron");
-function initElectronLogger(logger) {
+var logger = require("electron-log");
+function initElectronLogger() {
     electron_1.ipcMain.on('log-debug', function (event, args) {
         logger.debug.apply(logger, __spreadArray(['[Angular Debug]'], args));
     });

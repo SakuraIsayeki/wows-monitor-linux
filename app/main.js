@@ -45,6 +45,7 @@ var path = require("path");
 var url = require("url");
 var electron_log_1 = require("./electron-log");
 var ipc_module_1 = require("./ipc-module");
+var load_config_1 = require("./load-config");
 var update_tasks_1 = require("./update-tasks");
 var isWindows = os.platform() === 'win32';
 var win;
@@ -87,24 +88,66 @@ function appReady() {
             nodeIntegration: true,
             webSecurity: false,
             contextIsolation: false,
-            enableRemoteModule: true,
-            allowRunningInsecureContent: isDebug
+            allowRunningInsecureContent: isDebug,
+            nativeWindowOpen: true
         }
+    });
+    win.webContents.setWindowOpenHandler(function (details) {
+        var featuresObj = {};
+        var features = !details.features
+            ? []
+            : details.features.split(',').map(function (f) { return f.split('='); });
+        for (var _i = 0, features_1 = features; _i < features_1.length; _i++) {
+            var f = features_1[_i];
+            featuresObj[f[0]] = f[1];
+        }
+        return {
+            action: 'allow',
+            overrideBrowserWindowOptions: {
+                x: undefined,
+                y: undefined,
+                width: parseInt(featuresObj.width),
+                height: parseInt(featuresObj.height),
+                minWidth: parseInt(featuresObj.width),
+                center: true,
+                webPreferences: {
+                    sandbox: true,
+                    contextIsolation: false
+                }
+            }
+        };
+    });
+    win.webContents.on('did-create-window', function (childWindow) {
+        childWindow.removeMenu();
     });
     win.setMenu(null);
     mainWindowState.manage(win);
     win.on('close', function (event) { return __awaiter(_this, void 0, void 0, function () {
+        var config, closeToTray, children, _i, children_1, child;
         return __generator(this, function (_a) {
-            // const config = await loadConfig(win);
-            // try {
-            //   if (JSON.parse(config).closeToTray && !isQuitting) {
-            //     event.preventDefault();
-            //     win.hide();
-            //   }
-            // } catch (error) {
-            //   logger.error('[Electron]', '(onWinClose)', 'Error when reading config', error);
-            // }
-            return [2 /*return*/, false];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, load_config_1.loadConfig(win)];
+                case 1:
+                    config = _a.sent();
+                    try {
+                        closeToTray = JSON.parse(config).monitorConfig.closeToTray;
+                        if (closeToTray.closeToTray && !isQuitting) {
+                            event.preventDefault();
+                            win.hide();
+                        }
+                        else {
+                            children = win.getChildWindows();
+                            for (_i = 0, children_1 = children; _i < children_1.length; _i++) {
+                                child = children_1[_i];
+                                child.close();
+                            }
+                        }
+                    }
+                    catch (error) {
+                        logger.error('[Electron]', '(initUpdater)', 'Error reading config json', error);
+                    }
+                    return [2 /*return*/, false];
+            }
         });
     }); });
     tray = new electron_1.Tray(trayIconPath);
@@ -130,7 +173,7 @@ function appReady() {
     if (isWindows) {
         update_tasks_1.initUpdater(logger, win, isDebug);
     }
-    electron_log_1.initElectronLogger(logger);
+    electron_log_1.initElectronLogger();
     if (isDebug) {
         electron_1.globalShortcut.register('f5', function () {
             win.reload();

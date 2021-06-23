@@ -8,6 +8,7 @@ import { ChangelogService } from './services/changelog.service';
 import { ClansService } from './services/clans.service';
 import { ConfigService } from './services/config.service';
 import { DownloadsService } from './services/downloads.service';
+import { IdentityService } from './services/identity.service';
 import { QrService } from './services/qr.service';
 import { StatsService } from './services/stats.service';
 
@@ -23,6 +24,7 @@ import { StatsService } from './services/stats.service';
     ClansService,
     ConfigService,
     DownloadsService,
+    IdentityService,
     QrService,
     StatsService,
     ApiConfiguration

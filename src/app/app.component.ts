@@ -7,9 +7,11 @@ import { UpdateService, UpdateServiceToken } from '@interfaces/update.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AppInitService } from '@services/app-init.service';
 import { SettingsService } from '@services/settings.service';
+import { AUTHSERVICETOKEN } from '@stewie/framework';
+import { AuthService } from '@stewie/framework/lib/auth/auth.service';
 import { PrimeNGConfig } from 'primeng/api';
 import { forkJoin, interval, Observable, of } from 'rxjs';
-import { first, map, skip, take, takeUntil, tap } from 'rxjs/operators';
+import { first, map, skip, take, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -54,7 +56,7 @@ export class AppWrapperComponent extends BaseComponent {
       this.appInit.initialized();
     }
 
-    interval(10000).pipe(this.untilDestroy(),take(1)).subscribe(() => {
+    interval(10000).pipe(this.untilDestroy(), take(1)).subscribe(() => {
       this.showReset = true;
     });
   }
@@ -98,8 +100,8 @@ export class AppActivator implements CanActivate, CanActivateChild {
   constructor(private primeNgConfig: PrimeNGConfig,
               private translate: TranslateService,
               private appInit: AppInitService,
-              private settingsService: SettingsService
-              // @Inject(AUTHSERVICETOKEN) private authService: AuthService
+              private settingsService: SettingsService,
+              @Inject(AUTHSERVICETOKEN) private authService: AuthService
   ) {
 
   }
@@ -117,8 +119,9 @@ export class AppActivator implements CanActivate, CanActivateChild {
     return forkJoin([
       this.appInit.isInitialized$.pipe(first(x => x)),
       this.translate.use(this.translate.getBrowserLang()),
-      this.settingsService.initialize()
-      /*, this.authService.isLoaded$.pipe(first(v => v))*/])
+      this.settingsService.initialize(),
+      this.authService.isLoaded$.pipe(first(v => v))
+    ])
       .pipe(map(v => true), tap(() => {
         this.translate.get('primeng').subscribe(res => this.primeNgConfig.setTranslation(res));
       }));

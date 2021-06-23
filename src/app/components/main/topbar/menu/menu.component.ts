@@ -1,9 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, Renderer2 } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
 import { faCog, faDesktop, faFileAlt, faQuestionCircle, faShieldAlt, faWrench } from '@fortawesome/free-solid-svg-icons';
+import { Region } from '@generated/models/region';
 import { ChangelogService } from '@generated/services';
 import { MenuEntry } from '@interfaces/menu-entry';
+import { JwtAuthService } from '@services/jwt-auth.service';
 import { SettingsService } from '@services/settings.service';
+import { AUTHSERVICETOKEN } from '@stewie/framework';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -15,6 +18,7 @@ export class MenuComponent extends BaseComponent implements OnInit {
 
   private $changelogsBadgeSubject = new BehaviorSubject(false);
   private $changelogsBadgeCountSubject = new BehaviorSubject(0);
+  public selectingRegion = false;
 
   @Input()
   closeAction: () => void;
@@ -72,7 +76,10 @@ export class MenuComponent extends BaseComponent implements OnInit {
       return arr.reduce((a, b) => a + b);
     }));
 
-  constructor(private changelogService: ChangelogService, private settingsService: SettingsService) {
+  constructor(private changelogService: ChangelogService,
+              private settingsService: SettingsService,
+              @Inject(AUTHSERVICETOKEN) public auth: JwtAuthService,
+              private renderer: Renderer2) {
     super();
     combineLatest([
       this.changelogService.changelogIds(this.settingsService.form.monitorConfig.allowBeta.model ? { channel: 'beta' } : null),
@@ -90,4 +97,10 @@ export class MenuComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
 
+  async login(event: MouseEvent, region: Region) {
+    event.stopPropagation();
+    event.cancelBubble = true;
+    this.selectingRegion = false;
+    await this.auth.login({ renderer: this.renderer, region }).toPromise();
+  }
 }
