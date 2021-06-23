@@ -76,6 +76,16 @@ export class MenuComponent extends BaseComponent implements OnInit {
       return arr.reduce((a, b) => a + b);
     }));
 
+  userMenu = [
+    {
+      label: 'File',
+    },
+    {
+      label: 'Edit',
+      icon: 'pi pi-fw pi-pencil'
+    }
+  ];
+
   constructor(private changelogService: ChangelogService,
               private settingsService: SettingsService,
               @Inject(AUTHSERVICETOKEN) public auth: JwtAuthService,
@@ -101,6 +111,6 @@ export class MenuComponent extends BaseComponent implements OnInit {
     event.stopPropagation();
     event.cancelBubble = true;
     this.selectingRegion = false;
-    await this.auth.login({ renderer: this.renderer, region }).toPromise();
+    this.auth.login({ renderer: this.renderer, region }).subscribe();
   }
 }

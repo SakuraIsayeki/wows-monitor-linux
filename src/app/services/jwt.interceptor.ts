@@ -1,6 +1,5 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IdentityService } from '@generated/services/identity.service';
 import { JwtAuthService } from '@services/jwt-auth.service';
 import { AUTHSERVICETOKEN, LocatorService } from '@stewie/framework';
 
@@ -17,14 +16,14 @@ export class JwtInterceptor implements HttpInterceptor {
     return LocatorService.Injector.get(AUTHSERVICETOKEN) as JwtAuthService;
   }
 
-  private get identityService() {
-    return LocatorService.Injector.get(IdentityService) as IdentityService;
-  }
-
   constructor() {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (req.url.includes('/identity/refresh-token')) {
+      return next.handle(req);
+    }
+
     const accessToken = localStorage.getItem('token');
 
     return next.handle(this.addAuthorizationHeader(req, accessToken)).pipe(
@@ -32,7 +31,7 @@ export class JwtInterceptor implements HttpInterceptor {
         // in case of 401 http error
         if (err instanceof HttpErrorResponse && err.status === 401) {
           // get refresh tokens
-          const refreshToken = localStorage.getItem('refreshToken');
+          const refreshToken = this.authService.refreshToken;
 
           // if there are tokens then send refresh token request
           if (refreshToken && accessToken) {
@@ -71,12 +70,10 @@ export class JwtInterceptor implements HttpInterceptor {
       this.refreshingInProgress = true;
       this.accessTokenSubject.next(null);
 
-      return this.identityService.identityRefreshToken({ refreshToken }).pipe(
+      return this.authService.getRefreshToken(refreshToken).pipe(
         switchMap((res) => {
           this.refreshingInProgress = false;
           this.accessTokenSubject.next(res.token);
-          localStorage.setItem('token', res.token);
-          localStorage.setItem('refreshToken', res.refreshToken);
           // repeat failed request with new token
           return next.handle(this.addAuthorizationHeader(request, res.token));
         })

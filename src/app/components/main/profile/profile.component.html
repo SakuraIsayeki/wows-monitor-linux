@@ -1,0 +1,79 @@
+<div class="container extra-small profile">
+  <p-card>
+    <h2>{{ 'profile.header' | translate}}</h2>
+    <ng-container *ngIf="profile | async; let data;">
+
+      <h3>{{ 'profile.wgAccounts.header' | translate }}</h3>
+      <p>
+        You can connect multiple Wargaming accounts. <br/>
+        <br/>
+        The primary account can not be deleted. It doesn't have any special function yet apart from that.<br/>
+        Once connected, you can sign in with any of the accounts to the same user profile.
+        <br/>
+        <br/>
+        When an account is set to public, wows-monitor will detect your account in everyone's matches and display it as such. <br/>
+      </p>
+
+
+      <div class="p-mb-3">
+        <p-table [value]="data.wargamingAccounts" styleClass="p-datatable-sm">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 4.6rem;">{{'profile.wgAccounts.region' | translate}}</th>
+              <th>{{'profile.wgAccounts.name' | translate}}</th>
+              <th style="width: 4.2rem;">{{'profile.wgAccounts.public' | translate}}</th>
+              <th style="width: 5rem;">{{'profile.wgAccounts.primary' | translate}}</th>
+              <th style="width: 6.5rem;"></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-acc>
+            <tr>
+              <td class="p-text-left">
+                <img style="height: 2rem;" class="p-mr-2" src="assets/region-{{acc.region}}.svg"/>
+              </td>
+              <td class="p-text-left" style="overflow: hidden;text-overflow: ellipsis">{{acc.name}}</td>
+              <td class="p-text-center">
+                <p-checkbox [(ngModel)]="acc.public" [binary]="true" (ngModelChange)="setPublic(acc.id, $event)"></p-checkbox>
+              </td>
+              <td class="p-text-center">
+                <i class="pi pi-check" *ngIf="acc.primary"></i>
+              </td>
+              <td class="p-text-right">
+                <button pButton class="p-button-rounded p-mr-2" icon="pi pi-check" *ngIf="!acc.primary" (click)="setPrimary(acc.id)"
+                        [pTooltip]="'profile.wgAccounts.setPrimary' | translate" tooltipPosition="top"
+                ></button>
+                <button pButton class="p-button-danger p-button-rounded" icon="pi pi-trash" (click)="deleteWgAccount(acc.id)"
+                        *ngIf="data.wargamingAccounts.length > 1 && !acc.primary"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+      <div class="p-d-flex p-jc-end">
+        <button pButton icon="pi pi-plus" class="p-button-success" [label]="'profile.wgAccounts.add' | translate" (click)="selectingRegion = true"></button>
+      </div>
+    </ng-container>
+  </p-card>
+</div>
+
+<p-blockUI [blocked]="selectingRegion">
+  <button pButton class="region-select-close p-button p-button-rounded p-button-outlined p-button-xl" icon="pi pi-times"
+          (click)="selectingRegion = false">
+  </button>
+  <div class="p-grid">
+    <div class="p-col-12 p-md-6 p-d-flex p-ai-center p-jc-center">
+      <img class="region-select-icon" src="assets/region-0.svg" (click)="login($event, 0)"/>
+    </div>
+    <div class="p-col-12 p-md-6 p-d-flex p-ai-center p-jc-center">
+      <img class="region-select-icon" src="assets/region-1.svg" (click)="login($event, 1)"/>
+    </div>
+    <div class="p-col-12 p-md-6 p-d-flex p-ai-center p-jc-center">
+      <img class="region-select-icon" src="assets/region-2.svg" (click)="login($event, 2)"/>
+    </div>
+    <div class="p-col-12 p-md-6 p-d-flex p-ai-center p-jc-center">
+      <img class="region-select-icon" src="assets/region-3.svg" (click)="login($event, 3)"/>
+    </div>
+  </div>
+</p-blockUI>
+

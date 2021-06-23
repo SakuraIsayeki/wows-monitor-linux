@@ -99,6 +99,10 @@ input[readonly].file-input {
   border:none;
 }
 
+.p-dialog-content p{
+  white-space: pre-wrap;
+}
+
 
 .p-button-rounded.p-button-xl {
   padding: 0.750rem 1.5rem!important;;

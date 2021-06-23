@@ -22,7 +22,15 @@ import { ResizeService } from '@services/resize.service';
 import { ScrollService } from '@services/scroll.service';
 import { SettingsService } from '@services/settings.service';
 import { SignalrService } from '@services/signalr.service';
-import { AuthModule, CoreModule, CustomDefaultTranslateHttpLoader, CustomTranslateParser, ErrorModule, LocatorService } from '@stewie/framework';
+import {
+  AuthModule,
+  CoreModule,
+  CustomDefaultTranslateHttpLoader,
+  CustomTranslateParser,
+  ErrorModule,
+  LocatorService,
+  StDynamicDialogModule
+} from '@stewie/framework';
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@stewie/meta';
 import { MessageService } from 'primeng/api';
 import { ProgressBarModule } from 'primeng/progressbar';
@@ -77,6 +85,7 @@ const metaFactory = (translate: TranslateService) => {
     HttpClientModule,
     LoadingBarRouterModule,
     LoadingBarHttpClientModule,
+    StDynamicDialogModule,
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
     AuthModule.forRoot(JwtAuthService, {}),
     AppRoutingModule,

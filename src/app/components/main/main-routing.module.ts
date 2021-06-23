@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { environment } from '@environments/environment';
-import { StRoutes } from '@stewie/framework';
+import { AuthGuard, StRoutes } from '@stewie/framework';
 import { MainComponent } from './main.component';
 
 const routes: StRoutes = [
@@ -33,9 +33,15 @@ const routes: StRoutes = [
       {
         path: 'clanwars',
         loadChildren: () => import('./clanwars/clanwars.module').then(m => m.ClanwarsModule)
+      },
+      {
+        path: 'profile',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
       }
     ]
   }
+
 ];
 
 if (environment.browser) {

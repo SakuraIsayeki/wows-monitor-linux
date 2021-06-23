@@ -107,6 +107,11 @@
 		"start": "Write values",
 		"why": "Why is this here?"
 	},
+	"identity": {
+		"labels": {
+			"login": "Login"
+		}
+	},
 	"meta": {
 		"about": {
 			"title": "About"
@@ -125,6 +130,9 @@
 		},
 		"monitor": {
 			"title": "Monitor"
+		},
+		"profile": {
+			"title": "Profile"
 		},
 		"settings": {
 			"title": "Settings"
@@ -202,6 +210,24 @@
 		"dialogHeader": "Select your game folder",
 		"multiClientSelect": "Select active client",
 		"pickFolder": "Select your game folder"
+	},
+	"profile": {
+		"header": "Profile",
+		"wgAccounts": {
+			"add": "Add account",
+			"delete": {
+				"cancel": "Cancel",
+				"content": "Are you sure you want to remove this wargaming account from your profile?\r\nYou can always re-connect it as long as it is not connected to another user.",
+				"delete": "Yes, delete account",
+				"header": "Remove Wargaming Account"
+			},
+			"header": "Wargaming Accounts",
+			"name": "Name",
+			"primary": "Primary",
+			"public": "Public",
+			"region": "Region",
+			"setPrimary": "Set as primary"
+		}
 	},
 	"screenshot": "Take a screenshot",
 	"service": {
@@ -347,13 +373,21 @@
 	},
 	"uimessages": {
 		"apiError": {
+			"alreadyConnected": {
+				"details": "Account is already connected to another user",
+				"summary": "Error"
+			},
 			"contentEmpty": {
 				"detail": "Error when sending match",
 				"summary": "API Error"
 			},
 			"unknown": {
-				"detail": "Unknown API Error occured",
+				"detail": "Unknown API Error occurred",
 				"summary": "API Error"
+			},
+			"wgError": {
+				"details": "An error occurred when verifying your Wargaming identity",
+				"summary": "Error"
 			},
 			"wrongRegion": {
 				"detail": "No Accounts found. Wrong Region?",
@@ -391,6 +425,10 @@
 		"noServiceConnection": {
 			"detail": "Service could not be connected",
 			"summary": "Error"
+		},
+		"profileSaved": {
+			"detail": null,
+			"summary": null
 		},
 		"restartForUpdate": {
 			"detail": "App updating...",

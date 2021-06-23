@@ -28,6 +28,8 @@ export { ClanWarsConfig } from './models/clan-wars-config';
 export { UserInfoResult } from './models/user-info-result';
 export { TokenResponse } from './models/token-response';
 export { CustomUserInfoResult } from './models/custom-user-info-result';
+export { ProfileEdit } from './models/profile-edit';
+export { ProfileWgAccount } from './models/profile-wg-account';
 export { MatchInfo } from './models/match-info';
 export { MapInfo } from './models/map-info';
 export { MatchGroup } from './models/match-group';
