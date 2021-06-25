@@ -20,6 +20,7 @@ export class AnalyticsInfoComponent extends BaseComponent implements OnInit {
   }
 
   click(status: number) {
+    // TODO fix button styles
     if (status === 1) {
       this.settingsService.form.monitorConfig.enableAnalytics.setValue(false);
     } else if (status === 2) {

@@ -104,6 +104,7 @@ function appReady() {
   mainWindowState.manage(win);
 
   win.on('close', async (event) => {
+    // TODO fix close to tray
     const config = await loadConfig(win);
     try {
       const closeToTray = JSON.parse(config).monitorConfig.closeToTray;

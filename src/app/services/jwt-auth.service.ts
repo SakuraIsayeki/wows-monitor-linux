@@ -3,16 +3,12 @@ import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import { environment } from '@environments/environment';
 import { CustomUserInfoResult } from '@generated/models/custom-user-info-result';
 import { Region } from '@generated/models/region';
+import { TokenResponse } from '@generated/models/token-response';
 import { IdentityService } from '@generated/services/identity.service';
 import { BaseInjection } from '@stewie/framework';
 import { AuthService } from '@stewie/framework/lib/auth/auth.service';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
-
-export class TokenResponse {
-  token: string;
-  refreshToken: string;
-}
+import { map, switchMap, tap } from 'rxjs/operators';
 
 marker('uimessages.apiError.alreadyConnected.summary');
 marker('uimessages.apiError.alreadyConnected.details');
@@ -28,10 +24,15 @@ export class JwtAuthService extends BaseInjection implements AuthService {
   constructor(private identityService: IdentityService) {
     super();
     this.loadUserInfo();
+    //this.getRefreshToken().subscribe(() => this.loadUserInfo());
   }
 
   get isAuthenticated() {
     return this._userinfo$.value?.isAuthenticated;
+  }
+
+  get isAuthenticated$() {
+    return this._userinfo$.pipe(map(u => u.isAuthenticated));
   }
 
   get userInfo() {
@@ -43,7 +44,7 @@ export class JwtAuthService extends BaseInjection implements AuthService {
   }
 
   get token() {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   get refreshToken() {
@@ -51,7 +52,7 @@ export class JwtAuthService extends BaseInjection implements AuthService {
   }
 
   set token(value) {
-    localStorage.setItem('token', value);
+    sessionStorage.setItem('token', value);
   }
 
   set refreshToken(value) {
@@ -74,7 +75,7 @@ export class JwtAuthService extends BaseInjection implements AuthService {
     let url = environment.apiUrl + `/identity/login/${model.region}?opener=` + window.location.origin;
 
     const refreshObs = !this.isAuthenticated
-      ? of(null as TokenResponse)
+      ? of(null)
       : this.getRefreshToken(this.refreshToken).pipe(tap(() => {
         url += '&Authorization=' + this.token;
       }));
@@ -125,7 +126,7 @@ export class JwtAuthService extends BaseInjection implements AuthService {
   }
 
   logout(): Subscription {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
     this._userinfo$.next(null);
     return of().subscribe();
@@ -143,7 +144,13 @@ export class JwtAuthService extends BaseInjection implements AuthService {
     });
   }
 
-  public getRefreshToken(refreshToken: string) {
+  public getRefreshToken(refreshToken?: string): Observable<TokenResponse> {
+    if (!refreshToken) {
+      refreshToken = this.refreshToken;
+    }
+    if (!refreshToken) {
+      return of(null);
+    }
     return this.identityService.identityRefreshToken({ refreshToken }).pipe(
       tap(res => {
         this.token = res.token;

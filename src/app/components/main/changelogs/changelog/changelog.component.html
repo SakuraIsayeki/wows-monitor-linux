@@ -1,6 +1,6 @@
 <ng-container *ngIf="changelog">
   <app-showdown [markdown]="changelog.markdown"></app-showdown>
-  <div class="align-right-wrapper" *ngIf="ref">
+  <div class="p-d-flex p-jc-end" *ngIf="ref">
     <p-button [label]="'changelogs.closeButton' | translate" [styleClass]="'p-button-success'" (click)="ref.close()">
     </p-button>
   </div>

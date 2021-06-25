@@ -1,4 +1,4 @@
-import { ClanLeague, HistoryListRequest, Region, SortOrder } from '../models';
+import { ClanLeague, HistoryListRequest, RatingTeam, Region, SortOrder } from '../models';
 import { AbstractControlOptions, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 import { StFormControl, StFormGroup, ValidatorGetter } from '@stewie/framework';
 
@@ -12,7 +12,7 @@ export class HistoryListRequestForm extends StFormGroup<HistoryListRequest> {
   
   protected addControls(model: HistoryListRequest) {
     this.addControl('clanId', new StFormControl<number | null>(model?.clanId, null, null));
-    this.addControl('team', new StFormControl<number | null>(model?.team, null, null));
+    this.addControl('team', new StFormControl<RatingTeam | null>(model?.team, null, null));
     this.addControl('clanIds', new StFormControl<number[] | null>(model?.clanIds, null, null));
     this.addControl('filterClanIds', new StFormControl<boolean | null>(model?.filterClanIds, null, null));
     this.addControl('regions', new StFormControl<Region[] | null>(model?.regions, null, null));
@@ -77,7 +77,7 @@ export class HistoryListRequestForm extends StFormGroup<HistoryListRequest> {
     return this.controls.clanId as StFormControl<number | null>;
   }
   get team() {
-    return this.controls.team as StFormControl<number | null>;
+    return this.controls.team as StFormControl<RatingTeam | null>;
   }
   get clanIds() {
     return this.controls.clanIds as StFormControl<number[] | null>;

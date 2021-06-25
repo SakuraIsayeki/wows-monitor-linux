@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { ClanLeague } from './clan-league';
+import { RatingTeam } from './rating-team';
 import { Region } from './region';
 export interface CwHistoryEntry {
   color?: null | string;
@@ -24,6 +25,6 @@ export interface CwHistoryEntry {
   stageTargetDivision?: null | number;
   stageTargetLeague?: null | ClanLeague;
   stageType?: null | number;
-  team?: number;
+  team?: RatingTeam;
 }
 

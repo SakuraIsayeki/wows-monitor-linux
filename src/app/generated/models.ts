@@ -5,6 +5,7 @@ export { Region } from './models/region';
 export { CwClanMatch } from './models/cw-clan-match';
 export { CwClan } from './models/cw-clan';
 export { CwHistoryEntry } from './models/cw-history-entry';
+export { RatingTeam } from './models/rating-team';
 export { ClanSearchResult } from './models/clan-search-result';
 export { ClanSeason } from './models/clan-season';
 export { ClanInfo } from './models/clan-info';

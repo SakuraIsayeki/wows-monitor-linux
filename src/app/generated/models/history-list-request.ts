@@ -2,6 +2,7 @@
 /* eslint-disable */
 import { BaseListRequestOfClanMatch } from './base-list-request-of-clan-match';
 import { ClanLeague } from './clan-league';
+import { RatingTeam } from './rating-team';
 import { Region } from './region';
 export interface HistoryListRequest extends BaseListRequestOfClanMatch {
   clanId?: null | number;
@@ -11,6 +12,6 @@ export interface HistoryListRequest extends BaseListRequestOfClanMatch {
   leagues?: null | Array<ClanLeague>;
   regions?: null | Array<Region>;
   season?: null | number;
-  team?: null | number;
+  team?: null | RatingTeam;
 }
 

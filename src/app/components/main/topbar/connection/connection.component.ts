@@ -23,7 +23,7 @@ marker('service.issues.connection');
   selector: 'app-connection',
   templateUrl: './connection.component.html'
 })
-export class ConnectionComponent extends BaseComponent implements AfterViewInit, OnDestroy {
+export class ConnectionComponent extends BaseComponent implements OnDestroy {
 
   connectionIcon = faWifi;
   qrIcon = faQrcode;
@@ -54,41 +54,11 @@ export class ConnectionComponent extends BaseComponent implements AfterViewInit,
     private translateService: TranslateService
   ) {
     super();
-
-    this.uiSuccess('clientConnected');
   }
 
-  ngAfterViewInit() {
-    this.signalrService.init().then(() => this.connect());
-
-    this.signalrService.$error.pipe(this.untilDestroy()).subscribe(error => {
-      if (error.startsWith('apiError')) {
-        this.uiError(error);
-        // console.warn('kekw');
-      } else {
-        this.uiError('apiError.unknown');
-      }
-    });
-
-    if (this.isDesktop) {
-      this.signalrService.$clients.pipe(this.untilDestroy(), pairwise(), distinctUntilChanged()).subscribe(nums => {
-        if (nums[0] <= nums[1]) {
-          this.uiSuccess('clientConnected');
-        } else {
-          this.uiWarn('clientDisconnected');
-        }
-      });
-    }
-  }
 
   async connect() {
-    const result = await this.signalrService.connect();
-    if (result) {
-      this.uiSuccess('serviceConnected');
-    } else {
-      this.uiError('noServiceConnection');
-    }
-    return result;
+    await this.signalrService.connect();
   }
 
   async reconnect() {

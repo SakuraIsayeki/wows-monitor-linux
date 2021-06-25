@@ -7,11 +7,13 @@ import { UpdateService, UpdateServiceToken } from '@interfaces/update.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AppInitService } from '@services/app-init.service';
 import { SettingsService } from '@services/settings.service';
+import { SignalrService } from '@services/signalr.service';
 import { AUTHSERVICETOKEN } from '@stewie/framework';
 import { AuthService } from '@stewie/framework/lib/auth/auth.service';
 import { PrimeNGConfig } from 'primeng/api';
 import { forkJoin, interval, Observable, of } from 'rxjs';
-import { first, map, skip, take, tap } from 'rxjs/operators';
+import { fromPromise } from 'rxjs/internal-compatibility';
+import { first, map, skip, switchMap, take, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -101,6 +103,7 @@ export class AppActivator implements CanActivate, CanActivateChild {
               private translate: TranslateService,
               private appInit: AppInitService,
               private settingsService: SettingsService,
+              private signalrService: SignalrService,
               @Inject(AUTHSERVICETOKEN) private authService: AuthService
   ) {
 
@@ -122,8 +125,14 @@ export class AppActivator implements CanActivate, CanActivateChild {
       this.settingsService.initialize(),
       this.authService.isLoaded$.pipe(first(v => v))
     ])
-      .pipe(map(v => true), tap(() => {
-        this.translate.get('primeng').subscribe(res => this.primeNgConfig.setTranslation(res));
-      }));
+      .pipe(
+        switchMap(() => {
+          return fromPromise(this.signalrService.init());
+        }),
+        map(v => true),
+        tap(() => {
+          this.translate.get('primeng').subscribe(res => this.primeNgConfig.setTranslation(res));
+          this.signalrService.connect();
+        }));
   }
 }

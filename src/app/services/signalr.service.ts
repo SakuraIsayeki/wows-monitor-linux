@@ -3,11 +3,12 @@ import { environment } from '@environments/environment';
 import { staticValues } from '@environments/static-values';
 import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 import { SignalrSettings, SignalrStatus, Status } from '@interfaces/signalr';
-import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import { HubConnection, HubConnectionBuilder, HubConnectionState, LogLevel } from '@microsoft/signalr';
+import { JwtAuthService } from '@services/jwt-auth.service';
 import { SettingsService } from '@services/settings.service';
-import { BaseInjection } from '@stewie/framework';
+import { AUTHSERVICETOKEN, BaseInjection } from '@stewie/framework';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, pairwise, take } from 'rxjs/operators';
 import { LivefeedItem, MatchInfo } from '../generated/models';
 import { QrService } from '../generated/services';
 
@@ -54,7 +55,8 @@ export class SignalrService extends BaseInjection {
   constructor(
     private settingsService: SettingsService,
     @Inject(LoggerServiceToken) private loggerService: LoggerService,
-    private qrService: QrService
+    private qrService: QrService,
+    @Inject(AUTHSERVICETOKEN) private authService: JwtAuthService
   ) {
     super();
   }
@@ -63,7 +65,6 @@ export class SignalrService extends BaseInjection {
 
     // Url Param Testing
     const url = environment.apiUrl + staticValues.hub + '?host=' + (environment.desktop ? 'true' : 'false');
-    await this.settingsService.waitForInitialized();
     let token = this.settingsService.form.signalRToken.model;
     if (!token) {
       if (environment.desktop) {
@@ -77,8 +78,14 @@ export class SignalrService extends BaseInjection {
       liveUpdate: this.settingsService.form.livefeedConfig.liveUpdate.model
     };
 
+    this.authService.isAuthenticated$.subscribe(() => {
+      console.log('Authenticated SIGNALR');
+      this.connect();
+    });
+
     this.connection = new HubConnectionBuilder()
-      .withUrl(url)
+      .withUrl(url, { accessTokenFactory: () => this.authService.token })
+      .withAutomaticReconnect([0, 2000, 10000, 30000, 60000, 120000, null])
       .configureLogging(environment.production ? LogLevel.Error : LogLevel.Trace)
       .build();
 
@@ -136,36 +143,49 @@ export class SignalrService extends BaseInjection {
 
     this.connection.onclose(() => {
       this._$socketStatus.next(SignalrStatus.Disconnected);
-      if (environment.production) {
-        setTimeout(() => this.connect(), 2000);
+    });
+
+    this.$error.subscribe(error => {
+      if (error.startsWith('apiError')) {
+        this.uiError(error);
+      } else {
+        this.uiError('apiError.unknown');
       }
     });
+
+    // this.$socketStatus.pipe(distinctUntilChanged()).subscribe(status => {
+    //   if(status === SignalrStatus.Connected || status === SignalrStatus.NoToken){
+    //     this.uiSuccess('serviceConnected');
+    //   }
+    // })
+
+    if (environment.desktop) {
+      this.$clients.pipe(pairwise(), distinctUntilChanged()).subscribe(nums => {
+        if (nums[0] <= nums[1]) {
+          this.uiSuccess('clientConnected');
+        } else {
+          this.uiWarn('clientDisconnected');
+        }
+      });
+    }
   }
 
-  connect(): Promise<any> {
-    return new Promise((resolve) => {
+  async connect(): Promise<any> {
       if (this.connection) {
         try {
-          this.connection.start()
-            .then(() => {
-              this.sendSettings(this._settings);
-              resolve(true);
-            })
-            .catch(() => {
-              this.loggerService.error('Couldn\'t connect to the signalr hub');
-              if (environment.production) {
-                setTimeout(() => this.connect(), 2000);
-              }
-              resolve(false);
-            });
-        } catch (e) {
+          if(this.connection.state !== HubConnectionState.Disconnected){
+            await this.connection.stop();
+          }
 
+          await this.connection.start();
+          await this.sendSettings(this._settings);
+        } catch (e) {
+          this.uiError('noServiceConnection');
+          this.loggerService.error('Couldn\'t connect to the signalr hub');
         }
       } else {
         this.loggerService.error('Connection not initialized');
-        resolve(false);
       }
-    });
   }
 
   disconnect() {

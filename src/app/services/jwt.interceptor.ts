@@ -24,7 +24,7 @@ export class JwtInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
 
-    const accessToken = localStorage.getItem('token');
+    const accessToken = sessionStorage.getItem('token');
 
     return next.handle(this.addAuthorizationHeader(req, accessToken)).pipe(
       catchError(err => {
