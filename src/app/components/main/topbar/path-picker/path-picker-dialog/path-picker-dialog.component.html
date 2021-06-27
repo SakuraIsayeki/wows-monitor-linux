@@ -2,7 +2,7 @@
 
 <div class="input-wrap p-fluid p-mb-4">
   <div class="p-inputgroup">
-    <input pInputText [title]="settingsService.form.mainClient.model" type="text" pInputText [disabled]="true"
+    <input pInputText [title]="settingsService.form.mainClient.model" type="text" [disabled]="true"
            [value]="settingsService.form.mainClient.model">
     <button pButton type="button" icon="pi pi-folder" (click)="pickPath()"></button>
   </div>

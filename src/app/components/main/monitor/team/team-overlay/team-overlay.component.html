@@ -1,0 +1,33 @@
+<div class="p-d-flex p-flex-grow p-flex-column clan-overlay-content">
+  <div class="p-d-flex p-flex-row p-flex-grow p-jc-start p-ai-center p-p-2"
+       [ngStyle]="{ height: '4rem', background: clan.color, position: 'relative' }">
+    <i class="overlaypanel-close pi pi-times" (click)="close($event)"></i>
+    <img src="assets/region-{{clan.region}}.svg" style="height: 2rem" class="p-mr-2"/>
+    <strong class="p-dark-text p-mr-2">[{{clan.tag}}]</strong>
+    <strong class="p-dark-text" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden">{{clan.name}}</strong>
+  </div>
+
+
+  <div class="p-flex-grow p-grid p-p-2">
+
+    <div class="p-col-12 p-md-6">
+      <app-team-overlay-rating class="p-grid" [rating]="clan.alphaRating"></app-team-overlay-rating>
+    </div>
+    <div class="p-col-12 p-md-6">
+      <app-team-overlay-rating class="p-grid" [rating]="clan.bravoRating"></app-team-overlay-rating>
+    </div>
+
+    <div class="p-col-12">
+      <hr>
+    </div>
+
+    <div class="p-col-12 p-md-6" externalLink>
+      <a target="_blank" class="p-d-flex p-ai-center"
+         href="{{ clan.region | wowsNumbers }}clan/{{clan.id}},{{clan.tag + ' ' + clan.name | replaceWhitespace}}/">
+        <img src="assets/wows-numbers.png" style="height: 1.5rem" class="p-mr-2">
+        <span class="p-mr-2">wows-numbers.com</span>
+        <i class="pi pi-external-link"></i>
+      </a>
+    </div>
+  </div>
+</div>

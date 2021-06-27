@@ -1,28 +1,34 @@
-<div class="iconWrapper p-ml-2" (click)="openQrDialog($event)" [pTooltip]="'webConnect.desktop.title' | translate"
-tooltipPosition="bottom">
-  <fa-icon [icon]="qrIcon" size="2x" [fixedWidth]="true"></fa-icon>
-</div>
+<ng-container *ngIf="signalrService.$socketStatus | async; let socketStatus">
+  <div class="iconWrapper p-ml-2" [class.p-disabled]="isDesktop && socketStatus !== 1" (click)="openQrDialog($event)"
+       [pTooltip]="'webConnect.desktop.title' | translate"
+       tooltipPosition="bottom">
+    <fa-icon [icon]="qrIcon" size="2x" [fixedWidth]="true"></fa-icon>
+  </div>
 
-<p-overlayPanel #qrErrorDetails>
-  <ng-container *isBrowser>
-    <p>
-      {{ 'service.issues.browser.noToken' | translate }}
-    </p>
-  </ng-container>
-  <ng-container *isDesktop>
-    <p>
-      {{ 'service.issues.desktop' | translate }}
-    </p>
-  </ng-container>
-</p-overlayPanel>
-<div class="iconWrapper p-ml-2 state-{{signalrService.$socketStatus | async}}" [pTooltip]="(statusText | async) | translate"
-  tooltipPosition="bottom">
-  <fa-icon [icon]="connectionIcon" size="2x" [fixedWidth]="true"></fa-icon>
-</div>
+  <p-overlayPanel #qrErrorDetails>
+    <ng-container *isBrowser>
+      <p>
+        {{ 'service.issues.browser.noToken' | translate }}
+      </p>
+    </ng-container>
+    <ng-container *isDesktop>
+      <p>
+        {{ 'service.issues.desktop' | translate }}
+      </p>
+    </ng-container>
+  </p-overlayPanel>
 
-<div class="iconWrapper p-ml-2" *ngIf="(signalrService.$socketStatus | async) == 0 || (signalrService.$socketStatus | async) == 4">
-  <p-button *ngIf="!(showOnTablet | async)" (click)="reconnect()" icon="pi pi-replay"
-    [label]="'service.reconnect' | translate" styleClass="p-button-success"></p-button>
-  <p-button *ngIf="showOnTablet | async" (click)="reconnect()" icon="pi pi-replay" styleClass="p-button-success">
-  </p-button>
-</div>
+
+  <div class="iconWrapper p-ml-2 state-{{socketStatus}}" [pTooltip]="(statusText | async) | translate"
+       tooltipPosition="bottom">
+    <fa-icon [icon]="connectionIcon" size="2x" [fixedWidth]="true"></fa-icon>
+  </div>
+
+  <div class="iconWrapper p-ml-2" *ngIf="socketStatus == 0 || socketStatus == 4">
+    <p-button *ngIf="!(showOnTablet | async)" (click)="reconnect()" icon="pi pi-replay"
+              [label]="'service.reconnect' | translate" styleClass="p-button-success"></p-button>
+    <p-button *ngIf="showOnTablet | async" (click)="reconnect()" icon="pi pi-replay" styleClass="p-button-success">
+    </p-button>
+  </div>
+</ng-container>
+

@@ -5,10 +5,12 @@ import { ValueLabelComponent } from '@components/main/monitor/value-label/value-
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@shared/shared.module';
+import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DialogModule } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { TooltipModule } from 'primeng/tooltip';
 import { MonitorRoutingModule } from './monitor-routing.module';
@@ -34,6 +36,8 @@ import { TeamStatShipBattlesComponent } from './team/team-stat-ship-battles/team
 import { TeamStatAccXpComponent } from './team/team-stat-acc-xp/team-stat-acc-xp.component';
 import { TeamStatAccWrComponent } from './team/team-stat-acc-wr/team-stat-acc-wr.component';
 import { TeamStatAccBattlesComponent } from './team/team-stat-acc-battles/team-stat-acc-battles.component';
+import { TeamOverlayComponent } from './team/team-overlay/team-overlay.component';
+import { TeamOverlayRatingComponent } from './team/team-overlay/team-overlay-rating/team-overlay-rating.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +62,9 @@ import { TeamStatAccBattlesComponent } from './team/team-stat-acc-battles/team-s
     TeamStatShipBattlesComponent,
     TeamStatAccXpComponent,
     TeamStatAccWrComponent,
-    TeamStatAccBattlesComponent
+    TeamStatAccBattlesComponent,
+    TeamOverlayComponent,
+    TeamOverlayRatingComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +77,9 @@ import { TeamStatAccBattlesComponent } from './team/team-stat-acc-battles/team-s
     MenuModule,
     TooltipModule,
     FontAwesomeModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    OverlayPanelModule,
+    ButtonModule
   ],
   providers: []
 })

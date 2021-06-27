@@ -8,7 +8,8 @@ export enum SignalrStatus {
   NoToken,
   HostDisconnected,
   None,
-  HostConnected
+  HostConnected,
+  Reconnecting
 }
 
 export enum Status {

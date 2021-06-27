@@ -1,11 +1,11 @@
-import { Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import { BaseComponent } from '@components/base.component';
-import { ClanInfo, TeamAverage, TeamWinrate } from '@generated/models';
-import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { ClanInfo, TeamAverage } from '@generated/models';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from '@services/settings.service';
 import { MenuItem } from 'primeng/api';
+import { OverlayPanel } from 'primeng/overlaypanel';
 
 marker('monitor.cw.leagues.0');
 marker('monitor.cw.leagues.1');
@@ -28,13 +28,8 @@ export class TeamComponent extends BaseComponent implements OnInit {
   @Input()
   cw: boolean;
 
-  showDialog = false;
-
-  @ViewChild('wowsNumbersLink', { static: false })
-  wowsNumbersLink: ElementRef<HTMLLinkElement>;
-  @ViewChild('wowsKarmaLink', { static: false })
-  wowsKarmaLink: ElementRef<HTMLLinkElement>;
-
+  @ViewChild('clansOverlay')
+  clansOverlay: OverlayPanel;
 
   items: MenuItem[];
 
@@ -43,37 +38,41 @@ export class TeamComponent extends BaseComponent implements OnInit {
   constructor(
     private translateService: TranslateService,
     public el: ElementRef,
-    private settingsService: SettingsService,
-    @Inject(ElectronServiceToken) private electronService: ElectronService) {
+    private settingsService: SettingsService) {
     super();
   }
 
   ngOnInit() {
-    this.items = [
-      {
-        label: this.translateService.instant('monitor.teamPopup.info'),
-        command: () => this.showDialog = true
-      },
-      {
-        label: this.translateService.instant('monitor.teamPopup.wowsNumbers'),
-        command: this.openWowsNumbers
-      }
-    ];
+    // this.items = [
+    //   {
+    //     label: this.translateService.instant('monitor.teamPopup.info'),
+    //     command: () => this.showDialog = true
+    //   },
+    //   {
+    //     label: this.translateService.instant('monitor.teamPopup.wowsNumbers'),
+    //     command: this.openWowsNumbers
+    //   }
+    // ];
   }
 
-  openWowsNumbers(): void {
-    if (this.isBrowserApp) {
-      window.open(this.wowsNumbersLink.nativeElement.href, '_blank');
-    } else {
-      this.electronService.shell.openExternal(this.wowsNumbersLink.nativeElement.href);
-    }
+  @HostListener('click', ['$event'])
+  onClick($event: MouseEvent) {
+    this.clansOverlay.show($event);
   }
 
-  openWowsKarma(): void {
-    if (this.isBrowserApp) {
-      window.open(this.wowsKarmaLink.nativeElement.href, '_blank');
-    } else {
-      this.electronService.shell.openExternal(this.wowsKarmaLink.nativeElement.href);
-    }
-  }
+  // openWowsNumbers(): void {
+  //   if (this.isBrowserApp) {
+  //     window.open(this.wowsNumbersLink.nativeElement.href, '_blank');
+  //   } else {
+  //     this.electronService.shell.openExternal(this.wowsNumbersLink.nativeElement.href);
+  //   }
+  // }
+  //
+  // openWowsKarma(): void {
+  //   if (this.isBrowserApp) {
+  //     window.open(this.wowsKarmaLink.nativeElement.href, '_blank');
+  //   } else {
+  //     this.electronService.shell.openExternal(this.wowsKarmaLink.nativeElement.href);
+  //   }
+  // }
 }

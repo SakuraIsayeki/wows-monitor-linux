@@ -4,6 +4,7 @@ import { staticValues } from '@environments/static-values';
 import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 import { SignalrSettings, SignalrStatus, Status } from '@interfaces/signalr';
 import { HubConnection, HubConnectionBuilder, HubConnectionState, LogLevel } from '@microsoft/signalr';
+import { ApiService } from '@services/api.service';
 import { JwtAuthService } from '@services/jwt-auth.service';
 import { SettingsService } from '@services/settings.service';
 import { AUTHSERVICETOKEN, BaseInjection } from '@stewie/framework';
@@ -56,7 +57,8 @@ export class SignalrService extends BaseInjection {
     private settingsService: SettingsService,
     @Inject(LoggerServiceToken) private loggerService: LoggerService,
     private qrService: QrService,
-    @Inject(AUTHSERVICETOKEN) private authService: JwtAuthService
+    @Inject(AUTHSERVICETOKEN) private authService: JwtAuthService,
+    private apiService: ApiService
   ) {
     super();
   }
@@ -88,6 +90,18 @@ export class SignalrService extends BaseInjection {
       .withAutomaticReconnect([0, 2000, 10000, 30000, 60000, 120000, null])
       .configureLogging(environment.production ? LogLevel.Error : LogLevel.Trace)
       .build();
+
+    this.connection.onreconnecting(() => {
+      this._$socketStatus.next(SignalrStatus.Reconnecting);
+    });
+
+    this.connection.onreconnected(() => {
+      if (environment.desktop) {
+        this._$socketStatus.next(SignalrStatus.Connected);
+      } else {
+        this._$socketStatus.next(this.settingsService.form.signalRToken.model ? SignalrStatus.HostDisconnected : SignalrStatus.NoToken);
+      }
+    });
 
     this.connection.on('UpdateStatus', (status) => {
       this._$status.next(status === 'fetching' ? Status.Fetching : Status.Idle);
@@ -153,11 +167,12 @@ export class SignalrService extends BaseInjection {
       }
     });
 
-    // this.$socketStatus.pipe(distinctUntilChanged()).subscribe(status => {
-    //   if(status === SignalrStatus.Connected || status === SignalrStatus.NoToken){
-    //     this.uiSuccess('serviceConnected');
-    //   }
-    // })
+    this.$socketStatus.pipe(pairwise()).subscribe(([prev, next]) => {
+      if ((prev === SignalrStatus.Reconnecting && next === SignalrStatus.Connected)
+        || (prev === SignalrStatus.Disconnected && next === SignalrStatus.Connected)) {
+        this.apiService.resendState();
+      }
+    });
 
     if (environment.desktop) {
       this.$clients.pipe(pairwise(), distinctUntilChanged()).subscribe(nums => {
@@ -171,21 +186,21 @@ export class SignalrService extends BaseInjection {
   }
 
   async connect(): Promise<any> {
-      if (this.connection) {
-        try {
-          if(this.connection.state !== HubConnectionState.Disconnected){
-            await this.connection.stop();
-          }
-
-          await this.connection.start();
-          await this.sendSettings(this._settings);
-        } catch (e) {
-          this.uiError('noServiceConnection');
-          this.loggerService.error('Couldn\'t connect to the signalr hub');
+    if (this.connection) {
+      try {
+        if (this.connection.state !== HubConnectionState.Disconnected) {
+          await this.connection.stop();
         }
-      } else {
-        this.loggerService.error('Connection not initialized');
+
+        await this.connection.start();
+        await this.sendSettings(this._settings);
+      } catch (e) {
+        this.uiError('noServiceConnection');
+        this.loggerService.error('Couldn\'t connect to the signalr hub');
       }
+    } else {
+      this.loggerService.error('Connection not initialized');
+    }
   }
 
   disconnect() {

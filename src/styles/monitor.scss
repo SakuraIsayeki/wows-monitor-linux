@@ -64,6 +64,37 @@
   p-card.no-padding .p-card-body {
     padding: 0;
   }
+
+
+}
+
+.p-overlaypanel.no-padding {
+  border: none;
+  border-radius: 3px;
+
+  .overlaypanel-close{
+    // background: $textColor;
+    color: $primaryTextColor;
+    cursor: pointer;
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+
+  .p-overlaypanel-content {
+    padding: 0;
+    display: flex;
+    flex: 1;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+}
+
+.clan-overlay-content{
+  min-width: 300px;
+  max-width: 300px;
 }
 
 // .monitor-player {
@@ -278,7 +309,8 @@ app-value-label {
 
   .solo-icon {
     margin-left: .2em;
-    i{
+
+    i {
       font-size: .7em;
     }
 
@@ -343,6 +375,11 @@ app-team {
     .info-wrapper {
       @include mobile;
     }
+  }
+
+  .clan-overlay-content{
+    min-width: 500px;
+    max-width: 500px;
   }
 }
 

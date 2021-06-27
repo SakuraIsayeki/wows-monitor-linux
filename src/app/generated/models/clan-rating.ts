@@ -4,6 +4,7 @@ import { ClanLeague } from './clan-league';
 import { ClanStage } from './clan-stage';
 export interface ClanRating {
   battlesCount?: number;
+  color?: null | string;
   currentWinningStreak?: number;
   division?: number;
   globalRank?: number;

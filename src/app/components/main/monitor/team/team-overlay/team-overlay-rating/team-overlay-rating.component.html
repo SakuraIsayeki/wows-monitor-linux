@@ -1,0 +1,22 @@
+<div class="p-col-12 p-d-flex p-ai-center">
+  <img style="height: 2rem" class="team p-mr-2" src="assets/team-{{rating.teamNumber}}.svg"/>
+  <strong [ngStyle]="{ color: rating.color }">{{ rating.teamNumber == 0 ? 'Alpha' : 'Bravo' }}</strong>
+</div>
+<div class="p-d-flex p-flex-column p-col-6">
+  <span>{{ 'monitor.labels.league' | translate }}</span>
+  <span>{{ 'monitor.labels.division' | translate }}</span>
+  <span>{{ 'monitor.labels.points' | translate }}</span>
+  <span>{{ 'monitor.labels.battles' | translate }}</span>
+  <span>{{ 'monitor.labels.wins' | translate }}</span>
+  <span>{{ 'monitor.labels.longestStreak' | translate }}</span>
+  <span>{{ 'monitor.labels.streak' | translate}}</span>
+</div>
+<div class="p-d-flex p-flex-column p-col-6">
+  <span>{{ 'monitor.cw.leagues.' + rating.league | translate }}</span>
+  <span>{{ rating.division | roman }}</span>
+  <span>{{ rating.publicRating }}</span>
+  <span>{{ rating.battlesCount }}</span>
+  <span>{{ rating.winsCount }}</span>
+  <span>{{ rating.longestWinningStreak }}</span>
+  <span>{{ rating.currentWinningStreak }}</span>
+</div>
