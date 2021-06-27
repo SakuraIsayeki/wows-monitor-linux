@@ -3,20 +3,17 @@
     <span [style.color]="clan.color | sanitizeCss">[{{clan.tag}}]</span>&nbsp;
     <span>{{clan.name}} ({{clan.region | region}})</span>
   </h3>
-  <span *ngIf="cw && clan && clan.rank > 0" [translate]="'monitor.cw.text'"
-        [translateParams]="{ rank: clan.rank, league: 'monitor.cw.leagues.' + clan.leadingRating.league | translate, division: clan.leadingRating.division | roman, winrate: (clan.leadingRating.winsCount/clan.leadingRating.battlesCount * 100) | number:'0.0-2' }">
-</span>
 </div>
 
 
-<span class="team-overall-wrapper">
-  <span class="inner">
+<span class="team-overall-wrapper p-grid">
+  <span class="p-col-6 p-md-12 p-xl-6 inner">
     <strong>{{'monitor.labels.averageShips' | translate}}</strong>
     <team-stat-ship-xp [teamAverages]="averages"></team-stat-ship-xp>
     <team-stat-ship-wr [teamAverages]="averages"></team-stat-ship-wr>
     <team-stat-ship-battles [teamAverages]="averages"></team-stat-ship-battles>
   </span>
-  <span class="inner">
+  <span class="p-col-6 p-md-12 p-xl-6 inner">
     <strong>{{'monitor.labels.averageAccounts' | translate}}</strong>
     <team-stat-acc-xp [teamAverages]="averages"></team-stat-acc-xp>
     <team-stat-acc-wr [teamAverages]="averages"></team-stat-acc-wr>
@@ -25,51 +22,6 @@
 </span>
 
 
-<p-overlayPanel #clansOverlay appendTo="body" styleClass="no-padding" [ariaCloseLabel]="clan.name">
+<p-overlayPanel #clansOverlay appendTo="body" styleClass="no-padding no-tip" [ariaCloseLabel]="clan.name">
   <app-team-overlay [clan]="clan"></app-team-overlay>
 </p-overlayPanel>
-
-
-<!--<a *ngIf="false" #wowsKarmaLink target="_blank" hidden="hidden" href="{{ clan.region | wowsKarma }}clan/{{clan.id}},{{clan.tag + ' ' + clan.name | replaceWhitespace}}/">Link</a>-->
-
-<!--<p-contextMenu *ngIf="cw && clan" styleClass="custom-contextmenu" [target]="el.nativeElement" appendTo="body"-->
-<!--  [model]="items" triggerEvent="click">-->
-<!--</p-contextMenu>-->
-
-<!--<p-dialog *ngIf="cw && clan" [(visible)]="showDialog" [dismissableMask]="true" [modal]="true" appendTo="body"-->
-<!--  [closable]="true">-->
-<!--  <p-header>-->
-<!--    <span [style.color]="clan.color | sanitizeCss">[{{clan.tag}}]</span>&nbsp;-->
-<!--    <span>{{clan.name}} ({{clan.region | region}})</span>-->
-<!--  </p-header>-->
-<!--  <ng-container *ngIf="clan.alphaRating">-->
-<!--    <h3>-->
-<!--      Alpha Rating-->
-<!--    </h3>-->
-<!--    <pre>-->
-<!--League:         {{ 'monitor.cw.leagues.' +clan.alphaRating.league | translate }}-->
-<!--Division:       {{ clan.alphaRating.division | roman }}-->
-<!--Points:         {{ clan.alphaRating.publicRating }}-->
-<!--Battles:        {{ clan.alphaRating.battlesCount }}-->
-<!--Wins:           {{ clan.alphaRating.winsCount }}-->
-<!--Longest Streak: {{ clan.alphaRating.longestWinningStreak }}-->
-<!--Current Streak: {{ clan.alphaRating.currentWinningStreak }}-->
-<!--      </pre>-->
-<!--  </ng-container>-->
-
-<!--  <ng-container *ngIf="clan.bravoRating">-->
-<!--    <h3>-->
-<!--      Bravo Rating-->
-<!--    </h3>-->
-<!--    <pre>-->
-<!--League:         {{ 'monitor.cw.leagues.' +clan.bravoRating.league | translate }}-->
-<!--Division:       {{ clan.bravoRating.division | roman }}-->
-<!--Points:         {{ clan.bravoRating.publicRating }}-->
-<!--Battles:        {{ clan.bravoRating.battlesCount }}-->
-<!--Wins:           {{ clan.bravoRating.winsCount }}-->
-<!--Longest Streak: {{ clan.bravoRating.longestWinningStreak }}-->
-<!--Current Streak: {{ clan.bravoRating.currentWinningStreak }}-->
-<!--        </pre>-->
-<!--  </ng-container>-->
-<!--  &lt;!&ndash; <a routerLink="/wcw/{{clan.id}}">Learn more</a> &ndash;&gt;-->
-<!--</p-dialog>-->

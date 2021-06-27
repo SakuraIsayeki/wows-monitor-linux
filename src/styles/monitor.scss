@@ -68,17 +68,24 @@
 
 }
 
+.p-overlaypanel.no-tip {
+  &:after,
+  &:before {
+    display: none;
+  }
+}
+
 .p-overlaypanel.no-padding {
   border: none;
   border-radius: 3px;
 
-  .overlaypanel-close{
+  .overlaypanel-close {
     // background: $textColor;
     color: $primaryTextColor;
     cursor: pointer;
     position: absolute;
-    top: .5rem;
-    right: .5rem;
+    top: 1rem;
+    right: 1rem;
     font-weight: 600;
     font-size: 1.2rem;
   }
@@ -92,7 +99,7 @@
   }
 }
 
-.clan-overlay-content{
+.clan-overlay-content {
   min-width: 300px;
   max-width: 300px;
 }
@@ -341,7 +348,7 @@ app-team {
         margin-right: 1rem;
       }
 
-      margin-right: 2rem;
+      // margin-right: 2rem;
     }
   }
 }
@@ -377,7 +384,7 @@ app-team {
     }
   }
 
-  .clan-overlay-content{
+  .clan-overlay-content {
     min-width: 500px;
     max-width: 500px;
   }

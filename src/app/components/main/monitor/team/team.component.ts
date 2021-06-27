@@ -33,46 +33,17 @@ export class TeamComponent extends BaseComponent implements OnInit {
 
   items: MenuItem[];
 
-  private config = this.settingsService.form.monitorConfig.model;
-
   constructor(
-    private translateService: TranslateService,
-    public el: ElementRef,
-    private settingsService: SettingsService) {
+    public el: ElementRef) {
     super();
   }
 
   ngOnInit() {
-    // this.items = [
-    //   {
-    //     label: this.translateService.instant('monitor.teamPopup.info'),
-    //     command: () => this.showDialog = true
-    //   },
-    //   {
-    //     label: this.translateService.instant('monitor.teamPopup.wowsNumbers'),
-    //     command: this.openWowsNumbers
-    //   }
-    // ];
+
   }
 
   @HostListener('click', ['$event'])
   onClick($event: MouseEvent) {
     this.clansOverlay.show($event);
   }
-
-  // openWowsNumbers(): void {
-  //   if (this.isBrowserApp) {
-  //     window.open(this.wowsNumbersLink.nativeElement.href, '_blank');
-  //   } else {
-  //     this.electronService.shell.openExternal(this.wowsNumbersLink.nativeElement.href);
-  //   }
-  // }
-  //
-  // openWowsKarma(): void {
-  //   if (this.isBrowserApp) {
-  //     window.open(this.wowsKarmaLink.nativeElement.href, '_blank');
-  //   } else {
-  //     this.electronService.shell.openExternal(this.wowsKarmaLink.nativeElement.href);
-  //   }
-  // }
 }

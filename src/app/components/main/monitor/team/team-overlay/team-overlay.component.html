@@ -1,5 +1,5 @@
 <div class="p-d-flex p-flex-grow p-flex-column clan-overlay-content">
-  <div class="p-d-flex p-flex-row p-flex-grow p-jc-start p-ai-center p-p-2"
+  <div class="p-d-flex p-flex-row p-flex-grow p-jc-start p-ai-center p-p-3"
        [ngStyle]="{ height: '4rem', background: clan.color, position: 'relative' }">
     <i class="overlaypanel-close pi pi-times" (click)="close($event)"></i>
     <img src="assets/region-{{clan.region}}.svg" style="height: 2rem" class="p-mr-2"/>
@@ -8,20 +8,27 @@
   </div>
 
 
-  <div class="p-flex-grow p-grid p-p-2">
+  <div class="p-flex-grow p-grid p-pt-3 p-pr-3 p-pl-3 p-pb-2">
 
     <div class="p-col-12 p-md-6">
-      <app-team-overlay-rating class="p-grid" [rating]="clan.alphaRating"></app-team-overlay-rating>
+      <app-team-overlay-rating class="p-grid" [rating]="clan.alphaRating" [region]="clan.region" [leading]="clan.leadingRating.rank == clan.alphaRating.rank"></app-team-overlay-rating>
     </div>
     <div class="p-col-12 p-md-6">
-      <app-team-overlay-rating class="p-grid" [rating]="clan.bravoRating"></app-team-overlay-rating>
+      <app-team-overlay-rating class="p-grid" [rating]="clan.bravoRating" [region]="clan.region" [leading]="clan.leadingRating.rank == clan.bravoRating.rank"></app-team-overlay-rating>
     </div>
 
     <div class="p-col-12">
       <hr>
     </div>
 
-    <div class="p-col-12 p-md-6" externalLink>
+    <div class="p-col-12 p-md-6 p-d-flex p-jc-center">
+      <a class="p-d-flex p-ai-center" routerLink="/clanwars/{{clan.id}}/{{clan.leadingRating.seasonId}}">
+        <i class="pi pi-shield p-mr-2" style="font-size: 1.5rem"></i>
+        <span class="p-mr-2">{{ 'meta.clanwars.title' | translate }}</span>
+      </a>
+    </div>
+
+    <div class="p-col-12 p-md-6 p-d-flex p-jc-center" externalLink>
       <a target="_blank" class="p-d-flex p-ai-center"
          href="{{ clan.region | wowsNumbers }}clan/{{clan.id}},{{clan.tag + ' ' + clan.name | replaceWhitespace}}/">
         <img src="assets/wows-numbers.png" style="height: 1.5rem" class="p-mr-2">

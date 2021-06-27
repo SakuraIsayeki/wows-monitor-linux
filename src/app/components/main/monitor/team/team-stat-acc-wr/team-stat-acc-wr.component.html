@@ -1,4 +1,4 @@
 <app-value-label [label]="'monitor.labels.winrate' | translate" [icon]="icon" *ngIf="stats | async; let teamStats;"
                  [solo]="soloStats | async">
-  <strong>{{(winrates | async)?.acc | number:'0.0-2'}}</strong>
+  <strong>{{(winrates | async)?.acc | number:'0.0-2'}}%</strong>
 </app-value-label>
