@@ -14,6 +14,8 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
 import { TableModule } from 'primeng/table';
@@ -71,7 +73,9 @@ import { TopbarComponent } from './topbar/topbar.component';
     InputSwitchModule,
     ReactiveFormsModule,
     TableModule,
-    BlockUIModule
+    BlockUIModule,
+    ProgressSpinnerModule,
+    ProgressBarModule
   ],
   providers: [
     DialogService,

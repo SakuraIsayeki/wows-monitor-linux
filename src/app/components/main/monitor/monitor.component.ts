@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, HostBinding, Inject, OnInit, Optional, ViewChild } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
-import { faPaintBrush, faWifi } from '@fortawesome/free-solid-svg-icons';
+import { faPaintBrush, faQrcode, faWifi } from '@fortawesome/free-solid-svg-icons';
 import { FontSize, PlayerAppModel } from '@generated/models';
 import {  } from '@generated/models';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
@@ -22,6 +22,7 @@ export class MonitorComponent extends BaseComponent implements OnInit, AfterView
   public classMonitor = true;
 
   faWifi = faWifi;
+  faQr = faQrcode;
   faPaintBrush = faPaintBrush;
 
   // Player Menu for Website links

@@ -50,8 +50,19 @@
 
 
 <div *ngIf="!(signalrService.$info | async)" class="p-d-flex p-flex-grow p-ai-center p-jc-center">
-  <span style="font-size: 1.5rem">
+  <span style="font-size: 1.5rem" *isDesktop>
     <fa-icon [icon]="faWifi" [fixedWidth]="true"></fa-icon>&nbsp;{{'monitor.empty' | translate}}
   </span>
+  <ng-container *isBrowser>
+    <span style="font-size: 1.5rem" *ngIf="signalrService.$gatewayStatus | async; let status;">
+      <span *ngIf="status === 5">
+        <fa-icon [icon]="faWifi" [fixedWidth]="true"></fa-icon>&nbsp;{{'monitor.empty' | translate}}
+      </span>
+       <span *ngIf="status !== 5">
+        <fa-icon [icon]="faQr" [fixedWidth]="true"></fa-icon>&nbsp;{{'monitor.emptyNoToken' | translate}}
+      </span>
+    </span>
+  </ng-container>
+
 </div>
 

@@ -147,10 +147,10 @@
 				"2": "Storm",
 				"3": "Gale",
 				"4": "Squall"
-			},
-			"text": "Rank {{rank}} in {{league}}, Division {{division}}, WR {{winrate}}%"
+			}
 		},
 		"empty": "waiting for a match",
+		"emptyNoToken": "Connect to a desktop client to receive match updates",
 		"forcePVP": "Show random stats",
 		"hidden": "Player has a hidden profile",
 		"karma": {
@@ -453,9 +453,9 @@
 	"webConnect": {
 		"browser": {
 			"chooseVideo": "Select camera",
-			"description": "Connect to a desktop app by following the steps below.",
-			"step1": "Scan the QR-Code from the desktop app.",
-			"step2": "Enjoy!",
+			"description": "Connect to a desktop app by following the steps below:",
+			"step1": "1. Scan the QR-Code from the desktop app.",
+			"step2": "2. Enjoy as you will receive match stats.",
 			"title": "Web-Connect"
 		},
 		"desktop": {

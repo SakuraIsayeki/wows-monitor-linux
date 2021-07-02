@@ -141,6 +141,9 @@ export class JwtAuthService extends BaseInjection implements AuthService {
 
       this._userinfo$.next(userInfo);
       this._isLoaded$.next(true);
+    }, err => {
+      this._userinfo$.next({});
+      this._isLoaded$.next(true);
     });
   }
 

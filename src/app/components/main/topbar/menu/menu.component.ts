@@ -8,7 +8,7 @@ import { JwtAuthService } from '@services/jwt-auth.service';
 import { SettingsService } from '@services/settings.service';
 import { AUTHSERVICETOKEN } from '@stewie/framework';
 import { BehaviorSubject, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
@@ -93,13 +93,13 @@ export class MenuComponent extends BaseComponent implements OnInit {
     super();
     combineLatest([
       this.changelogService.changelogIds(this.settingsService.form.monitorConfig.allowBeta.model ? { channel: 'beta' } : null),
-      this.settingsService.form.seenChangelogs.valueChanges
+      this.settingsService.form.seenChangelogs.valueChanges.pipe(startWith(this.settingsService.form.seenChangelogs.model))
     ])
       .pipe(this.untilDestroy())
-      .subscribe(arr => {
-        if (arr[0] != null && arr[1] != null) {
-          this.$changelogsBadgeSubject.next(arr[0].length > arr[1].length);
-          this.$changelogsBadgeCountSubject.next(arr[0].length - arr[1].length);
+      .subscribe(([ids, seenIds]) => {
+        if (ids != null && seenIds != null) {
+          this.$changelogsBadgeSubject.next(ids.length > seenIds.length);
+          this.$changelogsBadgeCountSubject.next(ids.length - seenIds.length);
         }
       });
   }

@@ -35,7 +35,7 @@ export class PathPickerComponent extends BaseComponent implements OnInit, OnDest
   ngOnInit() {
     let subscribtion: Subscription;
 
-    this.signalrService.$socketStatus.subscribe(s => {
+    this.signalrService.$gatewayStatus.subscribe(s => {
       if (s === SignalrStatus.Connected) {
         subscribtion = combineLatest([
           this.directoryService.$changeDetected,

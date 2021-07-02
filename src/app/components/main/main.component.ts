@@ -55,6 +55,7 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
           });
           ref.onClose.pipe(this.untilDestroy()).subscribe(() => {
             this.settingsService.form.seenChangelogs.model.push(changelog.id);
+            this.settingsService.form.seenChangelogs.updateValueAndValidity({ emitEvent: true });
           });
         }
       });

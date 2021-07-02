@@ -31,7 +31,7 @@ export class ConnectionComponent extends BaseComponent implements OnDestroy {
   @ViewChild('qrErrorDetails', { static: true })
   qrErrorDetails: OverlayPanel;
 
-  statusText = this.signalrService.$socketStatus.pipe(map(status => {
+  statusText = this.signalrService.$gatewayStatus.pipe(map(status => {
     if (status === SignalrStatus.Connected) {
       return 'service.connected';
     } else if (status === SignalrStatus.NoToken) {
@@ -75,7 +75,11 @@ export class ConnectionComponent extends BaseComponent implements OnDestroy {
         dismissableMask: true
       });
     } else {
-      this.dialogService.open(QrScanComponent, { styleClass: 'qrPopup custom-popup browser', showHeader: false, dismissableMask: true });
+      this.dialogService.open(QrScanComponent, {
+        styleClass: 'qrPopup custom-popup browser',
+        showHeader: this.translateService.instant('webConnect.browser.title'),
+        dismissableMask: true
+      });
     }
   }
 

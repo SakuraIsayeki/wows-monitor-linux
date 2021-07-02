@@ -1,36 +1,35 @@
-<fa-icon [icon]="closeIcon" (click)="close()"></fa-icon>
-<div class="qr-scan-wrapper">
-  <h2>{{ 'webConnect.browser.title' | translate }}</h2>
-  <div>
-    <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="custom">
-      <div class="container" *ngIf="enabled && hasPermission">
-        <div class="row">
-          <div class="four columns">
-            <label>{{ 'webConnect.browser.chooseVideo' | translate  }}</label>
-          </div>
-          <div class="eight columns space-bottom">
-            <p-dropdown [options]="devices" [(ngModel)]="selectedDevice" [style]="{'width':'100%'}"></p-dropdown>
-          </div>
-        </div>
-      </div>
+<div class="p-d-flex p-flex-grow p-flex-column">
+  <div class="loading p-d-flex p-jc-center p-ai-center p-mb-2" *ngIf="!enabled || !hasPermission">
+    <i class="pi pi-spinner pi-spin" style="font-size: 3rem"></i>
+  </div>
 
-      <ng-container *ngIf="!hasPermission">
-        <p>
-          {{ 'webConnect.issues.permission' | translate }}
-        </p>
-      </ng-container>
+  <div class="p-flex-grow p-grid p-fluid" style="width: 100%" *ngIf="enabled && hasPermission">
+    <div class="p-col-12 p-md-4 p-mb-1 p-mb-md-0 p-d-flex p-ai-center p-jc-start">
+      <label>{{ 'webConnect.browser.chooseVideo' | translate  }}</label>
+    </div>
+    <div class="p-col-12 p-md-8">
+      <p-dropdown [options]="devices" [(ngModel)]="selectedDevice" [style]="{'width':'100%'}"></p-dropdown>
+    </div>
+  </div>
 
-      <zxing-scanner #scanner  [enable]="enabled" [device]="selectedDevice"
-        (scanSuccess)="handleQrCodeResult($event)">
-      </zxing-scanner>
+  <div class="p-d-flex p-ai-center p-jc-center" *ngIf="!hasPermission">
+    <p>
+      {{ 'webConnect.issues.permission' | translate }}
+    </p>
+  </div>
 
-      <p>
-        {{ 'webConnect.browser.description' | translate  }}
-      </p>
-      <ol class="no-list-ui">
-        <li>{{ 'webConnect.browser.step1' | translate  }}</li>
-        <li>{{ 'webConnect.browser.step2' | translate  }}</li>
-      </ol>
-    </p-scrollPanel>
+  <div class="p-d-flex p-ai-center p-jc-center p-mb-2" [ngStyle]="{ display: hasPermission ? 'block' : 'none' }">
+    <zxing-scanner #scanner [enable]="enabled" [device]="selectedDevice"
+                   (scanSuccess)="handleQrCodeResult($event)">
+    </zxing-scanner>
+  </div>
+
+
+  <div *ngIf="enabled && hasPermission">
+    <p>{{ 'webConnect.browser.description' | translate  }}</p>
+    <ol class="no-list-ui">
+      <li>{{ 'webConnect.browser.step1' | translate  }}</li>
+      <li>{{ 'webConnect.browser.step2' | translate  }}</li>
+    </ol>
   </div>
 </div>

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '@components/base.component';
 import { ChangelogAppModel } from '@generated/models';
 import { SettingsService } from '@services/settings.service';
-import { map } from 'rxjs/operators';
+import { last, map, take } from 'rxjs/operators';
 
 @Component({
   templateUrl: './changelogs.component.html'
@@ -33,8 +33,9 @@ export class ChangelogsComponent extends BaseComponent implements OnInit, OnDest
   }
 
   async markAllAsSeen() {
-    const changelogs = await this.changelogs.toPromise();
+    const changelogs = await this.changelogs.pipe(take(1)).toPromise();
     this.settingsService.form.seenChangelogs.model?.push(...changelogs.map(c => c.id));
+    this.settingsService.form.seenChangelogs.updateValueAndValidity({ emitEvent: true });
   }
 
   ngOnDestroy() {

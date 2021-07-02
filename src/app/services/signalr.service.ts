@@ -18,7 +18,7 @@ export class SignalrService extends BaseInjection {
 
   private connection: HubConnection;
   private _settings: SignalrSettings;
-  private _$socketStatus = new BehaviorSubject<SignalrStatus>(SignalrStatus.None);
+  private _$gatewayStatus = new BehaviorSubject<SignalrStatus>(SignalrStatus.None);
   private _$status = new BehaviorSubject<Status>(Status.Idle);
   private _$info = new BehaviorSubject<MatchAppModel>(null);
   private _$error = new Subject<string>();
@@ -26,8 +26,8 @@ export class SignalrService extends BaseInjection {
   private _$livefeedUpdate = new BehaviorSubject<LivefeedAppModel[]>([]);
 
 
-  get $socketStatus(): Observable<SignalrStatus> {
-    return this._$socketStatus.asObservable();
+  get $gatewayStatus(): Observable<SignalrStatus> {
+    return this._$gatewayStatus.asObservable();
   }
 
   get $status(): Observable<Status> {
@@ -92,14 +92,14 @@ export class SignalrService extends BaseInjection {
       .build();
 
     this.connection.onreconnecting(() => {
-      this._$socketStatus.next(SignalrStatus.Reconnecting);
+      this._$gatewayStatus.next(SignalrStatus.Reconnecting);
     });
 
     this.connection.onreconnected(() => {
       if (environment.desktop) {
-        this._$socketStatus.next(SignalrStatus.Connected);
+        this._$gatewayStatus.next(SignalrStatus.Connected);
       } else {
-        this._$socketStatus.next(this.settingsService.form.signalRToken.model ? SignalrStatus.HostDisconnected : SignalrStatus.NoToken);
+        this._$gatewayStatus.next(this.settingsService.form.signalRToken.model ? SignalrStatus.HostDisconnected : SignalrStatus.NoToken);
       }
     });
 
@@ -125,24 +125,24 @@ export class SignalrService extends BaseInjection {
 
     this.connection.on('Connected', () => {
       if (environment.desktop) {
-        this._$socketStatus.next(SignalrStatus.Connected);
+        this._$gatewayStatus.next(SignalrStatus.Connected);
       } else {
-        this._$socketStatus.next(this.settingsService.form.signalRToken.model ? SignalrStatus.HostDisconnected : SignalrStatus.NoToken);
+        this._$gatewayStatus.next(this.settingsService.form.signalRToken.model ? SignalrStatus.HostDisconnected : SignalrStatus.NoToken);
       }
     });
 
     this.connection.on('HostConnected', () => {
-      this._$socketStatus.next(SignalrStatus.HostConnected);
+      this._$gatewayStatus.next(SignalrStatus.HostConnected);
       this.uiSuccess('hostConnected');
     });
 
     this.connection.on('HostDisconnected', () => {
-      if (this._$socketStatus.value === SignalrStatus.HostConnected) {
+      if (this._$gatewayStatus.value === SignalrStatus.HostConnected) {
         this.uiWarn('hostLost');
       } else {
         this.uiWarn('noHostPaired');
       }
-      this._$socketStatus.next(SignalrStatus.HostDisconnected);
+      this._$gatewayStatus.next(SignalrStatus.HostDisconnected);
     });
 
     this.connection.on('SendError', (error) => {
@@ -156,7 +156,7 @@ export class SignalrService extends BaseInjection {
     });
 
     this.connection.onclose(() => {
-      this._$socketStatus.next(SignalrStatus.Disconnected);
+      this._$gatewayStatus.next(SignalrStatus.Disconnected);
     });
 
     this.$error.subscribe(error => {
@@ -167,7 +167,7 @@ export class SignalrService extends BaseInjection {
       }
     });
 
-    this.$socketStatus.pipe(pairwise()).subscribe(([prev, next]) => {
+    this.$gatewayStatus.pipe(pairwise()).subscribe(([prev, next]) => {
       if ((prev === SignalrStatus.Reconnecting && next === SignalrStatus.Connected)
         || (prev === SignalrStatus.Disconnected && next === SignalrStatus.Connected)) {
         this.apiService.resendState();
@@ -210,7 +210,7 @@ export class SignalrService extends BaseInjection {
           this.connection.stop()
             .then(() => {
               resolve(true);
-              this._$socketStatus.next(SignalrStatus.Disconnected);
+              this._$gatewayStatus.next(SignalrStatus.Disconnected);
             })
             .catch(() => {
               this.loggerService.error('Couldn\'t disconnect from the signalr hub');

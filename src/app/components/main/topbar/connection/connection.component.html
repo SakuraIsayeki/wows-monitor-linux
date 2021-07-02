@@ -1,4 +1,4 @@
-<ng-container *ngIf="signalrService.$socketStatus | async; let socketStatus">
+<ng-container *ngIf="signalrService.$gatewayStatus | async; let socketStatus">
   <div class="iconWrapper p-ml-2" [class.p-disabled]="isDesktop && socketStatus !== 1" (click)="openQrDialog($event)"
        [pTooltip]="'webConnect.desktop.title' | translate"
        tooltipPosition="bottom">
@@ -19,10 +19,13 @@
   </p-overlayPanel>
 
 
-  <div class="iconWrapper p-ml-2 state-{{socketStatus}}" [pTooltip]="(statusText | async) | translate"
-       tooltipPosition="bottom">
-    <fa-icon [icon]="connectionIcon" size="2x" [fixedWidth]="true"></fa-icon>
-  </div>
+  <ng-container *ngIf="socketStatus == 0 || socketStatus == 2 || socketStatus == 3 || socketStatus == 4">
+    <div class="iconWrapper p-ml-2 state-{{socketStatus}}" [pTooltip]="(statusText | async) | translate"
+         tooltipPosition="bottom">
+      <fa-icon [icon]="connectionIcon" size="2x" [fixedWidth]="true"></fa-icon>
+    </div>
+  </ng-container>
+
 
   <div class="iconWrapper p-ml-2" *ngIf="socketStatus == 0 || socketStatus == 4">
     <p-button *ngIf="!(showOnTablet | async)" (click)="reconnect()" icon="pi pi-replay"
