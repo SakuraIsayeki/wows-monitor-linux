@@ -21,6 +21,7 @@
       </ul>
     </div>
   </div>
+  <button (click)="logout()">Logout</button>
   <div class="menu-user-section p-d-flex p-ai-center p-jc-center" [class.authenticated]="auth.isAuthenticated">
     <div class="p-fluid p-flex-grow" *ngIf="!auth.isAuthenticated">
       <button pButton [label]="'identity.labels.login' | translate" icon="pi pi-sign-in" (click)="selectingRegion = true"></button>

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { GatewayTokenService } from '@services/gateway-token.service';
 import { SettingsService } from '@services/settings.service';
 import { SignalrService } from '@services/signalr.service';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
@@ -31,8 +32,8 @@ export class QrScanComponent extends BaseComponent implements AfterViewInit, OnD
 
   constructor(
     public ref: DynamicDialogRef,
-    private settingsService: SettingsService,
-    private signalrService: SignalrService
+    private signalrService: SignalrService,
+    private gatewayTokenService: GatewayTokenService
   ) {
     super();
 
@@ -71,9 +72,8 @@ export class QrScanComponent extends BaseComponent implements AfterViewInit, OnD
 
   handleQrCodeResult(resultString: string) {
     this.analyticsService.send('scanQrCode', 'browserEvents', 'scanQrCode', resultString);
-    this.settingsService.form.signalRToken.setValue(resultString);
+    this.gatewayTokenService.setToken(resultString);
     this.ref.close();
-    this.signalrService.sendSettings({ token: this.settingsService.form.signalRToken.model });
   }
 
   close() {

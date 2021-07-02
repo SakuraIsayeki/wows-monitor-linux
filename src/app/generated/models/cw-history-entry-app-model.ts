@@ -19,7 +19,7 @@ export interface CwHistoryEntryAppModel {
   realm?: Region;
   regionRank?: number;
   regionRankDiff?: null | number;
-  season?: number;
+  seasonId?: number;
   stageProgress?: null | Array<number>;
   stageTarget?: null | number;
   stageTargetDivision?: null | number;

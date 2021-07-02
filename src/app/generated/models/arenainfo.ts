@@ -4,7 +4,7 @@ import { ArenaInfoVehicle } from './arena-info-vehicle';
 import { MatchGroup } from './match-group';
 import { Region } from './region';
 export interface Arenainfo {
-  dateTime?: null | string;
+  dateTime?: string;
   mapId?: number;
   matchGroup?: MatchGroup;
   playerId?: number;

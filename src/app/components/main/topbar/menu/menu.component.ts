@@ -113,4 +113,8 @@ export class MenuComponent extends BaseComponent implements OnInit {
     this.selectingRegion = false;
     this.auth.login({ renderer: this.renderer, region }).subscribe();
   }
+
+  logout(){
+    this.auth.logout();
+  }
 }

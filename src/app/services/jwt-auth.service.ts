@@ -128,8 +128,8 @@ export class JwtAuthService extends BaseInjection implements AuthService {
   logout(): Subscription {
     sessionStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
-    this._userinfo$.next(null);
-    return of().subscribe();
+    this.loadUserInfo();
+    return of(null).subscribe();
   }
 
   loadUserInfo(): any {

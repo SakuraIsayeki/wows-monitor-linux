@@ -13,7 +13,7 @@ import { map, filter } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class QrService extends BaseService {
+export class WebConnectService extends BaseService {
   constructor(
     config: ApiConfiguration,
     http: HttpClient
@@ -22,20 +22,20 @@ export class QrService extends BaseService {
   }
 
   /**
-   * Path part for operation qrToken
+   * Path part for operation webConnectToken
    */
-  static readonly QrTokenPath = '/qr/token';
+  static readonly WebConnectTokenPath = '/gateway/token';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `qrToken()` instead.
+   * To access only the response body, use `webConnectToken()` instead.
    *
    * This method doesn't expect any request body.
    */
-  qrToken$Response(params?: {
+  webConnectToken$Response(params?: {
   }): Observable<StrictHttpResponse<string>> {
 
-    const rb = new RequestBuilder(this.rootUrl, QrService.QrTokenPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, WebConnectService.WebConnectTokenPath, 'get');
     if (params) {
     }
 
@@ -52,34 +52,34 @@ export class QrService extends BaseService {
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `qrToken$Response()` instead.
+   * To access the full response (for headers, for example), `webConnectToken$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  qrToken(params?: {
+  webConnectToken(params?: {
   }): Observable<string> {
 
-    return this.qrToken$Response(params).pipe(
+    return this.webConnectToken$Response(params).pipe(
       map((r: StrictHttpResponse<string>) => r.body as string)
     );
   }
 
   /**
-   * Path part for operation qrTokenImage
+   * Path part for operation webConnectTokenImage
    */
-  static readonly QrTokenImagePath = '/qr/image/{token}.png';
+  static readonly WebConnectTokenImagePath = '/qr/image/{token}.png';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `qrTokenImage()` instead.
+   * To access only the response body, use `webConnectTokenImage()` instead.
    *
    * This method doesn't expect any request body.
    */
-  qrTokenImage$Response(params: {
+  webConnectTokenImage$Response(params: {
     token: string;
   }): Observable<StrictHttpResponse<Blob>> {
 
-    const rb = new RequestBuilder(this.rootUrl, QrService.QrTokenImagePath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, WebConnectService.WebConnectTokenImagePath, 'get');
     if (params) {
       rb.path('token', params.token, {});
     }
@@ -97,15 +97,15 @@ export class QrService extends BaseService {
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `qrTokenImage$Response()` instead.
+   * To access the full response (for headers, for example), `webConnectTokenImage$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  qrTokenImage(params: {
+  webConnectTokenImage(params: {
     token: string;
   }): Observable<Blob> {
 
-    return this.qrTokenImage$Response(params).pipe(
+    return this.webConnectTokenImage$Response(params).pipe(
       map((r: StrictHttpResponse<Blob>) => r.body as Blob)
     );
   }

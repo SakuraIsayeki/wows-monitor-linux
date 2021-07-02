@@ -11,11 +11,11 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateParser, TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@services/api.service';
 import { AppInitService } from '@services/app-init.service';
-import { ClientIdHttpInterceptor } from '@services/client-id.http-interceptor';
 import { ClientVersionHttpInterceptor } from '@services/client-version.http-interceptor';
 import { CommonErrorHandler } from '@services/common-error.handler';
 import { CustomMissingTranslationHandler } from '@services/custom-missing-translation.handler';
 import { CwHistoryListService } from '@services/cw-history-list.service';
+import { GatewayTokenService } from '@services/gateway-token.service';
 import { JwtAuthService } from '@services/jwt-auth.service';
 import { JwtInterceptor } from '@services/jwt.interceptor';
 import { LivefeedService } from '@services/livefeed.service';
@@ -132,7 +132,8 @@ const metaFactory = (translate: TranslateService) => {
     SettingsService,
     LivefeedService,
     ScrollService,
-    CwHistoryListService
+    CwHistoryListService,
+    GatewayTokenService
   ]
 })
 export class AppSharedModule {

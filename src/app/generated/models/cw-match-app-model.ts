@@ -12,7 +12,7 @@ export interface CwMatchAppModel {
   plannedPrimeTime?: null | number;
   primeTime?: null | number;
   realm?: Region;
-  season?: number;
+  seasonId?: number;
   winner?: null | CwClanAppModel;
   winnerEntry?: null | CwHistoryEntryAppModel;
   winnerId?: null | number;

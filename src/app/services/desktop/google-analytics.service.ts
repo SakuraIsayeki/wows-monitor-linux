@@ -17,7 +17,6 @@ declare type ScreenInfo = {
 export class DesktopGoogleAnalyticsService implements AnalyticsService {
 
   private visitor: ua.visitor;
-  private interval: NodeJS.Timeout;
 
   constructor(private settingsService: SettingsService, @Inject(ElectronServiceToken) private electronService: ElectronService) {
     this.settingsService.waitForInitialized().then(() => {

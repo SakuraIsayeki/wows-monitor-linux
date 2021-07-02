@@ -22,7 +22,7 @@ export class MainComponent extends BaseComponent implements AfterViewInit {
   }
 
   async ngAfterViewInit() {
-    await this.settingsService.waitForInitialized();
+    // await this.settingsService.waitForInitialized();
     if (!this.settingsService.form.analyticsInfoSeen.model) {
       this.showAnalyticsInfo();
     } else {

@@ -18,7 +18,6 @@
     </ng-container>
   </p-overlayPanel>
 
-
   <ng-container *ngIf="socketStatus == 0 || socketStatus == 2 || socketStatus == 3 || socketStatus == 4">
     <div class="iconWrapper p-ml-2 state-{{socketStatus}}" [pTooltip]="(statusText | async) | translate"
          tooltipPosition="bottom">

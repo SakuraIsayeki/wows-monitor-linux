@@ -11,7 +11,7 @@ export class ChangelogsResolver implements Resolve<ChangelogAppModel[]> {
   }
 
   async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<ChangelogAppModel[]> {
-    await this.settingsService.waitForInitialized();
+    // await this.settingsService.waitForInitialized();
     return this.changelogService.changelogList(this.settingsService.form.monitorConfig.allowBeta.value ? { channel: 'beta' } : null).toPromise();
   }
 }
