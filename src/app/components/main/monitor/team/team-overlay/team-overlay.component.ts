@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
-import { ClanInfo } from '@generated/models/clan-info';
+import { ClanInfoAppModel } from '@generated/models';
 import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
@@ -10,7 +10,7 @@ import { OverlayPanel } from 'primeng/overlaypanel';
 export class TeamOverlayComponent extends BaseComponent implements OnInit {
 
   @Input()
-  clan: ClanInfo;
+  clan: ClanInfoAppModel;
 
   constructor(private panel: OverlayPanel) {
     super();

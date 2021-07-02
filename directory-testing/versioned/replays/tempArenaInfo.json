@@ -1,1 +1,124 @@
-{"matchGroup": "clan", "gameMode": 7, "clientVersionFromExe": "0,10,5,4046169", "scenarioUiCategoryId": 0, "mapDisplayName": "50_Gold_harbor", "mapId": 30, "clientVersionFromXml": "0,10,5,4046169", "weatherParams": {"0": ["PCOW005_Evening"], "1": ["PCOW003_Cloudy"], "2": ["PCOW005_Evening", "PCOW002_Storm"]}, "playersPerTeam": 12, "duration": 1200, "gameLogic": "Domination", "name": "12x12", "scenario": "CvC_Domination", "playerID": 0, "vehicles": [{"shipId": 4179572176, "relation": 2, "id": 939708163, "name": "r3nFoRc3"}, {"shipId": 3969824208, "relation": 1, "id": 805432357, "name": "punchmynuggets"}, {"shipId": 3550394352, "relation": 1, "id": 940086248, "name": "Sakura_Isayeki"}, {"shipId": 3760142320, "relation": 2, "id": 805490634, "name": "nexita"}, {"shipId": 3969824208, "relation": 2, "id": 805358935, "name": "Nefaleim"}, {"shipId": 4179539696, "relation": 2, "id": 939878543, "name": "spaleon"}, {"shipId": 4179572528, "relation": 1, "id": 939604712, "name": "Godlyuniverse_1"}, {"shipId": 3655218480, "relation": 2, "id": 805584117, "name": "LSERPICO"}, {"shipId": 4179539408, "relation": 1, "id": 805569526, "name": "Bloody_FleetOfFog"}, {"shipId": 3655218480, "relation": 1, "id": 940041879, "name": "fun6utzi"}, {"shipId": 3760109008, "relation": 2, "id": 939712280, "name": "spakis"}, {"shipId": 3760109008, "relation": 0, "id": 805571641, "name": "cpt_stewie"}, {"shipId": 4282267344, "relation": 2, "id": 939804092, "name": "Cobra_Greek"}, {"shipId": 3760142032, "relation": 1, "id": 939928549, "name": "Yuria_of_Izalith"}], "gameType": "ClanBattle", "dateTime": "24.06.2021 22:29:20", "mapName": "spaces/50_Gold_harbor", "playerName": "cpt_stewie", "scenarioConfigId": 227, "teamsCount": 2, "logic": "Domination", "playerVehicle": "PRSC510-Stalingrad", "battleDuration": 1200, "mapBorder": null}
+{
+  "matchGroup": "clan",
+  "gameMode": 7,
+  "token": "1234asd",
+  "clientVersionFromExe": "0,10,5,4046169",
+  "scenarioUiCategoryId": 0,
+  "mapDisplayName": "50_Gold_harbor",
+  "mapId": 30,
+  "clientVersionFromXml": "0,10,5,4046169",
+  "weatherParams": {
+    "0": [
+      "PCOW005_Evening"
+    ],
+    "1": [
+      "PCOW003_Cloudy"
+    ],
+    "2": [
+      "PCOW005_Evening",
+      "PCOW002_Storm"
+    ]
+  },
+  "playersPerTeam": 12,
+  "duration": 1200,
+  "gameLogic": "Domination",
+  "name": "12x12",
+  "scenario": "CvC_Domination",
+  "playerID": 0,
+  "vehicles": [
+    {
+      "shipId": 4179572176,
+      "relation": 2,
+      "id": 939708163,
+      "name": "r3nFoRc3"
+    },
+    {
+      "shipId": 3969824208,
+      "relation": 1,
+      "id": 805432357,
+      "name": "punchmynuggets"
+    },
+    {
+      "shipId": 3550394352,
+      "relation": 1,
+      "id": 940086248,
+      "name": "Sakura_Isayeki"
+    },
+    {
+      "shipId": 3760142320,
+      "relation": 2,
+      "id": 805490634,
+      "name": "nexita"
+    },
+    {
+      "shipId": 3969824208,
+      "relation": 2,
+      "id": 805358935,
+      "name": "Nefaleim"
+    },
+    {
+      "shipId": 4179539696,
+      "relation": 2,
+      "id": 939878543,
+      "name": "spaleon"
+    },
+    {
+      "shipId": 4179572528,
+      "relation": 1,
+      "id": 939604712,
+      "name": "Godlyuniverse_1"
+    },
+    {
+      "shipId": 3655218480,
+      "relation": 2,
+      "id": 805584117,
+      "name": "LSERPICO"
+    },
+    {
+      "shipId": 4179539408,
+      "relation": 1,
+      "id": 805569526,
+      "name": "Bloody_FleetOfFog"
+    },
+    {
+      "shipId": 3655218480,
+      "relation": 0,
+      "id": 940041879,
+      "name": "fun6utzi"
+    },
+    {
+      "shipId": 3760109008,
+      "relation": 2,
+      "id": 939712280,
+      "name": "spakis"
+    },
+    {
+      "shipId": 3760109008,
+      "relation": 1,
+      "id": 805571641,
+      "name": "cpt_stewie"
+    },
+    {
+      "shipId": 4282267344,
+      "relation": 2,
+      "id": 939804092,
+      "name": "Cobra_Greek"
+    },
+    {
+      "shipId": 3760142032,
+      "relation": 1,
+      "id": 939928549,
+      "name": "Yuria_of_Izalith"
+    }
+  ],
+  "gameType": "ClanBattle",
+  "dateTime": "24.06.2021 22:29:20",
+  "mapName": "spaces/50_Gold_harbor",
+  "playerName": "cpt_stewie",
+  "scenarioConfigId": 227,
+  "teamsCount": 2,
+  "logic": "Domination",
+  "playerVehicle": "PRSC510-Stalingrad",
+  "battleDuration": 1200,
+  "mapBorder": null
+}

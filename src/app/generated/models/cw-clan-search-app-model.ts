@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Region } from './region';
-export interface CwClan {
+export interface CwClanSearchAppModel {
   id?: number;
   name?: null | string;
   region?: Region;

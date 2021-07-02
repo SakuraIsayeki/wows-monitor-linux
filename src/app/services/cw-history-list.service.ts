@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HistoryListRequestForm } from '@generated/forms';
-import { CwClanMatch } from '@generated/models/cw-clan-match';
+import { CwMatchAppModel } from '@generated/models';
 import { ClansService } from '@generated/services';
 import { SettingsService } from '@services/settings.service';
 import { BaseListService } from '@stewie/framework';
 import { startWith } from 'rxjs/operators';
 
 @Injectable()
-export class CwHistoryListService extends BaseListService<CwClanMatch, HistoryListRequestForm> {
+export class CwHistoryListService extends BaseListService<CwMatchAppModel, HistoryListRequestForm> {
 
   constructor(private settingsService: SettingsService,
               private clansService: ClansService) {

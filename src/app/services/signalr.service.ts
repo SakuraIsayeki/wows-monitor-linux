@@ -9,8 +9,8 @@ import { JwtAuthService } from '@services/jwt-auth.service';
 import { SettingsService } from '@services/settings.service';
 import { AUTHSERVICETOKEN, BaseInjection } from '@stewie/framework';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { distinctUntilChanged, filter, pairwise, take } from 'rxjs/operators';
-import { LivefeedItem, MatchInfo } from '../generated/models';
+import { debounceTime, distinctUntilChanged, filter, pairwise, share, take } from 'rxjs/operators';
+import { LivefeedAppModel, MatchAppModel } from '../generated/models';
 import { QrService } from '../generated/services';
 
 @Injectable()
@@ -20,10 +20,10 @@ export class SignalrService extends BaseInjection {
   private _settings: SignalrSettings;
   private _$socketStatus = new BehaviorSubject<SignalrStatus>(SignalrStatus.None);
   private _$status = new BehaviorSubject<Status>(Status.Idle);
-  private _$info = new BehaviorSubject<MatchInfo>(null);
+  private _$info = new BehaviorSubject<MatchAppModel>(null);
   private _$error = new Subject<string>();
   private _$clients = new BehaviorSubject<number>(0);
-  private _$livefeedUpdate = new BehaviorSubject<LivefeedItem[]>([]);
+  private _$livefeedUpdate = new BehaviorSubject<LivefeedAppModel[]>([]);
 
 
   get $socketStatus(): Observable<SignalrStatus> {
@@ -31,10 +31,10 @@ export class SignalrService extends BaseInjection {
   }
 
   get $status(): Observable<Status> {
-    return this._$status.asObservable();
+    return this._$status.pipe(distinctUntilChanged(), share());
   }
 
-  get $info(): Observable<MatchInfo> {
+  get $info(): Observable<MatchAppModel> {
     return this._$info.asObservable();
   }
 
@@ -49,7 +49,7 @@ export class SignalrService extends BaseInjection {
     return this._$clients.asObservable();
   }
 
-  get $livefeedUpdate(): Observable<LivefeedItem[]> {
+  get $livefeedUpdate(): Observable<LivefeedAppModel[]> {
     return this._$livefeedUpdate.asObservable();
   }
 
@@ -104,10 +104,10 @@ export class SignalrService extends BaseInjection {
     });
 
     this.connection.on('UpdateStatus', (status) => {
-      this._$status.next(status === 'fetching' ? Status.Fetching : Status.Idle);
+      this._$status.next(status);
     });
 
-    this.connection.on('UpdateInfo', (info) => {
+    this.connection.on('UpdateMatch', (info) => {
       this.uiSuccess('matchUpdated');
       this._$status.next(Status.Fetched);
       this._$info.next(info);
@@ -151,7 +151,7 @@ export class SignalrService extends BaseInjection {
       this._$status.next(Status.Idle);
     });
 
-    this.connection.on('LivefeedUpdate', (items: LivefeedItem[]) => {
+    this.connection.on('LivefeedUpdate', (items: LivefeedAppModel[]) => {
       this._$livefeedUpdate.next(items);
     });
 

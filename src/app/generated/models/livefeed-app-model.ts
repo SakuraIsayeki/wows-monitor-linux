@@ -1,10 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
+import { CwMatchAppModel } from './cw-match-app-model';
 import { ClanLeague } from './clan-league';
-import { CwClanMatch } from './cw-clan-match';
 import { Region } from './region';
-export interface LivefeedItem {
-  clanMatch?: null | CwClanMatch;
+export interface LivefeedAppModel {
+  clanMatch?: null | CwMatchAppModel;
   looserClanId?: null | number;
   looserDivision?: null | number;
   looserLeague?: null | ClanLeague;

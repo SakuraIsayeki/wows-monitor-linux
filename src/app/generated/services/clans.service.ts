@@ -9,12 +9,11 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { ClanInfo } from '../models/clan-info';
-import { ClanSearchResult } from '../models/clan-search-result';
-import { ClanSeason } from '../models/clan-season';
+import { CwClanSearchAppModel } from '../models/cw-clan-search-app-model';
+import { ClanInfoAppModel } from '../models/clan-info-app-model';
+import { ClanSeasonAppModel } from '../models/clan-season-app-model';
 import { HistoryListRequest } from '../models/history-list-request';
-import { LivefeedItem } from '../models/livefeed-item';
-import { PagedResultOfCwClanMatch } from '../models/paged-result-of-cw-clan-match';
+import { PagedResultOfCwMatchAppModel } from '../models/paged-result-of-cw-match-app-model';
 
 @Injectable({
   providedIn: 'root',
@@ -25,49 +24,6 @@ export class ClansService extends BaseService {
     http: HttpClient
   ) {
     super(config, http);
-  }
-
-  /**
-   * Path part for operation clansDummyRequest
-   */
-  static readonly ClansDummyRequestPath = '/clans/dummylivefeed';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `clansDummyRequest()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  clansDummyRequest$Response(params?: {
-  }): Observable<StrictHttpResponse<LivefeedItem>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ClansService.ClansDummyRequestPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<LivefeedItem>;
-      })
-    );
-  }
-
-  /**
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `clansDummyRequest$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  clansDummyRequest(params?: {
-  }): Observable<LivefeedItem> {
-
-    return this.clansDummyRequest$Response(params).pipe(
-      map((r: StrictHttpResponse<LivefeedItem>) => r.body as LivefeedItem)
-    );
   }
 
   /**
@@ -83,7 +39,7 @@ export class ClansService extends BaseService {
    */
   clansAutocomplete$Response(params?: {
     query?: string;
-  }): Observable<StrictHttpResponse<Array<ClanSearchResult>>> {
+  }): Observable<StrictHttpResponse<Array<CwClanSearchAppModel>>> {
 
     const rb = new RequestBuilder(this.rootUrl, ClansService.ClansAutocompletePath, 'post');
     if (params) {
@@ -96,7 +52,7 @@ export class ClansService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<ClanSearchResult>>;
+        return r as StrictHttpResponse<Array<CwClanSearchAppModel>>;
       })
     );
   }
@@ -109,10 +65,10 @@ export class ClansService extends BaseService {
    */
   clansAutocomplete(params?: {
     query?: string;
-  }): Observable<Array<ClanSearchResult>> {
+  }): Observable<Array<CwClanSearchAppModel>> {
 
     return this.clansAutocomplete$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<ClanSearchResult>>) => r.body as Array<ClanSearchResult>)
+      map((r: StrictHttpResponse<Array<CwClanSearchAppModel>>) => r.body as Array<CwClanSearchAppModel>)
     );
   }
 
@@ -129,7 +85,7 @@ export class ClansService extends BaseService {
    */
   clansResolveIds$Response(params?: {
     ids?: string;
-  }): Observable<StrictHttpResponse<Array<ClanSearchResult>>> {
+  }): Observable<StrictHttpResponse<Array<CwClanSearchAppModel>>> {
 
     const rb = new RequestBuilder(this.rootUrl, ClansService.ClansResolveIdsPath, 'post');
     if (params) {
@@ -142,7 +98,7 @@ export class ClansService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<ClanSearchResult>>;
+        return r as StrictHttpResponse<Array<CwClanSearchAppModel>>;
       })
     );
   }
@@ -155,10 +111,10 @@ export class ClansService extends BaseService {
    */
   clansResolveIds(params?: {
     ids?: string;
-  }): Observable<Array<ClanSearchResult>> {
+  }): Observable<Array<CwClanSearchAppModel>> {
 
     return this.clansResolveIds$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<ClanSearchResult>>) => r.body as Array<ClanSearchResult>)
+      map((r: StrictHttpResponse<Array<CwClanSearchAppModel>>) => r.body as Array<CwClanSearchAppModel>)
     );
   }
 
@@ -174,7 +130,7 @@ export class ClansService extends BaseService {
    * This method doesn't expect any request body.
    */
   clansSeasons$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<ClanSeason>>> {
+  }): Observable<StrictHttpResponse<Array<ClanSeasonAppModel>>> {
 
     const rb = new RequestBuilder(this.rootUrl, ClansService.ClansSeasonsPath, 'get');
     if (params) {
@@ -186,7 +142,7 @@ export class ClansService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<ClanSeason>>;
+        return r as StrictHttpResponse<Array<ClanSeasonAppModel>>;
       })
     );
   }
@@ -198,10 +154,10 @@ export class ClansService extends BaseService {
    * This method doesn't expect any request body.
    */
   clansSeasons(params?: {
-  }): Observable<Array<ClanSeason>> {
+  }): Observable<Array<ClanSeasonAppModel>> {
 
     return this.clansSeasons$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<ClanSeason>>) => r.body as Array<ClanSeason>)
+      map((r: StrictHttpResponse<Array<ClanSeasonAppModel>>) => r.body as Array<ClanSeasonAppModel>)
     );
   }
 
@@ -219,7 +175,7 @@ export class ClansService extends BaseService {
   clansDetail$Response(params: {
     id: number;
     seasonId?: number;
-  }): Observable<StrictHttpResponse<ClanInfo>> {
+  }): Observable<StrictHttpResponse<ClanInfoAppModel>> {
 
     const rb = new RequestBuilder(this.rootUrl, ClansService.ClansDetailPath, 'post');
     if (params) {
@@ -233,7 +189,7 @@ export class ClansService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<ClanInfo>;
+        return r as StrictHttpResponse<ClanInfoAppModel>;
       })
     );
   }
@@ -247,10 +203,10 @@ export class ClansService extends BaseService {
   clansDetail(params: {
     id: number;
     seasonId?: number;
-  }): Observable<ClanInfo> {
+  }): Observable<ClanInfoAppModel> {
 
     return this.clansDetail$Response(params).pipe(
-      map((r: StrictHttpResponse<ClanInfo>) => r.body as ClanInfo)
+      map((r: StrictHttpResponse<ClanInfoAppModel>) => r.body as ClanInfoAppModel)
     );
   }
 
@@ -267,7 +223,7 @@ export class ClansService extends BaseService {
    */
   clansHistory$Response(params: {
     body: HistoryListRequest
-  }): Observable<StrictHttpResponse<PagedResultOfCwClanMatch>> {
+  }): Observable<StrictHttpResponse<PagedResultOfCwMatchAppModel>> {
 
     const rb = new RequestBuilder(this.rootUrl, ClansService.ClansHistoryPath, 'post');
     if (params) {
@@ -280,7 +236,7 @@ export class ClansService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<PagedResultOfCwClanMatch>;
+        return r as StrictHttpResponse<PagedResultOfCwMatchAppModel>;
       })
     );
   }
@@ -293,10 +249,10 @@ export class ClansService extends BaseService {
    */
   clansHistory(params: {
     body: HistoryListRequest
-  }): Observable<PagedResultOfCwClanMatch> {
+  }): Observable<PagedResultOfCwMatchAppModel> {
 
     return this.clansHistory$Response(params).pipe(
-      map((r: StrictHttpResponse<PagedResultOfCwClanMatch>) => r.body as PagedResultOfCwClanMatch)
+      map((r: StrictHttpResponse<PagedResultOfCwMatchAppModel>) => r.body as PagedResultOfCwMatchAppModel)
     );
   }
 

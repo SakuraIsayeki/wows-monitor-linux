@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface MapInfo {
-  icon?: null | string;
+export interface MapAppModel {
   mapId?: number;
   name?: null | string;
 }

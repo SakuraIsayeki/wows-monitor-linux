@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BaseComponent } from '@components/base.component';
-import { ClanSearchResult } from '@generated/models/clan-search-result';
 
 @Component({
   selector: 'app-favorite-input',

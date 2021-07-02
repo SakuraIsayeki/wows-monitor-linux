@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
-import { CwClanMatch } from '@generated/models';
+import { CwMatchAppModel } from '@generated/models';
 
 @Component({
   selector: 'app-match-item',
@@ -9,7 +9,7 @@ import { CwClanMatch } from '@generated/models';
 export class MatchItemComponent extends BaseComponent implements OnInit {
 
   @Input()
-  match: CwClanMatch;
+  match: CwMatchAppModel;
 
   @Input()
   clanId: string;

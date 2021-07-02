@@ -23,8 +23,8 @@
       }">
     <div class="player-name" *ngIf="!(settings.form.monitorConfig.anonymScreenshot.value && screenshotService?.takingScreenshot)">
       <strong>
-      <span *ngIf="player.clan"
-            [style.color]="player.clan.color | sanitizeCss">[{{player.clan.tag}}]&nbsp;</span>
+      <span *ngIf="player.clanId"
+            [style.color]="player.clanColor | sanitizeCss">[{{player.clanTag}}]&nbsp;</span>
         <span>{{player.name}}</span>
       </strong>
     </div>

@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface Stats {
+export interface StatsAppModel {
   averageDamage?: number;
   averageDamageColor?: null | string;
   averageFrags?: number;

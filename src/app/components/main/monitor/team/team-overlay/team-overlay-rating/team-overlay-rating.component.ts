@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
-import { ClanRating } from '@generated/models/clan-rating';
+import { ClanRatingAppModel } from '@generated/models';
 import { Region } from '@generated/models/region';
 
 @Component({
@@ -10,7 +10,7 @@ import { Region } from '@generated/models/region';
 export class TeamOverlayRatingComponent extends BaseComponent implements OnInit {
 
   @Input()
-  rating: ClanRating;
+  rating: ClanRatingAppModel;
 
   @Input()
   region: Region;

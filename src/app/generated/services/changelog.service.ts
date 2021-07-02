@@ -9,7 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { ChangelogResponse } from '../models/changelog-response';
+import { ChangelogAppModel } from '../models/changelog-app-model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +35,7 @@ export class ChangelogService extends BaseService {
    */
   changelogLatest$Response(params?: {
     channel?: string;
-  }): Observable<StrictHttpResponse<ChangelogResponse>> {
+  }): Observable<StrictHttpResponse<ChangelogAppModel>> {
 
     const rb = new RequestBuilder(this.rootUrl, ChangelogService.ChangelogLatestPath, 'get');
     if (params) {
@@ -48,7 +48,7 @@ export class ChangelogService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<ChangelogResponse>;
+        return r as StrictHttpResponse<ChangelogAppModel>;
       })
     );
   }
@@ -61,10 +61,10 @@ export class ChangelogService extends BaseService {
    */
   changelogLatest(params?: {
     channel?: string;
-  }): Observable<ChangelogResponse> {
+  }): Observable<ChangelogAppModel> {
 
     return this.changelogLatest$Response(params).pipe(
-      map((r: StrictHttpResponse<ChangelogResponse>) => r.body as ChangelogResponse)
+      map((r: StrictHttpResponse<ChangelogAppModel>) => r.body as ChangelogAppModel)
     );
   }
 
@@ -127,7 +127,7 @@ export class ChangelogService extends BaseService {
    */
   changelogList$Response(params?: {
     channel?: string;
-  }): Observable<StrictHttpResponse<Array<ChangelogResponse>>> {
+  }): Observable<StrictHttpResponse<Array<ChangelogAppModel>>> {
 
     const rb = new RequestBuilder(this.rootUrl, ChangelogService.ChangelogListPath, 'get');
     if (params) {
@@ -140,7 +140,7 @@ export class ChangelogService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<ChangelogResponse>>;
+        return r as StrictHttpResponse<Array<ChangelogAppModel>>;
       })
     );
   }
@@ -153,10 +153,10 @@ export class ChangelogService extends BaseService {
    */
   changelogList(params?: {
     channel?: string;
-  }): Observable<Array<ChangelogResponse>> {
+  }): Observable<Array<ChangelogAppModel>> {
 
     return this.changelogList$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<ChangelogResponse>>) => r.body as Array<ChangelogResponse>)
+      map((r: StrictHttpResponse<Array<ChangelogAppModel>>) => r.body as Array<ChangelogAppModel>)
     );
   }
 
@@ -173,7 +173,7 @@ export class ChangelogService extends BaseService {
    */
   changelogDetail$Response(params?: {
     id?: number;
-  }): Observable<StrictHttpResponse<ChangelogResponse>> {
+  }): Observable<StrictHttpResponse<ChangelogAppModel>> {
 
     const rb = new RequestBuilder(this.rootUrl, ChangelogService.ChangelogDetailPath, 'post');
     if (params) {
@@ -186,7 +186,7 @@ export class ChangelogService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<ChangelogResponse>;
+        return r as StrictHttpResponse<ChangelogAppModel>;
       })
     );
   }
@@ -199,10 +199,10 @@ export class ChangelogService extends BaseService {
    */
   changelogDetail(params?: {
     id?: number;
-  }): Observable<ChangelogResponse> {
+  }): Observable<ChangelogAppModel> {
 
     return this.changelogDetail$Response(params).pipe(
-      map((r: StrictHttpResponse<ChangelogResponse>) => r.body as ChangelogResponse)
+      map((r: StrictHttpResponse<ChangelogAppModel>) => r.body as ChangelogAppModel)
     );
   }
 

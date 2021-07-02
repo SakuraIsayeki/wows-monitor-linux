@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface TeamAverage {
+export interface TeamAverageAppModel {
   medianOverallWinrate?: number;
   medianShipWinrate?: number;
   overallBattles?: number;

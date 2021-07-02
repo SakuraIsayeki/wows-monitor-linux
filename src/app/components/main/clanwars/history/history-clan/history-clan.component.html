@@ -1,5 +1,5 @@
 <p-card>
-  <div>
+  <div *ngIf="routeClan | async; let clan">
     <div class="p-d-flex p-ai-start p-jc-between p-mb-2">
       <div>
         <a (click)="back()" class="p-mb-1">

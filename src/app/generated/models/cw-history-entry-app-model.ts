@@ -3,7 +3,7 @@
 import { ClanLeague } from './clan-league';
 import { RatingTeam } from './rating-team';
 import { Region } from './region';
-export interface CwHistoryEntry {
+export interface CwHistoryEntryAppModel {
   color?: null | string;
   date?: string;
   division?: number;

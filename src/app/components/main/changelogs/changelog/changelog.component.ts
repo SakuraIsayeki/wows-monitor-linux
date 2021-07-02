@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnDestroy, Optional, SimpleChanges } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
-import { ChangelogResponse } from '@generated/models';
+import { ChangelogAppModel } from '@generated/models';
 import { ChangelogService } from '@generated/services';
 import { BaseComponent } from '@components/base.component';
 
@@ -14,7 +14,7 @@ export class ChangelogComponent extends BaseComponent implements OnChanges, OnDe
   @Input()
   id: number;
 
-  changelog: ChangelogResponse;
+  changelog: ChangelogAppModel;
 
   private changelogSubscription: Subscription;
 
@@ -44,7 +44,7 @@ export class ChangelogComponent extends BaseComponent implements OnChanges, OnDe
     }
   }
 
-  private loadChangelog(changelog: ChangelogResponse) {
+  private loadChangelog(changelog: ChangelogAppModel) {
     this.changelog = changelog;
   }
 

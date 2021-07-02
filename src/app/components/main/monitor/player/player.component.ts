@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, Optional, SecurityContext, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BaseComponent } from '@components/base.component';
-import { PlayerBackgrounds, PlayerBackgroundsMode, PlayerInfo, StatType } from '@generated/models';
+import { PlayerBackgrounds, PlayerBackgroundsMode, PlayerAppModel, StatType } from '@generated/models';
 import { ScreenshotService } from '@services/desktop/screenshot.service';
 import { SettingsService } from '@services/settings.service';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
@@ -15,7 +15,7 @@ import { MonitorComponent } from '../monitor.component';
 export class PlayerComponent extends BaseComponent implements OnInit, OnChanges {
 
   @Input()
-  playerInput: PlayerInfo;
+  playerInput: PlayerAppModel;
 
   @Input()
   cw: boolean;
@@ -33,7 +33,7 @@ export class PlayerComponent extends BaseComponent implements OnInit, OnChanges 
   borderColor: Observable<string>;
   borderEnabled: Observable<boolean>;
 
-  public player$ = new BehaviorSubject<PlayerInfo>(null);
+  public player$ = new BehaviorSubject<PlayerAppModel>(null);
   public config = this.settings.form.monitorConfig.model;
 
   constructor(public el: ElementRef,
@@ -85,7 +85,7 @@ export class PlayerComponent extends BaseComponent implements OnInit, OnChanges 
     this.borderEnabled = obs.pipe(map(d => d.borderEnabled));
   }
 
-  private getColor(playerBackgroundsMode: PlayerBackgroundsMode, playerBackgrounds: PlayerBackgrounds, player: PlayerInfo, soloStats: StatType[]) {
+  private getColor(playerBackgroundsMode: PlayerBackgroundsMode, playerBackgrounds: PlayerBackgrounds, player: PlayerAppModel, soloStats: StatType[]) {
 
     if (playerBackgroundsMode !== PlayerBackgroundsMode.Disabled) {
 

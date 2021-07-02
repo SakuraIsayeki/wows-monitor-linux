@@ -11,6 +11,7 @@ import { DownloadsService } from './services/downloads.service';
 import { IdentityService } from './services/identity.service';
 import { ProfileService } from './services/profile.service';
 import { QrService } from './services/qr.service';
+import { SignalRService } from './services/signal-r.service';
 import { StatsService } from './services/stats.service';
 
 /**
@@ -28,6 +29,7 @@ import { StatsService } from './services/stats.service';
     IdentityService,
     ProfileService,
     QrService,
+    SignalRService,
     StatsService,
     ApiConfiguration
   ],

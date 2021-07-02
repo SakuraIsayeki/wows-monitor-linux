@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { SettingsService } from '@services/settings.service';
 import { SignalrService } from '@services/signalr.service';
 import { BaseInjection } from '@stewie/framework';
-import { LivefeedItem } from '../generated/models';
+import { LivefeedAppModel } from '../generated/models';
 
 @Injectable()
 export class LivefeedService extends BaseInjection {
 
-  private _items: LivefeedItem[] = [];
+  private _items: LivefeedAppModel[] = [];
 
   get items() {
     return this._items;
@@ -30,7 +30,7 @@ export class LivefeedService extends BaseInjection {
   }
 
 
-  private addItems(items: LivefeedItem[]) {
+  private addItems(items: LivefeedAppModel[]) {
     if (items.length < 0) {
       return;
     }

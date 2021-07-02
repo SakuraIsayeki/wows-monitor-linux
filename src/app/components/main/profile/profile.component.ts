@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '@components/base.component';
-import { ProfileEdit } from '@generated/models/profile-edit';
+import { ProfileAppModel } from '@generated/models';
 import { Region } from '@generated/models/region';
 import { ProfileService } from '@generated/services/profile.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,7 +15,7 @@ import { map, switchMap, tap } from 'rxjs/operators';
 })
 export class ProfileComponent extends BaseComponent implements OnInit {
 
-  profile = this.route.data.pipe(this.untilDestroy(), map(data => data.profile as ProfileEdit));
+  profile = this.route.data.pipe(this.untilDestroy(), map(data => data.profile as ProfileAppModel));
   selectingRegion: boolean;
 
   constructor(private route: ActivatedRoute,

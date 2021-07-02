@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 import { SettingsService } from '@services/settings.service';
 import { of } from 'rxjs';
-import { MatchGroup, Region, Relation, TempArenaInfo } from '../generated/models';
+import { MatchGroup, Region, Relation, Arenainfo } from '../generated/models';
 import { StatsService } from '../generated/services';
 
 @Injectable()
@@ -11,6 +11,7 @@ export class ApiService {
   lastInfo: string;
   lastHash: string;
   static lastRegion: Region;
+  private dateRegex = new RegExp('(\\d{2})\\.(\\d{2})\\.(\\d{4})\\s(\\d{2})\\:(\\d{2})\\:(\\d{2})', 'g');
 
   constructor(private statsService: StatsService, private settingsService: SettingsService, @Inject(LoggerServiceToken) private logger: LoggerService) {
   }
@@ -22,7 +23,7 @@ export class ApiService {
   sendStats(tempArenaInfoJson: string, region: Region, force = false) {
     this.lastInfo = tempArenaInfoJson;
     ApiService.lastRegion = region;
-    const tempArenaInfo = JSON.parse(tempArenaInfoJson) as TempArenaInfo;
+    const tempArenaInfo = JSON.parse(tempArenaInfoJson) as Arenainfo;
     const hash = this.createHash(tempArenaInfo);
     if (!force && hash === this.lastHash) {
       return of();
@@ -36,10 +37,12 @@ export class ApiService {
       this.logger.error('StatsService', 'Error when reading tempArenaInfo. It\'s empty');
       return of(null);
     }
-    return this.statsService.statsSendStats({ token: this.settingsService.form.signalRToken.value, body: tempArenaInfo });
+    tempArenaInfo.token = this.settingsService.form.signalRToken.value;
+    tempArenaInfo.dateTime = new Date(tempArenaInfo.dateTime.replace(this.dateRegex, '$3-$2-$1T$4:$5:$6')).toJSON();
+    return this.statsService.statsSendStats({ body: tempArenaInfo });
   }
 
-  private createHash(info: TempArenaInfo): string {
+  private createHash(info: Arenainfo): string {
     return info.vehicles
       .filter(v => v.relation !== Relation.Self)
       .map(v => v.name)

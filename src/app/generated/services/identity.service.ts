@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { CustomUserInfoResult } from '../models/custom-user-info-result';
-import { TokenResponse } from '../models/token-response';
+import { TokenAppModel } from '../models/token-app-model';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +36,7 @@ export class IdentityService extends BaseService {
    */
   identityRefreshToken$Response(params?: {
     refreshToken?: string;
-  }): Observable<StrictHttpResponse<TokenResponse>> {
+  }): Observable<StrictHttpResponse<TokenAppModel>> {
 
     const rb = new RequestBuilder(this.rootUrl, IdentityService.IdentityRefreshTokenPath, 'get');
     if (params) {
@@ -49,7 +49,7 @@ export class IdentityService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<TokenResponse>;
+        return r as StrictHttpResponse<TokenAppModel>;
       })
     );
   }
@@ -62,10 +62,10 @@ export class IdentityService extends BaseService {
    */
   identityRefreshToken(params?: {
     refreshToken?: string;
-  }): Observable<TokenResponse> {
+  }): Observable<TokenAppModel> {
 
     return this.identityRefreshToken$Response(params).pipe(
-      map((r: StrictHttpResponse<TokenResponse>) => r.body as TokenResponse)
+      map((r: StrictHttpResponse<TokenAppModel>) => r.body as TokenAppModel)
     );
   }
 

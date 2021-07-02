@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ClanRating } from '@generated/models';
+import { ClanRatingAppModel } from '@generated/models';
 
 @Component({
   selector: 'app-clanrating-info',
@@ -8,9 +8,10 @@ import { ClanRating } from '@generated/models';
 export class ClanratingInfoComponent implements OnInit {
 
   @Input()
-  rating: ClanRating;
+  rating: ClanRatingAppModel;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

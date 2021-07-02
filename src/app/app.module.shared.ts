@@ -1,5 +1,5 @@
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { ErrorHandler, forwardRef, Inject, Injectable, Injector, NgModule } from '@angular/core';
+import { ErrorHandler, Inject, Injectable, Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ConnectComponent } from '@components/connect/connect.component';
 import { environment } from '@environments/environment';
@@ -11,6 +11,8 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateParser, TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@services/api.service';
 import { AppInitService } from '@services/app-init.service';
+import { ClientIdHttpInterceptor } from '@services/client-id.http-interceptor';
+import { ClientVersionHttpInterceptor } from '@services/client-version.http-interceptor';
 import { CommonErrorHandler } from '@services/common-error.handler';
 import { CustomMissingTranslationHandler } from '@services/custom-missing-translation.handler';
 import { CwHistoryListService } from '@services/cw-history-list.service';
@@ -122,7 +124,7 @@ const metaFactory = (translate: TranslateService) => {
     { provide: HTTP_INTERCEPTORS, useClass: RegionRequestInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ClientIdHttpInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: ClientVersionHttpInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ClientVersionHttpInterceptor, multi: true },
     ApiService,
     ResizeService,
     LoggerServiceDepHolder,

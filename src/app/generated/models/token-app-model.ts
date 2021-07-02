@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface TokenResponse {
+export interface TokenAppModel {
   refreshToken?: null | string;
   token?: null | string;
 }

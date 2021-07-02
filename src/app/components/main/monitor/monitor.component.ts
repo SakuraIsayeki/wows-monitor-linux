@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, HostBinding, Inject, OnInit, Optional, ViewChild } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
 import { faPaintBrush, faWifi } from '@fortawesome/free-solid-svg-icons';
-import { FontSize } from '@generated/models';
-import { PlayerInfo } from '@generated/models/player-info';
+import { FontSize, PlayerAppModel } from '@generated/models';
+import {  } from '@generated/models';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from '@services/settings.service';
@@ -50,7 +50,7 @@ export class MonitorComponent extends BaseComponent implements OnInit, AfterView
 
   }
 
-  clickPlayer(event: MouseEvent, player: PlayerInfo) {
+  clickPlayer(event: MouseEvent, player: PlayerAppModel) {
     if (player.hidden || player.bot) {
       return;
     }
@@ -67,7 +67,7 @@ export class MonitorComponent extends BaseComponent implements OnInit, AfterView
     this.contextMenu.toggle(event);
   }
 
-  openWowsNumbers(player: PlayerInfo) {
+  openWowsNumbers(player: PlayerAppModel) {
     const baseUrl = WowsNumbersPipe.staticTransform(player.region);
     const url = `${baseUrl}player/${player.accountId},${player.name}/`;
     if (this.isBrowserApp) {
@@ -78,7 +78,7 @@ export class MonitorComponent extends BaseComponent implements OnInit, AfterView
     this.contextMenu.hide();
   }
 
-  openWowsKarma(player: PlayerInfo) {
+  openWowsKarma(player: PlayerAppModel) {
     const baseUrl = WowsKarmaPipe.staticTransform(player.region);
     const url = `${baseUrl}player/${player.accountId},${player.name}/`;
     if (this.isBrowserApp) {

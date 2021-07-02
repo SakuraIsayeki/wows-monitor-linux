@@ -1,11 +1,12 @@
 /* tslint:disable */
 /* eslint-disable */
+import { ShipTier } from './ship-tier';
 import { ShipType } from './ship-type';
-export interface ShipInfo {
+export interface ShipAppModel {
   id?: number;
   name?: null | string;
   testship?: boolean;
-  tier?: number;
+  tier?: ShipTier;
   type?: ShipType;
 }
 

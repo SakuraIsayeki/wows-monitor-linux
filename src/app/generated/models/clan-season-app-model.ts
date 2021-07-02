@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface ClanSeason {
+export interface ClanSeasonAppModel {
   label?: null | string;
   value?: number;
 }

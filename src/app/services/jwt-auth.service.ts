@@ -3,7 +3,7 @@ import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import { environment } from '@environments/environment';
 import { CustomUserInfoResult } from '@generated/models/custom-user-info-result';
 import { Region } from '@generated/models/region';
-import { TokenResponse } from '@generated/models/token-response';
+import { TokenAppModel } from '@generated/models';
 import { IdentityService } from '@generated/services/identity.service';
 import { BaseInjection } from '@stewie/framework';
 import { AuthService } from '@stewie/framework/lib/auth/auth.service';
@@ -98,7 +98,7 @@ export class JwtAuthService extends BaseInjection implements AuthService {
         if (event.data.error) {
           this.uiError(event.data.error);
         } else {
-          const tokenResponse = event.data as TokenResponse;
+          const tokenResponse = event.data as TokenAppModel;
           this.token = tokenResponse.token;
           this.refreshToken = tokenResponse.refreshToken;
           this.loadUserInfo();
@@ -144,7 +144,7 @@ export class JwtAuthService extends BaseInjection implements AuthService {
     });
   }
 
-  public getRefreshToken(refreshToken?: string): Observable<TokenResponse> {
+  public getRefreshToken(refreshToken?: string): Observable<TokenAppModel> {
     if (!refreshToken) {
       refreshToken = this.refreshToken;
     }

@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
-import { CwClanMatch } from './cw-clan-match';
-export interface PagedResultOfCwClanMatch {
+import { CwMatchAppModel } from './cw-match-app-model';
+export interface PagedResultOfCwMatchAppModel {
   count?: number;
-  items?: null | Array<CwClanMatch>;
+  items?: null | Array<CwMatchAppModel>;
   page?: number;
   pageSize?: number;
   totalCount?: number;

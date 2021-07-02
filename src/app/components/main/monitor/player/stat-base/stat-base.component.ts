@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
-import { PlayerInfo } from '@generated/models/player-info';
+import { PlayerAppModel, StatsAppModel } from '@generated/models';
 import { StatType } from '@generated/models/stat-type';
-import { Stats } from '@generated/models/stats';
 import { SettingsService } from '@services/settings.service';
 import { LocatorService } from '@stewie/framework';
 import { Observable, of } from 'rxjs';
@@ -14,14 +13,14 @@ import { map, startWith } from 'rxjs/operators';
 export class StatBaseComponent extends BaseComponent {
 
   @Input()
-  public player: PlayerInfo;
+  public player: PlayerAppModel;
 
   @Input()
   public cw: boolean;
 
   protected settings: SettingsService;
 
-  public stats: Observable<Stats>;
+  public stats: Observable<StatsAppModel>;
   public soloStats: Observable<boolean>;
 
   constructor(private statType: StatType, private ship = false) {

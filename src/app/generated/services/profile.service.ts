@@ -9,7 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { ProfileEdit } from '../models/profile-edit';
+import { ProfileAppModel } from '../models/profile-app-model';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +34,7 @@ export class ProfileService extends BaseService {
    * This method doesn't expect any request body.
    */
   profileGet$Response(params?: {
-  }): Observable<StrictHttpResponse<ProfileEdit>> {
+  }): Observable<StrictHttpResponse<ProfileAppModel>> {
 
     const rb = new RequestBuilder(this.rootUrl, ProfileService.ProfileGetPath, 'get');
     if (params) {
@@ -46,7 +46,7 @@ export class ProfileService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<ProfileEdit>;
+        return r as StrictHttpResponse<ProfileAppModel>;
       })
     );
   }
@@ -58,10 +58,10 @@ export class ProfileService extends BaseService {
    * This method doesn't expect any request body.
    */
   profileGet(params?: {
-  }): Observable<ProfileEdit> {
+  }): Observable<ProfileAppModel> {
 
     return this.profileGet$Response(params).pipe(
-      map((r: StrictHttpResponse<ProfileEdit>) => r.body as ProfileEdit)
+      map((r: StrictHttpResponse<ProfileAppModel>) => r.body as ProfileAppModel)
     );
   }
 

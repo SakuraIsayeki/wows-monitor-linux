@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import { BaseComponent } from '@components/base.component';
-import { ClanInfo, TeamAverage } from '@generated/models';
+import { ClanInfoAppModel, TeamAverageAppModel } from '@generated/models';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from '@services/settings.service';
 import { MenuItem } from 'primeng/api';
@@ -20,10 +20,10 @@ marker('monitor.cw.leagues.4');
 export class TeamComponent extends BaseComponent implements OnInit {
 
   @Input()
-  clan: ClanInfo;
+  clan: ClanInfoAppModel;
 
   @Input()
-  averages: TeamAverage[];
+  averages: TeamAverageAppModel[];
 
   @Input()
   cw: boolean;
