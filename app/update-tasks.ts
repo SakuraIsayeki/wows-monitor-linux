@@ -21,10 +21,15 @@ export function initUpdater(logger: electronLogger.ElectronLog, win: BrowserWind
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
 
+  const isPortable = process.env.PORTABLE_EXECUTABLE_DIR != null;
+  if(isPortable){
+    logger.info('[Electron]', 'Portable app detected');
+  }
+
 
   ipcMain.on('checkForUpdate', (event, args) => {
     logger.debug('[Electron]', '(checkForUpdate)');
-    if (isDebug) {
+    if (isDebug || isPortable) {
       win.webContents.send('update-not-available');
     } else {
       autoUpdater.checkForUpdates();

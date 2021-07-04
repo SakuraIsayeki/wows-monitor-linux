@@ -347,7 +347,7 @@
 			},
 			"autoUpdate": {
 				"caption": "Automatic Update",
-				"summary": "When enabled app will check for a new version at each start. Highly recommended."
+				"summary": "When enabled app will check for a new version at each start. Highly recommended.\r\nThis will have no effect if you are using the portable version."
 			},
 			"closeToTray": {
 				"caption": "Close to tray",

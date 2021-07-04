@@ -17,9 +17,13 @@ function initUpdater(logger, win, isDebug) {
     });
     electron_updater_1.autoUpdater.autoDownload = false;
     electron_updater_1.autoUpdater.autoInstallOnAppQuit = false;
+    var isPortable = process.env.PORTABLE_EXECUTABLE_DIR != null;
+    if (isPortable) {
+        logger.info('[Electron]', 'Portable app detected');
+    }
     electron_1.ipcMain.on('checkForUpdate', function (event, args) {
         logger.debug('[Electron]', '(checkForUpdate)');
-        if (isDebug) {
+        if (isDebug || isPortable) {
             win.webContents.send('update-not-available');
         }
         else {
