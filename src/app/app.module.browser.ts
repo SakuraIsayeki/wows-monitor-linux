@@ -15,6 +15,21 @@ import { DummyUpdateService } from '@services/dummy-update.service';
 import { AppWrapperComponent } from './app.component';
 import { AppSharedModule } from './app.module.shared';
 
+const gtagJs = document.createElement('script');
+gtagJs.setAttribute('async', null);
+gtagJs.src = 'https://www.googletagmanager.com/gtag/js?id='+environment.gaCode;
+gtagJs.addEventListener('load', () => {
+  (window as any)['gtag'] = function gtag() {
+    (window as any).dataLayer.push(arguments);
+  };
+
+  (window as any)['gtag']('js', new Date());
+})
+document.head.append(gtagJs);
+(window as any).dataLayer = (window as any).dataLayer || [];
+
+
+
 const updateServiceFactory = (swUpdate?: SwUpdate, logger?: LoggerService) => {
   return environment.production
     ? new ServiceWorkerUpdateService(swUpdate, logger)

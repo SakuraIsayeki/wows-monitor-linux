@@ -22,27 +22,27 @@ export class BrowserGoogleAnalyticsService implements AnalyticsService {
 
   constructor(private settingsService: SettingsService,
               @Inject(AUTHSERVICETOKEN) private authService: JwtAuthService) {
-    // fromPromise(this.settingsService.waitForInitialized()).pipe(
-    //   switchMap(() => interval(90000).pipe(skipWhile(() => gtag === undefined)))
-    // ).subscribe(() => {
-    //   if(this.settingsService.form.monitorConfig.enableAnalytics.value){
-    //     this.send('heartbeat', 'heartbeat', 'heartbeat', 'heartbeat');
-    //   }
-    // });
+    fromPromise(this.settingsService.waitForInitialized()).pipe(
+      switchMap(() => interval(90000).pipe(skipWhile(() => gtag === undefined)))
+    ).subscribe(() => {
+      if(this.settingsService.form.monitorConfig.enableAnalytics.value){
+        this.send('heartbeat', 'heartbeat', 'heartbeat', 'heartbeat');
+      }
+    });
   }
 
   config(path: string, title?: string) {
     if (!this.settingsService.form.monitorConfig.enableAnalytics.value) {
       return;
     }
-    // this.gtagDefined().subscribe(() => {
-    //   gtag('config', environment.gaCode, {
-    //     page_title: title,
-    //     page_path: path,
-    //     user_id: this.authService.userInfo.uuid ?? this.settingsService.form.uuid.value,
-    //     anonymize_ip: this.settingsService.form.monitorConfig.anonymIp.value
-    //   });
-    // });
+    this.gtagDefined().subscribe(() => {
+      gtag('config', environment.gaCode, {
+        page_title: title,
+        page_path: path,
+        user_id: this.authService.userInfo.uuid ?? this.settingsService.form.uuid.value,
+        anonymize_ip: this.settingsService.form.monitorConfig.anonymIp.value
+      });
+    });
   }
 
   exception(error: string) {
