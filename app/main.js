@@ -185,6 +185,8 @@ function appReady() {
             electron: require(__dirname + "/../node_modules/electron")
         });
         win.loadURL('http://localhost:4200');
+        var ua = win.webContents.userAgent;
+        console.log(ua);
         win.webContents.openDevTools();
     }
     else {

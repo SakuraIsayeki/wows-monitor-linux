@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShowdownComponent } from '@shared/components/showdown/showdown.component';
+import { DeviceNamePipe } from '@shared/pipes/device-name.pipe';
 
 import { PipesModule } from '@stewie/framework';
 import { ButtonModule } from 'primeng/button';
@@ -49,7 +50,8 @@ import { FilePickerComponent } from './components/file-picker/file-picker.compon
     ResolveClansPipe,
     Primetime2RegionPipe,
     ShowdownComponent,
-    FilePickerComponent
+    FilePickerComponent,
+    DeviceNamePipe
   ],
   exports: [
     IsDesktopDirective,
@@ -72,7 +74,8 @@ import { FilePickerComponent } from './components/file-picker/file-picker.compon
     ResolveClansPipe,
     Primetime2RegionPipe,
     ShowdownComponent,
-    FilePickerComponent
+    FilePickerComponent,
+    DeviceNamePipe
   ],
   imports: [
     PipesModule,

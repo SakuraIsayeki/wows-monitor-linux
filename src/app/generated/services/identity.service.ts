@@ -36,11 +36,13 @@ export class IdentityService extends BaseService {
    */
   identityRefreshToken$Response(params?: {
     refreshToken?: string;
+    deviceId?: string;
   }): Observable<StrictHttpResponse<TokenAppModel>> {
 
     const rb = new RequestBuilder(this.rootUrl, IdentityService.IdentityRefreshTokenPath, 'get');
     if (params) {
       rb.query('refreshToken', params.refreshToken, {});
+      rb.query('deviceId', params.deviceId, {});
     }
 
     return this.http.request(rb.build({
@@ -62,10 +64,57 @@ export class IdentityService extends BaseService {
    */
   identityRefreshToken(params?: {
     refreshToken?: string;
+    deviceId?: string;
   }): Observable<TokenAppModel> {
 
     return this.identityRefreshToken$Response(params).pipe(
       map((r: StrictHttpResponse<TokenAppModel>) => r.body as TokenAppModel)
+    );
+  }
+
+  /**
+   * Path part for operation identityLogout
+   */
+  static readonly IdentityLogoutPath = '/identity/logout';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `identityLogout()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  identityLogout$Response(params?: {
+    deviceId?: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, IdentityService.IdentityLogoutPath, 'get');
+    if (params) {
+      rb.query('deviceId', params.deviceId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `identityLogout$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  identityLogout(params?: {
+    deviceId?: string;
+  }): Observable<void> {
+
+    return this.identityLogout$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
 

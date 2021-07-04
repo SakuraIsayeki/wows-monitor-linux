@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProfileResolver } from '@components/main/profile/profile.resolver';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '@shared/shared.module';
+import { PipesModule } from '@stewie/framework';
 import { BlockUIModule } from 'primeng/blockui';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -30,7 +32,9 @@ import { ProfileComponent } from './profile.component';
     ButtonModule,
     BlockUIModule,
     TooltipModule,
-    InputSwitchModule
+    InputSwitchModule,
+    PipesModule,
+    SharedModule
   ],
   providers: [
     ProfileResolver

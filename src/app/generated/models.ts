@@ -29,6 +29,7 @@ export { CustomUserInfoResult } from './models/custom-user-info-result';
 export { UserInfoResult } from './models/user-info-result';
 export { ProfileAppModel } from './models/profile-app-model';
 export { ProfileWgAccountAppModel } from './models/profile-wg-account-app-model';
+export { ProfileDevice } from './models/profile-device';
 export { SignalRModelDummy } from './models/signal-r-model-dummy';
 export { LivefeedAppModel } from './models/livefeed-app-model';
 export { GatewayStatus } from './models/gateway-status';

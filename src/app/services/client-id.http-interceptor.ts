@@ -1,5 +1,8 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { JwtAuthService } from '@services/jwt-auth.service';
+import { SettingsService } from '@services/settings.service';
+import { AUTHSERVICETOKEN, LocatorService } from '@stewie/framework';
 import { Observable } from 'rxjs';
 
 declare var ga: any;
@@ -8,10 +11,15 @@ declare var ga: any;
 export class ClientIdHttpInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    var tracker = ga.getAll();
-    if (tracker && tracker.length > 0) {
-      req.headers.set('x-ga-clientId', tracker[0].get('clientId'));
+    console.log(req.url);
+    const authService = LocatorService.Injector.get(AUTHSERVICETOKEN) as JwtAuthService;
+    const settings = LocatorService.Injector.get(SettingsService) as SettingsService;
+
+    const uuid = authService?.userInfo?.uuid ?? settings?.form?.uuid?.value;
+    if (uuid) {
+      req = req.clone({ setHeaders: { 'x-ga-clientId': uuid } });
     }
+
     return next.handle(req);
   }
 

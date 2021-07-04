@@ -38,6 +38,7 @@ export class AppWrapperComponent extends BaseComponent {
               @Inject(ElectronServiceToken) private electronService: ElectronService,
               @Inject(UpdateServiceToken) private updateService: UpdateService) {
     super();
+
   }
 
   ngOnInit() {

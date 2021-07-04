@@ -1,3 +1,4 @@
+import { constructUserAgent } from '@stewieoo/signalr/dist/esm/Utils';
 import { app, BrowserWindow, globalShortcut, Menu, screen, Tray } from 'electron';
 import * as logger from 'electron-log';
 import { autoUpdater } from 'electron-updater';
@@ -165,6 +166,9 @@ function appReady() {
       electron: require(`${__dirname}/../node_modules/electron`)
     });
     win.loadURL('http://localhost:4200');
+
+    const ua = win.webContents.userAgent;
+    console.log(ua);
 
     win.webContents.openDevTools();
 

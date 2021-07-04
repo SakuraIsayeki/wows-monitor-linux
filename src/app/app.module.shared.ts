@@ -11,6 +11,7 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateParser, TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@services/api.service';
 import { AppInitService } from '@services/app-init.service';
+import { ClientIdHttpInterceptor } from '@services/client-id.http-interceptor';
 import { ClientVersionHttpInterceptor } from '@services/client-version.http-interceptor';
 import { CommonErrorHandler } from '@services/common-error.handler';
 import { CustomMissingTranslationHandler } from '@services/custom-missing-translation.handler';
@@ -123,7 +124,7 @@ const metaFactory = (translate: TranslateService) => {
     GatewayService,
     { provide: HTTP_INTERCEPTORS, useClass: RegionRequestInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: ClientIdHttpInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ClientIdHttpInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ClientVersionHttpInterceptor, multi: true },
     ApiService,
     ResizeService,

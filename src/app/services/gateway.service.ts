@@ -78,8 +78,11 @@ export class GatewayService extends BaseInjection {
       liveUpdate: this.settingsService.form.livefeedConfig.liveUpdate.model
     };
 
-    this.authService.isAuthenticated$.pipe(pairwise()).subscribe(([prev, curr]) => {
+    this.authService.isAuthenticated$.pipe(pairwise()).subscribe(async ([prev, curr]) => {
       if (prev != true && curr == true) {
+        const appConfig = await this.settingsService.loadConfig();
+        this.settingsService.form.setValue(appConfig, { emitEvent: false });
+        this.settingsService.form.uuid.setValue(this.authService.userInfo.uuid, { emitEvent: false });
         this.gatewayTokenService.setToken(null);
       }
       if (prev != null && prev != curr) {
@@ -139,7 +142,7 @@ export class GatewayService extends BaseInjection {
     this.connection.on('ReceiveConfig', (config) => {
       this.ngZone.run(() => {
         this.settingsService.form.setValue(config, { emitEvent: false, emitModelToViewChange: true });
-        this.settingsService.save(true);
+        this.settingsService.save(true).subscribe();
       });
     });
 

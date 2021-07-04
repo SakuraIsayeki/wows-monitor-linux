@@ -16,6 +16,6 @@ export interface AppConfig {
   seenChangelogs?: null | Array<number>;
   selectedDirectory?: null | string;
   signalRToken?: null | string;
-  uuid?: null | string;
+  uuid?: string;
 }
 

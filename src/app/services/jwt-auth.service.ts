@@ -1,10 +1,11 @@
-import { Injectable, Renderer2 } from '@angular/core';
+import { Inject, Injectable, Renderer2 } from '@angular/core';
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import { environment } from '@environments/environment';
 import { CustomUserInfoResult } from '@generated/models/custom-user-info-result';
 import { Region } from '@generated/models/region';
 import { TokenAppModel } from '@generated/models';
 import { IdentityService } from '@generated/services/identity.service';
+import { DeviceUuidService, DeviceUuidServiceToken } from '@services/device-uuid.service';
 import { BaseInjection } from '@stewie/framework';
 import { AuthService } from '@stewie/framework/lib/auth/auth.service';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
@@ -21,7 +22,8 @@ export class JwtAuthService extends BaseInjection implements AuthService {
   private _userinfo$ = new BehaviorSubject<CustomUserInfoResult>(null);
   private _isLoaded$ = new BehaviorSubject(false);
 
-  constructor(private identityService: IdentityService) {
+  constructor(private identityService: IdentityService,
+              @Inject(DeviceUuidServiceToken) private uuid: DeviceUuidService) {
     super();
     this.loadUserInfo();
     //this.getRefreshToken().subscribe(() => this.loadUserInfo());
@@ -73,6 +75,7 @@ export class JwtAuthService extends BaseInjection implements AuthService {
 
   login(model: { renderer: Renderer2, region: Region }): Observable<any> {
     let url = environment.apiUrl + `/identity/login/${model.region}?opener=` + window.location.origin;
+    url += "&device_id=" + this.uuid.getUuid();
 
     const refreshObs = !this.isAuthenticated
       ? of(null)
@@ -125,11 +128,19 @@ export class JwtAuthService extends BaseInjection implements AuthService {
     }));
   }
 
-  logout(): Subscription {
-    sessionStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
-    this.loadUserInfo();
-    return of(null).subscribe();
+  logout(onlyLocal: boolean = false): Subscription {
+    if(onlyLocal){
+      sessionStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+      this.loadUserInfo();
+      return of().subscribe();
+    }
+
+    return this.identityService.identityLogout({deviceId: this.uuid.getUuid()}).subscribe(() => {
+      sessionStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+      this.loadUserInfo();
+    });
   }
 
   loadUserInfo(): any {

@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
 export class ClientVersionHttpInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    req.headers.set('x-client-version', staticValues.version);
-    return next.handle(req);
+    return next.handle(req.clone({ setHeaders: { 'x-client-version': staticValues.version } }));
   }
 
 }

@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { JwtAuthService } from '@services/jwt-auth.service';
 import { AUTHSERVICETOKEN, BaseInjection, DynamicDialogService, StDatePipe } from '@stewie/framework';
 import { interval, Observable, of, Subject } from 'rxjs';
-import { debounceTime, skipWhile, switchMap, take } from 'rxjs/operators';
+import { debounceTime, filter, first, map, pairwise, skip, skipWhile, switchMap, take, tap } from 'rxjs/operators';
 
 @Injectable()
 export class SettingsService extends BaseInjection {
@@ -23,51 +23,58 @@ export class SettingsService extends BaseInjection {
               private dynamicDialog: DynamicDialogService,
               private translate: TranslateService) {
     super();
+
   }
 
-  async initialize(): Promise<boolean> {
+  public async loadConfig(){
     let localConfig: AppConfig;
     let remoteConfig: AppConfig;
     let useConfig: AppConfig;
-    try {
-      const configItem = localStorage.getItem('config');
-      if (!configItem) {
-        throw new Error('No config found');
-      }
+    const configItem = localStorage.getItem('config');
+    if (!configItem) {
+      throw new Error('No config found');
+    }
 
-      localConfig = JSON.parse(configItem) as AppConfig;
+    localConfig = JSON.parse(configItem) as AppConfig;
 
 
-      if (this.authService.userInfo.syncSettings && this.authService.isAuthenticated) {
-        remoteConfig = await this.configService.configGet().toPromise();
-      }
-      if (remoteConfig?.lastSave != null && new Date(remoteConfig.lastSave).getTime() != new Date(localConfig.lastSave).getTime()) {
-        // lastSave difference
-        const dialogResult = await this.dynamicDialog.open({
-          config: {
-            header: this.translate.instant('settings.remoteConfig.header'),
-            closable: false,
-            modal: true
+    if (this.authService.userInfo.syncSettings && this.authService.isAuthenticated) {
+      remoteConfig = await this.configService.configGet().toPromise();
+    }
+    if (remoteConfig?.lastSave != null && new Date(remoteConfig.lastSave).getTime() != new Date(localConfig.lastSave).getTime()) {
+      // lastSave difference
+      const dialogResult = await this.dynamicDialog.open({
+        config: {
+          header: this.translate.instant('settings.remoteConfig.header'),
+          closable: false,
+          modal: true
+        },
+        content: this.translate.instant('settings.remoteConfig.content'),
+        buttons: [
+          {
+            id: 'local',
+            icon: 'pi pi-desktop',
+            label: await new StDatePipe(this.translate).transform(new Date(localConfig.lastSave), 'medium-s').pipe(take(1)).toPromise()
           },
-          content: this.translate.instant('settings.remoteConfig.content'),
-          buttons: [
-            {
-              id: 'local',
-              icon: 'pi pi-desktop',
-              label: await new StDatePipe(this.translate).transform(new Date(localConfig.lastSave), 'medium-s').pipe(take(1)).toPromise()
-            },
-            {
-              id: 'remote',
-              icon: 'pi pi-cloud',
-              label: await new StDatePipe(this.translate).transform(new Date(remoteConfig.lastSave), 'medium-s').pipe(take(1)).toPromise()
-            }
-          ]
-        }).toPromise();
-        useConfig = dialogResult === 'local' ? localConfig : remoteConfig;
-      } else {
-        useConfig = localConfig;
-      }
+          {
+            id: 'remote',
+            icon: 'pi pi-cloud',
+            label: await new StDatePipe(this.translate).transform(new Date(remoteConfig.lastSave), 'medium-s').pipe(take(1)).toPromise()
+          }
+        ]
+      }).toPromise();
+      useConfig = dialogResult === 'local' ? localConfig : remoteConfig;
+    } else {
+      useConfig = localConfig;
+    }
 
+    return useConfig;
+  }
+
+  async initialize(): Promise<boolean> {
+
+    try {
+      const useConfig = await this.loadConfig();
       this.initForm(useConfig);
       this.initialized = true;
       return true;
@@ -93,14 +100,14 @@ export class SettingsService extends BaseInjection {
 
   public settingsSaved$ = new Subject();
 
-  save(fromGateway: boolean = false): Observable<any> {
+  save(fromGateway: boolean = false, fromAuth = false): Observable<any> {
 
     if (!fromGateway) {
       this._form.lastSave.setValue(new Date().toJSON(), { emitEvent: false });
     }
     const config = this._form.model;
     localStorage.setItem('config', JSON.stringify(config));
-    if (!fromGateway) {
+    if (!fromGateway && !fromAuth) {
       this.settingsSaved$.next();
     }
     if (!fromGateway && this.authService.isAuthenticated) {

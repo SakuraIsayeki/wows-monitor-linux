@@ -35,7 +35,8 @@ export class GatewayTokenService {
   }
 
   setToken(token: string) {
-    this.settings.form.signalRToken.setValue(token);
+    this.settings.form.signalRToken.setValue(token, {emitEvent: false});
+    this.settings.save(true, true).subscribe();
     this._tokenChanged$.next(token);
   }
 }

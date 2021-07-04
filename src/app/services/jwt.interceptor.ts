@@ -61,7 +61,7 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   private logout(err): Observable<HttpEvent<any>> {
-    this.authService.logout();
+    this.authService.logout(true);
     return throwError(err);
   }
 

@@ -219,7 +219,19 @@
 		"pickFolder": "Select your game folder"
 	},
 	"profile": {
-		"header": "Profile",
+		"devices": {
+			"header": "Connected Devices",
+			"ip": "Ip",
+			"lastLogin": "Last Session",
+			"logout": {
+				"content": "Are you sure you want to log out from this device?",
+				"header": "Log out from device",
+				"cancel": "Cancel",
+				"logout": "Yes, log out"
+			},
+			"name": "Device"
+		},
+		"header": "Account",
 		"logout": "Logout",
 		"settings": {
 			"description": "When enabled your settings will be synced across all your devices and saved in the database with your account.",
@@ -421,6 +433,10 @@
 		"cwFeedUpdated": {
 			"detail": "Clanwar feed updated",
 			"summary": "Update"
+		},
+		"deviceLoggedOut": {
+			"detail": "Logged out from device",
+			"summary": "Success"
 		},
 		"hostConnected": {
 			"detail": "Desktop client connected",

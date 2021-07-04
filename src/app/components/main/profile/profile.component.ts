@@ -3,18 +3,22 @@ import { ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '@components/base.component';
 import { ProfileAppModel } from '@generated/models';
 import { Region } from '@generated/models/region';
+import { IdentityService } from '@generated/services/identity.service';
 import { ProfileService } from '@generated/services/profile.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DeviceUuidService, DeviceUuidServiceToken } from '@services/device-uuid.service';
 import { JwtAuthService } from '@services/jwt-auth.service';
 import { AUTHSERVICETOKEN, DynamicDialogService } from '@stewie/framework';
 import { of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
+import * as deviceUuid from 'device-uuid';
 
 @Component({
   templateUrl: './profile.component.html'
 })
 export class ProfileComponent extends BaseComponent implements OnInit {
 
+  ownUuid: string;
   profile = this.route.data.pipe(this.untilDestroy(), map(data => data.profile as ProfileAppModel));
   selectingRegion: boolean;
 
@@ -23,8 +27,11 @@ export class ProfileComponent extends BaseComponent implements OnInit {
               private profileService: ProfileService,
               private translate: TranslateService,
               @Inject(AUTHSERVICETOKEN) private authService: JwtAuthService,
-              private dynamicDialog: DynamicDialogService) {
+              private dynamicDialog: DynamicDialogService,
+              private identityService: IdentityService,
+              @Inject(DeviceUuidServiceToken) private uuidService: DeviceUuidService) {
     super();
+    this.ownUuid = this.uuidService.getUuid();
   }
 
   ngOnInit(): void {
@@ -95,5 +102,35 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.router.navigateByUrl('/');
+  }
+
+  logoutDevice(deviceId: string){
+    this.dynamicDialog.open({
+      content: this.translate.instant('profile.devices.logout.content'),
+      config: {
+        header: this.translate.instant('profile.devices.logout.header')
+      },
+      buttons: [
+        {
+          id: 'cancel',
+          class: 'p-button-secondary',
+          label: this.translate.instant('profile.devices.logout.cancel')
+        },
+        {
+          id: 'ok',
+          class: 'p-button-danger',
+          icon: 'pi pi-sign-out',
+          label: this.translate.instant('profile.devices.logout.logout')
+        }
+      ]
+    }).subscribe(id => {
+      if (id === 'ok') {
+        this.identityService.identityLogout({deviceId: deviceId}).subscribe(() => {
+          this.uiSuccess('deviceLoggedOut');
+          this.router.navigate(['.'], { relativeTo: this.route });
+        });
+      }
+    });
   }
 }

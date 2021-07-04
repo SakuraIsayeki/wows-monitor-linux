@@ -37,7 +37,7 @@
           <ng-template pTemplate="body" let-acc>
             <tr>
               <td class="p-text-left">
-                <img style="height: 2rem;" class="p-mr-2" src="assets/region-{{acc.region}}.svg"/>
+                <img style="height: 2rem;" src="assets/region-{{acc.region}}.svg"/>
               </td>
               <td class="p-text-left" style="overflow: hidden;text-overflow: ellipsis">{{acc.name}}</td>
               <td class="p-text-center">
@@ -57,10 +57,44 @@
           </ng-template>
         </p-table>
       </div>
-
-      <div class="p-d-flex p-jc-end">
+      <div class="p-d-flex p-jc-end p-mb-4">
         <button pButton icon="pi pi-plus" class="p-button-success" [label]="'profile.wgAccounts.add' | translate" (click)="selectingRegion = true"></button>
       </div>
+
+      <h3>{{'profile.devices.header' | translate}}</h3>
+
+      <div class="p-mb-3 p-mb-4">
+        <p-table [value]="data.devices" styleClass="p-datatable-sm">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 8.5rem;">{{'profile.devices.ip' | translate}}</th>
+              <th>{{'profile.devices.name' | translate}}</th>
+              <th style="width: 11.5rem;">{{'profile.devices.lastLogin' | translate}}</th>
+              <th style="width: 4.5rem;"></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-dev>
+            <tr>
+              <td class="p-text-left">
+                {{dev.deviceIp}}
+              </td>
+              <td class="p-text-left" style="overflow: hidden;text-overflow: ellipsis; white-space: nowrap">
+                <span>{{ dev.deviceName | deviceName }}</span>
+                <span *ngIf="dev.deviceId === ownUuid" class="p-ml-1">(Current)</span>
+              </td>
+              <td class="p-text-center">
+                {{dev.lastLogin | stDate:'medium-s' | async}}
+              </td>
+              <td class="p-text-right">
+                <button *ngIf="dev.deviceId !== ownUuid" pButton
+                        (click)="logoutDevice(dev.deviceId)"
+                        class="p-button-danger p-button-rounded" icon="pi pi-sign-out"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
       <div class="p-d-flex p-jc-start">
         <button pButton icon="pi pi-sign-out" class="p-button-danger" [label]="'profile.logout' | translate" (click)="logout()"></button>
       </div>
