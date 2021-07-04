@@ -4,6 +4,18 @@
       <img src="assets/logo.svg" alt="logo" class="p-mr-4">
       <span style="font-size: 1.2rem">WoWs Monitor</span>
     </div>
+    <div class="menu-statusbar p-d-flex p-pt-1 p-pb-1">
+      <div class="statusbar-users p-pl-2 p-pr-2">
+        <fa-icon [icon]="usersIcon" class="p-mr-1"></fa-icon>
+        <span class="p-mr-1">{{gatewayService.clients$ | async}}</span>
+        <span>{{ 'labels.liveUsers' | translate }}</span>
+      </div>
+      <div class="statusbar-matches p-pl-2 p-pr-2">
+        <fa-icon [icon]="matchesIcon" class="p-mr-1"></fa-icon>
+        <span class="p-mr-1">{{gatewayService.matches$ | async}}</span>
+        <span>{{ 'labels.liveMatches' | translate}}</span>
+      </div>
+    </div>
 
     <div class="menu-wrapper">
       <ul>

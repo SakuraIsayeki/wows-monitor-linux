@@ -11,39 +11,47 @@ import { SettingsService } from '@services/settings.service';
 import { AUTHSERVICETOKEN, BaseInjection } from '@stewie/framework';
 import { HubConnection, HubConnectionBuilder, HubConnectionState, LogLevel } from '@stewieoo/signalr';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, pairwise, share, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, pairwise, share, take } from 'rxjs/operators';
 import { GatewaySettings, LivefeedAppModel, MatchAppModel } from '../generated/models';
 
 @Injectable()
-export class SignalrService extends BaseInjection {
+export class GatewayService extends BaseInjection {
 
   private connection: HubConnection;
   private _settings: GatewaySettings;
-  private _$gatewayStatus = new BehaviorSubject<SignalrStatus>(SignalrStatus.None);
-  private _$status = new BehaviorSubject<Status>(Status.Idle);
-  private _$info = new BehaviorSubject<MatchAppModel>(null);
-  private _$error = new Subject<string>();
-  private _$livefeedUpdate = new BehaviorSubject<LivefeedAppModel[]>([]);
+  private _gatewayStatus$ = new BehaviorSubject<SignalrStatus>(SignalrStatus.None);
+  private _status$ = new BehaviorSubject<Status>(Status.Idle);
+  private _info$ = new BehaviorSubject<MatchAppModel>(null);
+  private _clients$ = new BehaviorSubject<number>(null);
+  private _matches$ = new BehaviorSubject<number>(null);
+  private _error$ = new Subject<string>();
+  private _livefeedUpdate$ = new BehaviorSubject<LivefeedAppModel[]>([]);
 
-
-  get $gatewayStatus(): Observable<SignalrStatus> {
-    return this._$gatewayStatus.asObservable();
+  get clients$(): Observable<number> {
+    return this._clients$.asObservable();
+  }
+  get matches$(): Observable<number> {
+    return this._matches$.asObservable();
   }
 
-  get $status(): Observable<Status> {
-    return this._$status.pipe(distinctUntilChanged(), share());
+  get gatewayStatus$(): Observable<SignalrStatus> {
+    return this._gatewayStatus$.asObservable();
   }
 
-  get $info(): Observable<MatchAppModel> {
-    return this._$info.asObservable();
+  get status$(): Observable<Status> {
+    return this._status$.pipe(distinctUntilChanged(), share());
   }
 
-  get $error(): Observable<string> {
-    return this._$error.asObservable();
+  get info$(): Observable<MatchAppModel> {
+    return this._info$.asObservable();
   }
 
-  get $livefeedUpdate(): Observable<LivefeedAppModel[]> {
-    return this._$livefeedUpdate.asObservable();
+  get error$(): Observable<string> {
+    return this._error$.asObservable();
+  }
+
+  get livefeedUpdate$(): Observable<LivefeedAppModel[]> {
+    return this._livefeedUpdate$.asObservable();
   }
 
   constructor(
@@ -56,10 +64,6 @@ export class SignalrService extends BaseInjection {
     private ngZone: NgZone
   ) {
     super();
-
-    this.$gatewayStatus.subscribe(x => {
-      console.log('$gatewayStatus', x);
-    });
   }
 
   async init() {
@@ -93,23 +97,35 @@ export class SignalrService extends BaseInjection {
 
     this.connection.onreconnecting(() => {
       this.ngZone.run(() => {
-        this._$gatewayStatus.next(SignalrStatus.Reconnecting);
+        this._gatewayStatus$.next(SignalrStatus.Reconnecting);
       });
     });
 
     this.connection.onreconnected(() => {
       this.ngZone.run(() => {
         if (environment.desktop) {
-          this._$gatewayStatus.next(SignalrStatus.Connected);
+          this._gatewayStatus$.next(SignalrStatus.Connected);
         } else {
-          this._$gatewayStatus.next(this.settingsService.form.signalRToken.model ? SignalrStatus.HostDisconnected : SignalrStatus.NoToken);
+          this._gatewayStatus$.next(this.settingsService.form.signalRToken.model ? SignalrStatus.HostDisconnected : SignalrStatus.NoToken);
         }
+      });
+    });
+
+    this.connection.on('OverallClientCount', (count) => {
+      this.ngZone.run(() => {
+        this._clients$.next(count);
+      });
+    });
+
+    this.connection.on('MatchCount', (count) => {
+      this.ngZone.run(() => {
+        this._matches$.next(count);
       });
     });
 
     this.connection.on('UpdateStatus', (status) => {
       this.ngZone.run(() => {
-        this._$status.next(status);
+        this._status$.next(status);
       });
     });
 
@@ -117,8 +133,8 @@ export class SignalrService extends BaseInjection {
     this.connection.on('UpdateMatch', (info) => {
       this.ngZone.run(() => {
         this.uiSuccess('matchUpdated');
-        this._$status.next(Status.Fetched);
-        this._$info.next(info);
+        this._status$.next(Status.Fetched);
+        this._info$.next(info);
         if (environment.desktop) {
           this.connection.invoke('SendInfoToClients', info);
         }
@@ -127,7 +143,7 @@ export class SignalrService extends BaseInjection {
     });
 
     this.connection.on('RequestInfo', () => {
-      this._$info.pipe(take(1), filter(info => info != null)).subscribe(info => {
+      this._info$.pipe(take(1), filter(info => info != null)).subscribe(info => {
         this.connection.invoke('SendInfoToClients', info);
       });
     });
@@ -145,31 +161,19 @@ export class SignalrService extends BaseInjection {
       });
     });
 
-    this.connection.on('OverallClientCount', (count) => {
-      this.ngZone.run(() => {
-      });
-      console.log('ClientCount', count);
-    });
-
-    this.connection.on('MatchCount', (count) => {
-      this.ngZone.run(() => {
-      });
-      console.log('MatchCount', count);
-    });
-
     this.connection.on('Connected', () => {
       this.ngZone.run(() => {
       });
       if (environment.desktop) {
-        this._$gatewayStatus.next(SignalrStatus.Connected);
+        this._gatewayStatus$.next(SignalrStatus.Connected);
       } else {
-        this._$gatewayStatus.next(this.settingsService.form.signalRToken.model ? SignalrStatus.HostDisconnected : SignalrStatus.NoToken);
+        this._gatewayStatus$.next(this.settingsService.form.signalRToken.model ? SignalrStatus.HostDisconnected : SignalrStatus.NoToken);
       }
     });
 
     this.connection.on('HostConnected', () => {
       this.ngZone.run(() => {
-        this._$gatewayStatus.next(SignalrStatus.HostConnected);
+        this._gatewayStatus$.next(SignalrStatus.HostConnected);
         this.uiSuccess('hostConnected');
         console.log('HostConnected');
       });
@@ -177,38 +181,38 @@ export class SignalrService extends BaseInjection {
 
     this.connection.on('HostDisconnected', () => {
       this.ngZone.run(() => {
-        if (this._$gatewayStatus.value === SignalrStatus.HostConnected) {
+        if (this._gatewayStatus$.value === SignalrStatus.HostConnected) {
           this.uiWarn('hostLost');
         } else {
           this.uiWarn('noHostPaired');
         }
         console.log('HostDisconnected');
-        this._$gatewayStatus.next(SignalrStatus.HostDisconnected);
+        this._gatewayStatus$.next(SignalrStatus.HostDisconnected);
       });
     });
 
     this.connection.on('SendError', (error) => {
       this.ngZone.run(() => {
         this.loggerService.error('Error in api', error);
-        this._$error.next(error);
-        this._$status.next(Status.Idle);
+        this._error$.next(error);
+        this._status$.next(Status.Idle);
       });
     });
 
     this.connection.on('LivefeedUpdate', (items: LivefeedAppModel[]) => {
       this.ngZone.run(() => {
-        this._$livefeedUpdate.next(items);
+        this._livefeedUpdate$.next(items);
       });
     });
 
     this.connection.onclose(() => {
       this.ngZone.run(() => {
-        this._$gatewayStatus.next(SignalrStatus.Disconnected);
+        this._gatewayStatus$.next(SignalrStatus.Disconnected);
       });
 
     });
 
-    this.$error.subscribe(error => {
+    this.error$.subscribe(error => {
       if (error.startsWith('apiError')) {
         this.uiError(error);
       } else {
@@ -216,10 +220,10 @@ export class SignalrService extends BaseInjection {
       }
     });
 
-    this.$gatewayStatus.pipe(pairwise()).subscribe(([prev, next]) => {
+    this.gatewayStatus$.pipe(pairwise()).subscribe(([prev, next]) => {
       if ((prev === SignalrStatus.Reconnecting && next === SignalrStatus.Connected)
         || (prev === SignalrStatus.Disconnected && next === SignalrStatus.Connected)) {
-        if (this._$info.value == null) {
+        if (this._info$.value == null) {
           this.apiService.resendState();
         }
       }
@@ -251,7 +255,7 @@ export class SignalrService extends BaseInjection {
           this.connection.stop()
             .then(() => {
               resolve(true);
-              this._$gatewayStatus.next(SignalrStatus.Disconnected);
+              this._gatewayStatus$.next(SignalrStatus.Disconnected);
             })
             .catch(() => {
               this.loggerService.error('Couldn\'t disconnect from the signalr hub');
@@ -277,7 +281,7 @@ export class SignalrService extends BaseInjection {
   }
 
   resetInfo() {
-    this._$status.next(Status.Idle);
-    this._$info.next(null);
+    this._status$.next(Status.Idle);
+    this._info$.next(null);
   }
 }

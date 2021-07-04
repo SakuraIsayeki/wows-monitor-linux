@@ -1,9 +1,10 @@
 import { Component, Inject, Input, OnInit, Renderer2 } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
-import { faCog, faDesktop, faFileAlt, faQuestionCircle, faShieldAlt, faWrench } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faDesktop, faFileAlt, faGavel, faPodcast, faQuestionCircle, faShieldAlt, faWrench } from '@fortawesome/free-solid-svg-icons';
 import { Region } from '@generated/models/region';
 import { ChangelogService } from '@generated/services';
 import { MenuEntry } from '@interfaces/menu-entry';
+import { GatewayService } from '@services/gateway.service';
 import { JwtAuthService } from '@services/jwt-auth.service';
 import { SettingsService } from '@services/settings.service';
 import { AUTHSERVICETOKEN } from '@stewie/framework';
@@ -15,6 +16,9 @@ import { map, startWith } from 'rxjs/operators';
   templateUrl: './menu.component.html'
 })
 export class MenuComponent extends BaseComponent implements OnInit {
+
+  usersIcon = faPodcast;
+  matchesIcon = faGavel;
 
   private $changelogsBadgeSubject = new BehaviorSubject(false);
   private $changelogsBadgeCountSubject = new BehaviorSubject(0);
@@ -78,7 +82,7 @@ export class MenuComponent extends BaseComponent implements OnInit {
 
   userMenu = [
     {
-      label: 'File',
+      label: 'File'
     },
     {
       label: 'Edit',
@@ -88,6 +92,7 @@ export class MenuComponent extends BaseComponent implements OnInit {
 
   constructor(private changelogService: ChangelogService,
               private settingsService: SettingsService,
+              public gatewayService: GatewayService,
               @Inject(AUTHSERVICETOKEN) public auth: JwtAuthService,
               private renderer: Renderer2) {
     super();
@@ -114,7 +119,7 @@ export class MenuComponent extends BaseComponent implements OnInit {
     this.auth.login({ renderer: this.renderer, region }).subscribe();
   }
 
-  logout(){
+  logout() {
     this.auth.logout();
   }
 }

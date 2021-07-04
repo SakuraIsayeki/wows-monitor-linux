@@ -1,13 +1,16 @@
 @import '_variables.scss';
 
+
+
 app-titlebar {
 
-  display: block;
+  display: flex;
   background: $secondaryColor;
   height: 25px;
   overflow: hidden;
   padding: 2px;
   position: relative;
+  align-items: center;
 
   .app-titlebar-draggable {
     -webkit-app-region: drag;
@@ -15,30 +18,36 @@ app-titlebar {
     overflow: hidden;
   }
 
-  .app-title-wrapper {
-    float: left;
-    margin-left: .2rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 21px;
+  .titlebar-icon {
+    height: 15px;
+  }
+
+  .titlebar-title{
     font-size: .8rem;
   }
 
-  .app-icon-wrapper {
-    float: left;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 21px;
-    width: 40px;
+  //.app-title-wrapper {
+  //  float: left;
+  //  margin-left: .2rem;
+  //  display: flex;
+  //  flex-direction: row;
+  //  justify-content: center;
+  //  align-items: center;
+  //  height: 21px;
 
-    .app-icon {
-      height: 15px;
-    }
-  }
+  //}
+
+  //.app-icon-wrapper {
+  //  float: left;
+  //  display: flex;
+  //  flex-direction: row;
+  //  justify-content: center;
+  //  align-items: center;
+  //  height: 21px;
+  //  width: 40px;
+  //
+  //
+  //}
 
   .icon-wrapper {
     float: right;

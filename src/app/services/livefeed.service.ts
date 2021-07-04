@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SettingsService } from '@services/settings.service';
-import { SignalrService } from '@services/signalr.service';
+import { GatewayService } from '@services/gateway.service';
 import { BaseInjection } from '@stewie/framework';
 import { LivefeedAppModel } from '../generated/models';
 
@@ -21,12 +21,12 @@ export class LivefeedService extends BaseInjection {
 
   constructor(
     private settingsService: SettingsService,
-    private signalrService: SignalrService) {
+    private signalrService: GatewayService) {
     super();
 
     this.form.liveUpdate.valueChanges.subscribe(value => this.signalrService.sendSettings({ liveUpdate: value }));
 
-    this.signalrService.$livefeedUpdate.subscribe(items => this.addItems(items));
+    this.signalrService.livefeedUpdate$.subscribe(items => this.addItems(items));
   }
 
 

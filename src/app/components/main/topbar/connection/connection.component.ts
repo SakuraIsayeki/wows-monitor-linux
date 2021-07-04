@@ -5,7 +5,7 @@ import { faQrcode, faWifi } from '@fortawesome/free-solid-svg-icons';
 import { SignalrStatus } from '@interfaces/signalr';
 import { TranslateService } from '@ngx-translate/core';
 import { ResizeService } from '@services/resize.service';
-import { SignalrService } from '@services/signalr.service';
+import { GatewayService } from '@services/gateway.service';
 import { ShowOnDirective } from '@shared/directives/show-on.directive';
 import { DialogService } from 'primeng/dynamicdialog';
 import { OverlayPanel } from 'primeng/overlaypanel';
@@ -31,7 +31,7 @@ export class ConnectionComponent extends BaseComponent implements OnDestroy {
   @ViewChild('qrErrorDetails', { static: true })
   qrErrorDetails: OverlayPanel;
 
-  statusText = this.signalrService.$gatewayStatus.pipe(map(status => {
+  statusText = this.signalrService.gatewayStatus$.pipe(map(status => {
     if (status === SignalrStatus.Connected) {
       return 'service.connected';
     } else if (status === SignalrStatus.NoToken) {
@@ -50,7 +50,7 @@ export class ConnectionComponent extends BaseComponent implements OnDestroy {
   showOnTablet = this.resizeService.$resizeListener.pipe(map(() => ShowOnDirective.checkStatic('tablet', false)));
 
   constructor(
-    public signalrService: SignalrService,
+    public signalrService: GatewayService,
     private dialogService: DialogService,
     private resizeService: ResizeService,
     private translateService: TranslateService

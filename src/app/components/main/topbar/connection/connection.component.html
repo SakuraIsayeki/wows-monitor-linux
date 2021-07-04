@@ -1,4 +1,4 @@
-<ng-container *ngIf="signalrService.$gatewayStatus | async; let socketStatus">
+<ng-container *ngIf="signalrService.gatewayStatus$ | async; let socketStatus">
   <div class="iconWrapper p-ml-2" [class.p-disabled]="isDesktop && socketStatus !== 1" (click)="openQrDialog($event)"
        [pTooltip]="'webConnect.desktop.title' | translate"
        tooltipPosition="bottom">

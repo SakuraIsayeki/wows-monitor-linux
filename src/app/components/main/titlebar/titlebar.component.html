@@ -1,11 +1,8 @@
-<div class="app-titlebar-draggable">
-  <div class="app-icon-wrapper">
-    <img class="app-icon" src="assets/icons/favicon-light.ico" />
+<div class="app-titlebar-draggable p-d-flex p-ai-center p-jc-between">
+  <div class="p-d-flex p-flex-row p-ai-center">
+    <img class="titlebar-icon p-ml-2 p-mr-2" src="assets/icons/favicon-light.ico" />
+    <span class="titlebar-title p-mr-4"> {{title}}</span>
   </div>
-  <div class="app-title-wrapper">
-    {{title}}
-  </div>
-
   <div class="icon-wrapper">
     <div class="title-icon" (click)="minimize()">
       <fa-icon [icon]="minimizeIcon"></fa-icon>

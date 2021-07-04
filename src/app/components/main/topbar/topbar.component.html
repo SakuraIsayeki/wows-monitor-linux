@@ -13,7 +13,7 @@
     <fa-icon id="menuIcon" [icon]="menuIcon" size="2x" [fixedWidth]="true"></fa-icon>
   </div>
   <ng-container *showOn="'tablet';higher:true">
-    <div id="matchInfoWrapper" class="iconWrapper" *ngIf="signalrService.$info | async;let matchInfo">
+    <div id="matchInfoWrapper" class="iconWrapper" *ngIf="signalrService.info$ | async;let matchInfo">
       <span>{{matchInfo.matchGroup | matchGroup | translate}}</span>
       <ng-container *ngIf="matchInfo.matchGroup == 'CLAN'">
         <span>&nbsp;({{ 'monitor.season' | translate }} {{matchInfo.clanSeasonId}})</span>

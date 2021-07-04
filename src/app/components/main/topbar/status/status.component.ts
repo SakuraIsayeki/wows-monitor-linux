@@ -4,7 +4,7 @@ import { BaseComponent } from '@components/base.component';
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import { faCheckCircle, faSync } from '@fortawesome/free-solid-svg-icons';
 import { Status } from '@interfaces/signalr';
-import { SignalrService } from '@services/signalr.service';
+import { GatewayService } from '@services/gateway.service';
 import { map } from 'rxjs/operators';
 
 marker('service.status.idle');
@@ -22,7 +22,7 @@ export class StatusComponent extends BaseComponent implements OnInit {
   circleIcon = faCircle;
 
   get statusText() {
-    return this.signalrService.$status.pipe(map(status => {
+    return this.signalrService.status$.pipe(map(status => {
       if (status === Status.Idle) {
         return 'service.status.idle';
       } else if (status === Status.Fetching) {
@@ -34,7 +34,7 @@ export class StatusComponent extends BaseComponent implements OnInit {
   }
 
   constructor(
-    public signalrService: SignalrService
+    public signalrService: GatewayService
   ) {
     super();
   }

@@ -23,7 +23,7 @@ import { RegionRequestInterceptor } from '@services/region-request.interceptor';
 import { ResizeService } from '@services/resize.service';
 import { ScrollService } from '@services/scroll.service';
 import { SettingsService } from '@services/settings.service';
-import { SignalrService } from '@services/signalr.service';
+import { GatewayService } from '@services/gateway.service';
 import {
   AuthModule,
   CoreModule,
@@ -120,7 +120,7 @@ const metaFactory = (translate: TranslateService) => {
     AppInitService,
     AppActivator,
     { provide: ErrorHandler, useClass: CommonErrorHandler },
-    SignalrService,
+    GatewayService,
     { provide: HTTP_INTERCEPTORS, useClass: RegionRequestInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ClientIdHttpInterceptor, multi: true },

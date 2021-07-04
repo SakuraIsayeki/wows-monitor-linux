@@ -1,4 +1,4 @@
-<ng-container *ngIf="signalrService.$status | async; let status">
+<ng-container *ngIf="signalrService.status$ | async; let status">
   <div class="iconWrapper status-{{status}}"  *ngIf="isDesktop || (status == 5)"
        [pTooltip]="(statusText | async) | translate" tooltipPosition="bottom">
     <fa-icon *ngIf="status == 1" [icon]="circleIcon" size="2x" [fixedWidth]="true"></fa-icon>

@@ -6,7 +6,7 @@ import { SignalrStatus } from '@interfaces/signalr';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@services/api.service';
 import { SettingsService } from '@services/settings.service';
-import { SignalrService } from '@services/signalr.service';
+import { GatewayService } from '@services/gateway.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { combineLatest, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -25,7 +25,7 @@ export class PathPickerComponent extends BaseComponent implements OnInit, OnDest
     private translateService: TranslateService,
     private dialogService: DialogService,
     private apiService: ApiService,
-    private signalrService: SignalrService,
+    private signalrService: GatewayService,
     @Inject(DirectoryServiceToken) public directoryService: DirectoryService,
     public settingsService: SettingsService
   ) {
@@ -35,7 +35,7 @@ export class PathPickerComponent extends BaseComponent implements OnInit, OnDest
   ngOnInit() {
     let subscribtion: Subscription;
 
-    this.signalrService.$gatewayStatus.subscribe(s => {
+    this.signalrService.gatewayStatus$.subscribe(s => {
       if (s === SignalrStatus.Connected) {
         subscribtion = combineLatest([
           this.directoryService.$changeDetected,

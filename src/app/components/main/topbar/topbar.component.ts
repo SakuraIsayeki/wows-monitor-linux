@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@services/api.service';
 import { ScreenshotService } from '@services/desktop/screenshot.service';
 import { SettingsService } from '@services/settings.service';
-import { SignalrService } from '@services/signalr.service';
+import { GatewayService } from '@services/gateway.service';
 import { SelectItem } from 'primeng/api';
 import { combineLatest } from 'rxjs';
 import { MenuComponent } from './menu/menu.component';
@@ -61,7 +61,7 @@ export class TopbarComponent extends BaseComponent implements OnInit {
 
   constructor(
     private translateService: TranslateService,
-    public signalrService: SignalrService,
+    public signalrService: GatewayService,
     public apiService: ApiService,
     public settingsService: SettingsService,
     private cd: ChangeDetectorRef,
@@ -76,8 +76,8 @@ export class TopbarComponent extends BaseComponent implements OnInit {
     };
 
     combineLatest([
-      this.signalrService.$status,
-      this.signalrService.$info
+      this.signalrService.status$,
+      this.signalrService.info$
     ])
       .pipe(this.untilDestroy()).subscribe(arr => {
       const status = arr[0] as Status;

@@ -6,7 +6,7 @@ import {  } from '@generated/models';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from '@services/settings.service';
-import { SignalrService } from '@services/signalr.service';
+import { GatewayService } from '@services/gateway.service';
 import { WowsKarmaPipe } from '@shared/pipes/wows-karma.pipe';
 import { WowsNumbersPipe } from '@shared/pipes/wows-numbers.pipe';
 import { MenuItem } from 'primeng/api';
@@ -37,7 +37,7 @@ export class MonitorComponent extends BaseComponent implements OnInit, AfterView
 
   constructor(
     private translateService: TranslateService,
-    public signalrService: SignalrService,
+    public signalrService: GatewayService,
     @Optional() @Inject(ElectronServiceToken) private electronService: ElectronService,
     public settingsService: SettingsService
   ) {

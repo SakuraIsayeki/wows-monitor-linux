@@ -3,7 +3,7 @@ import { BaseComponent } from '@components/base.component';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { GatewayTokenService } from '@services/gateway-token.service';
 import { SettingsService } from '@services/settings.service';
-import { SignalrService } from '@services/signalr.service';
+import { GatewayService } from '@services/gateway.service';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { SelectItem } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -32,7 +32,7 @@ export class QrScanComponent extends BaseComponent implements AfterViewInit, OnD
 
   constructor(
     public ref: DynamicDialogRef,
-    private signalrService: SignalrService,
+    private signalrService: GatewayService,
     private gatewayTokenService: GatewayTokenService
   ) {
     super();

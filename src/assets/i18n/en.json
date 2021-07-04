@@ -112,6 +112,10 @@
 			"login": "Login"
 		}
 	},
+	"labels": {
+		"liveMatches": "Matches",
+		"liveUsers": "Users"
+	},
 	"meta": {
 		"about": {
 			"title": "About"

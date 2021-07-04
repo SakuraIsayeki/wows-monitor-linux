@@ -2,7 +2,7 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { MatchGroup } from '@generated/models';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
 import { SettingsService } from '@services/settings.service';
-import { SignalrService } from '@services/signalr.service';
+import { GatewayService } from '@services/gateway.service';
 import { BaseInjection } from '@stewie/framework';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class ScreenshotService extends BaseInjection {
 
   constructor(@Inject(ElectronServiceToken) @Optional() private electron: ElectronService,
               private settings: SettingsService,
-              private signalrService: SignalrService) {
+              private signalrService: GatewayService) {
     super();
   }
 
@@ -28,7 +28,7 @@ export class ScreenshotService extends BaseInjection {
       await interval(100).pipe(take(1)).toPromise();
 
 
-      const matchInfo = await this.signalrService.$info.pipe(take(1)).toPromise();
+      const matchInfo = await this.signalrService.info$.pipe(take(1)).toPromise();
 
       let filename = 'wows-monitor';
       let rect = null;

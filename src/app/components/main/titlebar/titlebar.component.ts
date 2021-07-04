@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
 import { staticValues } from '@environments/static-values';
-import { faWindowClose, faWindowMaximize, faWindowMinimize, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
+import { faGavel, faPodcast, faWindowClose, faWindowMaximize, faWindowMinimize, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 import { ElectronService, ElectronServiceToken } from '@interfaces/electron.service';
+import { GatewayService } from '@services/gateway.service';
 import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 
 declare type WindowState = {
   maximizable: boolean;
@@ -28,12 +28,10 @@ export class TitlebarComponent extends BaseComponent implements OnInit, AfterVie
     return staticValues.applicationName;
   }
 
-  constructor(@Inject(ElectronServiceToken) private electronService: ElectronService,
-              private renderer: Renderer2) {
+  constructor(@Inject(ElectronServiceToken) private electronService: ElectronService) {
     super();
   }
 
-  private listeners: (() => void)[] = [];
   private checkState = new Subject();
   public windowState: WindowState;
 

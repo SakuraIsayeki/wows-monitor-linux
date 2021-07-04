@@ -7,7 +7,7 @@ import { UpdateService, UpdateServiceToken } from '@interfaces/update.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AppInitService } from '@services/app-init.service';
 import { SettingsService } from '@services/settings.service';
-import { SignalrService } from '@services/signalr.service';
+import { GatewayService } from '@services/gateway.service';
 import { AUTHSERVICETOKEN } from '@stewie/framework';
 import { AuthService } from '@stewie/framework/lib/auth/auth.service';
 import { PrimeNGConfig } from 'primeng/api';
@@ -103,7 +103,7 @@ export class AppActivator implements CanActivate, CanActivateChild {
               private translate: TranslateService,
               private appInit: AppInitService,
               private settingsService: SettingsService,
-              private signalrService: SignalrService,
+              private signalrService: GatewayService,
               @Inject(AUTHSERVICETOKEN) private authService: AuthService
   ) {
 
