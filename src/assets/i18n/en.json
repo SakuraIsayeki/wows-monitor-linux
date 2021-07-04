@@ -220,6 +220,11 @@
 	},
 	"profile": {
 		"header": "Profile",
+		"logout": "Logout",
+		"settings": {
+			"description": "When enabled your settings will be synced across all your devices and saved in the database with your account.",
+			"header": "Sync Settings"
+		},
 		"wgAccounts": {
 			"add": "Add account",
 			"delete": {
@@ -361,6 +366,10 @@
 				"summary": "If for some reason the automatic detection does not work for you, you can manually overwrite the replays directory here."
 			},
 			"title": "Miscellaneous"
+		},
+		"remoteConfig": {
+			"content": "Your local settings are different than the ones found online. Please select which one you want to use.",
+			"header": "Settings Sync"
 		},
 		"screenshots": {
 			"anonymScreenshot": {

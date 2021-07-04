@@ -4,7 +4,7 @@ import { WebConnectService } from '@generated/services/web-connect.service';
 import { JwtAuthService } from '@services/jwt-auth.service';
 import { SettingsService } from '@services/settings.service';
 import { AUTHSERVICETOKEN } from '@stewie/framework';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class GatewayTokenService {
@@ -21,17 +21,20 @@ export class GatewayTokenService {
   }
 
   async getToken() {
+    await this.settings.waitForInitialized();
     let token = this.settings.form.signalRToken.model;
 
     if (!token || (environment.desktop && this.authService.isAuthenticated) || (environment.browser && this.authService.isAuthenticated && !token)) {
       token = await this.webConnect.webConnectToken().toPromise();
-      this.settings.form.signalRToken.setValue(token);
+      if (this.settings.form.signalRToken.model != token) {
+        this.settings.form.signalRToken.setValue(token);
+      }
     }
 
     return token;
   }
 
-  setToken(token: string){
+  setToken(token: string) {
     this.settings.form.signalRToken.setValue(token);
     this._tokenChanged$.next(token);
   }

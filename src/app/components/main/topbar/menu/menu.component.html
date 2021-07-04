@@ -5,7 +5,7 @@
       <span style="font-size: 1.2rem">WoWs Monitor</span>
     </div>
     <div class="menu-statusbar p-d-flex p-pt-1 p-pb-1">
-      <div class="statusbar-users p-pl-2 p-pr-2">
+      <div class="statusbar-users p-pl-3 p-pr-2">
         <fa-icon [icon]="usersIcon" class="p-mr-1"></fa-icon>
         <span class="p-mr-1">{{gatewayService.clients$ | async}}</span>
         <span>{{ 'labels.liveUsers' | translate }}</span>
@@ -33,7 +33,7 @@
       </ul>
     </div>
   </div>
-  <button (click)="logout()">Logout</button>
+
   <div class="menu-user-section p-d-flex p-ai-center p-jc-center" [class.authenticated]="auth.isAuthenticated">
     <div class="p-fluid p-flex-grow" *ngIf="!auth.isAuthenticated">
       <button pButton [label]="'identity.labels.login' | translate" icon="pi pi-sign-in" (click)="selectingRegion = true"></button>

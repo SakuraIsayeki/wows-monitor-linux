@@ -30,6 +30,14 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  setSync(value: boolean) {
+    this.profileService.profileSetSyncSettings({ syncSettings: value }).subscribe(() => {
+      this.uiSuccess('profileSaved');
+      this.authService.loadUserInfo();
+      this.router.navigate(['.'], { relativeTo: this.route });
+    });
+  }
+
   setPublic(accountId: number, value: boolean) {
     this.profileService.profileSetPublic({ accountId, value }).subscribe(() => {
       this.uiSuccess('profileSaved');
@@ -83,5 +91,9 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     await this.authService.login({ renderer: this.renderer, region }).toPromise();
     this.uiSuccess('profileSaved');
     this.router.navigate(['.'], { relativeTo: this.route });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

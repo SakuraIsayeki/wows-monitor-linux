@@ -7,6 +7,7 @@ import { BlockUIModule } from 'primeng/blockui';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
@@ -28,7 +29,8 @@ import { ProfileComponent } from './profile.component';
     FormsModule,
     ButtonModule,
     BlockUIModule,
-    TooltipModule
+    TooltipModule,
+    InputSwitchModule
   ],
   providers: [
     ProfileResolver

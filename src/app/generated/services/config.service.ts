@@ -10,7 +10,6 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { AppConfig } from '../models/app-config';
-import { UserInfoResult } from '../models/user-info-result';
 
 @Injectable({
   providedIn: 'root',
@@ -67,20 +66,20 @@ export class ConfigService extends BaseService {
   }
 
   /**
-   * Path part for operation configTest
+   * Path part for operation configGet
    */
-  static readonly ConfigTestPath = '/config';
+  static readonly ConfigGetPath = '/config/get';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `configTest()` instead.
+   * To access only the response body, use `configGet()` instead.
    *
    * This method doesn't expect any request body.
    */
-  configTest$Response(params?: {
-  }): Observable<StrictHttpResponse<UserInfoResult>> {
+  configGet$Response(params?: {
+  }): Observable<StrictHttpResponse<AppConfig>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ConfigService.ConfigTestPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, ConfigService.ConfigGetPath, 'get');
     if (params) {
     }
 
@@ -90,22 +89,68 @@ export class ConfigService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<UserInfoResult>;
+        return r as StrictHttpResponse<AppConfig>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `configTest$Response()` instead.
+   * To access the full response (for headers, for example), `configGet$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  configTest(params?: {
-  }): Observable<UserInfoResult> {
+  configGet(params?: {
+  }): Observable<AppConfig> {
 
-    return this.configTest$Response(params).pipe(
-      map((r: StrictHttpResponse<UserInfoResult>) => r.body as UserInfoResult)
+    return this.configGet$Response(params).pipe(
+      map((r: StrictHttpResponse<AppConfig>) => r.body as AppConfig)
+    );
+  }
+
+  /**
+   * Path part for operation configSave
+   */
+  static readonly ConfigSavePath = '/config/save';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `configSave()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  configSave$Response(params: {
+    body: AppConfig
+  }): Observable<StrictHttpResponse<Blob>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ConfigService.ConfigSavePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: 'application/octet-stream'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Blob>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `configSave$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  configSave(params: {
+    body: AppConfig
+  }): Observable<Blob> {
+
+    return this.configSave$Response(params).pipe(
+      map((r: StrictHttpResponse<Blob>) => r.body as Blob)
     );
   }
 

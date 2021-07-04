@@ -6,8 +6,8 @@ import { ElectronService, ElectronServiceToken } from '@interfaces/electron.serv
 import { UpdateService, UpdateServiceToken } from '@interfaces/update.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AppInitService } from '@services/app-init.service';
-import { SettingsService } from '@services/settings.service';
 import { GatewayService } from '@services/gateway.service';
+import { SettingsService } from '@services/settings.service';
 import { AUTHSERVICETOKEN } from '@stewie/framework';
 import { AuthService } from '@stewie/framework/lib/auth/auth.service';
 import { PrimeNGConfig } from 'primeng/api';
@@ -114,21 +114,18 @@ export class AppActivator implements CanActivate, CanActivateChild {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-
     return this.activate();
   }
 
   private activate() {
     return forkJoin([
-      this.appInit.isInitialized$.pipe(first(x => x)),
       this.translate.use(this.translate.getBrowserLang()),
-      this.settingsService.initialize(),
       this.authService.isLoaded$.pipe(first(v => v))
     ])
       .pipe(
-        switchMap(() => {
-          return fromPromise(this.signalrService.init());
-        }),
+        switchMap(() => fromPromise(this.settingsService.initialize())),
+        switchMap(() => this.appInit.isInitialized$.pipe(first(x => x))),
+        switchMap(() => fromPromise(this.signalrService.init())),
         map(v => true),
         tap(() => {
           this.translate.get('primeng').subscribe(res => this.primeNgConfig.setTranslation(res));

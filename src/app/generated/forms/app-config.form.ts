@@ -4,7 +4,7 @@ import { ConfigtoolConfigForm } from './configtool-config.form';
 import { LivefeedConfigForm } from './livefeed-config.form';
 import { MonitorConfigForm } from './monitor-config.form';
 import { AbstractControlOptions, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
-import { StFormControl, StFormGroup, ValidatorGetter } from '@stewie/framework';
+import { DateFormControl, StFormControl, StFormGroup, ValidatorGetter } from '@stewie/framework';
 
 
 export class AppConfigForm extends StFormGroup<AppConfig> {
@@ -26,6 +26,7 @@ export class AppConfigForm extends StFormGroup<AppConfig> {
     this.addControl('livefeedConfig', new LivefeedConfigForm(model?.livefeedConfig, null, null, this.validatorGetter));
     this.addControl('clanWarsConfig', new ClanWarsConfigForm(model?.clanWarsConfig, null, null, this.validatorGetter));
     this.addControl('forcePVP', new StFormControl<boolean | null>(model?.forcePVP, null, null));
+    this.addControl('lastSave', new DateFormControl(model?.lastSave, null, null));
 
     if(this.validatorGetter?.getCustomValidators){
       this.validatorGetter.getCustomValidators(this);
@@ -50,6 +51,7 @@ export class AppConfigForm extends StFormGroup<AppConfig> {
       this.livefeedConfig?.reset(model ? model?.livefeedConfig : null, options);    
       this.clanWarsConfig?.reset(model ? model?.clanWarsConfig : null, options);    
       this.forcePVP?.reset(model ? model?.forcePVP : null, options);    
+      this.lastSave?.reset(model ? model?.lastSave : null, options);    
     
   }
   
@@ -70,6 +72,7 @@ export class AppConfigForm extends StFormGroup<AppConfig> {
     this.livefeedConfig?.setValue(model?.livefeedConfig, options);
     this.clanWarsConfig?.setValue(model?.clanWarsConfig, options);
     this.forcePVP?.setValue(model?.forcePVP, options);
+    this.lastSave?.setValue(model?.lastSave, options);
     
   }
 
@@ -107,6 +110,9 @@ export class AppConfigForm extends StFormGroup<AppConfig> {
   get forcePVP() {
     return this.controls.forcePVP as StFormControl<boolean | null>;
   }
+  get lastSave() {
+    return this.controls.lastSave as DateFormControl;
+  }
 
 
   get model(): AppConfig | null {
@@ -126,6 +132,7 @@ export class AppConfigForm extends StFormGroup<AppConfig> {
       livefeedConfig: this.livefeedConfig.model,
       clanWarsConfig: this.clanWarsConfig.model,
       forcePVP: this.forcePVP?.model,
+      lastSave: this.lastSave?.model,
       
     } as AppConfig;
     

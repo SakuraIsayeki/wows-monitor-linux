@@ -2,6 +2,14 @@
   <p-card>
     <h2>{{ 'profile.header' | translate}}</h2>
     <ng-container *ngIf="profile | async; let data;">
+      <h3>{{'profile.settings.header' | translate}}</h3>
+      <p class="p-mb-0">
+        {{ 'profile.settings.description' | translate }}
+      </p>
+      <div class="p-d-flex p-jc-end p-mb-4">
+        <p-inputSwitch [(ngModel)]="data.syncSettings" (ngModelChange)="setSync($event)"></p-inputSwitch>
+      </div>
+
 
       <h3>{{ 'profile.wgAccounts.header' | translate }}</h3>
       <p>
@@ -52,6 +60,9 @@
 
       <div class="p-d-flex p-jc-end">
         <button pButton icon="pi pi-plus" class="p-button-success" [label]="'profile.wgAccounts.add' | translate" (click)="selectingRegion = true"></button>
+      </div>
+      <div class="p-d-flex p-jc-start">
+        <button pButton icon="pi pi-sign-out" class="p-button-danger" [label]="'profile.logout' | translate" (click)="logout()"></button>
       </div>
     </ng-container>
   </p-card>

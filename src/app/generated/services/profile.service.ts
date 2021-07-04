@@ -161,6 +161,52 @@ export class ProfileService extends BaseService {
   }
 
   /**
+   * Path part for operation profileSetSyncSettings
+   */
+  static readonly ProfileSetSyncSettingsPath = '/profile/setSyncSettings';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `profileSetSyncSettings()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  profileSetSyncSettings$Response(params?: {
+    syncSettings?: boolean;
+  }): Observable<StrictHttpResponse<Blob>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ProfileService.ProfileSetSyncSettingsPath, 'post');
+    if (params) {
+      rb.query('syncSettings', params.syncSettings, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: 'application/octet-stream'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Blob>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `profileSetSyncSettings$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  profileSetSyncSettings(params?: {
+    syncSettings?: boolean;
+  }): Observable<Blob> {
+
+    return this.profileSetSyncSettings$Response(params).pipe(
+      map((r: StrictHttpResponse<Blob>) => r.body as Blob)
+    );
+  }
+
+  /**
    * Path part for operation profileDeleteWgAccount
    */
   static readonly ProfileDeleteWgAccountPath = '/profile/deleteWgAccount';

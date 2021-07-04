@@ -9,6 +9,7 @@ export interface AppConfig {
   clanWarsConfig?: null | ClanWarsConfig;
   configtoolConfig?: null | ConfigtoolConfig;
   forcePVP?: null | boolean;
+  lastSave?: null | string;
   livefeedConfig?: null | LivefeedConfig;
   mainClient?: null | string;
   monitorConfig?: null | MonitorConfig;

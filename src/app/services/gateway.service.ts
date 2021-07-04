@@ -30,6 +30,7 @@ export class GatewayService extends BaseInjection {
   get clients$(): Observable<number> {
     return this._clients$.asObservable();
   }
+
   get matches$(): Observable<number> {
     return this._matches$.asObservable();
   }
@@ -54,6 +55,8 @@ export class GatewayService extends BaseInjection {
     return this._livefeedUpdate$.asObservable();
   }
 
+  private ownClientCount = 0;
+
   constructor(
     private settingsService: SettingsService,
     @Inject(LoggerServiceToken) private loggerService: LoggerService,
@@ -75,13 +78,23 @@ export class GatewayService extends BaseInjection {
       liveUpdate: this.settingsService.form.livefeedConfig.liveUpdate.model
     };
 
-    this.authService.isAuthenticated$.subscribe(() => {
-      this.gatewayTokenService.setToken(null);
-      this.connect();
+    this.authService.isAuthenticated$.pipe(pairwise()).subscribe(([prev, curr]) => {
+      if (prev != true && curr == true) {
+        this.gatewayTokenService.setToken(null);
+      }
+      if (prev != null && prev != curr) {
+        this.connect();
+      }
     });
 
     this.gatewayTokenService.tokenChanged$.pipe(filter(t => t != null)).subscribe(() => {
       this.connect();
+    });
+
+    this.settingsService.settingsSaved$.subscribe(() => {
+      if (this.authService.isAuthenticated && this.authService.userInfo.syncSettings) {
+        this.connection.send('SendConfig', this.settingsService.form.model);
+      }
     });
 
     const logLevel = environment.production ? LogLevel.Error : LogLevel.Trace;
@@ -123,6 +136,13 @@ export class GatewayService extends BaseInjection {
       });
     });
 
+    this.connection.on('ReceiveConfig', (config) => {
+      this.ngZone.run(() => {
+        this.settingsService.form.setValue(config, { emitEvent: false, emitModelToViewChange: true });
+        this.settingsService.save(true);
+      });
+    });
+
     this.connection.on('UpdateStatus', (status) => {
       this.ngZone.run(() => {
         this._status$.next(status);
@@ -135,7 +155,7 @@ export class GatewayService extends BaseInjection {
         this.uiSuccess('matchUpdated');
         this._status$.next(Status.Fetched);
         this._info$.next(info);
-        if (environment.desktop) {
+        if (environment.desktop && this.ownClientCount > 0) {
           this.connection.invoke('SendInfoToClients', info);
         }
       });
@@ -148,9 +168,11 @@ export class GatewayService extends BaseInjection {
       });
     });
 
+
     this.connection.on('ClientConnected', () => {
       this.ngZone.run(() => {
         this.uiSuccess('clientConnected');
+        this.ownClientCount++;
       });
     });
 
@@ -158,6 +180,7 @@ export class GatewayService extends BaseInjection {
     this.connection.on('ClientDisconnected', () => {
       this.ngZone.run(() => {
         this.uiWarn('clientDisconnected');
+        this.ownClientCount--;
       });
     });
 
