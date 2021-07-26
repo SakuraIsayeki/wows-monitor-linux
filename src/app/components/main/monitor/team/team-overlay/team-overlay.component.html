@@ -1,4 +1,4 @@
-<div class="p-d-flex p-flex-grow p-flex-column clan-overlay-content">
+<div class="p-d-flex p-flex-grow p-flex-column clan-overlay-content" *ngIf="clan">
   <div class="p-d-flex p-flex-row p-flex-grow p-jc-start p-ai-center p-p-3"
        [ngStyle]="{ height: '4rem', background: clan.color, position: 'relative' }">
     <i class="overlaypanel-close pi pi-times" (click)="close($event)"></i>

@@ -117,6 +117,7 @@ function appReady() {
         for (let child of children) {
           child.close();
         }
+        win.close();
       }
 
     } catch (error) {
@@ -176,6 +177,8 @@ function appReady() {
       protocol: 'file:',
       slashes: true
     }));
+
+    win.webContents.openDevTools();
   }
   win.on('closed', () => {
     tray.destroy();

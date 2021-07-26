@@ -141,6 +141,7 @@ function appReady() {
                                 child = children_1[_i];
                                 child.close();
                             }
+                            win.close();
                         }
                     }
                     catch (error) {
@@ -194,6 +195,7 @@ function appReady() {
             protocol: 'file:',
             slashes: true
         }));
+        win.webContents.openDevTools();
     }
     win.on('closed', function () {
         tray.destroy();
