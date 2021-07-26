@@ -49,6 +49,10 @@
               "src/styles/theme.scss",
               "src/styles.scss"
             ],
+            "allowedCommonJsDependencies": [
+              "node-machine-id",
+              "fast-xml-parser"
+            ],
             "scripts": [
             ],
             "customWebpackConfig": {

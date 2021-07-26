@@ -46,7 +46,6 @@ import { PlayerOverlayComponent } from './player/player-overlay/player-overlay.c
     PlayerComponent,
     TeamComponent,
     ValueLabelComponent,
-    StatBaseComponent,
     StatAccBattlesComponent,
     StatAccWrComponent,
     StatKarmaComponent,

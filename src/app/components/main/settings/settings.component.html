@@ -130,7 +130,7 @@
           </p-selectButton>
         </div>
       </article>
-      <article [class.disabled]="monitorConfig.playerBackgroundsMode == 'disabled'">
+      <article [class.disabled]="monitorConfig.playerBackgroundsMode.model === 0">
         <caption>
           {{ 'settings.appearance.playerBackgrounds.caption' | translate }}
         </caption>

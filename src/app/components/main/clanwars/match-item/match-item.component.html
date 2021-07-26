@@ -1,17 +1,17 @@
 <div class="p-grid p-m-0">
   <div class="p-col-12 p-md-5 p-d-flex p-p-0">
-    <app-match-item-team class="p-d-flex p-flex-column p-flex-grow p-p-2" [season]="match.season" [clan]="normal ? match.winner : match.looser"
+    <app-match-item-team class="p-d-flex p-flex-column p-flex-grow p-p-2" [season]="match.seasonId" [clan]="normal ? match.winner : match.looser"
                          [entry]="normal ? match.winnerEntry : match.looserEntry"></app-match-item-team>
   </div>
   <div class="p-col-12 p-md-2 p-d-flex p-flex-column p-jc-center p-ai-center">
     <img *ngIf="match.primeTime != null" style="height: 2rem"
-         src="assets/region-{{match.primeTime | prime2Region:match.season }}.svg" />
+         src="assets/region-{{match.primeTime | prime2Region:match.seasonId }}.svg" />
     <span style="font-size: 1.5rem">vs</span>
     <span class="date">{{match.date | date:'d.M.yy H:mm:ss'}}</span>
     <strong class="estimated" *ngIf="match.estimated">{{'clanwars.labels.estimated' | translate}}</strong>
   </div>
   <div class="p-col-12 p-md-5 p-d-flex p-p-0">
-    <app-match-item-team class="p-d-flex p-flex-column p-flex-grow p-p-2" [season]="match.season" [clan]="normal ? match.looser : match.winner"
+    <app-match-item-team class="p-d-flex p-flex-column p-flex-grow p-p-2" [season]="match.seasonId" [clan]="normal ? match.looser : match.winner"
                          [entry]="normal ? match.looserEntry : match.winnerEntry" [right]="true"></app-match-item-team>
   </div>
 </div>

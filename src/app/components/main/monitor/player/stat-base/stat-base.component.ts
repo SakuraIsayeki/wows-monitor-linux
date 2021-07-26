@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, InjectionToken, Input, Optional } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
 import { PlayerAppModel, StatsAppModel } from '@generated/models';
 import { StatType } from '@generated/models/stat-type';
@@ -7,6 +7,9 @@ import { LocatorService } from '@stewie/framework';
 import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
+export const SHIPPLACEHOLDERTOKEN = new InjectionToken('ship-placeholder');
+
+// noinspection AngularMissingOrInvalidDeclarationInModule
 @Component({
   template: ''
 })
@@ -23,7 +26,7 @@ export class StatBaseComponent extends BaseComponent {
   public stats: Observable<StatsAppModel>;
   public soloStats: Observable<boolean>;
 
-  constructor(private statType: StatType, private ship = false) {
+  constructor(private statType: StatType, @Inject(SHIPPLACEHOLDERTOKEN) @Optional() private ship = false) {
     super();
     this.settings = LocatorService.Injector.get(SettingsService) as SettingsService;
     this.soloStats = statType != null ? this.settings.form.monitorConfig.soloStats.valueChanges

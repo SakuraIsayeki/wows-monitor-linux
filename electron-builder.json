@@ -40,12 +40,19 @@
           "x64",
           "ia32"
         ]
+      },
+      {
+        "target": "portable"
       }
     ],
     "publish": {
       "provider": "generic",
       "url": "https://api.wows-monitor.com/releases"
     }
+  },
+  "portable": {
+    "artifactName": "wows-monitor-${version}.${ext}",
+    "useZip": true
   },
   "nsisWeb": {
     "artifactName": "wows-monitor-setup-${version}.${ext}"
