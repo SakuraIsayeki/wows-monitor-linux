@@ -80,8 +80,8 @@ export class GatewayService extends BaseInjection {
 
     this.authService.isAuthenticated$.pipe(pairwise()).subscribe(async ([prev, curr]) => {
       if (prev != true && curr == true) {
-        const appConfig = await this.settingsService.loadConfig();
-        this.settingsService.form.setValue(appConfig, { emitEvent: false });
+        const { useConfig } = await this.settingsService.loadConfig();
+        this.settingsService.form.setValue(useConfig, { emitEvent: false });
         this.settingsService.form.uuid.setValue(this.authService.userInfo.uuid, { emitEvent: false });
         this.gatewayTokenService.setToken(null);
       }
@@ -201,7 +201,6 @@ export class GatewayService extends BaseInjection {
       this.ngZone.run(() => {
         this._gatewayStatus$.next(SignalrStatus.HostConnected);
         this.uiSuccess('hostConnected');
-        console.log('HostConnected');
       });
     });
 
@@ -212,7 +211,6 @@ export class GatewayService extends BaseInjection {
         } else {
           this.uiWarn('noHostPaired');
         }
-        console.log('HostDisconnected');
         this._gatewayStatus$.next(SignalrStatus.HostDisconnected);
       });
     });

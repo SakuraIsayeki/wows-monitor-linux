@@ -167,9 +167,6 @@ function appReady() {
     });
     win.loadURL('http://localhost:4200');
 
-    const ua = win.webContents.userAgent;
-    console.log(ua);
-
     win.webContents.openDevTools();
 
   } else {

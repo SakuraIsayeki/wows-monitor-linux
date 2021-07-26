@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { JwtAuthService } from '@services/jwt-auth.service';
 import { AUTHSERVICETOKEN, BaseInjection, DynamicDialogService, StDatePipe } from '@stewie/framework';
 import { interval, Observable, of, Subject } from 'rxjs';
-import { debounceTime, filter, first, map, pairwise, skip, skipWhile, switchMap, take, tap } from 'rxjs/operators';
+import { debounceTime, skipWhile, switchMap, take } from 'rxjs/operators';
 
 @Injectable()
 export class SettingsService extends BaseInjection {
@@ -26,10 +26,11 @@ export class SettingsService extends BaseInjection {
 
   }
 
-  public async loadConfig(){
+  public async loadConfig() {
     let localConfig: AppConfig;
     let remoteConfig: AppConfig;
     let useConfig: AppConfig;
+    let differs = false;
     const configItem = localStorage.getItem('config');
     if (!configItem) {
       throw new Error('No config found');
@@ -63,19 +64,23 @@ export class SettingsService extends BaseInjection {
           }
         ]
       }).toPromise();
+      differs = true;
       useConfig = dialogResult === 'local' ? localConfig : remoteConfig;
     } else {
       useConfig = localConfig;
     }
 
-    return useConfig;
+    return { useConfig, differs };
   }
 
   async initialize(): Promise<boolean> {
 
     try {
-      const useConfig = await this.loadConfig();
+      const { useConfig, differs } = await this.loadConfig();
       this.initForm(useConfig);
+      if(differs){
+        await this.save().toPromise();
+      }
       this.initialized = true;
       return true;
     } catch {
@@ -128,8 +133,6 @@ export class SettingsService extends BaseInjection {
 
   reset() {
     // TODO
-    console.log('RESET CONFIG');
-
     return of().toPromise();
   }
 }

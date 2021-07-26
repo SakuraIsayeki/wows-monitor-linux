@@ -11,7 +11,8 @@ declare var ga: any;
 export class ClientIdHttpInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(req.url);
+    if(req.url.includes('identity'))
+      return next.handle(req);
     const authService = LocatorService.Injector.get(AUTHSERVICETOKEN) as JwtAuthService;
     const settings = LocatorService.Injector.get(SettingsService) as SettingsService;
 
