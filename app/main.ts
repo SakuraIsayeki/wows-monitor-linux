@@ -109,7 +109,7 @@ function appReady() {
     const config = await loadConfig(win);
     try {
       const closeToTray = JSON.parse(config).monitorConfig.closeToTray;
-      if (closeToTray.closeToTray && !isQuitting) {
+      if (closeToTray && !isQuitting) {
         event.preventDefault();
         win.hide();
       } else {

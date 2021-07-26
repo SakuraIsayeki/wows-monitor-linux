@@ -131,7 +131,7 @@ function appReady() {
                     config = _a.sent();
                     try {
                         closeToTray = JSON.parse(config).monitorConfig.closeToTray;
-                        if (closeToTray.closeToTray && !isQuitting) {
+                        if (closeToTray && !isQuitting) {
                             event.preventDefault();
                             win.hide();
                         }
