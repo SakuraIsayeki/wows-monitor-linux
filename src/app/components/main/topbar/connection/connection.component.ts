@@ -77,7 +77,7 @@ export class ConnectionComponent extends BaseComponent implements OnDestroy {
     } else {
       this.dialogService.open(QrScanComponent, {
         styleClass: 'qrPopup custom-popup browser',
-        showHeader: this.translateService.instant('webConnect.browser.title'),
+        header: this.translateService.instant('webConnect.browser.title'),
         dismissableMask: true
       });
     }
