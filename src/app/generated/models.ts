@@ -44,5 +44,6 @@ export { StatsAppModel } from './models/stats-app-model';
 export { ShipAppModel } from './models/ship-app-model';
 export { ShipTier } from './models/ship-tier';
 export { ShipType } from './models/ship-type';
+export { PlayerAccountAppModel } from './models/player-account-app-model';
 export { Arenainfo } from './models/arenainfo';
 export { ArenaInfoVehicle } from './models/arena-info-vehicle';

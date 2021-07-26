@@ -38,6 +38,7 @@ import { TeamStatAccWrComponent } from './team/team-stat-acc-wr/team-stat-acc-wr
 import { TeamStatAccBattlesComponent } from './team/team-stat-acc-battles/team-stat-acc-battles.component';
 import { TeamOverlayComponent } from './team/team-overlay/team-overlay.component';
 import { TeamOverlayRatingComponent } from './team/team-overlay/team-overlay-rating/team-overlay-rating.component';
+import { PlayerOverlayComponent } from './player/player-overlay/player-overlay.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { TeamOverlayRatingComponent } from './team/team-overlay/team-overlay-rat
     TeamStatAccWrComponent,
     TeamStatAccBattlesComponent,
     TeamOverlayComponent,
-    TeamOverlayRatingComponent
+    TeamOverlayRatingComponent,
+    PlayerOverlayComponent
   ],
   imports: [
     CommonModule,

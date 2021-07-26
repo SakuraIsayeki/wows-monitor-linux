@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, Optional, SecurityContext, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Optional, Output, SecurityContext, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BaseComponent } from '@components/base.component';
 import { PlayerBackgrounds, PlayerBackgroundsMode, PlayerAppModel, StatType } from '@generated/models';
@@ -28,6 +28,9 @@ export class PlayerComponent extends BaseComponent implements OnInit, OnChanges 
 
   @Input()
   index: number;
+
+  @Output()
+  clickPlayer = new EventEmitter();
 
   backgroundColor: Observable<string>;
   borderColor: Observable<string>;

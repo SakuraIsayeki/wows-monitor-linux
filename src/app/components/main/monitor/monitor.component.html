@@ -26,7 +26,12 @@
   <p-card id="monitor-friendly" class="no-padding" [class.high-contrast-mode]="settingsService.form.monitorConfig.highContrastMode.model">
     <div class="p-d-flex p-flex-grow p-flex-column">
       <ng-container *ngFor="let player of matchInfo.friendly; let l = last; let f = first; let i = index;">
-        <app-player [playerInput]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f" [index]="i">
+        <p-overlayPanel #overlayPanel appendTo="body" styleClass="no-padding no-tip">
+          <app-player-overlay [player]="player"></app-player-overlay>
+        </p-overlayPanel>
+
+        <app-player (clickPlayer)="clickPlayer($event, player, overlayPanel);"
+                    [playerInput]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f" [index]="i">
         </app-player>
         <hr class="player-seperator" *ngIf="!l"/>
       </ng-container>
@@ -36,16 +41,20 @@
   <p-card id="monitor-enemy" class="no-padding" [class.high-contrast-mode]="settingsService.form.monitorConfig.highContrastMode.model">
     <div class="p-d-flex p-flex-grow p-flex-column">
       <ng-container *ngFor="let player of matchInfo.enemy; let l = last; let f = first; let i = index;">
-        <app-player [playerInput]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f" [index]="i">
+        <p-overlayPanel #overlayPanel appendTo="body" styleClass="no-padding no-tip">
+          <app-player-overlay [player]="player"></app-player-overlay>
+        </p-overlayPanel>
+
+        <app-player (clickPlayer)="clickPlayer($event, player, overlayPanel);"
+                    [playerInput]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f" [index]="i">
         </app-player>
         <hr class="player-seperator" *ngIf="!l"/>
+
       </ng-container>
     </div>
   </p-card>
 
-  <p-contextMenu #contextMenu styleClass="custom-contextmenu" appendTo="body" triggerEvent="ignore" [global]="true"
-                 [model]="items">
-  </p-contextMenu>
+
 </div>
 
 

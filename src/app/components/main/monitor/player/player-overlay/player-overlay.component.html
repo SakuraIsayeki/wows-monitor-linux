@@ -1,0 +1,42 @@
+<div class="p-d-flex p-flex-grow p-flex-column clan-overlay-content">
+  <div class="p-d-flex p-flex-row p-flex-grow p-jc-start p-ai-center p-p-3"
+       [ngStyle]="{ height: '4rem', background: player.clanColor ?? '#FFF', position: 'relative' }">
+    <i class="overlaypanel-close pi pi-times" (click)="close()"></i>
+    <img src="assets/region-{{player.region}}.svg" style="height: 2rem" class="p-mr-2"/>
+    <strong *ngIf="player.clanId" class="p-dark-text p-mr-2">[{{player.clanTag}}]</strong>
+    <strong class="p-dark-text" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden">{{player.name}}</strong>
+  </div>
+
+
+  <div class="p-flex-grow p-grid p-pt-3 p-pr-3 p-pl-3 p-pb-2">
+
+    <!--    <div class="p-col-12 p-md-6">-->
+    <!--      <app-team-overlay-rating class="p-grid" [rating]="clan.alphaRating" [region]="clan.region" [leading]="clan.leadingRating.rank == clan.alphaRating.rank"></app-team-overlay-rating>-->
+    <!--    </div>-->
+    <!--    <div class="p-col-12 p-md-6">-->
+    <!--      <app-team-overlay-rating class="p-grid" [rating]="clan.bravoRating" [region]="clan.region" [leading]="clan.leadingRating.rank == clan.bravoRating.rank"></app-team-overlay-rating>-->
+    <!--    </div>-->
+
+<!--        <div class="p-col-12">-->
+    <!--          <hr>-->
+    <!--        </div>-->
+
+    <div class="p-col-12 p-md-6 p-d-flex p-jc-center" externalLink>
+      <a target="_blank" class="p-d-flex p-ai-center"
+         href="{{ player.region | wowsKarma }}player/{{player.accountId}},{{player.name}}/">
+        <img src="assets/wows-karma.png" style="height: 1.5rem" class="p-mr-2">
+        <span class="p-mr-2">WOWS Karma</span>
+        <i class="pi pi-external-link"></i>
+      </a>
+    </div>
+
+        <div class="p-col-12 p-md-6 p-d-flex p-jc-center" externalLink>
+          <a target="_blank" class="p-d-flex p-ai-center"
+             href="{{ player.region | wowsNumbers }}player/{{player.accountId}},{{player.name}}/">
+            <img src="assets/wows-numbers.png" style="height: 1.5rem" class="p-mr-2">
+            <span class="p-mr-2">wows-numbers.com</span>
+            <i class="pi pi-external-link"></i>
+          </a>
+        </div>
+  </div>
+</div>

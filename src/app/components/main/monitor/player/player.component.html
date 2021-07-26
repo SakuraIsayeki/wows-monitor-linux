@@ -8,7 +8,7 @@
   backgroundColor: backgroundColor | async,
   borderColor: borderColor | async
 }" *ngIf="player$ | async; let player">
-  <div class="info-wrapper" (click)="monitorComp.clickPlayer($event, player)"
+  <div class="info-wrapper" (click)="clickPlayer.emit($event)"
        [ngClass]="{
      'me': player.relation == 0,
      'bot': player.bot,
@@ -22,6 +22,8 @@
      'compact': config.layoutMode === 2
       }">
     <div class="player-name" *ngIf="!(settings.form.monitorConfig.anonymScreenshot.value && screenshotService?.takingScreenshot)">
+      <img *ngIf="!config.highContrastMode && player.account.monitorUser" src="assets/logo-white.svg" />
+      <img *ngIf="config.highContrastMode && player.account.monitorUser" src="assets/logo-black.svg" />
       <strong>
       <span *ngIf="player.clanId"
             [style.color]="player.clanColor | sanitizeCss">[{{player.clanTag}}]&nbsp;</span>

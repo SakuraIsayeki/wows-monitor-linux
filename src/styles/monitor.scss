@@ -251,6 +251,13 @@ hr.player-seperator {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      display: flex;
+      align-items: center;
+
+      img {
+        height: 1rem;
+        margin-right: .2rem;
+      }
     }
 
     stat-acc-wr {
