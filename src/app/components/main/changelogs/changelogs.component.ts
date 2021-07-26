@@ -30,6 +30,7 @@ export class ChangelogsComponent extends BaseComponent implements OnInit, OnDest
   selectChangelog(changelogId: number) {
     this.selectedId = changelogId;
     this.settingsService.form.seenChangelogs.model?.push(changelogId);
+    this.settingsService.form.seenChangelogs.updateValueAndValidity({ emitEvent: true });
   }
 
   async markAllAsSeen() {
