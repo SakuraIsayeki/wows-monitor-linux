@@ -27,6 +27,8 @@ export class JwtAuthService extends BaseInjection implements AuthService {
     super();
     this.getRefreshToken().subscribe(() => {
       this.loadUserInfo();
+    }, err => {
+      this.loadUserInfo();
     });
   }
 

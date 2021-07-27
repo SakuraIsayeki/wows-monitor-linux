@@ -10,8 +10,8 @@ import { JwtAuthService } from '@services/jwt-auth.service';
 import { SettingsService } from '@services/settings.service';
 import { AUTHSERVICETOKEN, BaseInjection } from '@stewie/framework';
 import { HubConnection, HubConnectionBuilder, HubConnectionState, LogLevel } from '@stewieoo/signalr';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { distinctUntilChanged, filter, pairwise, share, take } from 'rxjs/operators';
+import { BehaviorSubject, interval, Observable, Subject } from 'rxjs';
+import { delayWhen, distinctUntilChanged, filter, pairwise, share, skipWhile, take } from 'rxjs/operators';
 import { GatewaySettings, LivefeedAppModel, MatchAppModel } from '../generated/models';
 
 @Injectable()
@@ -94,7 +94,9 @@ export class GatewayService extends BaseInjection {
       this.connect();
     });
 
-    this.settingsService.settingsSaved$.subscribe(() => {
+    const delaySave = () => interval(300).pipe(skipWhile(() => this.connection?.state !== HubConnectionState.Connected), take(1));
+
+    this.settingsService.settingsSaved$.pipe(delayWhen(delaySave)).subscribe(() => {
       if (this.authService.isAuthenticated && this.authService.userInfo.syncSettings) {
         this.connection.send('SendConfig', this.settingsService.form.model);
       }
