@@ -31,7 +31,7 @@ export class JwtInterceptor implements HttpInterceptor {
         // in case of 401 http error
         if (err instanceof HttpErrorResponse && err.status === 401) {
           // get refresh tokens
-          const refreshToken = this.authService.refreshToken;
+          const refreshToken = localStorage.getItem('refreshToken');
 
           // if there are tokens then send refresh token request
           if (refreshToken && accessToken) {

@@ -1,9 +1,9 @@
 import { Inject, Injectable, Renderer2 } from '@angular/core';
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import { environment } from '@environments/environment';
+import { TokenAppModel } from '@generated/models';
 import { CustomUserInfoResult } from '@generated/models/custom-user-info-result';
 import { Region } from '@generated/models/region';
-import { TokenAppModel } from '@generated/models';
 import { IdentityService } from '@generated/services/identity.service';
 import { DeviceUuidService, DeviceUuidServiceToken } from '@services/device-uuid.service';
 import { BaseInjection } from '@stewie/framework';
@@ -25,8 +25,9 @@ export class JwtAuthService extends BaseInjection implements AuthService {
   constructor(private identityService: IdentityService,
               @Inject(DeviceUuidServiceToken) private uuid: DeviceUuidService) {
     super();
-    this.loadUserInfo();
-    //this.getRefreshToken().subscribe(() => this.loadUserInfo());
+    this.getRefreshToken().subscribe(() => {
+      this.loadUserInfo();
+    });
   }
 
   get isAuthenticated() {
@@ -75,7 +76,7 @@ export class JwtAuthService extends BaseInjection implements AuthService {
 
   login(model: { renderer: Renderer2, region: Region }): Observable<any> {
     let url = environment.apiUrl + `/identity/login/${model.region}?opener=` + window.location.origin;
-    url += "&device_id=" + this.uuid.getUuid();
+    url += '&device_id=' + this.uuid.getUuid();
 
     const refreshObs = !this.isAuthenticated
       ? of(null)
@@ -129,14 +130,14 @@ export class JwtAuthService extends BaseInjection implements AuthService {
   }
 
   logout(onlyLocal: boolean = false): Subscription {
-    if(onlyLocal){
+    if (onlyLocal) {
       sessionStorage.removeItem('token');
       localStorage.removeItem('refreshToken');
       this.loadUserInfo();
       return of().subscribe();
     }
 
-    return this.identityService.identityLogout({deviceId: this.uuid.getUuid()}).subscribe(() => {
+    return this.identityService.identityLogout({ deviceId: this.uuid.getUuid() }).subscribe(() => {
       sessionStorage.removeItem('token');
       localStorage.removeItem('refreshToken');
       this.loadUserInfo();
@@ -165,7 +166,7 @@ export class JwtAuthService extends BaseInjection implements AuthService {
     if (!refreshToken) {
       return of(null);
     }
-    return this.identityService.identityRefreshToken({ refreshToken }).pipe(
+    return this.identityService.identityRefreshToken({ refreshToken, deviceId: this.uuid.getUuid() }).pipe(
       tap(res => {
         this.token = res.token;
         this.refreshToken = res.refreshToken;
