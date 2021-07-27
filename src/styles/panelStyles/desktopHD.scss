@@ -1,7 +1,7 @@
 @mixin desktopHD {
 
   &.normal{
-    grid-template-columns: 34% 22% 22% 22%;
+    grid-template-columns: 30% 23.3% 23.3% 23.3%;
     grid-template-rows: repeat(3, 1fr);
 
     &.player {
