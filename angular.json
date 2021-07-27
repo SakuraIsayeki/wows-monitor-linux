@@ -101,7 +101,8 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "baseHref": "./"
+              "baseHref": "./",
+              "serviceWorker": true
             },
             "production": {
               "fileReplacements": [
