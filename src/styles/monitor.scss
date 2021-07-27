@@ -10,7 +10,7 @@
   .container {
     display: grid;
     // margin-bottom: 2rem WHY WAS THIS HERE
-    grid-gap: 1rem;
+    grid-gap: .5rem;
     grid-template-areas:
       'title'
       'friendly-clan'
@@ -337,7 +337,7 @@ app-value-label {
 app-team {
   display: block;
   cursor: pointer;
-  padding: 1rem;
+  padding: .5rem 1rem;
 
   &:hover {
     background: transparentize($secondaryColor, 0.5);
