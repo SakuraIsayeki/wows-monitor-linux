@@ -177,8 +177,6 @@ function appReady() {
       protocol: 'file:',
       slashes: true
     }));
-
-    win.webContents.openDevTools();
   }
   win.on('closed', () => {
     tray.destroy();
