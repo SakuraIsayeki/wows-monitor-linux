@@ -195,7 +195,7 @@
           <div [innerHTML]="'settings.appearance.teamWinrate.summary' | translate | sanitizeHtml"></div>
           <a (click)="showExaplanationDialog = true">{{'settings.appearance.teamWinrate.explanation' | translate}}</a>
         </summary>
-        <p-dialog [header]="'settings.appearance.teamWinrate.explanation' | translate"
+        <p-dialog [header]="'settings.appearance.teamWinrate.explanation' | translate" [dismissableMask]="true"
                   [(visible)]="showExaplanationDialog" [style]="{'max-width': '600px'}" [modal]="true">
           <p externalLink>
             <strong>Average (Mean) and Median</strong> <br/>
