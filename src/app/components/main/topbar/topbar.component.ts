@@ -83,7 +83,7 @@ export class TopbarComponent extends BaseComponent implements OnInit {
       const info = arr[1] as MatchAppModel;
       if (status === Status.Fetching) {
         this.settingsService.form.forcePVP.disable({emitEvent: false});
-      } else if (info?.matchGroup !== MatchGroup.PVP && info?.matchGroup !== MatchGroup.CLAN && info?.matchGroup !== MatchGroup.BRAWL){
+      } else if (info && info.matchGroup !== MatchGroup.PVP && info.matchGroup !== MatchGroup.CLAN && info.matchGroup !== MatchGroup.BRAWL){
         this.settingsService.form.forcePVP.enable({emitEvent: false});
       }
       this.cd.detectChanges();

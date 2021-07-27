@@ -1,16 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
 import { StatType } from '@generated/models/stat-type';
 import { TeamAverageAppModel, TeamWinrate } from '@generated/models';
 import { SettingsService } from '@services/settings.service';
 import { LocatorService } from '@stewie/framework';
-import { combineLatest, Observable, of } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
+import { map, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   template: ''
 })
-export class TeamStatBaseComponent extends BaseComponent {
+export class TeamStatBaseComponent extends BaseComponent implements OnChanges{
 
   @Input()
   public teamAverages: TeamAverageAppModel[];
@@ -22,6 +22,8 @@ export class TeamStatBaseComponent extends BaseComponent {
 
   public winrates: Observable<{ ship: number, acc: number }>;
 
+  private changes$ = new BehaviorSubject(null);
+
   constructor(private statType: StatType) {
     super();
     this.settings = LocatorService.Injector.get(SettingsService) as SettingsService;
@@ -29,7 +31,7 @@ export class TeamStatBaseComponent extends BaseComponent {
       .pipe(startWith(this.settings.form.monitorConfig.soloStats.value), this.untilDestroy(),
         map((statsTypes: StatType[]) => statsTypes.includes(statType))) : of(false);
 
-    this.stats = this.soloStats.pipe(map(val => this.getStats(val)));
+    this.stats = this.changes$.pipe(switchMap(() => this.soloStats), map(val => this.getStats(val)));
 
     this.winrates = combineLatest([
       this.settings.form.monitorConfig.teamWinrate.valueChanges.pipe(startWith(this.settings.form.monitorConfig.teamWinrate.value)),
@@ -47,8 +49,8 @@ export class TeamStatBaseComponent extends BaseComponent {
   }
 
 
-  ngOnInit(): void {
-
+  ngOnChanges(changes: SimpleChanges) {
+    this.changes$.next(null);
   }
 
   private getStats(solo: boolean) {
