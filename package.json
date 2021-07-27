@@ -43,7 +43,7 @@
     "@ngx-loading-bar/core": "~5.1.2",
     "@ngx-loading-bar/http-client": "^5.1.2",
     "@ngx-loading-bar/router": "~5.1.2",
-    "@stewie/framework": "^1.0.305",
+    "@stewie/framework": "^1.0.308",
     "@stewie/meta": "^1.0.0",
     "@stewieoo/signalr": "^5.0.7",
     "@zxing/ngx-scanner": "~3.1.3",
