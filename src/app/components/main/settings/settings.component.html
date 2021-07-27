@@ -174,7 +174,7 @@
         <div class="input-wrap p-inputgroup">
           <p-multiSelect [style]="{ minWidth: '200px' }"
                          [appendTo]="'body'"
-                  [options]="soloStatsOptions"
+                         [options]="soloStatsOptions"
                          [formControl]="monitorConfig.soloStats"
                          [showToggleAll]="true"
                          [placeholder]="'settings.appearance.soloStats.placeholder' | translate">
@@ -199,8 +199,7 @@
                   [(visible)]="showExaplanationDialog" [style]="{'max-width': '600px'}" [modal]="true">
           <p externalLink>
             <strong>Average (Mean) and Median</strong> <br/>
-            <a
-                    href="https://www.purplemath.com/modules/meanmode.htm">https://www.purplemath.com/modules/meanmode.htm</a>
+            <a href="https://www.purplemath.com/modules/meanmode.htm">https://www.purplemath.com/modules/meanmode.htm</a>
           </p>
           <p>
             <strong>Weighted</strong> <br/>

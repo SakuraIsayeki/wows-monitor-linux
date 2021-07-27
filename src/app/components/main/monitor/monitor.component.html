@@ -63,7 +63,7 @@
     <fa-icon [icon]="faWifi" [fixedWidth]="true"></fa-icon>&nbsp;{{'monitor.empty' | translate}}
   </span>
   <ng-container *isBrowser>
-    <span style="font-size: 1.5rem" *ngIf="signalrService.gatewayStatus$ | async; let status;">
+    <span style="font-size: 1.5rem;text-align: center;" *ngIf="signalrService.gatewayStatus$ | async; let status;">
       <span *ngIf="status === 5">
         <fa-icon [icon]="faWifi" [fixedWidth]="true"></fa-icon>&nbsp;{{'monitor.empty' | translate}}
       </span>
