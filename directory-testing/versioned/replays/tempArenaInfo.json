@@ -1,1 +1,116 @@
-{"matchGroup": "pvp", "gameMode": 7, "clientVersionFromExe": "0,10,6,4181350", "scenarioUiCategoryId": 0, "mapDisplayName": "47_Sleeping_Giant", "mapId": 29, "clientVersionFromXml": "0,10,6,4181350", "weatherParams": {"0": ["PCOW003_Cloudy"], "1": ["PCOW003_Cloudy", "PCOW002_Storm"]}, "playersPerTeam": 12, "duration": 1200, "gameLogic": "Domination", "name": "12x12", "scenario": "Domination_4point", "playerID": 0, "vehicles": [{"shipId": 3760142288, "relation": 1, "id": 805568386, "name": "_FAWK3S_"}, {"shipId": 3749623504, "relation": 1, "id": 805529738, "name": "Yume_Tenshi"}, {"shipId": 4282300112, "relation": 2, "id": 939608332, "name": "wujekwind"}, {"shipId": 4273911792, "relation": 2, "id": 805342607, "name": "Neeeeeaaaah"}, {"shipId": 3761125360, "relation": 1, "id": 805419408, "name": "schuetze_18"}, {"shipId": 4180621296, "relation": 1, "id": 805429010, "name": "Quentinel"}, {"shipId": 3969824208, "relation": 1, "id": 805397779, "name": "SMOKE4FUN_BLAZE_IT"}, {"shipId": 4181637104, "relation": 1, "id": 805582614, "name": "TrustyShorts"}, {"shipId": 3969824208, "relation": 2, "id": 805568407, "name": "StarMorien"}, {"shipId": 4276041424, "relation": 2, "id": 805608995, "name": "SSSAnoxSSS"}, {"shipId": 4075697872, "relation": 2, "id": 939649447, "name": "nn3rox"}, {"shipId": 3760076080, "relation": 2, "id": 939831852, "name": "martoveko"}, {"shipId": 3666818896, "relation": 2, "id": 939790769, "name": "MagicTurtle1337"}, {"shipId": 4075730928, "relation": 1, "id": 805732020, "name": "Master_RedBaron"}, {"shipId": 3751753712, "relation": 1, "id": 805325888, "name": "Psychodaddy1_2021"}, {"shipId": 4181636912, "relation": 2, "id": 939548497, "name": "BernieW71"}, {"shipId": 4179572560, "relation": 1, "id": 805652434, "name": "astroblock"}, {"shipId": 3751753168, "relation": 2, "id": 805426917, "name": "_Repulse"}, {"shipId": 4181669840, "relation": 2, "id": 939680486, "name": "WhiskeyTF"}, {"shipId": 3760142288, "relation": 2, "id": 939627501, "name": "DukeGarland"}, {"shipId": 4075697968, "relation": 0, "id": 939740913, "name": "Rowboat_Cop"}, {"shipId": 4282267344, "relation": 1, "id": 939606131, "name": "__Ash_"}, {"shipId": 4179506992, "relation": 2, "id": 805688316, "name": "Zorzanin"}, {"shipId": 4292818736, "relation": 1, "id": 939781117, "name": "DJCommander1"}], "gameType": "RandomBattle", "dateTime": "27.07.2021 15:22:40", "mapName": "spaces/47_Sleeping_Giant", "playerName": "Rowboat_Cop", "scenarioConfigId": 229, "teamsCount": 2, "logic": "Domination", "playerVehicle": "PGSD209-Felix-Schultz", "battleDuration": 1200, "mapBorder": null}
+{
+  "matchGroup": "ranked",
+  "gameMode": 7,
+  "clientVersionFromExe": "0,10,6,4181350",
+  "scenarioUiCategoryId": 0,
+  "mapDisplayName": "18_NE_ice_islands",
+  "mapId": 11,
+  "clientVersionFromXml": "0,10,6,4181350",
+  "weatherParams": {
+    "0": [
+      "PCOW003_Cloudy"
+    ]
+  },
+  "playersPerTeam": 7,
+  "duration": 1200,
+  "gameLogic": "Domination",
+  "name": "7x7",
+  "scenario": "Ranked_Domination",
+  "playerID": 0,
+  "vehicles": [
+    {
+      "shipId": 4075730896,
+      "relation": 0,
+      "id": 939831520,
+      "name": "Leo_Apollo11"
+    },
+    {
+      "shipId": 3552458448,
+      "relation": 1,
+      "id": 939716448,
+      "name": "GermanSpawn"
+    },
+    {
+      "shipId": 4065212112,
+      "relation": 2,
+      "id": 805465062,
+      "name": "DhuSe"
+    },
+    {
+      "shipId": 4180588272,
+      "relation": 2,
+      "id": 939853804,
+      "name": "alberigo"
+    },
+    {
+      "shipId": 4180555568,
+      "relation": 1,
+      "id": 805702826,
+      "name": "umodus199"
+    },
+    {
+      "shipId": 3761190608,
+      "relation": 2,
+      "id": 939636972,
+      "name": "Oerny1981"
+    },
+    {
+      "shipId": 4180621264,
+      "relation": 1,
+      "id": 805635758,
+      "name": "PL_urban"
+    },
+    {
+      "shipId": 3530504176,
+      "relation": 2,
+      "id": 805431471,
+      "name": "Silverstar_invader"
+    },
+    {
+      "shipId": 3761190704,
+      "relation": 1,
+      "id": 939563120,
+      "name": "GrimmZorn"
+    },
+    {
+      "shipId": 3762239472,
+      "relation": 1,
+      "id": 805371537,
+      "name": "Admiral_AllesEgal"
+    },
+    {
+      "shipId": 4181603632,
+      "relation": 1,
+      "id": 939886930,
+      "name": "Zelda"
+    },
+    {
+      "shipId": 4292818736,
+      "relation": 2,
+      "id": 805498708,
+      "name": "Gin2b"
+    },
+    {
+      "shipId": 4181604304,
+      "relation": 2,
+      "id": 805702841,
+      "name": "Mats67"
+    },
+    {
+      "shipId": 4076746448,
+      "relation": 2,
+      "id": 805541887,
+      "name": "Lucos11"
+    }
+  ],
+  "gameType": "RankedBattle",
+  "dateTime": "27.07.2021 16:50:30",
+  "mapName": "spaces/18_NE_ice_islands",
+  "playerName": "Leo_Apollo11",
+  "scenarioConfigId": 85,
+  "teamsCount": 2,
+  "logic": "Domination",
+  "playerVehicle": "PBSC209-Drake",
+  "battleDuration": 1200,
+  "mapBorder": null
+}

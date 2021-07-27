@@ -19,7 +19,7 @@
         <span>&nbsp;({{ 'monitor.season' | translate }} {{matchInfo.clanSeasonId}})</span>
       </ng-container>
       <ng-container *ngIf="matchInfo.matchGroup == 'RANKED'">
-        <span>&nbsp;({{ 'monitor.season' | translate }} Season {{matchInfo.rankedSeason}})</span>
+        <span>&nbsp;({{ 'monitor.season' | translate }} {{matchInfo.rankedSeason}})</span>
       </ng-container>
       <span>, {{matchInfo.map.name}}</span>
     </div>
