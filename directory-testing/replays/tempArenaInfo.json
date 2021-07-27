@@ -1,60 +1,143 @@
 {
-  "clientVersionFromXml": "0,9,11,3173843",
-  "gameMode": 16,
-  "clientVersionFromExe": "0,9,11,3173843",
-  "mapDisplayName": "20_NE_two_brothers",
-  "mapId": 13,
-  "matchGroup": "CLAN",
-  "useMatchGroup": "PVP",
+  "matchGroup": "cooperative",
+  "gameMode": 7,
+  "clientVersionFromExe": "0,10,6,4181350",
+  "scenarioUiCategoryId": 2,
+  "mapDisplayName": "18_NE_ice_islands",
+  "mapId": 11,
+  "clientVersionFromXml": "0,10,6,4181350",
+  "weatherParams": {
+    "0": [
+      "PCOW003_Cloudy"
+    ],
+    "1": [
+      "PCOW008_Morning"
+    ]
+  },
+  "playersPerTeam": 9,
   "duration": 1200,
   "gameLogic": "Domination",
-  "name": "12x12",
-  "scenario": "Epicenter_Special",
+  "name": "9x9",
+  "scenario": "Domination_3point_Coop",
   "playerID": 0,
   "vehicles": [
     {
-      "id": 672043938,
-      "relation": 1,
-      "name": "kaede800",
-      "shipId": 3530504176
-    },
-    {
-      "id": 537886021,
+      "shipId": 4180588304,
       "relation": 0,
-      "name": "kurohyou_san",
-      "shipId": 3750672176
+      "id": 268604257,
+      "name": "ObnoxiousPotato"
     },
     {
-      "id": 538035217,
+      "shipId": 3752769328,
       "relation": 1,
-      "name": "soruto_ky",
-      "shipId": 4180555600
+      "id": 402736933,
+      "name": "Yak15g"
     },
     {
-      "id": 538138869,
-      "relation": 2,
-      "name": "Corsair95",
-      "shipId": 3760109552
+      "shipId": 4292818736,
+      "relation": 1,
+      "id": 268454407,
+      "name": "Deathtone13"
     },
     {
-      "id": 672152056,
-      "relation": 2,
-      "name": "Starkiller2001",
-      "shipId": 4180621104
+      "shipId": 4182718192,
+      "relation": 1,
+      "id": 402712744,
+      "name": "_IronPig_"
     },
     {
-      "id": 537862469,
+      "shipId": 4065212112,
+      "relation": 1,
+      "id": 402779177,
+      "name": "Nova4g"
+    },
+    {
+      "shipId": 4181637104,
+      "relation": 1,
+      "id": 402695627,
+      "name": "maryleftover"
+    },
+    {
+      "shipId": 4272830448,
+      "relation": 1,
+      "id": 268595506,
+      "name": "7DeadlySlins"
+    },
+    {
+      "shipId": 4180588304,
       "relation": 2,
-      "name": "zainess",
-      "shipId": 4075697872
+      "id": 268625135,
+      "name": ":Wright:"
+    },
+    {
+      "shipId": 4272830448,
+      "relation": 2,
+      "id": 268625136,
+      "name": ":Buchan:"
+    },
+    {
+      "shipId": 4264441840,
+      "relation": 1,
+      "id": 268506417,
+      "name": "RJ_LH"
+    },
+    {
+      "shipId": 4264441840,
+      "relation": 2,
+      "id": 268625138,
+      "name": ":Knight:"
+    },
+    {
+      "shipId": 4181637072,
+      "relation": 2,
+      "id": 268625139,
+      "name": ":Zenker:"
+    },
+    {
+      "shipId": 4065212112,
+      "relation": 2,
+      "id": 268625140,
+      "name": ":Goltz:"
+    },
+    {
+      "shipId": 4292818736,
+      "relation": 2,
+      "id": 268625141,
+      "name": ":Tourville:"
+    },
+    {
+      "shipId": 3752769328,
+      "relation": 2,
+      "id": 268625142,
+      "name": ":Warrender:"
+    },
+    {
+      "shipId": 4182718192,
+      "relation": 2,
+      "id": 268625143,
+      "name": ":Tegetthoff:"
+    },
+    {
+      "shipId": 4281284304,
+      "relation": 1,
+      "id": 268568954,
+      "name": "FTAKamikaze"
+    },
+    {
+      "shipId": 4181669872,
+      "relation": 2,
+      "id": 268625137,
+      "name": ":Scheer:"
     }
   ],
-  "playersPerTeam": 12,
-  "dateTime": "13.12.2020 23:15:30",
-  "mapName": "spaces/20_NE_two_brothers",
-  "playerName": "kurohyou_san",
-  "scenarioConfigId": 101,
+  "gameType": "CooperativeBattle",
+  "dateTime": "26.07.2021 19:50:15",
+  "mapName": "spaces/18_NE_ice_islands",
+  "playerName": "ObnoxiousPotato",
+  "scenarioConfigId": 86,
   "teamsCount": 2,
   "logic": "Domination",
-  "playerVehicle": "PGSC519-Aegir"
+  "playerVehicle": "PHSC109-Johan-de-Witt",
+  "battleDuration": 1200,
+  "mapBorder": null
 }

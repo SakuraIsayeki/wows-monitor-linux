@@ -1,14 +1,13 @@
 import { ChangeDetectorRef, Component, OnInit, Optional, ViewChild } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
 import { faBars, faCamera, faCompress, faExpand } from '@fortawesome/free-solid-svg-icons';
-import { MatchAppModel } from '@generated/models';
-import { MatchGroup } from '@generated/models/match-group';
+import { MatchAppModel, MatchGroup } from '@generated/models';
 import { Status } from '@interfaces/signalr';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@services/api.service';
 import { ScreenshotService } from '@services/desktop/screenshot.service';
-import { SettingsService } from '@services/settings.service';
 import { GatewayService } from '@services/gateway.service';
+import { SettingsService } from '@services/settings.service';
 import { SelectItem } from 'primeng/api';
 import { combineLatest } from 'rxjs';
 import { MenuComponent } from './menu/menu.component';
@@ -82,13 +81,15 @@ export class TopbarComponent extends BaseComponent implements OnInit {
       .pipe(this.untilDestroy()).subscribe(arr => {
       const status = arr[0] as Status;
       const info = arr[1] as MatchAppModel;
-      if (status === Status.Fetching || info?.matchGroup != MatchGroup.RANKED) {
+      if (status === Status.Fetching) {
         this.settingsService.form.forcePVP.disable({emitEvent: false});
-      } else {
+      } else if (info?.matchGroup !== MatchGroup.PVP && info?.matchGroup !== MatchGroup.CLAN && info?.matchGroup !== MatchGroup.BRAWL){
         this.settingsService.form.forcePVP.enable({emitEvent: false});
       }
       this.cd.detectChanges();
     });
+
+    this.settingsService.form.forcePVP.valueChanges.pipe(this.untilDestroy()).subscribe(() => this.apiService.resendState());
   }
 
   isFullscreen = false;
@@ -114,6 +115,6 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   };
 
   async changeForcePVP() {
-    this.settingsService.form.forcePVP.valueChanges.pipe(this.untilDestroy()).subscribe(() => this.apiService.resendState());
+
   }
 }
