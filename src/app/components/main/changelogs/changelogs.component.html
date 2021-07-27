@@ -2,7 +2,7 @@
   <p-card class="list">
     <h2>Changelogs</h2>
     <div *showOn="'desktop'" class="p-mb-2">
-      <p-dropdown [options]="changelogs | async" optionLabel="version" optionValue="id"
+      <p-dropdown appendTo="body" [options]="changelogs | async" optionLabel="version" optionValue="id"
                   (onChange)="selectChangelog($event.value)">
         <ng-template let-item pTemplate="selectedItem">
           {{item.version}}
