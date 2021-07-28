@@ -86,29 +86,30 @@ function appReady() {
     win.setMenu(null);
     mainWindowState.manage(win);
     win.on('close', function (event) {
-        event.preventDefault();
-        // TODO fix close to tray
-        logger.error('Do Config Stuff');
-        load_config_1.loadConfig(win).then(function (config) {
-            logger.error(config);
-            try {
-                var closeToTray = JSON.parse(config).monitorConfig.closeToTray;
-                if (closeToTray && !isQuitting) {
-                    win.hide();
-                }
-                else {
-                    var children = win.getChildWindows();
-                    for (var _i = 0, children_1 = children; _i < children_1.length; _i++) {
-                        var child = children_1[_i];
-                        child.close();
+        if (!isQuitting) {
+            event.preventDefault();
+            load_config_1.loadConfig(win).then(function (config) {
+                logger.error(config);
+                try {
+                    var closeToTray = JSON.parse(config).monitorConfig.closeToTray;
+                    if (closeToTray && !isQuitting) {
+                        win.hide();
                     }
-                    win.close();
+                    else {
+                        isQuitting = true;
+                        var children = win.getChildWindows();
+                        for (var _i = 0, children_1 = children; _i < children_1.length; _i++) {
+                            var child = children_1[_i];
+                            child.close();
+                        }
+                        win.close();
+                    }
                 }
-            }
-            catch (error) {
-                logger.error('[Electron]', '(initUpdater)', 'Error reading config json', error);
-            }
-        }).catch(function (err) { return logger.error('test', err); });
+                catch (error) {
+                    logger.error('[Electron]', '(windowClose)', 'Error reading config json', error);
+                }
+            }).catch(function (err) { return logger.error('[Electron]', '(windowClose)', err); });
+        }
         return false;
     });
     tray = new electron_1.Tray(trayIconPath);
@@ -155,7 +156,6 @@ function appReady() {
             protocol: 'file:',
             slashes: true
         }));
-        win.webContents.openDevTools();
     }
     win.on('closed', function () {
         tray.destroy();

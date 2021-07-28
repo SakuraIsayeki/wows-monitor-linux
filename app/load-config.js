@@ -4,7 +4,7 @@ exports.loadConfig = void 0;
 function loadConfig(win) {
     return new Promise(function (resolve, reject) {
         win.webContents
-            .executeJavaScript('localStorage.getItem("config");console.log("Getting Config")', true)
+            .executeJavaScript('localStorage.getItem("config")', true)
             .then(function (result) {
             resolve(result);
         }).catch(function (r) { return reject(r); });

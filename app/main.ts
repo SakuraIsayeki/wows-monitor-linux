@@ -1,4 +1,3 @@
-import { constructUserAgent } from '@stewieoo/signalr/dist/esm/Utils';
 import { app, BrowserWindow, globalShortcut, Menu, screen, Tray } from 'electron';
 import * as logger from 'electron-log';
 import { autoUpdater } from 'electron-updater';
@@ -105,24 +104,26 @@ function appReady() {
   mainWindowState.manage(win);
 
   win.on('close', (event) => {
-    event.preventDefault();
-    loadConfig(win).then(config => {
-      logger.error(config);
-      try {
-        const closeToTray = JSON.parse(config).monitorConfig.closeToTray;
-        if (closeToTray && !isQuitting) {
-          win.hide();
-        } else {
-          let children = win.getChildWindows();
-          for (let child of children) {
-            child.close();
+    if (!isQuitting) {
+      event.preventDefault();
+      loadConfig(win).then(config => {
+        try {
+          const closeToTray = JSON.parse(config).monitorConfig.closeToTray;
+          if (closeToTray && !isQuitting) {
+            win.hide();
+          } else {
+            isQuitting = true;
+            let children = win.getChildWindows();
+            for (let child of children) {
+              child.close();
+            }
+            win.close();
           }
-          win.close();
+        } catch (error) {
+          logger.error('[Electron]', '(windowClose)', 'Error reading config json', error);
         }
-      } catch (error) {
-        logger.error('[Electron]', '(windowClose)', 'Error reading config json', error);
-      }
-    }).catch(err => logger.error('[Electron]','(windowClose)',  err));
+      }).catch(err => logger.error('[Electron]', '(windowClose)', err));
+    }
     return false;
   });
 

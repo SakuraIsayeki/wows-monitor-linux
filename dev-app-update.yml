@@ -1,3 +1,3 @@
 provider: generic
-url: 'http://wows-monitor.com/releases'
+url: 'https://api.wows-monitor.com/releases'
 updaterCacheDirName: angular-electron-updater
