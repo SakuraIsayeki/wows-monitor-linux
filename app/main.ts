@@ -104,25 +104,25 @@ function appReady() {
 
   mainWindowState.manage(win);
 
-  win.on('close', async (event) => {
-    // TODO fix close to tray
-    const config = await loadConfig(win);
-    try {
-      const closeToTray = JSON.parse(config).monitorConfig.closeToTray;
-      if (closeToTray && !isQuitting) {
-        event.preventDefault();
-        win.hide();
-      } else {
-        let children = win.getChildWindows();
-        for (let child of children) {
-          child.close();
+  win.on('close', (event) => {
+    event.preventDefault();
+    loadConfig(win).then(config => {
+      logger.error(config);
+      try {
+        const closeToTray = JSON.parse(config).monitorConfig.closeToTray;
+        if (closeToTray && !isQuitting) {
+          win.hide();
+        } else {
+          let children = win.getChildWindows();
+          for (let child of children) {
+            child.close();
+          }
+          win.close();
         }
-        win.close();
+      } catch (error) {
+        logger.error('[Electron]', '(windowClose)', 'Error reading config json', error);
       }
-
-    } catch (error) {
-      logger.error('[Electron]', '(initUpdater)', 'Error reading config json', error);
-    }
+    }).catch(err => logger.error('[Electron]','(windowClose)',  err));
     return false;
   });
 
