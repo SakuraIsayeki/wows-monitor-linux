@@ -5,6 +5,6 @@ marker('appTitle');
 export const staticValues = {
   applicationName: 'WoWs Monitor',
   defautTitle: 'appTitle',
-  version: '1.1.1',
+  version: '1.1.2',
   hub: '/hub'
 };
