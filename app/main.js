@@ -89,7 +89,6 @@ function appReady() {
         if (!isQuitting) {
             event.preventDefault();
             load_config_1.loadConfig(win).then(function (config) {
-                logger.error(config);
                 try {
                     var closeToTray = JSON.parse(config).monitorConfig.closeToTray;
                     if (closeToTray && !isQuitting) {

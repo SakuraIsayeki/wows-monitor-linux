@@ -10,11 +10,11 @@
 
   <div class="p-flex-grow p-grid p-pt-3 p-pr-3 p-pl-3 p-pb-2">
 
-    <div class="p-col-12 p-md-6">
-      <app-team-overlay-rating class="p-grid" [rating]="clan.alphaRating" [region]="clan.region" [leading]="clan.leadingRating.rank == clan.alphaRating.rank"></app-team-overlay-rating>
+    <div class="p-col-12 p-md-6" *ngIf="clan.alphaRating">
+      <app-team-overlay-rating class="p-grid" [rating]="clan.alphaRating" [region]="clan.region" [leading]="clan.leadingRating.rank == clan.alphaRating?.rank"></app-team-overlay-rating>
     </div>
-    <div class="p-col-12 p-md-6">
-      <app-team-overlay-rating class="p-grid" [rating]="clan.bravoRating" [region]="clan.region" [leading]="clan.leadingRating.rank == clan.bravoRating.rank"></app-team-overlay-rating>
+    <div class="p-col-12 p-md-6" *ngIf="clan.bravoRating">
+      <app-team-overlay-rating class="p-grid" [rating]="clan.bravoRating" [region]="clan.region" [leading]="clan.leadingRating.rank == clan.bravoRating?.rank"></app-team-overlay-rating>
     </div>
 
     <div class="p-col-12">
