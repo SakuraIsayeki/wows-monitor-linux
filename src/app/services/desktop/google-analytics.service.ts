@@ -31,7 +31,7 @@ export class DesktopGoogleAnalyticsService implements AnalyticsService {
       tap(userInfo => {
         this.visitor = ua(environment.gaCode, userInfo.uuid ?? this.settingsService.form.uuid.value);
       }),
-      switchMap(() => interval(1000))
+      switchMap(() => interval(60000))
     ).subscribe(() => {
       this.send('heartbeat', 'heartbeat', 'heartbeat', 'heartbeat');
     });
