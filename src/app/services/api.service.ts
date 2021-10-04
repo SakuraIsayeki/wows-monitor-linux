@@ -1,8 +1,10 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Injector } from '@angular/core';
 import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
+import { GatewayService } from '@services/gateway.service';
 import { SettingsService } from '@services/settings.service';
-import { of } from 'rxjs';
-import { MatchGroup, Region, Relation, Arenainfo } from '../generated/models';
+import { BehaviorSubject, interval, Observable, of, Subscription } from 'rxjs';
+import { filter, last, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { Arenainfo, MatchGroup, Region, Relation } from '../generated/models';
 import { StatsService } from '../generated/services';
 
 @Injectable()
@@ -12,8 +14,29 @@ export class ApiService {
   lastHash: string;
   static lastRegion: Region;
   private dateRegex = new RegExp('(\\d{2})\\.(\\d{2})\\.(\\d{4})\\s(\\d{2})\\:(\\d{2})\\:(\\d{2})', 'g');
+  private _refreshTimeout$ = new BehaviorSubject(31);
+  private refreshSubscription: Subscription;
 
-  constructor(private statsService: StatsService, private settingsService: SettingsService, @Inject(LoggerServiceToken) private logger: LoggerService) {
+  public get refreshTimeout$() {
+    return this._refreshTimeout$.pipe(map(x => x > 30 ? -1 : 30 - x));
+  }
+
+  constructor(private statsService: StatsService, private settingsService: SettingsService,
+              @Inject(LoggerServiceToken) private logger: LoggerService,
+              private injector: Injector) {
+  }
+
+  refreshStats() {
+    if(this.refreshSubscription && this._refreshTimeout$.value < 30){
+      return of();
+    }
+    this.refreshSubscription?.unsubscribe();
+    this.refreshSubscription = interval(1000).subscribe(x => this._refreshTimeout$.next(x));
+    const gateway = this.injector.get(GatewayService) as GatewayService;
+    return gateway.info$.pipe(filter(m => m != null), switchMap(m => {
+      const name = m.friendly.find(v => v.relation === Relation.Self).name;
+      return this.statsService.statsRefreshStats({ matchId: m.id, token: this.settingsService.form.signalRToken.value, accountName: name });
+    }));
   }
 
   resendState() {

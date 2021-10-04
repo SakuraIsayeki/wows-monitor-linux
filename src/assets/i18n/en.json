@@ -195,6 +195,8 @@
 		"pr": {
 			"poweredBy": "Personal Rating from wows-numbers.com"
 		},
+		"refreshStats": "Update Stats",
+		"refreshedMatch": "Updated Stats",
 		"season": "Season",
 		"testship": "Ship is in live testing"
 	},

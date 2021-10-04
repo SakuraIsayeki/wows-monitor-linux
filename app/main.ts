@@ -33,6 +33,14 @@ function appReady() {
 
   app.setAppUserModelId('com.wowsmonitor.app');
 
+  if(isDebug){
+    app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
+      event.preventDefault();
+      callback(true);
+    });
+  }
+
+
   const size = screen.getPrimaryDisplay().workAreaSize;
   const mainWindowState = WindowStateKeeper({
     defaultWidth: size.width,

@@ -1,11 +1,23 @@
 <ng-container *ngIf="signalrService.status$ | async; let status">
-  <div class="iconWrapper status-{{status}}"  *ngIf="isDesktop || (status == 5)"
+  <div class="iconWrapper status-{{status}}" *ngIf="isDesktop || (status == 5)"
        [pTooltip]="(statusText | async) | translate" tooltipPosition="bottom">
     <fa-icon *ngIf="status == 1" [icon]="circleIcon" size="2x" [fixedWidth]="true"></fa-icon>
     <fa-icon *ngIf="status == 2" [icon]="syncIcon" size="2x" [fixedWidth]="true" [spin]="true"></fa-icon>
     <fa-icon *ngIf="status == 3" [icon]="checkIcon" size="2x" [fixedWidth]="true"></fa-icon>
   </div>
+  <ng-container *ngIf="signalrService.info$ | async; let matchInfo">
+    <ng-container *ngIf="apiService.refreshTimeout$ | async; let timeout">
+      <div class="iconWrapper" *ngIf="!matchInfo.refreshed"
+           [pTooltip]="('monitor.refreshStats' + (timeout > -1 ? ' ('+ timeout +'s)' : '')) | translate" tooltipPosition="bottom">
+        <fa-icon (click)="refreshStats()" *ngIf="status == 3" [icon]="syncIcon" size="2x" [fixedWidth]="true"></fa-icon>
+      </div>
+    </ng-container>
+
+
+    <!--    <button class="p-button" >asdasd {{apiService.refreshTimeout$ | async}}</button>-->
+  </ng-container>
 </ng-container>
+
 
 <!--
 <pre>Status: {{signalRService.$status | async}}</pre> -->

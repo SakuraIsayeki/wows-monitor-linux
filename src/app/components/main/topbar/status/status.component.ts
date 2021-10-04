@@ -3,13 +3,16 @@ import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import { BaseComponent } from '@components/base.component';
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import { faCheckCircle, faSync } from '@fortawesome/free-solid-svg-icons';
+import { StatsService } from '@generated/services/stats.service';
 import { Status } from '@interfaces/signalr';
+import { ApiService } from '@services/api.service';
 import { GatewayService } from '@services/gateway.service';
 import { map } from 'rxjs/operators';
 
 marker('service.status.idle');
 marker('service.status.fetching');
 marker('service.status.fetched');
+marker('monitor.refreshStats');
 
 @Component({
   selector: 'app-status',
@@ -34,7 +37,8 @@ export class StatusComponent extends BaseComponent implements OnInit {
   }
 
   constructor(
-    public signalrService: GatewayService
+    public signalrService: GatewayService,
+    private apiService: ApiService
   ) {
     super();
   }
@@ -42,4 +46,8 @@ export class StatusComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  refreshStats(){
+    this.apiService.refreshStats().subscribe();
+  }
 }

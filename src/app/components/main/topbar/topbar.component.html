@@ -18,6 +18,7 @@
         <span>&nbsp;({{ 'monitor.season' | translate }} {{matchInfo.clanSeasonId}})</span>
       </ng-container><ng-container *ngIf="matchInfo.matchGroup == 'RANKED'">
         <span>&nbsp;({{ 'monitor.season' | translate }} {{matchInfo.rankedSeason}})</span></ng-container><span>, {{matchInfo.map.name}}</span>
+      <ng-container *ngIf="matchInfo.refreshed"><small>&nbsp;({{'monitor.refreshedMatch' | translate}})</small></ng-container>
     </div>
   </ng-container>
 </div>
@@ -35,7 +36,7 @@
     </span>
   </ng-container>
   <app-path-picker class="p-ml-2" *isDesktop></app-path-picker>
-  <app-status class="p-ml-2"></app-status>
+  <app-status class="p-ml-2 p-d-flex p-ai-center"></app-status>
   <app-connection class="p-d-flex p-ai-center"></app-connection>
   <div class="iconWrapper p-ml-2" *isBrowser (click)="fullscreenSwitch()">
     <fa-icon *ngIf="!isFullscreen" [icon]="expandIcon" size="2x" [fixedWidth]="true"></fa-icon>

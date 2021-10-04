@@ -27,6 +27,12 @@ function appReady() {
     var isQuitting = false;
     logger.debug('[Electron]', '(appReady)', __dirname, isDebug);
     electron_1.app.setAppUserModelId('com.wowsmonitor.app');
+    if (isDebug) {
+        electron_1.app.on('certificate-error', function (event, webContents, url, error, certificate, callback) {
+            event.preventDefault();
+            callback(true);
+        });
+    }
     var size = electron_1.screen.getPrimaryDisplay().workAreaSize;
     var mainWindowState = WindowStateKeeper({
         defaultWidth: size.width,

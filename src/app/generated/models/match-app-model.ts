@@ -24,6 +24,7 @@ export interface MatchAppModel {
   matchGroup?: MatchGroup;
   rankedSeason?: null | number;
   rankedSeasonName?: null | string;
+  refreshed?: boolean;
   region?: Region;
 }
 
