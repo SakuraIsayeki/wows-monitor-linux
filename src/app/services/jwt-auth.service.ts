@@ -161,6 +161,46 @@ export class JwtAuthService extends BaseInjection implements AuthService {
     });
   }
 
+  connectPatreon(renderer: Renderer2): Observable<any> {
+    let url = environment.apiUrl + `/identity/external/login-patreon?opener=` + window.location.origin;
+    url += '&device_id=' + this.uuid.getUuid();
+    url += '&Authorization=' + this.token;
+
+    const features = this.getFeatures();
+
+    return new Observable(sub => {
+      if (this.listener) {
+        this.listener();
+      }
+
+      this.listener = renderer.listen('window', 'message', (event) => {
+        if (event.origin !== environment.apiUrl || event.data.type !== 'auth-callback') {
+          return;
+        }
+
+        this.windowRef.close();
+        this.windowRef = null;
+
+        if (event.data.error) {
+          this.uiError(event.data.error);
+        }
+
+        sub.next();
+        sub.complete();
+      });
+
+      if (this.windowRef === null || this.windowRef?.closed) {
+        this.windowRef = window.open(url, 'patreon-auth', features);
+      } else if (this.lastUrl !== url) {
+        this.lastUrl = url;
+        this.windowRef = window.open(url, 'patreon-auth', features);
+        this.windowRef.focus();
+      } else {
+        this.windowRef.focus();
+      }
+    });
+  }
+
   public getRefreshToken(refreshToken?: string): Observable<TokenAppModel> {
     if (!refreshToken) {
       refreshToken = this.refreshToken;

@@ -3,6 +3,7 @@ export { ClansService } from './services/clans.service';
 export { ConfigService } from './services/config.service';
 export { DownloadsService } from './services/downloads.service';
 export { IdentityService } from './services/identity.service';
+export { MatchHistoryService } from './services/match-history.service';
 export { ProfileService } from './services/profile.service';
 export { SignalRService } from './services/signal-r.service';
 export { StatsService } from './services/stats.service';

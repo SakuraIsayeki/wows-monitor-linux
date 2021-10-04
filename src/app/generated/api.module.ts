@@ -9,6 +9,7 @@ import { ClansService } from './services/clans.service';
 import { ConfigService } from './services/config.service';
 import { DownloadsService } from './services/downloads.service';
 import { IdentityService } from './services/identity.service';
+import { MatchHistoryService } from './services/match-history.service';
 import { ProfileService } from './services/profile.service';
 import { SignalRService } from './services/signal-r.service';
 import { StatsService } from './services/stats.service';
@@ -27,6 +28,7 @@ import { WebConnectService } from './services/web-connect.service';
     ConfigService,
     DownloadsService,
     IdentityService,
+    MatchHistoryService,
     ProfileService,
     SignalRService,
     StatsService,

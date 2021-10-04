@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HistoryListRequestForm } from '@generated/forms';
+import { HistoryListRequestForm } from '@generated/forms/history-list-request.form';
 import { CwMatchAppModel } from '@generated/models';
 import { ClansService } from '@generated/services';
 import { SettingsService } from '@services/settings.service';

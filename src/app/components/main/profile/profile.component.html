@@ -10,6 +10,46 @@
         <p-inputSwitch [(ngModel)]="data.syncSettings" (ngModelChange)="setSync($event)"></p-inputSwitch>
       </div>
 
+      <h3>{{ 'profile.patreon.header' | translate }}</h3>
+      <p>
+        You can connect your patreon account and get benefits if you subscribed to the specific tiers.
+      </p>
+      <p *ngIf="data.requiresPatreonRefresh">
+        <strong>Due to a limitation with the patreon api you need to refresh your connection after not using the monitor app for 30 days.</strong>
+      </p>
+      <div class="p-d-flex p-jc-end" *ngIf="!data.patreonConnected">
+        <button pButton icon="pi pi-user-plus" (click)="connectPatreon()" class="p-button-success"
+                [label]="'profile.patreon.connect' | translate"></button>
+      </div>
+
+
+      <div class="p-mb-4" *ngIf="data.patreonConnected && patreonAccount | async as patreonInfo">
+        <p-table [value]="patreonInfo" styleClass="p-datatable-sm">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 15rem;">{{'profile.patreon.name' | translate}}</th>
+              <th style="width: 5rem;">{{'profile.patreon.tier' | translate}}</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-acc>
+            <tr>
+              <td class="p-text-left" style="overflow: hidden;text-overflow: ellipsis">{{acc.patreonName}}</td>
+              <td class="p-text-left">
+                <ng-container
+                        *ngIf="acc.patreonTier != null else noTier">{{ 'profile.patreon.tiers.' + acc.patreonTier | translate }}</ng-container>
+                <ng-template #noTier>{{'profile.patreon.noTier' | translate}}</ng-template>
+              </td>
+              <td class="p-text-right">
+                <button *ngIf="data.requiresPatreonRefresh" pButton icon="pi pi-refresh" (click)="connectPatreon()"
+                        class="p-button-warning p-mr-2"
+                        [label]="'profile.patreon.refresh' | translate"></button>
+                <button pButton class="p-button-danger p-button-rounded" icon="pi pi-trash" (click)="deletePatreonAccount()"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
 
       <h3>{{ 'profile.wgAccounts.header' | translate }}</h3>
       <p>
@@ -58,7 +98,8 @@
         </p-table>
       </div>
       <div class="p-d-flex p-jc-end p-mb-4">
-        <button pButton icon="pi pi-plus" class="p-button-success" [label]="'profile.wgAccounts.add' | translate" (click)="selectingRegion = true"></button>
+        <button pButton icon="pi pi-plus" class="p-button-success" [label]="'profile.wgAccounts.add' | translate"
+                (click)="selectingRegion = true"></button>
       </div>
 
       <h3>{{'profile.devices.header' | translate}}</h3>

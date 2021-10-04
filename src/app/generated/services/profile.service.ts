@@ -252,4 +252,47 @@ export class ProfileService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation profileDeletePatreonAccount
+   */
+  static readonly ProfileDeletePatreonAccountPath = '/profile/deletePatreonAccount';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `profileDeletePatreonAccount()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  profileDeletePatreonAccount$Response(params?: {
+  }): Observable<StrictHttpResponse<Blob>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ProfileService.ProfileDeletePatreonAccountPath, 'post');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: 'application/octet-stream'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Blob>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `profileDeletePatreonAccount$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  profileDeletePatreonAccount(params?: {
+  }): Observable<Blob> {
+
+    return this.profileDeletePatreonAccount$Response(params).pipe(
+      map((r: StrictHttpResponse<Blob>) => r.body as Blob)
+    );
+  }
+
 }

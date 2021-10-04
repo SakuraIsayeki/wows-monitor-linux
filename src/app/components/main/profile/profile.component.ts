@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import { BaseComponent } from '@components/base.component';
 import { ProfileAppModel } from '@generated/models';
 import { Region } from '@generated/models/region';
@@ -11,7 +12,9 @@ import { JwtAuthService } from '@services/jwt-auth.service';
 import { AUTHSERVICETOKEN, DynamicDialogService } from '@stewie/framework';
 import { of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import * as deviceUuid from 'device-uuid';
+
+marker('profile.patreon.tiers.1');
+marker('profile.patreon.tiers.2');
 
 @Component({
   templateUrl: './profile.component.html'
@@ -20,6 +23,9 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
   ownUuid: string;
   profile = this.route.data.pipe(this.untilDestroy(), map(data => data.profile as ProfileAppModel));
+  patreonAccount = this.profile.pipe(map(p => {
+    return [{ patreonName: p.patreonName, patreonTier: p.patreonTier }];
+  }));
   selectingRegion: boolean;
 
   constructor(private route: ActivatedRoute,
@@ -105,7 +111,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
-  logoutDevice(deviceId: string){
+  logoutDevice(deviceId: string) {
     this.dynamicDialog.open({
       content: this.translate.instant('profile.devices.logout.content'),
       config: {
@@ -126,11 +132,53 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       ]
     }).subscribe(id => {
       if (id === 'ok') {
-        this.identityService.identityLogout({deviceId: deviceId}).subscribe(() => {
+        this.identityService.identityLogout({ deviceId: deviceId }).subscribe(() => {
           this.uiSuccess('deviceLoggedOut');
           this.router.navigate(['.'], { relativeTo: this.route });
         });
       }
     });
+  }
+
+  connectPatreon() {
+    this.authService.connectPatreon(this.renderer).pipe(switchMap(() => this.authService.getRefreshToken())).subscribe(() => {
+      this.authService.loadUserInfo();
+      this.uiSuccess('profileSaved');
+      this.router.navigate(['.'], { relativeTo: this.route });
+    });
+  }
+
+  deletePatreonAccount() {
+    this.dynamicDialog.open({
+      content: this.translate.instant('profile.patreon.delete.content'),
+      config: {
+        header: this.translate.instant('profile.patreon.delete.header')
+      },
+      buttons: [
+        {
+          id: 'cancel',
+          class: 'p-button-secondary',
+          label: this.translate.instant('profile.patreon.delete.cancel')
+        },
+        {
+          id: 'ok',
+          class: 'p-button-danger',
+          icon: 'pi pi-trash',
+          label: this.translate.instant('profile.patreon.delete.delete')
+        }
+      ]
+    }).pipe(switchMap(id => {
+      if (id === 'ok') {
+        return this.profileService.profileDeletePatreonAccount().pipe(
+          switchMap(() => this.authService.getRefreshToken()),
+          tap(() => {
+            this.authService.loadUserInfo();
+            this.uiSuccess('profileSaved');
+            this.router.navigate(['.'], { relativeTo: this.route });
+          }));
+      } else {
+        return of(id);
+      }
+    })).subscribe();
   }
 }

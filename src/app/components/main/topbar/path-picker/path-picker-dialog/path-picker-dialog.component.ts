@@ -29,6 +29,7 @@ export class PathPickerDialogComponent extends BaseComponent implements OnInit {
       { label: this.translateService.get('pathPicker.additionalInfo.replaysPathBase'), value: ad.replaysPathBase },
       { label: this.translateService.get('pathPicker.additionalInfo.preferencesPathBase'), value: ad.preferencesPathBase },
       { label: this.translateService.get('pathPicker.additionalInfo.replaysFoldersFound'), value: ad.replaysFoldersFound },
+      { label: this.translateService.get('pathPicker.additionalInfo.replaysVersioned'), value: ad.replaysVersioned },
       { label: this.translateService.get('pathPicker.additionalInfo.replaysFolders'), value: ad.replaysFolders?.join('\r\n') }
     ];
   }));

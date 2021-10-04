@@ -192,10 +192,6 @@
 			"RANKED": "Ranked"
 		},
 		"noBattles": "Player has no battles on this ship yet",
-		"playerPopup": {
-			"wowsKarma": "Info on WOWS Karma",
-			"wowsNumbers": "Stats on WOWS Numbers"
-		},
 		"pr": {
 			"poweredBy": "Personal Rating from wows-numbers.com"
 		},
@@ -211,6 +207,7 @@
 			"replaysFolders": "Replays folders",
 			"replaysFoldersFound": "Replays folders found",
 			"replaysPathBase": "Replays path base",
+			"replaysVersioned": "Replays versioned",
 			"title": "Information about selected folder"
 		},
 		"description": "Select the main installation folder of World of Warships.<br />If you have the WGC installation the path should look similar to this:<br /><strong>C:\\Games\\World of Warships</strong><br />If you have the Steam installation the path should look similar to this:<br /><strong>C:\\Programs\\Steam\\common\\World of Warships</strong>",
@@ -224,15 +221,33 @@
 			"ip": "Ip",
 			"lastLogin": "Last Session",
 			"logout": {
+				"cancel": "Cancel",
 				"content": "Are you sure you want to log out from this device?",
 				"header": "Log out from device",
-				"cancel": "Cancel",
 				"logout": "Yes, log out"
 			},
 			"name": "Device"
 		},
 		"header": "Account",
 		"logout": "Logout",
+		"patreon": {
+			"connect": "Connect to patreon",
+			"delete": {
+				"cancel": "Cancel",
+				"content": "Are you sure you want to disconnect your patreon account?\n\rYou will remove access to all extra features.",
+				"delete": "Yes, disconnect account",
+				"header": "Disconnect Patreon Account"
+			},
+			"header": "Patreon Account",
+			"name": "Account Name",
+			"noTier": "No Tier",
+			"refresh": "Refresh connection",
+			"tier": "Tier",
+			"tiers": {
+				"1": "Erie",
+				"2": "Phoenix"
+			}
+		},
 		"settings": {
 			"description": "When enabled your settings will be synced across all your devices and saved in the database with your account.",
 			"header": "Sync Settings"
