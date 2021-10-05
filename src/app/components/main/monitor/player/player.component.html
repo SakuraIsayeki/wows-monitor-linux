@@ -40,7 +40,7 @@
     <stat-karma [player]="player"></stat-karma>
 
     <div class="ship">
-      <strong>{{player.shipInfo.name}}</strong> (Tier {{player.shipInfo.tier | roman}})
+      <strong>{{player.shipInfo?.name}}</strong> (Tier {{player.shipInfo?.tier | roman}})
     </div>
 
     <stat-ship-wr [player]="player"></stat-ship-wr>
@@ -59,10 +59,10 @@
         {{ 'monitor.bot' | translate }}
       </ng-container>
       <ng-container *ngIf="!player.bot && !player.hidden && (!player.shipStats || player.shipStats.battles <= 0)">
-        <ng-container *ngIf="player.shipInfo.testship">
+        <ng-container *ngIf="player.shipInfo?.testship">
           {{ 'monitor.testship' | translate }}
         </ng-container>
-        <ng-container *ngIf="!player.shipInfo.testship">
+        <ng-container *ngIf="!player.shipInfo?.testship">
           {{ 'monitor.noBattles' | translate }}
         </ng-container>
       </ng-container>
