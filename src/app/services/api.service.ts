@@ -3,7 +3,7 @@ import { LoggerService, LoggerServiceToken } from '@interfaces/logger.service';
 import { GatewayService } from '@services/gateway.service';
 import { SettingsService } from '@services/settings.service';
 import { BehaviorSubject, interval, Observable, of, Subscription } from 'rxjs';
-import { filter, last, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { filter, first, last, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { Arenainfo, MatchGroup, Region, Relation } from '../generated/models';
 import { StatsService } from '../generated/services';
 
@@ -33,7 +33,7 @@ export class ApiService {
     this.refreshSubscription?.unsubscribe();
     this.refreshSubscription = interval(1000).subscribe(x => this._refreshTimeout$.next(x));
     const gateway = this.injector.get(GatewayService) as GatewayService;
-    return gateway.info$.pipe(filter(m => m != null), switchMap(m => {
+    return gateway.info$.pipe(filter(m => m != null), first(), switchMap(m => {
       const name = m.friendly.find(v => v.relation === Relation.Self).name;
       return this.statsService.statsRefreshStats({ matchId: m.id, token: this.settingsService.form.signalRToken.value, accountName: name });
     }));
