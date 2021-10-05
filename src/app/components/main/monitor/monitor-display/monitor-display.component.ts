@@ -40,7 +40,6 @@ export class MonitorDisplayComponent extends BaseComponent implements OnInit, Af
   }
 
   ngOnInit() {
-    console.log('INIT');
   }
 
   ngAfterViewInit() {
