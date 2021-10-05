@@ -18,5 +18,4 @@ The color values for the Personal Rating and other stats are provided by [wows-n
 If you need support, have suggestions for features or want to report a bug you can either open a ticket or join the wows-monitor discord server.  
 [discord.gg/Tds7WBs](https://discord.gg/Tds7WBs)
 
-If you want to support this project financially you can do so by becoming a patron at [patreon.com/wowsmonitor](https://www.patreon.com/wowsmonitor) or donating via [paypal.me/stewieoO](https://www.paypal.me/stewieoO).  
-Keep in mind that i do not have any special features for patrons yet, but feel free to make suggestions :)
+If you want to support this project financially you can do so by becoming a patron at [patreon.com/wowsmonitor](https://www.patreon.com/wowsmonitor) or donating via [paypal.me/stewieoO](https://www.paypal.me/stewieoO).
