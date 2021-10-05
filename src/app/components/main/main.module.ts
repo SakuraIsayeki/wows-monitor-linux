@@ -5,6 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LOADING_BAR_CONFIG, LoadingBarModule } from '@ngx-loading-bar/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@shared/shared.module';
+import { PipesModule } from '@stewie/framework';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { BlockUIModule } from 'primeng/blockui';
 import { ButtonModule } from 'primeng/button';
@@ -75,7 +76,8 @@ import { TopbarComponent } from './topbar/topbar.component';
     TableModule,
     BlockUIModule,
     ProgressSpinnerModule,
-    ProgressBarModule
+    ProgressBarModule,
+    PipesModule
   ],
   providers: [
     DialogService,

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, Optional, ViewChild } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
-import { faBars, faCamera, faCompress, faExpand } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faBars, faCamera, faChevronLeft, faCompress, faExpand } from '@fortawesome/free-solid-svg-icons';
 import { MatchAppModel, MatchGroup } from '@generated/models';
 import { Status } from '@interfaces/signalr';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,6 +8,7 @@ import { ApiService } from '@services/api.service';
 import { ScreenshotService } from '@services/desktop/screenshot.service';
 import { GatewayService } from '@services/gateway.service';
 import { SettingsService } from '@services/settings.service';
+import { TopbarTitleService } from '@services/topbar-title.service';
 import { SelectItem } from 'primeng/api';
 import { combineLatest } from 'rxjs';
 import { MenuComponent } from './menu/menu.component';
@@ -25,6 +26,7 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   expandIcon = faExpand;
   compressIcon = faCompress;
   cameraIcon = faCamera;
+  backIcon = faChevronLeft;
   sidebarVisible = false;
 
   modes: SelectItem[] = [
@@ -63,6 +65,7 @@ export class TopbarComponent extends BaseComponent implements OnInit {
     public signalrService: GatewayService,
     public apiService: ApiService,
     public settingsService: SettingsService,
+    public topbarTitleService: TopbarTitleService,
     private cd: ChangeDetectorRef,
     @Optional() public screenshotService: ScreenshotService
   ) {

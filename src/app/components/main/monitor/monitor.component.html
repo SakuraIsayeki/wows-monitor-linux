@@ -8,55 +8,7 @@
   </button>
 </div>
 
-<div class="container {{$fontSizeClass | async}}" *ngIf="signalrService.info$ | async;let matchInfo" #container
-     (click)="$event.preventDefault();$event.stopPropagation()">
-  <p-card id="monitor-friendly-clan" class="no-padding">
-    <app-team class="p-d-flex p-flex-grow p-flex-column"
-              [clan]="matchInfo.friendlyClan" [averages]="[matchInfo.friendlyTeam, matchInfo.friendlyTeamSolo]"
-              [cw]="matchInfo.matchGroup == 'CLAN'">
-    </app-team>
-  </p-card>
-  <p-card id="monitor-enemy-clan" class="no-padding"
-          *ngIf="matchInfo.matchGroup != 'COOPERATIVE' && matchInfo.matchGroup != 'PVE'">
-    <app-team class="p-d-flex p-flex-grow p-flex-column"
-              [clan]="matchInfo.enemyClan" [averages]="[matchInfo.enemyTeam, matchInfo.enemyTeamSolo]"
-              [cw]="matchInfo.matchGroup == 'CLAN'">
-    </app-team>
-  </p-card>
-  <p-card id="monitor-friendly" class="no-padding" [class.high-contrast-mode]="settingsService.form.monitorConfig.highContrastMode.model">
-    <div class="p-d-flex p-flex-grow p-flex-column">
-      <ng-container *ngFor="let player of matchInfo.friendly; let l = last; let f = first; let i = index;">
-        <p-overlayPanel #overlayPanel appendTo="body" styleClass="no-padding no-tip">
-          <app-player-overlay [player]="player"></app-player-overlay>
-        </p-overlayPanel>
-
-        <app-player (clickPlayer)="clickPlayer($event, player, overlayPanel);"
-                    [playerInput]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f" [index]="i">
-        </app-player>
-        <hr class="player-seperator" *ngIf="!l"/>
-      </ng-container>
-    </div>
-
-  </p-card>
-  <p-card id="monitor-enemy" class="no-padding" [class.high-contrast-mode]="settingsService.form.monitorConfig.highContrastMode.model">
-    <div class="p-d-flex p-flex-grow p-flex-column">
-      <ng-container *ngFor="let player of matchInfo.enemy; let l = last; let f = first; let i = index;">
-        <p-overlayPanel #overlayPanel appendTo="body" styleClass="no-padding no-tip">
-          <app-player-overlay [player]="player"></app-player-overlay>
-        </p-overlayPanel>
-
-        <app-player (clickPlayer)="clickPlayer($event, player, overlayPanel);"
-                    [playerInput]="player" [cw]="matchInfo.matchGroup == 'CLAN'" class="player-card" [last]="l" [first]="f" [index]="i">
-        </app-player>
-        <hr class="player-seperator" *ngIf="!l"/>
-
-      </ng-container>
-    </div>
-  </p-card>
-
-
-</div>
-
+<app-monitor-display [matchInfo]="signalrService.info$ | async"></app-monitor-display>
 
 <div *ngIf="!(signalrService.info$ | async)" class="p-d-flex p-flex-grow p-ai-center p-jc-center">
   <span style="font-size: 1.5rem" *isDesktop>

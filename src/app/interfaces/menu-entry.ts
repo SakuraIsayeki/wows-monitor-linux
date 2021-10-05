@@ -10,4 +10,5 @@ export interface MenuEntry {
   browser?: boolean;
   badge?: Observable<boolean>;
   badgeCount?: Observable<number>;
+  requireAuth?: boolean;
 }

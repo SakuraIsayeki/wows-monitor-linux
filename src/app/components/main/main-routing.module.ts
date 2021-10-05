@@ -38,10 +38,14 @@ const routes: StRoutes = [
         path: 'profile',
         canActivate: [AuthGuard],
         loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+      },
+      {
+        path: 'match-history',
+        loadChildren: () => import('./match-history/match-history.module').then(m => m.MatchHistoryModule),
+        canActivate: [AuthGuard],
       }
     ]
-  }
-
+  },
 ];
 
 if (environment.browser) {

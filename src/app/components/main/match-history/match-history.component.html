@@ -1,0 +1,133 @@
+<div class="container small">
+  <p-card>
+    <div class="history-filter-card p-fluid">
+      <div class="p-d-flex p-ai-center p-jc-between p-mb-2">
+        <h2 class="p-mb-0">{{ 'matchHistory.title' | translate }}</h2>
+      </div>
+      <div class="p-grid p-mb-2">
+        <div class="p-lg-3 p-col-12">
+          <div class="p-grid">
+            <div class="p-col-12">
+              <p-calendar [formControl]="listService.form.start" appendTo="body" showButtonBar="true"
+                          [placeholder]="'matchHistory.from' | translate" [showIcon]="true"></p-calendar>
+            </div>
+            <div class="p-col-12">
+              <p-calendar [formControl]="listService.form.end" appendTo="body" showButtonBar="true"
+                          [placeholder]="'matchHistory.until' | translate" [showIcon]="true"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="p-lg-3 p-col-12">
+          <div class="p-grid">
+            <div class="p-col-12">
+              <p-dropdown appendTo="body" [options]="regions" [formControl]="listService.form.region" [showClear]="true"
+                          [placeholder]="'matchHistory.region' | translate">
+                <ng-template let-item pTemplate="item">
+                  <span>{{item.value | region}}</span>
+                </ng-template>
+              </p-dropdown>
+            </div>
+          </div>
+        </div>
+        <div class="p-lg-3 p-col-12">
+          <div class="p-grid">
+            <div class="p-col-12">
+              <p-multiSelect [options]="maps | async" [formControl]="listService.form.mapIds" appendTo="body" [showToggleAll]="true"
+                             [showHeader]="true"
+                             [placeholder]="'matchHistory.maps' | translate">
+
+              </p-multiSelect>
+            </div>
+            <div class="p-col-12">
+              <p-multiSelect [options]="ships | async" [formControl]="listService.form.shipIds" appendTo="body" [showToggleAll]="true"
+                             [showHeader]="true"
+                             [placeholder]="'matchHistory.ships' | translate">
+
+              </p-multiSelect>
+            </div>
+          </div>
+        </div>
+        <div class="p-lg-3 p-col-12">
+          <div class="p-grid">
+            <div class="p-col-12">
+              <p-multiSelect [options]="matchGroups" [formControl]="listService.form.matchGroups" appendTo="body" [showToggleAll]="true"
+                             [showHeader]="true"
+                             [placeholder]="'matchHistory.matchGroups' | translate">
+                <ng-template let-value pTemplate="selectedItems">
+              <span *ngFor="let v of value; let l = last;">{{ v | matchGroup | translate}}
+                <ng-container *ngIf="!l">,&nbsp;</ng-container></span>
+                  <span *ngIf="value?.length <= 0">{{ 'matchHistory.matchGroups' | translate }}</span>
+                </ng-template>
+                <ng-template let-group pTemplate="item">
+                  <span>{{group.label | matchGroup | translate}}</span>
+                </ng-template>
+              </p-multiSelect>
+            </div>
+          </div>
+        </div>
+        <div class="p-col-12 p-d-flex p-jc-end p-ai-center">
+          <div class="p-mr-2"  [pTooltip]="canExport ? null : ('matchHistory.notEligableExport' | translate)" tooltipPosition="bottom">
+            <p-splitButton
+                           [label]="'matchHistory.exportJson' | translate" icon="pi pi-cloud-download" (onClick)="export()"
+                           [model]="exportItems" [disabled]="downloading || !canExport"></p-splitButton>
+          </div>
+          <div>
+            <button pButton icon="pi pi-refresh" (click)="listService.form.reset({start: null, end: null})"
+                    [label]="'matchHistory.reset' | translate"></button>
+          </div>
+        </div>
+      </div>
+
+
+      <p-paginator [rows]="listService.form.pageSize.value"
+                   [first]="listService.primeNgFirst"
+                   [totalRecords]="listService.result?.totalCount"
+                   [rowsPerPageOptions]="[25, 50,75 ,100]"
+                   dropdownAppendTo="body"
+                   (onPageChange)="listService.primeNgLazyLoad($event)"></p-paginator>
+    </div>
+  </p-card>
+
+  <div *ngFor="let item of listService.result?.items">
+    <p-card class="no-padding">
+      <div style="position:relative" class="match-history-item p-d-flex p-flex-grow p-jc-start p-ai-center p-p-3"
+           [class.p-cursor-pointer]="!item.notEligable"
+           [class.not-eligable]="item.notEligable" [pTooltip]="item.notEligable ? ('matchHistory.notEligable' | translate) : null"
+           tooltipPosition="top"
+           [routerLink]="item.notEligable ? null : item.id">
+        <div class="not-eligable-overlay p-d-flex p-jc-center p-ai-center">
+          <fa-icon [icon]="faLock" [fixedWidth]="true"></fa-icon>
+        </div>
+
+        <div class="p-mr-2">
+          <img style="width: 2.5rem" src="assets/region-{{item.region}}.svg"/>
+        </div>
+        <div class="p-d-flex p-flex-column">
+          <h3 class="p-m-0">{{item.matchGroup | matchGroup | translate}} - {{item.map.name}} - {{item.shipName}}</h3>
+          <span *ngIf="item.rankedSeason">{{ 'monitor.season' | translate }} {{item.rankedSeason}}</span>
+          <span *ngIf="item.clanSeasonId">{{ 'monitor.season' | translate }} {{item.clanSeasonId}}</span>
+          <small>{{item.date | stDate:'medium-s' | async}}</small>
+        </div>
+      </div>
+
+
+    </p-card>
+  </div>
+
+  <p-paginator [rows]="listService.form.pageSize.value"
+               [first]="listService.primeNgFirst"
+               [totalRecords]="listService.result?.totalCount"
+               [rowsPerPageOptions]="[25, 50,75 ,100]"
+               dropdownAppendTo="body"
+               (onPageChange)="listService.primeNgLazyLoad($event)"></p-paginator>
+</div>
+
+<div class="floating-buttons force-show" *showOnScroll="300">
+  <button class="p-button-rounded p-button-xl p-button p-component p-button-icon-only" (click)="scrollService.scrollTo(0)">
+    <span class="p-button-icon">
+      <fa-icon [icon]="faChevronUp" [fixedWidth]="true"></fa-icon>
+    </span>
+    <span aria-hidden="true" class="p-button-label">&nbsp;</span>
+  </button>
+
+</div>

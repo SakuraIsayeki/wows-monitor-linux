@@ -1,6 +1,6 @@
 <div class="p-d-flex p-flex-grow p-flex-column p-jc-between">
   <div>
-    <div class="menu-topbar p-pt-2 p-pb-2 p-pl-3 p-pr-3 p-d-flex p-ai-center" [routerLink]="'/'" (click)="closeAction()">
+    <div class="menu-topbar p-pt-2 p-pb-2 p-pl-3 p-pr-3 p-d-flex p-ai-center" [routerLink]="'/'" (click)="menuClickAction()">
       <img src="assets/logo.svg" alt="logo" class="p-mr-4">
       <span style="font-size: 1.2rem">WoWs Monitor</span>
     </div>
@@ -21,7 +21,7 @@
       <ul>
         <ng-container *ngFor="let entry of menu">
           <li *showMenuEntry="entry" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <a [routerLink]="entry.routerLink" (click)="closeAction()">
+            <a [routerLink]="entry.routerLink" (click)="menuClick($event, entry)">
               <ng-container *ngIf=entry.icon>
                 <fa-icon [icon]="entry.icon"></fa-icon>
               </ng-container>
@@ -39,7 +39,7 @@
       <button pButton [label]="'identity.labels.login' | translate" icon="pi pi-sign-in" (click)="selectingRegion = true"></button>
     </div>
     <div *ngIf="auth.isAuthenticated" class="p-d-flex p-flex-grow p-ai-center p-jc-between" style="font-size: 1.2rem;min-width: 0"
-         routerLink="/profile" (click)="closeAction()">
+         routerLink="/profile" (click)="menuClickAction()">
       <span class="p-d-flex p-flex-grow p-ai-center p-mr-1" style="min-width: 0">
         <img style="height: 2rem;" class="p-mr-2" src="assets/region-{{auth.userInfo.region}}.svg"/>
         <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{auth.userInfo.username}}</span>

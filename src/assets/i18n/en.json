@@ -116,6 +116,20 @@
 		"liveMatches": "Matches",
 		"liveUsers": "Users"
 	},
+	"matchHistory": {
+		"exportJson": "Export as json",
+		"exportJsonZip": "Export as separate json (zipped)",
+		"from": "From",
+		"maps": "Maps",
+		"matchGroups": "Gamemodes",
+		"notEligable": "To view matches older than 3 days please subscribe to my Patreon.",
+		"notEligableExport": "To export matches please subscribe to my Patreon (Tier 2, Phoenix).",
+		"region": "Region",
+		"reset": "Reset filter",
+		"ships": "Ships",
+		"title": "Match History",
+		"until": "Until"
+	},
 	"meta": {
 		"about": {
 			"title": "About"
@@ -131,6 +145,9 @@
 		},
 		"livefeed": {
 			"title": "Clan Wars Livefeed"
+		},
+		"matchHistory": {
+			"title": "Match History"
 		},
 		"monitor": {
 			"title": "Monitor"
@@ -157,6 +174,8 @@
 		"emptyNoToken": "Connect to a desktop client to receive match updates",
 		"forcePVP": "Show random stats",
 		"hidden": "Player has a hidden profile",
+		"historyBack": "Back to history",
+		"historyMatch": "History Match",
 		"karma": {
 			"game": "Game Karma : ",
 			"wowsKarma": "wows-karma.com : "

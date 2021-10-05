@@ -29,6 +29,7 @@
                  [first]="service.primeNgFirst"
                  [totalRecords]="service.result?.totalCount"
                  [rowsPerPageOptions]="[25, 50,75 ,100]"
+                 dropdownAppendTo="body"
                  (onPageChange)="service.primeNgLazyLoad($event)"></p-paginator>
   </div>
 </p-card>
@@ -44,5 +45,6 @@
              [rows]="service.form.pageSize.value"
              [totalRecords]="service.result?.totalCount"
              [rowsPerPageOptions]="[25, 50,75 ,100]"
+             dropdownAppendTo="body"
              (onPageChange)="service.primeNgLazyLoad($event)">
 </p-paginator>

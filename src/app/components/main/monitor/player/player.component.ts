@@ -1,12 +1,11 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Optional, Output, SecurityContext, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BaseComponent } from '@components/base.component';
-import { PlayerBackgrounds, PlayerBackgroundsMode, PlayerAppModel, StatType } from '@generated/models';
+import { PlayerAppModel, PlayerBackgrounds, PlayerBackgroundsMode, StatType } from '@generated/models';
 import { ScreenshotService } from '@services/desktop/screenshot.service';
 import { SettingsService } from '@services/settings.service';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map, shareReplay, startWith } from 'rxjs/operators';
-import { MonitorComponent } from '../monitor.component';
 
 @Component({
   selector: 'app-player',
@@ -42,7 +41,6 @@ export class PlayerComponent extends BaseComponent implements OnInit, OnChanges 
   constructor(public el: ElementRef,
               private sanitizer: DomSanitizer,
               public settings: SettingsService,
-              public monitorComp: MonitorComponent,
               @Optional() public screenshotService: ScreenshotService) {
     super();
   }

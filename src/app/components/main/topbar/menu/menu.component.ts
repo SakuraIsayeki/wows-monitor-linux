@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit, Renderer2 } from '@angular/core';
 import { BaseComponent } from '@components/base.component';
-import { faCog, faDesktop, faFileAlt, faGavel, faPodcast, faQuestionCircle, faShieldAlt, faWrench } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faDesktop, faFileAlt, faGavel, faHistory, faPodcast, faQuestionCircle, faShieldAlt, faWrench } from '@fortawesome/free-solid-svg-icons';
 import { Region } from '@generated/models/region';
 import { ChangelogService } from '@generated/services';
 import { MenuEntry } from '@interfaces/menu-entry';
@@ -25,13 +25,19 @@ export class MenuComponent extends BaseComponent implements OnInit {
   public selectingRegion = false;
 
   @Input()
-  closeAction: () => void;
+  menuClickAction: () => void;
 
   menu: MenuEntry[] = [
     {
       key: 'meta.monitor.title',
       routerLink: '/',
       icon: faDesktop
+    },
+    {
+      key: 'meta.matchHistory.title',
+      routerLink: '/match-history',
+      icon: faHistory,
+      requireAuth: true
     },
     {
       key: 'meta.configtool.title',
@@ -110,6 +116,16 @@ export class MenuComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  menuClick(event: MouseEvent, entry: MenuEntry) {
+    if (entry.requireAuth && !this.auth.isAuthenticated) {
+      event.stopPropagation();
+      event.cancelBubble = true;
+      this.selectingRegion = true;
+    } else {
+      this.menuClickAction();
+    }
   }
 
   async login(event: MouseEvent, region: Region) {

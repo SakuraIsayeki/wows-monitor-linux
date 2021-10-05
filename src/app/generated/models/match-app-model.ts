@@ -18,6 +18,7 @@ export interface MatchAppModel {
   friendlyClan?: null | ClanInfoAppModel;
   friendlyTeam?: null | TeamAverageAppModel;
   friendlyTeamSolo?: null | TeamAverageAppModel;
+  history?: boolean;
   id?: number;
   map?: null | MapAppModel;
   mapId?: number;

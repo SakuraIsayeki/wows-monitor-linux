@@ -13,7 +13,7 @@ export interface MatchListAppModel {
   matchGroup?: MatchGroup;
   notEligable?: boolean;
   rankedSeason?: null | number;
-  rankedSeasonName?: null | string;
   region?: Region;
+  shipName?: null | string;
 }
 

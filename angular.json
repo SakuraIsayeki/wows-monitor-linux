@@ -54,6 +54,7 @@
               "fast-xml-parser"
             ],
             "scripts": [
+              "node_modules/file-saver/dist/filesaver.js"
             ],
             "customWebpackConfig": {
               "path": "./angular.webpack.js"

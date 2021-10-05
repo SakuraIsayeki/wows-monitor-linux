@@ -6,20 +6,36 @@
 
 <div class="p-d-flex p-ai-center">
   <p-sidebar [(visible)]="sidebarVisible" appendTo="body" [showCloseIcon]="false" class="sidebar">
-    <app-menu [closeAction]="toggleSidebar"></app-menu>
+    <app-menu [menuClickAction]="toggleSidebar"></app-menu>
   </p-sidebar>
   <div id="menuIconWrapper" class="iconWrapper" (click)="toggleSidebar()">
     <span *ngIf="appMenu.badge | async" class="badge">{{appMenu.badgeCount | async}}</span>
     <fa-icon id="menuIcon" [icon]="menuIcon" size="2x" [fixedWidth]="true"></fa-icon>
   </div>
-  <ng-container *showOn="'tablet';higher:true">
-    <div id="matchInfoWrapper" class="iconWrapper" *ngIf="signalrService.info$ | async;let matchInfo">
-      <span>{{matchInfo.matchGroup | matchGroup | translate}}</span><ng-container *ngIf="matchInfo.matchGroup == 'CLAN'">
-        <span>&nbsp;({{ 'monitor.season' | translate }} {{matchInfo.clanSeasonId}})</span>
-      </ng-container><ng-container *ngIf="matchInfo.matchGroup == 'RANKED'">
-        <span>&nbsp;({{ 'monitor.season' | translate }} {{matchInfo.rankedSeason}})</span></ng-container><span>, {{matchInfo.map.name}}</span>
-      <ng-container *ngIf="matchInfo.refreshed"><small>&nbsp;({{'monitor.refreshedMatch' | translate}})</small></ng-container>
+  <ng-container *ngIf="topbarTitleService.currentMatch$ | async;let matchInfo">
+    <div class="iconWrapper" *ngIf="matchInfo.history" [routerLink]="'match-history'" [pTooltip]="'monitor.historyBack' | translate"
+         tooltipPosition="bottom">
+      <fa-icon id="backIcon" [icon]="backIcon" size="2x" [fixedWidth]="true"></fa-icon>
     </div>
+    <ng-container *showOn="'tablet';higher:true">
+      <div id="matchInfoWrapper" class="iconWrapper">
+        <span style="display: inline-block">
+          <span>{{matchInfo.matchGroup | matchGroup | translate}}</span>
+          <ng-container *ngIf="matchInfo.matchGroup == 'CLAN'">
+            <span>&nbsp;({{ 'monitor.season' | translate }} {{matchInfo.clanSeasonId}})</span>
+          </ng-container>
+          <ng-container *ngIf="matchInfo.matchGroup == 'RANKED'">
+            <span>&nbsp;({{ 'monitor.season' | translate }} {{matchInfo.rankedSeason}})</span></ng-container>
+          <span>, {{matchInfo.map.name}}</span>
+        </span>
+        <span style="display: inline-block">
+          <ng-container *ngIf="matchInfo.refreshed"><small>&nbsp;({{'monitor.refreshedMatch' | translate}})</small></ng-container>
+        <ng-container *ngIf="matchInfo.history">
+          <small>&nbsp;({{'monitor.historyMatch' | translate}}&nbsp;-&nbsp;{{matchInfo.date | stDate:'medium-s' | async}})</small>
+        </ng-container>
+        </span>
+      </div>
+    </ng-container>
   </ng-container>
 </div>
 

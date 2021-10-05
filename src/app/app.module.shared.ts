@@ -17,6 +17,7 @@ import { CommonErrorHandler } from '@services/common-error.handler';
 import { CustomMissingTranslationHandler } from '@services/custom-missing-translation.handler';
 import { CwHistoryListService } from '@services/cw-history-list.service';
 import { GatewayTokenService } from '@services/gateway-token.service';
+import { GatewayService } from '@services/gateway.service';
 import { JwtAuthService } from '@services/jwt-auth.service';
 import { JwtInterceptor } from '@services/jwt.interceptor';
 import { LivefeedService } from '@services/livefeed.service';
@@ -24,7 +25,7 @@ import { RegionRequestInterceptor } from '@services/region-request.interceptor';
 import { ResizeService } from '@services/resize.service';
 import { ScrollService } from '@services/scroll.service';
 import { SettingsService } from '@services/settings.service';
-import { GatewayService } from '@services/gateway.service';
+import { TopbarTitleService } from '@services/topbar-title.service';
 import {
   AuthModule,
   CoreModule,
@@ -134,7 +135,8 @@ const metaFactory = (translate: TranslateService) => {
     LivefeedService,
     ScrollService,
     CwHistoryListService,
-    GatewayTokenService
+    GatewayTokenService,
+    TopbarTitleService
   ]
 })
 export class AppSharedModule {
