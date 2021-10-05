@@ -38,7 +38,7 @@ export class StatusComponent extends BaseComponent implements OnInit {
 
   constructor(
     public signalrService: GatewayService,
-    private apiService: ApiService
+    public apiService: ApiService
   ) {
     super();
   }
