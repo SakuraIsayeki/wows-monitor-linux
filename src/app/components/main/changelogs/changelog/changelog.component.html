@@ -1,7 +1,7 @@
-<ng-container *ngIf="changelog">
+<div *ngIf="changelog" externalLink>
   <app-showdown [markdown]="changelog.markdown"></app-showdown>
   <div class="p-d-flex p-jc-end" *ngIf="ref">
     <p-button [label]="'changelogs.closeButton' | translate" [styleClass]="'p-button-success'" (click)="ref.close()">
     </p-button>
   </div>
-</ng-container>
+</div>
