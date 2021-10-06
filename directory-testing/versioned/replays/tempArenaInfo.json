@@ -3,16 +3,12 @@
   "gameMode": 7,
   "clientVersionFromExe": "0,10,8,4462593",
   "scenarioUiCategoryId": 2,
-  "mapDisplayName": "13_OC_new_dawn",
-  "mapId": 6,
+  "mapDisplayName": "15_NE_north",
+  "mapId": 8,
   "clientVersionFromXml": "0,10,8,4462593",
   "weatherParams": {
     "0": [
-      "PCOW001_Sunny"
-    ],
-    "1": [
-      "PCOW002_Storm",
-      "PCOW001_Sunny"
+      "PCOW007_Dull"
     ]
   },
   "disabledShipClasses": [],
@@ -24,122 +20,122 @@
   "playerID": 0,
   "vehicles": [
     {
-      "shipId": 4290721776,
-      "relation": 1,
-      "id": 939619905,
-      "name": "M31st3rPr0pp3r"
-    },
-    {
-      "shipId": 4289640144,
-      "relation": 0,
-      "id": 805554146,
-      "name": "dkmmkw"
-    },
-    {
-      "shipId": 4185797936,
-      "relation": 1,
-      "id": 805492067,
-      "name": "Allen_Williams_accurate"
-    },
-    {
-      "shipId": 4186912560,
-      "relation": 1,
-      "id": 805336486,
-      "name": "Bene1810"
-    },
-    {
-      "shipId": 4290721776,
-      "relation": 1,
-      "id": 805372009,
-      "name": "WhiteDead641"
-    },
-    {
-      "shipId": 4293801424,
-      "relation": 1,
-      "id": 939839671,
-      "name": "xramossx"
-    },
-    {
-      "shipId": 4185896400,
-      "relation": 1,
-      "id": 805465677,
-      "name": "svetlana275"
-    },
-    {
-      "shipId": 4293801424,
+      "shipId": 4180621296,
       "relation": 2,
-      "id": 269123343,
-      "name": ":Cradock:"
+      "id": 268914656,
+      "name": ":Yegorov:"
     },
     {
-      "shipId": 4289640144,
-      "relation": 2,
-      "id": 269123344,
-      "name": ":Sellers:"
+      "shipId": 4282333168,
+      "relation": 1,
+      "id": 268608865,
+      "name": "AncientCrane34"
     },
     {
-      "shipId": 4185896400,
+      "shipId": 4284430032,
       "relation": 2,
-      "id": 269123345,
-      "name": ":Hipper:"
-    },
-    {
-      "shipId": 4185797936,
-      "relation": 2,
-      "id": 269123346,
-      "name": ":Pakenham:"
-    },
-    {
-      "shipId": 4290721776,
-      "relation": 2,
-      "id": 269123347,
-      "name": ":Tirpitz:"
-    },
-    {
-      "shipId": 3555669712,
-      "relation": 2,
-      "id": 269123348,
+      "id": 268914658,
       "name": ":Wright:"
     },
     {
-      "shipId": 4269717488,
-      "relation": 2,
-      "id": 269123349,
-      "name": ":Duquesne:"
+      "shipId": 4075697872,
+      "relation": 0,
+      "id": 268612523,
+      "name": "ObnoxiousPotato"
     },
     {
-      "shipId": 4290721776,
+      "shipId": 4282333168,
       "relation": 2,
-      "id": 269123350,
-      "name": ":Spruance:"
+      "id": 268914660,
+      "name": ":Spee:"
     },
     {
-      "shipId": 4186912720,
-      "relation": 2,
-      "id": 269123351,
-      "name": ":Yumashev:"
-    },
-    {
-      "shipId": 3555669712,
+      "shipId": 4288591856,
       "relation": 1,
-      "id": 805468557,
-      "name": "Capt_pugwash1967"
+      "id": 402698053,
+      "name": "jamespetters"
     },
     {
-      "shipId": 4185831184,
+      "shipId": 4276041712,
+      "relation": 2,
+      "id": 268914657,
+      "name": ":Sterneck:"
+    },
+    {
+      "shipId": 3761190704,
       "relation": 1,
-      "id": 805571513,
-      "name": "Fre3move"
+      "id": 402839080,
+      "name": "Thee_Executioner"
+    },
+    {
+      "shipId": 4284430032,
+      "relation": 1,
+      "id": 268629033,
+      "name": "KodaiTTS"
+    },
+    {
+      "shipId": 4180620752,
+      "relation": 1,
+      "id": 268655243,
+      "name": "Penguin_58"
+    },
+    {
+      "shipId": 4288591856,
+      "relation": 1,
+      "id": 402806161,
+      "name": "Chunky_Chicken"
+    },
+    {
+      "shipId": 3865982416,
+      "relation": 2,
+      "id": 268914659,
+      "name": ":Haus:"
+    },
+    {
+      "shipId": 4182652880,
+      "relation": 1,
+      "id": 268648052,
+      "name": "PATOLINO_2021"
+    },
+    {
+      "shipId": 4181112624,
+      "relation": 1,
+      "id": 402901142,
+      "name": "same2u"
+    },
+    {
+      "shipId": 4182652752,
+      "relation": 2,
+      "id": 268914661,
+      "name": ":Thomsen:"
+    },
+    {
+      "shipId": 4288591856,
+      "relation": 2,
+      "id": 268914653,
+      "name": ":Villeneuve:"
+    },
+    {
+      "shipId": 4181112624,
+      "relation": 2,
+      "id": 268914654,
+      "name": ":Sturdee:"
+    },
+    {
+      "shipId": 4182685680,
+      "relation": 2,
+      "id": 268914655,
+      "name": ":Huaqing:"
     }
   ],
   "gameType": "CooperativeBattle",
-  "dateTime": "17.09.2021 22:51:37",
-  "mapName": "spaces/13_OC_new_dawn",
-  "playerName": "dkmmkw",
-  "scenarioConfigId": 45,
+  "dateTime": "05.10.2021 17:55:55",
+  "mapName": "spaces/15_NE_north",
+  "playerName": "ObnoxiousPotato",
+  "scenarioConfigId": 58,
   "teamsCount": 2,
   "logic": "Domination",
-  "playerVehicle": "PJSC005-Furutaka-1926",
+  "playerVehicle": "PJSD209-Yugumo",
   "battleDuration": 1200,
   "mapBorder": null
 }
