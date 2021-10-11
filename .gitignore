@@ -8,7 +8,7 @@ debug.log
 /release
 /tmp
 /out-tsc
-/app/*.(js|map)
+app/*[.js, .map]
 /app/node_modules
 # dependencies
 /node_modules
@@ -47,7 +47,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-
-# Electron TSC
-src-electron/**/*.(js|map)
