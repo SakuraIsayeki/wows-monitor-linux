@@ -1,7 +1,6 @@
-import { app, BrowserWindow, globalShortcut, Menu, screen, Tray } from 'electron';
+import { app, BrowserWindow, globalShortcut, Menu, Tray } from 'electron';
 import * as logger from 'electron-log';
 import { autoUpdater } from 'electron-updater';
-import * as WindowStateKeeper from 'electron-window-state';
 import * as os from 'os';
 import * as path from 'path';
 import * as url from 'url';
@@ -9,6 +8,7 @@ import { initElectronLogger } from './electron-log';
 import { initIpcModule } from './ipc-module';
 import { loadConfig } from './load-config';
 import { initUpdater } from './update-tasks';
+import { WindowStateManager } from './window-state';
 
 const isWindows = os.platform() === 'win32';
 
@@ -26,26 +26,28 @@ if (isDebug) {
 
 autoUpdater.logger = logger;
 
-function appReady() {
+async function appReady() {
   let isQuitting = false;
 
   logger.debug('[Electron]', '(appReady)', __dirname, isDebug);
 
   app.setAppUserModelId('com.wowsmonitor.app');
 
-  if(isDebug){
+  if (isDebug) {
     app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
       event.preventDefault();
       callback(true);
     });
   }
 
+  const windowStateManager = new WindowStateManager();
+  await windowStateManager.init(app);
 
-  const size = screen.getPrimaryDisplay().workAreaSize;
-  const mainWindowState = WindowStateKeeper({
-    defaultWidth: size.width,
-    defaultHeight: size.height
-  });
+  // const size = screen.getPrimaryDisplay().workAreaSize;
+  // const mainWindowState = WindowStateKeeper({
+  //   defaultWidth: size.width,
+  //   defaultHeight: size.height
+  // });
 
   const iconExt = isWindows ? 'ico' : 'png';
 
@@ -57,11 +59,13 @@ function appReady() {
     ? path.join(__dirname, `../src/assets/icons/favicon-light.${iconExt}`)
     : path.join(__dirname, `../favicon-tray.${iconExt}`);
 
+  const state = windowStateManager.state;
+
   win = new BrowserWindow({
-    x: mainWindowState.x,
-    y: mainWindowState.y,
-    width: mainWindowState.width,
-    height: mainWindowState.height,
+    x: state.x,
+    y: state.y,
+    width: state.width,
+    height: state.height,
     minWidth: 650,
     frame: !isWindows,
 
@@ -109,7 +113,8 @@ function appReady() {
 
   win.setMenu(null);
 
-  mainWindowState.manage(win);
+  windowStateManager.setWindow(win);
+  // mainWindowState.manage(win);
 
   win.on('close', (event) => {
     if (!isQuitting) {
@@ -202,7 +207,10 @@ try {
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
-  app.on('ready', appReady);
+  app.on('ready', () => {
+
+    appReady().then(() => console.log('READY')).catch(x => console.warn(x));
+  });
 
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {
@@ -213,7 +221,7 @@ try {
     }
   });
 
-  app.on('activate', () => {
+  app.on('activate', async () => {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (win === null) {

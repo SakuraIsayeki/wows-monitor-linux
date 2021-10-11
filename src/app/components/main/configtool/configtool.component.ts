@@ -98,7 +98,7 @@ export class ConfigtoolComponent extends BaseComponent implements OnInit, OnDest
 
       const json = parseXml2Json(fileContents);
 
-      json['engine_config.xml'].renderer.maxFrameRate = config.maxFrameRate;
+      // json['engine_config.xml'].renderer.maxFrameRate = config.maxFrameRate;
       if (config.cacheEffectsEnabled) {
         json['engine_config.xml'].renderer.cacheEffects = config.cacheEffects;
       }

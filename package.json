@@ -52,7 +52,6 @@
     "device-uuid": "^1.0.4",
     "electron-log": "4.3.5",
     "electron-updater": "4.3.9",
-    "electron-window-state": "5.0.3",
     "file-saver": "^2.0.5",
     "node-machine-id": "^1.1.12",
     "rxjs": "6.5.4",
