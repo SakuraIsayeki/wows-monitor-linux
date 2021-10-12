@@ -212,6 +212,8 @@ export class JwtAuthService extends BaseInjection implements AuthService {
       tap(res => {
         this.token = res.token;
         this.refreshToken = res.refreshToken;
+      }, err => {
+        this.logout(true);
       }));
   }
 

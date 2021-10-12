@@ -28,6 +28,7 @@ export class WindowStateManager {
     try {
       const file = await readFile(this.path, 'utf-8');
       this._state = JSON.parse(file) as WindowState;
+      const s = 1;
     } catch (error) {
       logger.error('Error when reading window state', error);
       const display = screen.getPrimaryDisplay();
@@ -41,22 +42,14 @@ export class WindowStateManager {
     }
   }
 
-  public setWindow(window: BrowserWindow) {
+  async saveState(window: BrowserWindow) {
+    const [x, y] = window.getPosition();
+    const [width, height] = window.getSize();
+    const maximized = window.isMaximized();
+    const state: WindowState = { x, y, width, height, maximized };
 
-    window.on('close', async (event) => {
-      const [x, y] = window.getPosition();
-      const [width, height] = window.getSize();
-      const maximized = window.isMaximized();
+    logger.debug('Logging WindowState', JSON.stringify(state));
+    await writeFile(this.path, JSON.stringify(state), { encoding: 'utf-8', flag: 'w' });
 
-      await this.saveState({ x, y, width, height, maximized });
-    });
-
-    if (this._state.maximized) {
-      window.maximize();
-    }
-  }
-
-  private async saveState(state: WindowState) {
-    await writeFile(this.path, JSON.stringify(state), 'utf-8');
   }
 }

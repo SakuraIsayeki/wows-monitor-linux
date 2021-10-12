@@ -19,9 +19,12 @@ const args = process.argv.slice(1);
 const isDebug = args.some(val => val === '--serve');
 // const isLocal = args.some(val => val === '--local');
 
+
 if (isDebug) {
   logger.transports.file.level = 'debug';
   logger.transports.console.level = 'debug';
+} else {
+  logger.transports.file.level = 'warn';
 }
 
 autoUpdater.logger = logger;
@@ -113,32 +116,39 @@ async function appReady() {
 
   win.setMenu(null);
 
-  windowStateManager.setWindow(win);
   // mainWindowState.manage(win);
 
   win.on('close', (event) => {
     if (!isQuitting) {
       event.preventDefault();
-      loadConfig(win).then(config => {
-        try {
-          const closeToTray = JSON.parse(config).monitorConfig.closeToTray;
-          if (closeToTray && !isQuitting) {
-            win.hide();
-          } else {
-            isQuitting = true;
-            let children = win.getChildWindows();
-            for (let child of children) {
-              child.close();
-            }
-            win.close();
-          }
-        } catch (error) {
-          logger.error('[Electron]', '(windowClose)', 'Error reading config json', error);
-        }
-      }).catch(err => logger.error('[Electron]', '(windowClose)', err));
+      closeApp(win).then(() => {
+      }).catch(err => {
+      });
+
     }
     return false;
   });
+
+  async function closeApp(win: BrowserWindow) {
+    const config = await loadConfig(win);
+
+    try {
+      const closeToTray = JSON.parse(config).monitorConfig.closeToTray;
+      if (closeToTray && !isQuitting) {
+        win.hide();
+      } else {
+        isQuitting = true;
+        let children = win.getChildWindows();
+        for (let child of children) {
+          child.close();
+        }
+        await windowStateManager.saveState(win);
+        win.close();
+      }
+    } catch (error) {
+      logger.error('[Electron]', '(windowClose)', 'Error reading config json', error);
+    }
+  }
 
 
   tray = new Tray(trayIconPath);

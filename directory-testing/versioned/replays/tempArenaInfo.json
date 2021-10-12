@@ -1,141 +1,182 @@
 {
-  "matchGroup": "cooperative",
-  "gameMode": 7,
-  "clientVersionFromExe": "0,10,8,4462593",
-  "scenarioUiCategoryId": 2,
-  "mapDisplayName": "15_NE_north",
-  "mapId": 8,
-  "clientVersionFromXml": "0,10,8,4462593",
+  "matchGroup": "pvp",
+  "gameMode": 11,
+  "clientVersionFromExe": "0,10,9,4610639",
+  "scenarioUiCategoryId": 0,
+  "mapDisplayName": "41_Conquest",
+  "mapId": 24,
+  "clientVersionFromXml": "0,10,9,4610639",
   "weatherParams": {
     "0": [
-      "PCOW007_Dull"
+      "PCOW005_Evening",
+      "PCOW001_Sunny"
+    ],
+    "1": [
+      "PCOW005_Evening",
+      "PCOW001_Sunny"
     ]
   },
   "disabledShipClasses": [],
-  "playersPerTeam": 9,
+  "playersPerTeam": 12,
   "duration": 1200,
   "gameLogic": "Domination",
-  "name": "9x9",
-  "scenario": "Domination_3point_Coop",
+  "name": "12x12",
+  "scenario": "Domination_2point",
   "playerID": 0,
   "vehicles": [
     {
-      "shipId": 4180621296,
+      "shipId": 4288624624,
       "relation": 2,
-      "id": 268914656,
-      "name": ":Yegorov:"
+      "id": 402771461,
+      "name": "Ezequiel_Flores_5"
     },
     {
-      "shipId": 4282333168,
+      "shipId": 4289607664,
       "relation": 1,
-      "id": 268608865,
-      "name": "AncientCrane34"
+      "id": 268443013,
+      "name": "Capt_Mack1956"
     },
     {
-      "shipId": 4284430032,
+      "shipId": 4183209776,
       "relation": 2,
-      "id": 268914658,
-      "name": ":Wright:"
+      "id": 402732695,
+      "name": "borchmann29"
     },
     {
-      "shipId": 4075697872,
+      "shipId": 4183734256,
+      "relation": 2,
+      "id": 402699156,
+      "name": "pirimba"
+    },
+    {
+      "shipId": 4183799504,
+      "relation": 2,
+      "id": 268582165,
+      "name": "thiagox29"
+    },
+    {
+      "shipId": 4184815408,
+      "relation": 1,
+      "id": 402694295,
+      "name": "Hjonk_2"
+    },
+    {
+      "shipId": 4288624624,
       "relation": 0,
-      "id": 268612523,
-      "name": "ObnoxiousPotato"
+      "id": 268502981,
+      "name": "SlartiBartFastE2"
     },
     {
-      "shipId": 4282333168,
+      "shipId": 4289640144,
       "relation": 2,
-      "id": 268914660,
-      "name": ":Spee:"
+      "id": 402718388,
+      "name": "brown_chicken_brown_cow"
     },
     {
-      "shipId": 4288591856,
+      "shipId": 3744380368,
       "relation": 1,
-      "id": 402698053,
-      "name": "jamespetters"
+      "id": 402807104,
+      "name": "xxblacwolfxx"
     },
     {
-      "shipId": 4276041712,
+      "shipId": 4183734256,
+      "relation": 1,
+      "id": 402720835,
+      "name": "FURY_3600"
+    },
+    {
+      "shipId": 3765384944,
       "relation": 2,
-      "id": 268914657,
-      "name": ":Sterneck:"
+      "id": 268596677,
+      "name": "Oskr73"
     },
     {
-      "shipId": 3761190704,
-      "relation": 1,
-      "id": 402839080,
-      "name": "Thee_Executioner"
-    },
-    {
-      "shipId": 4284430032,
-      "relation": 1,
-      "id": 268629033,
-      "name": "KodaiTTS"
-    },
-    {
-      "shipId": 4180620752,
-      "relation": 1,
-      "id": 268655243,
-      "name": "Penguin_58"
-    },
-    {
-      "shipId": 4288591856,
-      "relation": 1,
-      "id": 402806161,
-      "name": "Chunky_Chicken"
-    },
-    {
-      "shipId": 3865982416,
+      "shipId": 3659445712,
       "relation": 2,
-      "id": 268914659,
-      "name": ":Haus:"
+      "id": 402739917,
+      "name": "SKI_62"
     },
     {
-      "shipId": 4182652880,
+      "shipId": 3764369232,
       "relation": 1,
-      "id": 268648052,
-      "name": "PATOLINO_2021"
+      "id": 402665678,
+      "name": "Warlord78"
     },
     {
-      "shipId": 4181112624,
+      "shipId": 4183766832,
+      "relation": 2,
+      "id": 268519773,
+      "name": "robertpinillan"
+    },
+    {
+      "shipId": 3765352176,
+      "relation": 2,
+      "id": 268529249,
+      "name": "sherfxl"
+    },
+    {
+      "shipId": 4289640144,
       "relation": 1,
-      "id": 402901142,
-      "name": "same2u"
+      "id": 402677734,
+      "name": "NightKing_destroyer"
     },
     {
-      "shipId": 4182652752,
+      "shipId": 4183701296,
       "relation": 2,
-      "id": 268914661,
-      "name": ":Thomsen:"
+      "id": 402718310,
+      "name": "PR_F"
     },
     {
-      "shipId": 4288591856,
+      "shipId": 4183209776,
       "relation": 2,
-      "id": 268914653,
-      "name": ":Villeneuve:"
+      "id": 402764520,
+      "name": "kunkman"
     },
     {
-      "shipId": 4181112624,
-      "relation": 2,
-      "id": 268914654,
-      "name": ":Sturdee:"
+      "shipId": 4183209776,
+      "relation": 1,
+      "id": 268447466,
+      "name": "pop_828"
     },
     {
-      "shipId": 4182685680,
+      "shipId": 4184815344,
       "relation": 2,
-      "id": 268914655,
-      "name": ":Huaqing:"
+      "id": 402679917,
+      "name": "NEGRUDO"
+    },
+    {
+      "shipId": 4184815344,
+      "relation": 1,
+      "id": 402677743,
+      "name": "Isofiend"
+    },
+    {
+      "shipId": 4183734000,
+      "relation": 1,
+      "id": 402775912,
+      "name": "543893479"
+    },
+    {
+      "shipId": 4183209968,
+      "relation": 1,
+      "id": 268548604,
+      "name": "Klekler_el06"
+    },
+    {
+      "shipId": 4183766480,
+      "relation": 1,
+      "id": 402708735,
+      "name": "XARMEDHYBRIDX"
     }
   ],
-  "gameType": "CooperativeBattle",
-  "dateTime": "05.10.2021 17:55:55",
-  "mapName": "spaces/15_NE_north",
-  "playerName": "ObnoxiousPotato",
-  "scenarioConfigId": 58,
+  "gameType": "RandomBattle",
+  "dateTime": "11.10.2021 09:52:35",
+  "mapName": "spaces/41_Conquest",
+  "playerName": "SlartiBartFastE2",
+  "scenarioConfigId": 188,
   "teamsCount": 2,
   "logic": "Domination",
-  "playerVehicle": "PJSD209-Yugumo",
+  "playerVehicle": "PASB006-New-York-1934",
   "battleDuration": 1200,
   "mapBorder": null
 }
