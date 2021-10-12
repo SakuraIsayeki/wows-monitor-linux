@@ -66,9 +66,9 @@ const metaFactory = (translate: TranslateService) => {
     },
     pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
     pageTitleSeparator: ' - ',
-    applicationName: staticValues.defautTitle,
+    applicationName: staticValues.defaultTitle,
     defaults: {
-      title: staticValues.defautTitle
+      title: staticValues.defaultTitle
     }
   });
 };
