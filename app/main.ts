@@ -82,6 +82,10 @@ async function appReady() {
     }
   });
 
+  if (state.maximized) {
+    win.maximize();
+  }
+
   win.webContents.setWindowOpenHandler((details) => {
     let featuresObj: any = {};
     const features = !details.features
